@@ -6,13 +6,18 @@
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
-// | Author: Dean <zxxjjforever@163.com>
+// | Author: 老猫 <thinkcmf@126.com>
 // +----------------------------------------------------------------------
+namespace app\portal\model;
 
-return [
-    // 应用调试模式
-    'app_debug' => true,
-    // 应用Trace
-    'app_trace' => false,
+use think\Model;
 
-];
+class UserModel extends Model
+{
+
+    protected $type = [
+        'more' => 'array',
+    ];
+
+
+}

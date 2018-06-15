@@ -153,10 +153,7 @@ class MailerController extends AdminBaseController
             if (!$validate->check($data)) {
                 $this->error($validate->getError());
             }
-
             $result = cmf_send_email($data['to'], $data['subject'], $data['content']);
-
-           // var_dump($result);die;
 
             if ($result && empty($result['error'])) {
                 $this->success('发送成功！');

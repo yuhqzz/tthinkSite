@@ -6,13 +6,10 @@
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
-// | Author: Dean <zxxjjforever@163.com>
+// | Author: 老猫 <thinkcmf@126.com>
 // +----------------------------------------------------------------------
-
 return [
-    // 应用调试模式
-    'app_debug' => true,
-    // 应用Trace
-    'app_trace' => false,
-
+    'TABLE_PORTAL_CATEGORY'  => 'Article Category',
+    'TABLE_PORTAL_POST'      => 'Article',
+    'TABLE_PORTAL_POST#PAGE' => 'Page'
 ];

@@ -6,13 +6,27 @@
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
-// | Author: Dean <zxxjjforever@163.com>
+// | Author: 老猫 <thinkcmf@126.com>
 // +----------------------------------------------------------------------
+namespace app\goods\controller;
 
-return [
-    // 应用调试模式
-    'app_debug' => true,
-    // 应用Trace
-    'app_trace' => false,
+use cmf\controller\AdminBaseController;
 
-];
+/**
+ * Class AdminIndexController
+ * @package app\goods\controller
+ * @adminMenuRoot(
+ *     'name'   =>'商品管理',
+ *     'action' =>'default',
+ *     'parent' =>'',
+ *     'display'=> true,
+ *     'order'  => 30,
+ *     'icon'   =>'th',
+ *     'remark' =>'商品管理'
+ * )
+ */
+class AdminIndexController extends AdminBaseController
+{
+
+
+}

@@ -6,13 +6,25 @@
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
-// | Author: Dean <zxxjjforever@163.com>
+// | Author: 小夏 < 449134904@qq.com>
 // +----------------------------------------------------------------------
+namespace app\portal\validate;
 
-return [
-    // 应用调试模式
-    'app_debug' => true,
-    // 应用Trace
-    'app_trace' => false,
+use think\Validate;
 
-];
+class AdminArticleValidate extends Validate
+{
+    protected $rule = [
+        'categories' => 'require',
+        'post_title' => 'require',
+    ];
+    protected $message = [
+        'categories.require' => '请指定文章分类！',
+        'post_title.require' => '文章标题不能为空！',
+    ];
+
+    protected $scene = [
+//        'add'  => ['user_login,user_pass,user_email'],
+//        'edit' => ['user_login,user_email'],
+    ];
+}

@@ -33,7 +33,7 @@
         "electrolinux/phpquery": "^0.9.6"
     },
     "extra": {
-        "think-path":"simplewind/thinkphp"
+        "think-path":"simplewind/thphpinkphp"
     },
     "config": {
         "vendor-dir":"simplewind/vendor"
