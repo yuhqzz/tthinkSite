@@ -1,0 +1,61 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('AdminCarConfigItems/index',array('cid'=>$cate_id))}">参数配置列表</a></li>
+        <li><a href="{:url('AdminCarConfigItems/add',array('cid'=>$cate_id))}">添加</a></li>
+        <li class="active"><a>编辑</a></li>
+    </ul>
+    <div class="row margin-top-20">
+        <div class="col-md-6">
+            <form class="js-ajax-form" action="{:url('AdminCarConfigItems/editPost',array('cate_id'=>$cate_id))}" method="post">
+                <input type="hidden" name="cate_id" value="{$cate_id}"/>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="A">
+                        <div class="form-group">
+                            <label for="input-cate_name">参数配置分类</label>
+                            <div>
+                                <input type="text" class="form-control" id="input-cate_name" name="cate_name" value="{$cate_id|getCarConfigCateName}"  readonly = "readonly">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-config_name"><span class="form-required">*</span>参数配置名称</label>
+                            <div >
+                                <input type="text" class="form-control" id="input-config_name" name="config_name" value="{$config_name}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-config_input_type"><span class="form-required">*</span>参数配置项取值方式</label>
+                            <div>
+                                <input type="radio"   id="input-config_input_type" name="config_input_type" value="0">手工录入 &nbsp;&nbsp;
+                                <input type="radio"   id="input-config_input_type" name="config_input_type" value="1">从列表中选择 &nbsp;&nbsp;
+                                <input type="radio"   id="input-config_input_type" name="config_input_type" value="2">多行文本框 &nbsp;&nbsp;
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-config_values">参数配置项值</label>
+                            <div>
+                                <textarea class="form-control" id="input-config_values" name="config_values" cols="60" rows="5">{$config_values}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-description">参数配置项描述</label>
+                            <div>
+                                <textarea class="form-control" id="input-description" name="description" cols="60" rows="5">{$description}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                    <a class="btn btn-default" href="{:url('AdminCarConfigItems/index',array('cid'=>$cate_id))}">{:lang('BACK')}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
