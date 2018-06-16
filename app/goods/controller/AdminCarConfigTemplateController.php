@@ -11,54 +11,35 @@ namespace app\goods\controller;
 
 use cmf\controller\AdminBaseController;
 use app\Goods\model\GoodsCarConfigItemsModel;
+use app\Goods\service\CarConfigService;
 use think\db;
 
 
-class AdminCarConfigItemsController extends AdminBaseController
+class AdminCarConfigTemplateController extends AdminBaseController
 {
 
-    /**
-     * 汽车参数配置分类列表
-     * @adminMenu(
-     *     'name'   => '参数配置分类管理',
-     *     'parent' => 'goods/AdminCarConfig/default',
-     *     'display'=> true,
-     *     'hasView'=> true,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '商品分类列表',
-     *     'param'  => ''
-     * )
+    /*
+     * 模板列表
+     *
      */
     public function index()
     {
-        $cid =  $this->request->param('cid');
-        if (empty($cid)) {
-            $this->error("请指定配置参数分类!");
-        }
 
-        $goodsCarConfigItemsMod = new GoodsCarConfigItemsModel();
-        $list = $goodsCarConfigItemsMod
-            ->where(['cate_id'=>$cid])
-            ->order('list_order asc config_id desc')
+        /*$list = Db::name('goods_car_config_template')
+            ->order('list_order asc ')
             ->paginate(20);
-        $this->assign('list', $list);
-        $this->assign('cid', $cid);
+        $this->assign('list', $list);*/
+        /*$data = CarConfigService::getConfigList();
+
+        dump($data);*/
+
         return $this->fetch();
     }
 
     public function add()
     {
-        $cid =  $this->request->param('cid');
-        $cid = intval($cid);
-        if (empty($cid)) {
-            $this->error("请指定配置参数分类!");
-        }
-        $data = Db::name('goodsCarConfigCategory')->where(['id'=>$cid])->find();
-        if(empty($data)){
-            $this->error("请先配置参数分类!");
-        }
-        $this->assign($data);
+        $configList = CarConfigService::getConfigList();
+        $this->assign('configList',$configList);
         return $this->fetch();
     }
 
@@ -66,7 +47,11 @@ class AdminCarConfigItemsController extends AdminBaseController
     {
 
         $data      = $this->request->post();
-        $cate_id = input('post.cate_id');
+
+        dump($data);exit;
+
+
+       /* $cate_id = input('post.cate_id');
         if(empty($cate_id)){
             $this->error('添加失败!');
         }
@@ -86,7 +71,7 @@ class AdminCarConfigItemsController extends AdminBaseController
 
         //$goodsCarConfigItemsMod->allowField(true)->isUpdate(false)->save($data);
 
-        $this->success('添加成功!', url('AdminCarConfigItems/add',['cid'=>$data['cate_id']]));
+        $this->success('添加成功!', url('AdminCarConfigItems/add',['cid'=>$data['cate_id']]));*/
 
     }
 
@@ -137,9 +122,6 @@ class AdminCarConfigItemsController extends AdminBaseController
     public function listOrder()
     {
         parent::listOrders(Db::name('goods_car_config_items'));
-        // 清缓存
-        $goodsCarConfigItemsMod = new GoodsCarConfigItemsModel();
-        $goodsCarConfigItemsMod->clearCache(0,true);
         $this->success("排序更新成功！", '');
     }
 
@@ -158,7 +140,6 @@ class AdminCarConfigItemsController extends AdminBaseController
         $goodsCarConfigItemsMod = new GoodsCarConfigItemsModel();
         $result = $goodsCarConfigItemsMod->where('config_id', $id)->delete();
         if ($result) {
-            $goodsCarConfigItemsMod->clearCache($findCategory['cate_id']);
             $this->success('删除成功!');
         } else {
             $this->error('删除失败');

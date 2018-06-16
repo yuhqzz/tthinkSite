@@ -1,0 +1,92 @@
+<include file="public@header" />
+</head>
+<style>
+    .panel-body .checkbox-inline+.checkbox-inline{
+        margin-left: 0px;
+    }
+    .config-item {
+        margin-right: 20px;
+        margin-bottom: 10px;
+    }
+    .tab-pane{
+        margin: 20px 0 !important;
+    }
+</style>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('AdminCarConfigTemplate/index')}">参数配置列表</a></li>
+        <li class="active"><a href="{:url('AdminCarConfigTemplate/add')}">配置模板</a></li>
+    </ul>
+    <form class=" margin-top-20 "  action="{:url('AdminCarConfigTemplate/addPost')}" method="post">
+        <div class="tab-pane">
+            <div class="form-group ">
+                <label for="input-name" class=""><span class="form-required">*</span>配置名称</label>
+                <div >
+                    <input type="text" class="form-control" id="input-name" name="name" style="width: 50%" placeholder="请输入模板名称">
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane">
+            <div class="form-group">
+                <label for="input-name" class=""><span class="form-required">*</span>汽车参数明细配置</label>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <foreach name="configList" item="vo" key="key">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading{$key}">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{$key}" aria-expanded="true" aria-controls="collapse{$key}">
+                                {$vo.name}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse{$key}" class="panel-collapse collapse {$key===0?'in':''}" role="tabpanel" aria-labelledby="heading{$key}">
+                        <div class="panel-body">
+                            <php>if($vo['configItems']){</php>
+                            <div class="checkbox" >
+                                <label  class="checkbox-inline">
+                                    <input type="checkbox"  label-for-id="config-val-{$vo.id}" onclick="checkAll(this)"> 全选/取消全选
+                                </label>
+                            </div>
+                            <php>}</php>
+                            <div class="config-val" id="config-val-{$vo.id}">
+                                <foreach name="vo.configItems" item="vv">
+                                    <label  class="checkbox-inline config-item">
+                                        <input type="checkbox" name="conf_item[{$vo.id}][]" value="{$vv.config_id}"> {$vv.config_name}
+                                    </label>
+                                </foreach>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </foreach>
+        </div>
+            </div>
+        </div>
+        <div class="tab-pane">
+        <div class="form-group">
+            <label for="input-is_default">是否默认模板</label>&nbsp;&nbsp;
+            <input type="checkbox" class="checkbox-inline" id="input-is_default" name="is_default" style="margin: 0 10px">
+        </div>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-primary js-ajax-submit" type="submit">{:lang('SAVE')}</button>
+            <a class="btn btn-default" href="{:url('AdminCarConfigTemplate/index')}">{:lang('BACK')}</a>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+
+<script type="text/javascript">
+    function  checkAll(obj){
+       var id =  $(obj).attr('label-for-id');
+       var chk = $(obj).prop("checked");
+       $('#'+id).find(':checkbox').each(function (i) {
+            $(this).prop("checked",chk)
+       });
+    }
+</script>
+</body>
+</html>

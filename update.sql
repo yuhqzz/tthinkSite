@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `tx_goods_car_config_values` (
 CREATE TABLE IF NOT EXISTS `tx_goods_car_config_template` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '汽车配置模板id',
   `tpl_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '汽车参数配置模板名称',
-  `tpl_detail` text  NOT NULL DEFAULT '' COMMENT '汽车配置模板id',
+  `tpl_detail` text  NOT NULL DEFAULT '' COMMENT '汽车配置详情',
   `is_default` tinyint(1)  unsigned NOT NULL DEFAULT '0' COMMENT '默认模板:0:否 1：是',
   `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
   `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
