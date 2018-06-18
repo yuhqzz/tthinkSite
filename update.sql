@@ -31,7 +31,6 @@ CREATE TABLE IF NOT EXISTS `tx_goods_car_config_category` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 汽车参数配置分类';
 
 
-drop table  tx_goods_car_config_items
 --
 -- 汽车参数配置项表
 -- 表的结构 `tx_goods_car_config_items`
@@ -106,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `tx_goods_brand` (
   `serach_pinyin` varchar(100)  NOT NULL DEFAULT '' COMMENT '拼音',
   `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
   `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '分类描述',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '品牌描述',
   `more` text COMMENT '扩展属性',
   PRIMARY KEY (`id`),
   KEY `g_first_char` (`first_char`),

@@ -1,0 +1,61 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('AdminCarSeries/index')}">车系列表</a></li>
+        <li class="active"><a href="{:url('AdminCarSeries/add')}">添加车系</a></li>
+    </ul>
+    <div class="row margin-top-20">
+        <div class="col-md-6">
+            <form class="js-ajax-form form-horizontal" action="{:url('AdminCarSeries/addPost')}" method="post">
+                <div class="form-group">
+                    <label for="input-brand" class="col-sm-2 control-label"><span class="form-required">*</span>汽车品牌</label>
+                    <div class="col-md-6 col-sm-10">
+                        <select name="brand_id" id="input-brand" class="form-control">
+                            <option value="0" >请选择</option>
+                            <foreach name="brandList" item ="vo">
+                                <option value="{$vo.id}" >{$vo.first_char}&nbsp;&nbsp;{$vo.name}</option>
+                            </foreach>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>车系名称</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-name" name="name" placeholder="请我输入车系名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">是否热门</label>
+                    <div class="checkbox col-md-6 col-sm-10">
+                        <label for="input-is_hot">
+                            <input type="checkbox" name="is_hot" id="input-is_hot" value="1">热门
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-description">车系描述</label>
+                    <div class="col-md-6 col-sm-10">
+                        <textarea class="form-control" rows="8" id="input-description" name="description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input_more">额外参数配置</label>
+                    <div class="col-md-6 col-sm-10">
+                        <textarea class="form-control" rows="5" id="input_more" name="more"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+                        <a class="btn btn-default" href="{:url('AdminCarSeries/index')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -13,7 +13,7 @@ ThinkCMF 5.0.180525 正式版
 
 > mysql 5.6+
 
-> 打开rewrite
+> 打开rewrite 
 
 
 ### 最低环境要求

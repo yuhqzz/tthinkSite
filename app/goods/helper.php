@@ -56,4 +56,25 @@ if (!function_exists('getConfigInputType')) {
     }
 }
 
+if (!function_exists('getBrandName')) {
+    /**
+     * @param $id
+     * @return mixed|string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    function getBrandName($id)
+    {
+        $data = Db::name('goods_brand')->where(['id'=>$id])->find();
+        if($data){
+            return $data['name'];
+        }
+        return '';
+
+    }
+}
+
+
+
 

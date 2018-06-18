@@ -1,0 +1,60 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('AdminCarSeries/index')}">车系列表</a></li>
+			<li><a href="{:url('AdminCarSeries/add')}">添加车系</a></li>
+		</ul>
+		<form class="form-inline" style="margin: 25px 20px" method="post" class="js-ajax-form" action="{:url('AdminCarSeries/index')}">
+			<div class="form-group">
+				<label for="q">字段</label>
+				<select name="field" id="q" class="form-control">
+					<option value="NULL" >请选择</option>
+					<option value="name" {$field=='name'?'selected':''}>品牌名称</option>
+					<option value="brand_name" {$field =='brand_name'?'selected':''}>品牌首字母</option>
+					<option value="is_hot" {$field=='is_hot'?'selected':''}>是否热门</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="name">字段值</label>
+				<input type="text" class="form-control" id="name"  name='q' placeholder="请输入字段值" value="{$q}">
+			</div>
+			<button type="submit" class="btn btn-default">查询</button>
+		</form>
+		<form method="post" class="js-ajax-form" action="{:url('AdminCarSeries/listOrder')}">
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
+			</div>
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="50">排序</th>
+						<th width="50">ID</th>
+						<th>品牌</th>
+						<th>车系名称</th>
+						<th>描述</th>
+						<th width="180">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+				<foreach name="list" item="vo">
+					<tr>
+						<td width="50"><input name="list_orders[{$vo.id}]" class="input-order" type="text"
+											  value="{$vo.list_order}"></td>
+						<td width="50">{$vo.id}</td>
+						<td width="100">{$vo.brand_id|getBrandName}</td>
+						<td width="150">{$vo.name}</td>
+						<td>{$vo.description}</td>
+						<td width="180"><a href="{:url('AdminCarSeries/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+							<a class="js-ajax-delete" href="{:url('AdminCarSeries/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a></td>
+					</tr>
+				</foreach>
+				</tbody>
+			</table>
+			<div class="pagination">{$list->render()}</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
