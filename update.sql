@@ -52,12 +52,11 @@ CREATE TABLE IF NOT EXISTS `tx_goods_car_config_items` (
 -- 表的结构 `tx_goods_car_config_values`
 --
 CREATE TABLE IF NOT EXISTS `tx_goods_car_config_values` (
-  `config_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '汽车配置项id',
+  `config_id` int(11) unsigned NOT NULL  COMMENT '汽车配置项id',
   `config_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '汽车配置项值',
   `car_style_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '汽车配置项值',
-  PRIMARY KEY (`config_id`),
-  KEY `g_car_style_id`(`car_style_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 汽车参数配置项值表';
+  UNIQUE KEY `g_car_unique_id`(`config_id`,`car_style_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 汽车参数配置项值表';
 
 
 --
@@ -137,8 +136,10 @@ CREATE TABLE IF NOT EXISTS `tx_goods_car_style` (
   `brand_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '品牌id',	
   `series_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '车系id',	
   `grade_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '车等级id',	
+  `example_img` varchar(255) NOT NULL DEFAULT '' COMMENT '车型样例图',	
   `is_hot` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '热门,1:是热门,0:否',
   `is_recommend` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否推荐,1:是,0:否',
+  `car_config_tpl_id` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '参数配置模板id',
   `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
   `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT '车型描述',
@@ -175,7 +176,15 @@ CREATE TABLE IF NOT EXISTS `tp_goods_type` (
 
 
 
+http://172.18.19.52
 
+
+txsite  admin123==
+
+
+ mysql 8.0
+ 
+ root  szdx!0000 
 
 
 

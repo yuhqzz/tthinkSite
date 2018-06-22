@@ -82,6 +82,8 @@ class AdminCarConfigItemsController extends AdminBaseController
             $this->error('添加失败!');
         }
         $goodsCarConfigItemsMod = new GoodsCarConfigItemsModel();
+
+
         $goodsCarConfigItemsMod->addConfigItems($data);
 
         //$goodsCarConfigItemsMod->allowField(true)->isUpdate(false)->save($data);

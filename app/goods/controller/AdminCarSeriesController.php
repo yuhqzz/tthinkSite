@@ -103,48 +103,47 @@ class AdminCarSeriesController extends AdminBaseController
      */
     public function edit()
     {
-
-
+        $id = $this->request->param('id', 0, 'intval');
+        if ($id > 0) {
+            $carSeries = GoodsCarSeriesModel::get($id);
+            $carSeries = $carSeries?$carSeries->toArray():[];
+            if(empty($brand)){
+                $this->error('车系不存在或已经删除!');
+            }
+            $goodsBrandModel = new GoodsBrandModel();
+            $brandList =  $goodsBrandModel->getShowBrandList();
+            $this->assign('brandList',$brandList);
+            $this->assign($carSeries);
+            return $this->fetch();
+        } else {
+            $this->error('操作错误!');
+        }
+        return $this->fetch();
     }
 
-    /**
-     * 编辑商品品牌提交
-     * @adminMenu(
-     *     'name'   => '编辑商品分类提交',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> false,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '编辑商品分类提交',
-     *     'param'  => ''
-     * )
-     */
     public function editPost()
     {
+        $data = $this->request->param();
+        $data['id'] = intval($data['id']);
+        if(empty($data['id'])){
+            $this->error('保存失败!');
+        }
+        $data['name'] = trim($data['name']);
+        $data['is_hot'] = intval($data['is_hot']);
+        $data['brand_id'] = intval($data['brand_id']);
+        $data['description'] = htmlspecialchars(trim($data['description']),ENT_QUOTES);
+        $result = $this->validate($data, 'GoodsCarSeries');
 
+        if ($result !== true) {
+            $this->error($result);
+        }
+        $goodsCarSeriesModel = new GoodsCarSeriesModel();
+        $result = $goodsCarSeriesModel->isUpdate(true)->allowField(true)->save($data);
+        if ($result === false) {
+            $this->error('保存失败!');
+        }
 
         $this->success('保存成功!');
-    }
-
-
-    /**
-     * 商品品牌排序
-     * @adminMenu(
-     *     'name'   => '商品分类排序',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> false,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '商品分类排序',
-     *     'param'  => ''
-     * )
-     */
-    public function listOrder()
-    {
-        parent::listOrders(Db::name('goods_category'));
-        $this->success("排序更新成功！", '');
     }
 
     /**
@@ -162,10 +161,42 @@ class AdminCarSeriesController extends AdminBaseController
      */
     public function delete()
     {
+        $goodsCarStyleModel = new GoodsCarStyleModel();
+        $id                  = $this->request->param('id');
+        $findCarSeries = GoodsCarStyleModel::get($id);
 
+        if (empty($findCarSeries)||$findCarSeries['delete_time']>0) {
+            $this->error('车型不存在!');
+        }
+        $data   = [
+            'object_id'   => $findCarSeries['id'],
+            'create_time' => time(),
+            'table_name'  => 'goods_car_style',
+            'name'        => $findCarSeries['name']
+        ];
+        $result = $goodsCarStyleModel
+            ->where('id', $id)
+            ->update(['delete_time' => time()]);
+        if ($result) {
+            Db::name('recycleBin')->insert($data);
+            // 删除参数配置表信息
+            Db::name('goods_car_config_values')->where(['car_style_id'=>$id])->delete();
+            $this->success('删除成功!');
+        } else {
+            $this->error('删除失败');
+        }
     }
+    public function getSeriesByBrandId(){
+        $brand_id = $this->request->param('brand_id');
+        $brand_id = intval($brand_id);
+        $seriesData = [];
+        if(!empty($brand_id)){
+            $goodsCarSeriesModel = new GoodsCarSeriesModel();
+            $seriesData = $goodsCarSeriesModel->getCarSeriesByBrandId($brand_id);
 
-
+        }
+        $this->result($seriesData,1);
+    }
 
 
 }

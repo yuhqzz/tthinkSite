@@ -3,27 +3,56 @@
 <body>
 <div class="wrap js-check-wrap">
     <ul class="nav nav-tabs">
-        <li><a href="{:url('AdminBrand/index')}">品牌列表</a></li>
-        <li><a href="{:url('AdminBrand/add')}">添加品牌</a></li>
-        <li class="active"><a href="{:url('AdminBrand/add')}">品牌编辑</a></li>
+        <li><a href="{:url('AdminCarStyle/index')}">车型列表</a></li>
+        <li><a href="{:url('AdminCarStyle/add')}">添加车型</a></li>
+        <li class="active"><a>编辑车型</a></li>
     </ul>
     <div class="row margin-top-20">
         <div class="col-md-6">
-            <form class="js-ajax-form form-horizontal" action="{:url('AdminBrand/editPost')}" method="post">
+            <form class="js-ajax-form form-horizontal" action="{:url('AdminCarStyle/editPost',array('id'=>$id))}" method="post">
                 <div class="form-group">
-                    <label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>品牌名称</label>
+                    <label for="input-brand" class="col-sm-3 control-label"><span class="form-required">*</span>品牌</label>
                     <div class="col-md-6 col-sm-10">
-                        <input type="text" class="form-control" id="input-name" name="name" placeholder="请输入品牌名称">
-                        <span class="help-block">汽车的品牌</span>
+                        <select name="brand_id" id="input-brand" class="form-control" disabled="disabled">
+                            <option value="0" >请选择</option>
+                            <foreach name="brandList" item ="vo">
+                                <option value="{$vo.id}" {$brand_id==$vo.id?"selected='selected'":""}>{$vo.first_char}&nbsp;&nbsp;{$vo.name}</option>
+                            </foreach>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="input-icon"  class="col-sm-2 control-label"><span class="form-required">*</span>LOGO</label>
+                    <label for="input-car-series" class="col-sm-3 control-label"><span class="form-required">*</span>车系</label>
                     <div class="col-md-6 col-sm-10">
-                        <input type="hidden" name="more[thumbnail]" class="form-control" id="input-icon">
+                        <select name="series_id" id="input-car-series" class="form-control"  disabled="disabled">
+                            <option value="{$series_id}">{$series_id|getSeriesName}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-grade_id" class="col-sm-3 control-label"><span class="form-required">*</span>等级</label>
+                    <div class="col-md-6 col-sm-10">
+                        <select name="grade_id" id="input-grade_id" class="form-control"  disabled="disabled">
+                            <option value="0" >请选择</option>
+                            <foreach name="carGradeList" item ="vo" key="key">
+                                <option value="{$key}" {$grade_id==$key?"selected='selected'":""}>{$vo}</option>
+                            </foreach>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-name" class="col-sm-3 control-label"><span class="form-required">*</span>车型名称</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-name" name="name" placeholder="请我输入车型名称" value="{$name}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label"><span class="form-required">*</span>车型标本图</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="hidden" name="example_img" class="form-control" id="js-thumbnail-input" value="{$example_img}">
                         <div>
                             <a href="javascript:uploadOneImage('图片上传','#js-thumbnail-input');">
-                                <img src="__TMPL__/public/assets/images/default-thumbnail.png"
+                                <img src="/upload/{$example_img}"
                                      id="js-thumbnail-input-preview"
                                      width="135" style="cursor: pointer"/>
                             </a>
@@ -31,41 +60,37 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="input-first_char" class="col-sm-2 control-label"><span class="form-required">*</span>品牌首字母</label>
-                    <div class="col-md-6 col-sm-10">
-                        <input type="text" class="form-control" id="input-first_char" name="name" placeholder="首字母">
-                        <span class="help-block">品牌拼音首字母,便于归类索引</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">是否热门</label>
+                    <label class="col-sm-3 control-label">是否热门</label>
                     <div class="checkbox col-md-6 col-sm-10">
-                        <label for="input_is_hot">
-                            <input type="checkbox" name="is_hot" id="input_is_hot">热门
+                        <label for="input-is_hot">
+                            <input type="checkbox" name="is_hot" id="input-is_hot" value="1" {$is_hot==1?"checked":""}>热门
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">显示状态</label>
+                    <label class="col-sm-3 control-label">是否推荐</label>
+                    <div class="checkbox col-md-6 col-sm-10">
+                        <label for="input-is_recommend">
+                            <input type="checkbox" name="is_recommend" id="input-is_recommend" value="1" {$is_recommend==1?"checked":""}>推荐
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input-description">车型描述</label>
                     <div class="col-md-6 col-sm-10">
-                        <label class="radio-inline">
-                            <input type="radio" name="status" value="1" checked>显示
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="status" value="0">隐藏
-                        </label>
+                        <textarea class="form-control" rows="8" id="input-description" name="description">{$description}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input_description">品牌描述</label>
+                    <label class="col-sm-3 control-label" for="input_more">额外参数配置</label>
                     <div class="col-md-6 col-sm-10">
-                        <textarea class="form-control" rows="8" id="input_description"></textarea>
+                        <textarea class="form-control" rows="5" id="input_more" name="more">{$more}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
+                    <div class="col-sm-offset-3 col-sm-10">
                         <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
-                        <a class="btn btn-default" href="{:url('AdminBrand/index')}">{:lang('BACK')}</a>
+                        <a class="btn btn-default" href="{:url('AdminCarStyle/index')}">{:lang('BACK')}</a>
                     </div>
                 </div>
             </form>
@@ -73,5 +98,29 @@
     </div>
 </div>
 <script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#input-brand').change(function () {
+            var  brand_id = $(this).val();
+            var url = 'http://www.txqc.com'+"{:url('AdminCarSeries/getSeriesByBrandId')}";
+            var seriesSelect = $('#input-car-series');
+            $.get(url,{brand_id:brand_id},function (data) {
+                seriesSelect.empty();
+                if(data.code == 1){
+                    if(data.data.length>0){
+                        var items = data.data;
+                        for (var i = 0;i<items.length;i++) {
+                            seriesSelect.append("<option value='"+items[i].id+"'>"+items[i].name+"</option>");
+                        }
+                    }else{
+                        seriesSelect.append("<option value='0'>请选择</option>");
+                    }
+                }else {
+                    seriesSelect.append("<option value='0'>请选择</option>");
+                }
+            })
+        })
+    })
+</script>
 </body>
 </html>

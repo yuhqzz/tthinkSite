@@ -30,6 +30,13 @@ class GoodsCarConfigItemsModel extends Model
             }
             $list = $this->where($wh)->order('list_order')->select();
             $list = $list?$list->toArray():[];
+            foreach ($list as &$val){
+                if(trim($val['config_values'])){
+                    $val['config_values'] = explode("\r\n",$val['config_values']);
+                }
+            }
+
+
             $cache = [];
             $cache['value'] = $list;
             Cache::set($c_k,$cache,service\MkeyService::DAYEXPIRE);

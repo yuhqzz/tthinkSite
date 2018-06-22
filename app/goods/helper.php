@@ -74,7 +74,39 @@ if (!function_exists('getBrandName')) {
 
     }
 }
+if (!function_exists('getSeriesName')) {
+    /**
+     * @param $id
+     * @return mixed|string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    function getSeriesName($id)
+    {
+        $data = Db::name('goods_car_series')->where(['id'=>$id])->find();
+        if($data){
+            return $data['name'];
+        }
+        return '';
 
+    }
+}
 
+if (!function_exists('getGradeName')) {
+    /**
+     * @param $id
+     * @return mixed|string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    function getGradeName($id)
+    {
+        $data = config('car_grade');
+         return $data[$id];
+
+    }
+}
 
 

@@ -195,7 +195,7 @@ class AdminBrandController extends AdminBaseController
         $findBrandgory = GoodsBrandModel::get($id);
 
         if (empty($findBrandgory)) {
-            $this->error('分类不存在!');
+            $this->error('品牌不存在!');
         }
 
         $data   = [

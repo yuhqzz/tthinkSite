@@ -10,44 +10,44 @@
         <div class="col-md-6">
             <form class="js-ajax-form form-horizontal" action="{:url('AdminCarSeries/addPost')}" method="post">
                 <div class="form-group">
-                    <label for="input-brand" class="col-sm-2 control-label"><span class="form-required">*</span>汽车品牌</label>
+                    <label for="input-brand" class="col-sm-3 control-label"><span class="form-required">*</span>汽车品牌</label>
                     <div class="col-md-6 col-sm-10">
                         <select name="brand_id" id="input-brand" class="form-control">
                             <option value="0" >请选择</option>
                             <foreach name="brandList" item ="vo">
-                                <option value="{$vo.id}" >{$vo.brand_}&nbsp;&nbsp;{$vo.name}</option>
+                                <option value="{$vo.id}" {$brand_id==$vo.id?'select="selected":""':}>{$vo.first_char}&nbsp;&nbsp;{$vo.name}</option>
                             </foreach>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>车系名称</label>
+                    <label for="input-name" class="col-sm-3 control-label"><span class="form-required">*</span>车系名称</label>
                     <div class="col-md-6 col-sm-10">
-                        <input type="text" class="form-control" id="input-name" name="name" placeholder="请我输入车系名称">
+                        <input type="text" class="form-control" id="input-name" name="name" placeholder="请我输入车系名称" value="{$name}">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">是否热门</label>
+                    <label class="col-sm-3 control-label">是否热门</label>
                     <div class="checkbox col-md-6 col-sm-10">
                         <label for="input-is_hot">
-                            <input type="checkbox" name="is_hot" id="input-is_hot" value="1">热门
+                            <input type="checkbox" name="is_hot" id="input-is_hot" value="1" { $is_hot==1?"checekd":""}>热门
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input-description">车系描述</label>
+                    <label class="col-sm-3 control-label" for="input-description">车系描述</label>
                     <div class="col-md-6 col-sm-10">
-                        <textarea class="form-control" rows="8" id="input-description" name="description"></textarea>
+                        <textarea class="form-control" rows="8" id="input-description" name="description">{$description}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input_more">额外参数配置</label>
+                    <label class="col-sm-3 control-label" for="input_more">额外参数配置</label>
                     <div class="col-md-6 col-sm-10">
-                        <textarea class="form-control" rows="5" id="input_more" name="more"></textarea>
+                        <textarea class="form-control" rows="5" id="input_more" name="more">{$more}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
+                    <div class="col-sm-offset-3 col-sm-10">
                         <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
                         <a class="btn btn-default" href="{:url('AdminCarSeries/index')}">{:lang('BACK')}</a>
                     </div>

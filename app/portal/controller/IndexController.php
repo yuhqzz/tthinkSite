@@ -18,4 +18,27 @@ class IndexController extends HomeBaseController
     {
         return $this->fetch(':index');
     }
+
+    public function about(){
+        return $this->fetch(':about');
+    }
+
+    public function buyCar(){
+        return $this->fetch(':maiche_list');
+    }
+
+    public function wymc(){
+        return $this->fetch(':wymc');
+    }
+
+    public function srdz(){
+        return $this->fetch(':srdz');
+    }
+
+    public function userIndex(){
+
+        return $this->fetch(':user_index');
+
+    }
+
 }

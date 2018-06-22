@@ -3,30 +3,62 @@
 <body>
 	<div class="wrap">
 		<ul class="nav nav-tabs">
-			<li class="active"><a href="{:url('AdminBrand/index')}">品牌管理</a></li>
-			<li><a href="{:url('AdminBrand/add')}">添加品牌</a></li>
+			<li class="active"><a href="{:url('AdminCarStyle/index')}">车型管理</a></li>
+			<li><a href="{:url('AdminCarStyle/add')}">添加车型</a></li>
 		</ul>
-		<form method="post" class="js-ajax-form" action="{:url('AdminBrand/listOrder')}">
-			<div class="table-actions">
-				<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
+		<form class="form-inline" style="margin: 25px 20px" method="post" class="js-ajax-form" action="{:url('AdminCarSeries/index')}">
+			<div class="form-group">
+				<label for="q">字段</label>
+				<select name="field" id="q" class="form-control">
+					<option value="NULL" >请选择</option>
+					<option value="name" {$field=='name'?'selected':''}>车系名称</option>
+					<option value="brand_name" {$field =='brand_name'?'selected':''}>品牌</option>
+					<option value="is_hot" {$field=='is_hot'?'selected':''}>是否热门</option>
+				</select>
 			</div>
+			<div class="form-group">
+				<label for="name">字段值</label>
+				<input type="text" class="form-control" id="name"  name='q' placeholder="请输入字段值" value="{$q}">
+			</div>
+			<button type="submit" class="btn btn-default">查询</button>
+		</form>
+		<form method="post" class="js-ajax-form" action="{:url('AdminCarStyle/listOrder')}">
 			<table class="table table-hover table-bordered table-list">
 				<thead>
-					<tr>
-						<th width="50">排序</th>
-						<th width="50">ID</th>
-						<th>品牌名称</th>
-						<th>描述</th>
-						<th width="180">操作</th>
-					</tr>
+				<tr>
+					<th width="30"><input type="checkbox" name="ids[]" onclick="checkAll()"></th>
+					<th width="80">样图</th>
+					<th>品牌</th>
+					<th>车系</th>
+					<th>车级</th>
+					<th>车型</th>
+					<th>热门</th>
+					<th>推荐</th>
+					<th>描述</th>
+					<th width="180">操作</th>
+				</tr>
 				</thead>
 				<tbody>
-
+				<foreach name="list" item="vo">
+					<tr>
+						<td><input type="checkbox" name="ids[]" value="{$vo.id}"></td>
+						<td><img src="/upload/{$vo.example_img}" width="80" height="60"></td>
+						<td width="100">{$vo.brand_id|getBrandName}</td>
+						<td width="100">{$vo.series_id|getSeriesName}</td>
+						<td width="100">{$vo.grade_id|getGradeName}</td>
+						<td width="150">{$vo.name}</td>
+						<td width="50">{$vo.is_hot==1?"热门":""}</td>
+						<td width="50">{$vo.is_recommend==1?"推荐":""}</td>
+						<td width="120">{$vo.description}</td>
+						<td width="180">
+							<a href="{:url('AdminCarStyle/configCar',array('id'=>$vo['id']))}">参数配置</a>
+							<a href="{:url('AdminCarStyle/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+							<a class="js-ajax-delete" href="{:url('AdminCarStyle/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a></td>
+					</tr>
+				</foreach>
 				</tbody>
 			</table>
-			<div class="table-actions">
-				<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
-			</div>
+			<div class="pagination">{$list->render()}</div>
 		</form>
 	</div>
 	<script src="__STATIC__/js/admin.js"></script>

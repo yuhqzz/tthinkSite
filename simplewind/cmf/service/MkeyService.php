@@ -17,6 +17,7 @@ const DAYEXPIRE = 3600;
 const HOUREXPIRE = 3600;
 
 const CONFIGLIST ='A000000001'; // 汽车参数配置项列表
+const CONFIGVALUESBYSTYLEID ='A000000002'; // 汽车车型参数配置项值
 
     /**
      *

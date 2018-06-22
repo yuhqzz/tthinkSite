@@ -1,0 +1,81 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('AdminCarStyle/index')}">车型列表</a></li>
+        <li><a href="{:url('AdminCarStyle/add')}">添加车型</a></li>
+        <li class="active"><a>配置参数</a></li>
+    </ul>
+    <form method="post" class="js-ajax-form" action="{:url('AdminCarStyle/configPost',array('style_id'=>$style_id,'act_type'=>$act_type))}">
+        <div class="tab-pane" style="margin-top: 20px;">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <foreach name="configList" item="vo" key="key">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="heading{$key}">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{$key}" aria-expanded="true" aria-controls="collapse{$key}">
+                                    {$vo.name}
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse{$key}" class="panel-collapse collapse {$key===0?'in':''}" role="tabpanel" aria-labelledby="heading{$key}">
+                            <div class="panel-body">
+                                <div class="config-val" id="config-val-{$vo.id}">
+                                    <foreach name="vo.configItems" item="vv">
+                                        <php>
+                                            if($vv['config_input_type'] == 0){
+                                        </php>
+                                        <div class="input-group col-sm-8" style="margin-bottom: 10px;">
+                                            <span class="input-group-addon" >{$vv.config_name}</span>
+                                            <input type="text" class="form-control"  name="conf_items[{$vo.id}][{$vv.config_id}]" value="" placeholder="{$vv.config_name}">
+                                        </div>
+                                        <php>}elseif( $vv['config_input_type'] == 1){</php>
+                                        <div class="input-group col-sm-8" style="margin-bottom: 10px;">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                    {$vv.config_name}
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <foreach name="vv.config_values" item ='c_vo'>
+                                                        <li><a href="javascript:void(0)" onclick="chooseVal(this,{$vv.config_id})" data-val="{$c_vo}">{$c_vo}</a></li>
+                                                    </foreach>
+                                                </ul>
+                                            </div><!-- /btn-group -->
+                                            <input type="text" id='config-values-{$vv.config_id}' class="form-control" name="conf_items[{$vo.id}][{$vv.config_id}]"  value="" placeholder="{$vv.config_name}" readonly="readonly">
+                                        </div><!-- /input-group -->
+                                        <php>}elseif($vv['config_input_type'] == 2){</php>
+                                            <div class="form-group col-sm-8" style="width: 69.5%;margin-left: -15px;">
+                                                <label style="font-weight: normal;">{$vv.config_name}</label>
+                                                <div class="">
+                                                    <textarea class="form-control" rows="3"  name="conf_items[{$vo.id}][{$vv.config_id}]">{$vv.config_values[0]}</textarea>
+                                                </div>
+                                            </div>
+                                        <php>}</php>
+                                    </foreach>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </foreach>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="{:url('AdminCarStyle/index')}">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+   function chooseVal(obj,id ){
+       var input = $('input[id="config-values-'+id+'"]');
+       input.val($(obj).attr('data-val'));
+   }
+</script>
+</body>
+</html>

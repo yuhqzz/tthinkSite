@@ -10,14 +10,14 @@
         <div class="col-md-6">
             <form class="js-ajax-form form-horizontal" action="{:url('AdminBrand/addPost')}" method="post">
                 <div class="form-group">
-                    <label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>品牌名称</label>
+                    <label for="input-name" class="col-sm-3 control-label"><span class="form-required">*</span>品牌名称</label>
                     <div class="col-md-6 col-sm-10">
                         <input type="text" class="form-control" id="input-name" name="name" placeholder="请输入品牌名称">
                         <span class="help-block">汽车的品牌</span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label  class="col-sm-2 control-label"><span class="form-required">*</span>LOGO</label>
+                    <label  class="col-sm-3 control-label"><span class="form-required">*</span>LOGO</label>
                     <div class="col-md-6 col-sm-10">
                         <input type="hidden" name="icon" class="form-control" id="js-thumbnail-input">
                         <div>
@@ -30,14 +30,14 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="input-first_char" class="col-sm-2 control-label"><span class="form-required">*</span>品牌首字母</label>
+                    <label for="input-first_char" class="col-sm-3 control-label"><span class="form-required">*</span>品牌首字母</label>
                     <div class="col-md-6 col-sm-10">
                         <input type="text" class="form-control" id="input-first_char" name="first_char" placeholder="首字母">
                         <span class="help-block">品牌拼音首字母,便于归类索引</span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">是否热门</label>
+                    <label class="col-sm-3 control-label">是否热门</label>
                     <div class="checkbox col-md-6 col-sm-10">
                         <label for="input_is_hot">
                             <input type="checkbox" name="is_hot" id="input_is_hot" value="1">热门
@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">显示状态</label>
+                    <label class="col-sm-3 control-label">显示状态</label>
                     <div class="col-md-6 col-sm-10">
                         <label class="radio-inline">
                             <input type="radio" name="is_show" value="1" checked>显示
@@ -56,19 +56,19 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input-description">品牌描述</label>
+                    <label class="col-sm-3 control-label" for="input-description">品牌描述</label>
                     <div class="col-md-6 col-sm-10">
                         <textarea class="form-control" rows="8" id="input-description" name="description"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="input_more">额外参数配置</label>
+                    <label class="col-sm-3 control-label" for="input_more">额外参数配置</label>
                     <div class="col-md-6 col-sm-10">
                         <textarea class="form-control" rows="5" id="input_more" name="more"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
+                    <div class="col-sm-offset-3 col-sm-10">
                         <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
                         <a class="btn btn-default" href="{:url('AdminBrand/index')}">{:lang('BACK')}</a>
                     </div>

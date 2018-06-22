@@ -33,7 +33,9 @@ class GoodsCarConfigItemsValidate extends Validate
 
 
     protected function checkFieldUnique($value,$rule,$data){
-
+        if(isset($data['config_id'])){
+            $wh['config_id'] = ['neq',$data['config_id']];
+        }
         $wh['cate_id'] = $data['cate_id'];
         $wh['config_name'] = trim($value);
         $data = Db::name('goods_car_config_items')->where($wh)->find();
