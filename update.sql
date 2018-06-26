@@ -1,181 +1,215 @@
 
 --
--- ·ÖÀà±í
--- ±íµÄ½á¹¹ `tx_goods_category`
+-- åˆ†ç±»è¡¨
+-- è¡¨çš„ç»“æ„ `tx_goods_category`
 --
 
 CREATE TABLE IF NOT EXISTS `tx_goods_category` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '·ÖÀàid',
-  `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '·ÖÀà¸¸id',
-  `goods_count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '·ÖÀàÉÌÆ·Êı',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '×´Ì¬,1:ÆôÓÃ,0:²»ÆôÓÃ',
-  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'É¾³ıÊ±¼ä',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT 'ÅÅĞò',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '·ÖÀàÃû³Æ',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '·ÖÀàÃèÊö',
-  `path` varchar(255) NOT NULL DEFAULT '' COMMENT '·ÖÀà²ã¼¶¹ØÏµÂ·¾¶',
-  `more` text COMMENT 'À©Õ¹ÊôĞÔ',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'åˆ†ç±»id',
+  `parent_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ†ç±»çˆ¶id',
+  `goods_count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ†ç±»å•†å“æ•°',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT 'çŠ¶æ€,1:å¯ç”¨,0:ä¸å¯ç”¨',
+  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ é™¤æ—¶é—´',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT 'æ’åº',
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'åˆ†ç±»åç§°',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT 'åˆ†ç±»æè¿°',
+  `path` varchar(255) NOT NULL DEFAULT '' COMMENT 'åˆ†ç±»å±‚çº§å…³ç³»è·¯å¾„',
+  `more` text COMMENT 'æ‰©å±•å±æ€§',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsÓ¦ÓÃ ÉÌÆ··ÖÀà±í';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsåº”ç”¨ å•†å“åˆ†ç±»è¡¨';
 
 
 --
--- Æû³µ²ÎÊıÅäÖÃ·ÖÀà
--- ±íµÄ½á¹¹ `tx_goods_car_config_category`
+-- æ±½è½¦å‚æ•°é…ç½®åˆ†ç±»
+-- è¡¨çš„ç»“æ„ `tx_goods_car_config_category`
 --
 CREATE TABLE IF NOT EXISTS `tx_goods_car_config_category` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Æû³µÅäÖÃ·ÖÀàid',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Æû³µÅäÖÃ·ÖÀàÃû³Æ',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT 'ÅÅĞò',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'æ±½è½¦é…ç½®åˆ†ç±»id',
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'æ±½è½¦é…ç½®åˆ†ç±»åç§°',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT 'æ’åº',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsÓ¦ÓÃ Æû³µ²ÎÊıÅäÖÃ·ÖÀà';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsåº”ç”¨ æ±½è½¦å‚æ•°é…ç½®åˆ†ç±»';
 
 
 --
--- Æû³µ²ÎÊıÅäÖÃÏî±í
--- ±íµÄ½á¹¹ `tx_goods_car_config_items`
+-- æ±½è½¦å‚æ•°é…ç½®é¡¹è¡¨
+-- è¡¨çš„ç»“æ„ `tx_goods_car_config_items`
 --
 CREATE TABLE IF NOT EXISTS `tx_goods_car_config_items` (
-  `config_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Æû³µÅäÖÃÏîid',
-  `config_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Æû³µÅäÖÃÏîÃû³Æ',
-  `cate_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Æû³µÅäÖÃ·ÖÀàid',		
-  `config_input_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0 ÊÖ¹¤Â¼Èë 1´ÓÁĞ±íÖĞÑ¡Ôñ 2¶àĞĞÎÄ±¾¿ò',	
-  `config_values` text NOT NULL DEFAULT '' COMMENT '¿ÉÑ¡ÖµÁĞ±í',	
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT 'ÅÅĞò',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT 'ÅäÖÃÏîÃèÊö',
+  `config_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'æ±½è½¦é…ç½®é¡¹id',
+  `config_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'æ±½è½¦é…ç½®é¡¹åç§°',
+  `cate_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'æ±½è½¦é…ç½®åˆ†ç±»id',		
+  `config_input_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0 æ‰‹å·¥å½•å…¥ 1ä»åˆ—è¡¨ä¸­é€‰æ‹© 2å¤šè¡Œæ–‡æœ¬æ¡†',	
+  `config_values` text NOT NULL DEFAULT '' COMMENT 'å¯é€‰å€¼åˆ—è¡¨',	
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT 'æ’åº',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT 'é…ç½®é¡¹æè¿°',
   PRIMARY KEY (`config_id`),
   KEY `cate_id` (`cate_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsÓ¦ÓÃ Æû³µ²ÎÊıÅäÖÃÏî±í';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsåº”ç”¨ æ±½è½¦å‚æ•°é…ç½®é¡¹è¡¨';
 
 --
--- Æû³µ²ÎÊıÅäÖÃÏîÖµ±í
--- ±íµÄ½á¹¹ `tx_goods_car_config_values`
+-- æ±½è½¦å‚æ•°é…ç½®é¡¹å€¼è¡¨
+-- è¡¨çš„ç»“æ„ `tx_goods_car_config_values`
 --
 CREATE TABLE IF NOT EXISTS `tx_goods_car_config_values` (
-  `config_id` int(11) unsigned NOT NULL  COMMENT 'Æû³µÅäÖÃÏîid',
-  `config_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Æû³µÅäÖÃÏîÖµ',
-  `car_style_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Æû³µÅäÖÃÏîÖµ',
+  `config_id` int(11) unsigned NOT NULL  COMMENT 'æ±½è½¦é…ç½®é¡¹id',
+  `config_value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'æ±½è½¦é…ç½®é¡¹å€¼',
+  `car_style_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'æ±½è½¦é…ç½®é¡¹å€¼',
   UNIQUE KEY `g_car_unique_id`(`config_id`,`car_style_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='goodsÓ¦ÓÃ Æû³µ²ÎÊıÅäÖÃÏîÖµ±í';
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COMMENT='goodsåº”ç”¨ æ±½è½¦å‚æ•°é…ç½®é¡¹å€¼è¡¨';
 
 
 --
--- Æû³µ²ÎÊıÅäÖÃÄ£°å±í
--- ±íµÄ½á¹¹ `tx_goods_car_config_template`
+-- æ±½è½¦å‚æ•°é…ç½®æ¨¡æ¿è¡¨
+-- è¡¨çš„ç»“æ„ `tx_goods_car_config_template`
 --
 CREATE TABLE IF NOT EXISTS `tx_goods_car_config_template` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Æû³µÅäÖÃÄ£°åid',
-  `tpl_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Æû³µ²ÎÊıÅäÖÃÄ£°åÃû³Æ',
-  `tpl_detail` text  NOT NULL DEFAULT '' COMMENT 'Æû³µÅäÖÃÏêÇé',
-  `is_default` tinyint(1)  unsigned NOT NULL DEFAULT '0' COMMENT 'Ä¬ÈÏÄ£°å:0:·ñ 1£ºÊÇ',
-  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'É¾³ıÊ±¼ä',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT 'ÅÅĞò',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT 'Ä£°åÃèÊö',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'æ±½è½¦é…ç½®æ¨¡æ¿id',
+  `tpl_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'æ±½è½¦å‚æ•°é…ç½®æ¨¡æ¿åç§°',
+  `tpl_detail` text  NOT NULL DEFAULT '' COMMENT 'æ±½è½¦é…ç½®è¯¦æƒ…',
+  `is_default` tinyint(1)  unsigned NOT NULL DEFAULT '0' COMMENT 'é»˜è®¤æ¨¡æ¿:0:å¦ 1ï¼šæ˜¯',
+  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ é™¤æ—¶é—´',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT 'æ’åº',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT 'æ¨¡æ¿æè¿°',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsÓ¦ÓÃ Æû³µ²ÎÊıÅäÖÃÄ£°å±í';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsåº”ç”¨ æ±½è½¦å‚æ•°é…ç½®æ¨¡æ¿è¡¨';
 
 
 
 --
--- ±íµÄ½á¹¹ `tx_goods_brand`
+-- è¡¨çš„ç»“æ„ `tx_goods_brand`
 --
 CREATE TABLE IF NOT EXISTS `tx_goods_brand` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Æ·ÅÆid',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Æ·ÅÆÃû³Æ',		
-  `icon` varchar(255)  NOT NULL DEFAULT ''  COMMENT 'Æ·ÅÆlogo',
-  `is_hot` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'ÈÈÃÅ×´Ì¬,1:ÊÇÈÈÃÅ,0:ÊÇÈÈÃÅ',
-  `is_show` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'ÏÔÊ¾×´Ì¬,1:ÏÔÊ¾,0:Òş²Ø',
-  `first_char` varchar(1)  NOT NULL DEFAULT '' COMMENT 'Æ´ÒôÊ××ÖÄ¸´óĞ´',
-  `serach_pinyin` varchar(100)  NOT NULL DEFAULT '' COMMENT 'Æ´Òô',
-  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'É¾³ıÊ±¼ä',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT 'ÅÅĞò',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT 'Æ·ÅÆÃèÊö',
-  `more` text COMMENT 'À©Õ¹ÊôĞÔ',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'å“ç‰Œid',
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'å“ç‰Œåç§°',		
+  `icon` varchar(255)  NOT NULL DEFAULT ''  COMMENT 'å“ç‰Œlogo',
+  `is_hot` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'çƒ­é—¨çŠ¶æ€,1:æ˜¯çƒ­é—¨,0:æ˜¯çƒ­é—¨',
+  `is_show` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'æ˜¾ç¤ºçŠ¶æ€,1:æ˜¾ç¤º,0:éšè—',
+  `first_char` varchar(1)  NOT NULL DEFAULT '' COMMENT 'æ‹¼éŸ³é¦–å­—æ¯å¤§å†™',
+  `serach_pinyin` varchar(100)  NOT NULL DEFAULT '' COMMENT 'æ‹¼éŸ³',
+  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ é™¤æ—¶é—´',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT 'æ’åº',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT 'å“ç‰Œæè¿°',
+  `more` text COMMENT 'æ‰©å±•å±æ€§',
   PRIMARY KEY (`id`),
   KEY `g_first_char` (`first_char`),
   KEY `g_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsÓ¦ÓÃ ÉÌÆ·Æ·ÅÆ±í';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsåº”ç”¨ å•†å“å“ç‰Œè¡¨';
 
 --
--- ±íµÄ½á¹¹ `tx_goods_car_series`
+-- è¡¨çš„ç»“æ„ `tx_goods_car_series`
 --
 CREATE TABLE IF NOT EXISTS `tx_goods_car_series` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '³µÏµid',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '³µÏµÃû³Æ',
-  `brand_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Æ·ÅÆid',	
-  `is_hot` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '×´Ì¬,1:ÊÇÈÈÃÅ,0:ÊÇÈÈÃÅ',
-  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'É¾³ıÊ±¼ä',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT 'ÅÅĞò',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '³µÏµÃèÊö',
-  `more` text COMMENT 'À©Õ¹ÊôĞÔ',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'è½¦ç³»id',
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'è½¦ç³»åç§°',
+  `brand_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'å“ç‰Œid',	
+  `is_hot` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'çŠ¶æ€,1:æ˜¯çƒ­é—¨,0:æ˜¯çƒ­é—¨',
+  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ é™¤æ—¶é—´',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT 'æ’åº',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT 'è½¦ç³»æè¿°',
+  `more` text COMMENT 'æ‰©å±•å±æ€§',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsÓ¦ÓÃ Æû³µÏµÁĞ±í';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsåº”ç”¨ æ±½è½¦ç³»åˆ—è¡¨';
 
 --
--- Æû³µ³µĞÍ¿îÊ½
--- ±íµÄ½á¹¹ `tx_goods_car_style`
+-- æ±½è½¦è½¦å‹æ¬¾å¼
+-- è¡¨çš„ç»“æ„ `tx_goods_car_style`
 --
 CREATE TABLE IF NOT EXISTS `tx_goods_car_style` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '³µĞÍid',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '³µĞÍÃû³Æ',
-  `brand_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Æ·ÅÆid',	
-  `series_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '³µÏµid',	
-  `grade_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '³µµÈ¼¶id',	
-  `example_img` varchar(255) NOT NULL DEFAULT '' COMMENT '³µĞÍÑùÀıÍ¼',	
-  `is_hot` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'ÈÈÃÅ,1:ÊÇÈÈÃÅ,0:·ñ',
-  `is_recommend` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'ÊÇ·ñÍÆ¼ö,1:ÊÇ,0:·ñ',
-  `car_config_tpl_id` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '²ÎÊıÅäÖÃÄ£°åid',
-  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'É¾³ıÊ±¼ä',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT 'ÅÅĞò',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '³µĞÍÃèÊö',
-  `more` text COMMENT 'À©Õ¹ÊôĞÔ',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'è½¦å‹id',
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'è½¦å‹åç§°',
+  `brand_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'å“ç‰Œid',	
+  `series_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'è½¦ç³»id',	
+  `grade_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'è½¦ç­‰çº§id',	
+  `example_img` varchar(255) NOT NULL DEFAULT '' COMMENT 'è½¦å‹æ ·ä¾‹å›¾',	
+  `is_hot` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'çƒ­é—¨,1:æ˜¯çƒ­é—¨,0:å¦',
+  `is_recommend` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'æ˜¯å¦æ¨è,1:æ˜¯,0:å¦',
+  `car_config_tpl_id` int(11) unsigned NOT NULL DEFAULT '1' COMMENT 'å‚æ•°é…ç½®æ¨¡æ¿id',
+  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ é™¤æ—¶é—´',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT 'æ’åº',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT 'è½¦å‹æè¿°',
+  `more` text COMMENT 'æ‰©å±•å±æ€§',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsÓ¦ÓÃ Æû³µ³µĞÍ¿îÊ½±í';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsåº”ç”¨ æ±½è½¦è½¦å‹æ¬¾å¼è¡¨';
 
 
+--
+-- æ±½è½¦å®ä½“è¡¨
+-- è¡¨çš„ç»“æ„ `tx_goods`
+--
+CREATE TABLE  IF NOT EXISTS `tx_goods` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'å•†å“id',
+  `name` varchar(120) NOT NULL DEFAULT '' COMMENT 'å•†å“åç§°',
+  `category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ†ç±»id',
+  `brand_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'å“ç‰Œid',	
+  `series_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'è½¦ç³»id',	
+  `grade_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'è½¦ç­‰çº§id',
+  `click_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'ç‚¹å‡»æ•°',
+  `comment_count` smallint(5) DEFAULT '0' COMMENT 'å•†å“è¯„è®ºæ•°',
+  `market_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT 'å¸‚åœºå”®ä»·',
+  `shop_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT 'æœ¬åº—å”®ä»·',
+  `cost_price` decimal(10,2) DEFAULT '0.00' COMMENT 'å‚å®¶æŒ‡å¯¼ä»·',
+  `price_ladder` text COMMENT 'ä»·æ ¼é˜¶æ¢¯',
+  `keywords` varchar(255) NOT NULL DEFAULT '' COMMENT 'å•†å“å…³é”®è¯',
+  `goods_remark` varchar(255) NOT NULL DEFAULT '' COMMENT 'å•†å“ç®€å•æè¿°',
+  `description` text COMMENT 'å•†å“è¯¦ç»†æè¿°',
+  `original_img` varchar(255) NOT NULL DEFAULT '' COMMENT 'å•†å“ä¸Šä¼ åŸå§‹å›¾',
+  `is_on_sale` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT 'æ˜¯å¦ä¸Šæ¶',
+  `on_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'å•†å“ä¸Šæ¶æ—¶é—´',
+  `list_order` smallint(4) unsigned NOT NULL DEFAULT '50' COMMENT 'å•†å“æ’åº',
+  `is_recommend` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'æ˜¯å¦æ¨è',
+  `is_new` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'æ˜¯å¦æ–°å“',
+  `is_hot` tinyint(1) DEFAULT '0' COMMENT 'æ˜¯å¦çƒ­å–',
+  `last_update` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'æœ€åæ›´æ–°æ—¶é—´',
+  `sales_sum` int(11) DEFAULT '0' COMMENT 'å•†å“é”€é‡',
+  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'åˆ é™¤æ—¶é—´',
+  PRIMARY KEY (`id`),
+  KEY `cat_id` (`category_id`),
+  KEY `last_update` (`last_update`),
+  KEY `brand_id` (`brand_id`),
+  KEY `series_id` (`series_id`),
+  KEY `grade_id` (`grade_id`),
+  KEY `sort_order` (`list_order`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsåº”ç”¨ æ±½è½¦å®ä½“è¡¨';
 
 
+--
+-- æ±½è½¦å®ä½“è¡¨
+-- è¡¨çš„ç»“æ„ `tx_goods_type`
+--
+CREATE TABLE IF NOT EXISTS`tx_goods_type` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'idè‡ªå¢',
+  `name` varchar(60) NOT NULL DEFAULT '' COMMENT 'ç±»å‹åç§°',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsåº”ç”¨ å•†å“å±æ€§åˆ†ç±»è¡¨';
 
+--
+-- å•†å“å±æ€§å€¼è¡¨
+-- è¡¨çš„ç»“æ„ `tx_goods_attr`
+--
+CREATE TABLE IF NOT EXISTS `tx_goods_attr` (
+  `goods_attr_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'å•†å“å±æ€§idè‡ªå¢',
+  `goods_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT 'å•†å“id',
+  `attr_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'å±æ€§id',
+  `attr_value` text NOT NULL COMMENT 'å±æ€§å€¼',
+  `attr_price` varchar(255) NOT NULL DEFAULT '' COMMENT 'å±æ€§ä»·æ ¼',
+  PRIMARY KEY (`goods_attr_id`),
+  KEY `goods_id` (`goods_id`),
+  KEY `attr_id` (`attr_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsåº”ç”¨ å•†å“å±æ€§å€¼è¡¨';
 
-CREATE TABLE IF NOT EXISTS `tp_goods_attribute` (
-  `attr_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ÊôĞÔid',
-  `attr_name` varchar(60) NOT NULL DEFAULT '' COMMENT 'ÊôĞÔÃû³Æ',
-  `type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'ÊôĞÔ·ÖÀàid',
-  `attr_index` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0²»ĞèÒª¼ìË÷ 1¹Ø¼ü×Ö¼ìË÷ 2·¶Î§¼ìË÷',
-  `attr_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0Î¨Ò»ÊôĞÔ 1µ¥Ñ¡ÊôĞÔ 2¸´Ñ¡ÊôĞÔ',
-  `attr_input_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT ' 0 ÊÖ¹¤Â¼Èë 1´ÓÁĞ±íÖĞÑ¡Ôñ 2¶àĞĞÎÄ±¾¿ò',
-  `attr_values` text NOT NULL COMMENT '¿ÉÑ¡ÖµÁĞ±í',
-  `order` tinyint(3) unsigned NOT NULL DEFAULT '50' COMMENT 'ÊôĞÔÅÅĞò',
+--
+-- å•†å“å±æ€§è¡¨
+-- è¡¨çš„ç»“æ„ `tx_goods_attribute`
+--
+CREATE TABLE `tx_goods_attribute` (
+  `attr_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'å±æ€§id',
+  `attr_name` varchar(60) NOT NULL DEFAULT '' COMMENT 'å±æ€§åç§°',
+  `type_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT 'å±æ€§åˆ†ç±»id',
+  `attr_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0å”¯ä¸€å±æ€§ 1å•é€‰å±æ€§ 2å¤é€‰å±æ€§',
+  `attr_input_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT ' 0 æ‰‹å·¥å½•å…¥ 1ä»åˆ—è¡¨ä¸­é€‰æ‹©',
+  `attr_values` text NOT NULL COMMENT 'å¯é€‰å€¼åˆ—è¡¨',
+  `order` tinyint(3) unsigned NOT NULL DEFAULT '50' COMMENT 'å±æ€§æ’åº',
   PRIMARY KEY (`attr_id`),
   KEY `cat_id` (`type_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `tp_goods_type` (
-  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id×ÔÔö',
-  `name` varchar(60) NOT NULL DEFAULT '' COMMENT 'ÀàĞÍÃû³Æ',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
-
-
-
-
-
-
-http://172.18.19.52
-
-
-txsite  admin123==
-
-
- mysql 8.0
- 
- root  szdx!0000 
-
-
-
-
-
-
-
-
-
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goodsåº”ç”¨ å•†å“å±æ€§è¡¨';
