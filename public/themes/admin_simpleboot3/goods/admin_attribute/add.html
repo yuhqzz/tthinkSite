@@ -1,0 +1,60 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('AdminAttribute/index',array('type_id'=>$id))}">属性列表</a></li>
+        <li class="active"><a href="{:url('AdminAttribute/add',array('type_id'=>$id))}">添加属性</a></li>
+    </ul>
+    <div class="row margin-top-20">
+        <div class="col-md-6">
+            <form class="js-ajax-form form-horizontal" action="{:url('AdminAttribute/addPost',array('cate_id'=>$id))}" method="post">
+                <input type="hidden" name="cate_id" value="{$id}"/>
+
+
+                <div class="form-group">
+                    <label for="input-cate_name" class="col-sm-3 control-label">属性类型</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-cate_name" name="cate_name" value="汽车"  readonly = "readonly">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-attr_name" class="col-sm-3 control-label"><span class="form-required">*</span>属性名称</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-attr_name" name="attr_name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-attr_input_type" class="col-sm-3 control-label"><span class="form-required">*</span>属性值</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="radio"   id="input-attr_type" name="attr_type" value="0">唯一属性 &nbsp;&nbsp;
+                        <input type="radio"   id="input-attr_type" name="attr_type" value="1">单选属性
+                        <input type="radio"   id="input-attr_type" name="attr_type" value="2">复选属性
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-attr_input_type" class="col-sm-3 control-label"><span class="form-required">*</span>属性项取值方式</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="radio"   id="input-attr_input_type" name="attr_input_type" value="0">手工录入 &nbsp;&nbsp;
+                        <input type="radio"   id="input-attr_input_type" name="attr_input_type" value="1">从列表中选择 &nbsp;&nbsp;
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-attr_values" class="col-sm-3 control-label">属性项值</label>
+                    <div class="col-md-6 col-sm-10">
+                        <textarea class="form-control" id="input-attr_values" name="attr_values" cols="60" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-10">
+                        <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+                        <a class="btn btn-default" href="{:url('AdminAttribute/index',array('cid'=>$id))}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
