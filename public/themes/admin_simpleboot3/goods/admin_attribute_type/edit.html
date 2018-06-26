@@ -1,0 +1,29 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('AdminAttributeType/index')}">属性分类管理</a></li>
+        <li ><a href="{:url('AdminAttributeType/add')}">添加属性分类</a></li>
+        <li class="active"><a>编辑属性分类</a></li>
+    </ul>
+    <div class="row margin-top-20">
+        <div class="col-md-6">
+            <form class="js-ajax-form" action="{:url('AdminAttributeType/editPost')}" method="post">
+                <div class="form-group">
+                    <label for="input-name"><span class="form-required">*</span>属性分类名称</label>
+                    <div>
+                        <input type="text" class="form-control" id="input-name" name="name" value="{$name}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+                    <a class="btn btn-default" href="{:url('AdminAttributeType/index')}">{:lang('BACK')}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

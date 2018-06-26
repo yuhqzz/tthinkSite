@@ -1,0 +1,36 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('AdminAttributeType/index')}">属性类型管理</a></li>
+        <li><a href="{:url('AdminAttributeType/add')}">添加属性类型</a></li>
+    </ul>
+    <table class="table table-hover table-bordered table-list">
+        <thead>
+            <tr>
+                <th width="50">ID</th>
+                <th>类型名称</th>
+                <th width="180">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        <notempty name="data">
+            <foreach name="data" item="vo">
+                <tr>
+                    <th width="50">{$vo.id}</th>
+                    <th >{$vo.name}</th>
+                    <th width="180">
+                        <a href="javascript:parent.openIframeLayer('{:url('AdminAttribute/index',array('type_id'=>$vo['id']))}','[{$vo.name}]属性配置',{});">属性配置</a>
+                        <a href="{:url('AdminAttributeType/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+                        <a class="js-ajax-delete" href="{:url('AdminAttributeType/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+                    </th>
+                </tr>
+            </foreach>
+        </notempty>
+        </tbody>
+    </table>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

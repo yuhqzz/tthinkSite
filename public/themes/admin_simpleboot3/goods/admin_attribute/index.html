@@ -1,0 +1,44 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('AdminAttribute/index',array('cid'=>$cid))}">参数配置列表</a></li>
+        <li><a href="{:url('AdminAttribute/add',array('cid'=>$cid))}">添加</a></li>
+    </ul>
+    <form method="post" class="js-ajax-form" action="{:url('AdminAttribute/listOrder')}">
+        <div class="table-actions">
+            <button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
+        </div>
+        <table class="table table-hover table-bordered table-list">
+            <thead>
+            <tr>
+                <th width="50">排序</th>
+                <th>参数配置项名称</th>
+                <th>取值方式</th>
+                <th>取值范围</th>
+                <th width="180">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="list" id="vo">
+                <tr>
+                    <td width="50"><input name="list_orders[{$vo.attr_id}]" class="input-order" type="text"
+                                          value="{$vo.list_order}"></td>
+                    <td>{$vo.attr_name}</td>
+                    <td>{$vo.attr_input_type|getConfigInputType}</td>
+                    <td>{$vo.attr_values}</td>
+                    <td width="180">
+                        <a href="{:url('AdminCarConfigItems/edit',array('id'=>$vo['config_id']))}">{:lang('EDIT')}</a>
+                        <a class="js-ajax-delete" href="{:url('AdminCarConfigItems/delete',array('id'=>$vo['config_id']))}">{:lang('DELETE')}</a>
+                    </td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </form>
+    <div class="pagination">{$list->render()}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -209,7 +209,7 @@ CREATE TABLE `tx_goods_attribute` (
   `attr_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0唯一属性 1单选属性 2复选属性',
   `attr_input_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT ' 0 手工录入 1从列表中选择',
   `attr_values` text NOT NULL COMMENT '可选值列表',
-  `order` tinyint(3) unsigned NOT NULL DEFAULT '50' COMMENT '属性排序',
+  `list_order` tinyint(3) unsigned NOT NULL DEFAULT '50' COMMENT '属性排序',
   PRIMARY KEY (`attr_id`),
   KEY `cat_id` (`type_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 商品属性表';
