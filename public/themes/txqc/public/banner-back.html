@@ -1,0 +1,83 @@
+
+<style>
+
+
+	/*调整容器大小*/
+	#myCarousel {
+		width: 100%;
+	}
+	/*调整轮播图位置*/
+	#carousel-example-generic {
+		top: 50px;
+	}
+	#myCarousel .slide{
+		height: auto;
+	}
+	.carousel-inner>.item>img {
+		height: 100%;
+	}
+
+</style>
+<div id="myCarousel">
+	<!-- 轮播图容器 -->
+	<div id="carousel-example-generic" class="carousel slide">
+		<!-- 轮播图上的圆圈链接 -->
+		<ol class="carousel-indicators radiou">
+			<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+			<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+			<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+			<li data-target="#carousel-example-generic" data-slide-to="3"></li>
+		</ol>
+		<!-- 轮播图具体内容 -->
+		<div class="carousel-inner">
+			<div class="item active">
+				<img src="__TMPL__/public/assets/images/index-banner/index-banner-04.jpg" width="1920" height="465">
+				<!-- 图上文字 -->
+				<div class="carousel-caption">
+					<h4>Red Car Fly</h4>
+					<p>ajsuten hsdfupeia jsdtfua</p>
+				</div>
+			</div>
+			<div class="item">
+				<img src="__TMPL__/public/assets/images/index-banner/index-banner-02.jpg" width="1920" height="465" >
+				<!-- 图上文字 -->
+				<div class="carousel-caption">
+					<h4>White Car Fly</h4>
+					<p>ajsuten hsdfupeia jsdtfua</p>
+				</div>
+			</div>
+			<div class="item">
+				<img src="__TMPL__/public/assets/images/index-banner/index-banner-01.jpg" width="1920" height="465">
+				<!-- 图上文字 -->
+				<div class="carousel-caption">
+					<h4>Blue Car Fly</h4>
+					<p>ajsuten hsdfupeia jsdtfua</p>
+				</div>
+			</div>
+			<div class="item">
+				<img src="__TMPL__/public/assets/images/index-banner/index-banner-03.jpg" width="1920" height="465" >
+				<!-- 图上文字 -->
+				<div class="carousel-caption">
+					<h4>Blue Car Fly</h4>
+					<p>ajsuten hsdfupeia jsdtfua</p>
+				</div>
+			</div>
+		</div>
+		<!-- 轮播图上的向前一图切换链接 -->
+		<a href="#carousel-example-generic" data-slide="prev" class="left carousel-control">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+		</a>
+		<!-- 轮播图上的向后一图切换链接 -->
+		<a href="#carousel-example-generic" data-slide="next" class="right carousel-control">
+			<span class="glyphicon glyphicon-chevron-right"></span>
+		</a>
+	</div>
+</div>
+<!-- 引入jquery与bootstrap的js文件 -->
+<script src="__TMPL__/public/assets/jquery/1.9.1/jquery.min.js"></script>
+<script src="__TMPL__/public/assets/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script>
+    $(".carousel").carousel({
+        interval:2000 //每隔两秒自动轮播
+    })
+</script>

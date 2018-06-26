@@ -16,7 +16,7 @@ body{min-width: 1190px;}
 #header{position:fixed;left:0;top:0;width:100%;z-index: 88;}
 .top{height:50px;overflow:hidden; background:url(../images/top.jpg) no-repeat center top;line-height:50px;}
 .logo{margin-right:10px; }
-.nav a{color:#fff;font-size:14px;display:inline-block;padding:0 20px;}
+.nav a{color:#fff;font-size:14px;display:inline-block;padding:0 20px; }
 .nav a:hover,.nav a.on{background-color:#113d6a;}
 .top span.right{color:#fff;}
 .top span.right a{color:#fff;display:inline-block;padding:0 10px;}

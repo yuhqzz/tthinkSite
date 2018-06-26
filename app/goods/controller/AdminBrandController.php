@@ -10,7 +10,7 @@
 namespace app\goods\controller;
 
 
-use app\Goods\model\GoodsBrandModel;
+use app\goods\model\GoodsBrandModel;
 use cmf\controller\AdminBaseController;
 use think\db;
 

@@ -1,4 +1,4 @@
-#header .logo{display:none;}
+/*#header .logo{display:none;}*/
 .head-search{display:none; }
 .nav a:first-child{padding-left:0;}
 .searchBox{
@@ -88,7 +88,7 @@ z-index:2;
 .dLeft li a{display: block; background:#000;}
 .dLeft li a:hover img{opacity:.8;}
 .w411{width:411px;}
-.w426{widows:426px;}
+.w426{width:426px;}
 .dRight{width:345px;height:515px; background-color:#54b0fd; /*background:url(../images/in14.jpg) no-repeat;*/}
 
 
@@ -126,3 +126,5 @@ a.aImg:hover img{opacity:.8;}
 .nTice a.nt3{background-position:left -167px;}
 .nTice a .wx{position: absolute;right: -110px;top:-20px;display:none;border:1px solid #ccc;}
 .nTice a:hover .wx{display:block;}
+.imgOpa a:hover img{ opacity: 0.8}
+

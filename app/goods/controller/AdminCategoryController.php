@@ -9,7 +9,7 @@
 namespace app\goods\controller;
 
 
-use app\Goods\model\GoodsCategoryModel;
+use app\goods\model\GoodsCategoryModel;
 use cmf\controller\AdminBaseController;
 use think\db;
 

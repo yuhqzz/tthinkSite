@@ -1,0 +1,26 @@
+<div id="header">
+  <div class="top">
+    <div class="wrap clearfix">
+      <a href="{:url('portal/index/index')}" class="logo left"><img src="__TMPL__/public/assets/images/logo.png"/></a>
+      <div class="nav left dInline" id="headerMenu">
+      <a href="{:url('portal/index/index')}" style="padding-left: 20px;">首页</a>
+      <a href="{:url('portal/index/about')}">关于同兴</a>
+      <a href="{:url('portal/index/buyCar')}">我要买车</a>
+      <a href="{:url('portal/index/srdz')}">私人定制</a>
+      <!--<a href="shfw.html">售后服务</a>-->
+     <a id="MemberMenuChange" class="b-login" href="{:url('portal/index/userIndex')}" target="_self">会员中心</a>
+      </div>
+      <span class="right" id="rightMenuHtml">
+				<a href="#" class="b-login" id="b-login">登录</a>|<a href="#" id="b-regist">注册</a>|&nbsp;&nbsp;&nbsp;&nbsp;<img src="__TMPL__/public/assets/images/tel.png"/>			
+                </span> </div>
+  </div>
+  <div class="head-search">
+    <div class="wrap clearfix">
+      <div class="yjxj clearfix left" action="/index/keyword/" method="post" enctype="multipart/form-data">
+        <input type="text" name="keyword" placeholder="请输入您想要的品牌、车系或车辆编号搜索" class="left" />
+        <input type="submit" value="搜 索" class="right" />
+      </div>
+      <div class="hotWords left dInline"> 热门品牌：<a href="#">奥迪A6L</a><a href="#">宝马5系</a><a href="#">奔驰E级</a><a href="#">奥迪A4L</a><a href="#">奔驰C级</a> </div>
+    </div>
+  </div>
+</div>

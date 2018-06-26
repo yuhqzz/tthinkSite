@@ -10,8 +10,8 @@ namespace app\goods\controller;
 
 
 use cmf\controller\AdminBaseController;
-use app\Goods\model\GoodsCarConfigItemsModel;
-use app\Goods\service\CarConfigService;
+use app\goods\model\GoodsCarConfigItemsModel;
+use app\goods\service\CarConfigService;
 use think\db;
 
 

@@ -10,14 +10,14 @@
 namespace app\goods\controller;
 
 
-use app\Goods\model\GoodsCarStyleModel;
+use app\goods\model\GoodsCarStyleModel;
 use cmf\controller\AdminBaseController;
 use think\db;
-use app\Goods\model\GoodsBrandModel;
-use app\Goods\model\GoodsCarSeriesModel;
-use app\Goods\model\GoodsCarStyleModeld;
-use app\Goods\service\CarConfigService;
-use app\Goods\model\GoodsCarConfigValuesModel;
+use app\goods\model\GoodsBrandModel;
+use app\goods\model\GoodsCarSeriesModel;
+use app\goods\model\GoodsCarStyleModeld;
+use app\goods\service\CarConfigService;
+use app\goods\model\GoodsCarConfigValuesModel;
 
 
 class AdminCarStyleController extends AdminBaseController

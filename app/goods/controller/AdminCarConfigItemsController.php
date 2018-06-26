@@ -10,7 +10,7 @@ namespace app\goods\controller;
 
 
 use cmf\controller\AdminBaseController;
-use app\Goods\model\GoodsCarConfigItemsModel;
+use app\goods\model\GoodsCarConfigItemsModel;
 use think\db;
 
 

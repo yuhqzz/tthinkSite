@@ -10,10 +10,10 @@
 namespace app\goods\controller;
 
 
-use app\Goods\model\GoodsCarSeriesModel;
+use app\goods\model\GoodsCarSeriesModel;
 use cmf\controller\AdminBaseController;
 use think\db;
-use app\Goods\model\GoodsBrandModel;
+use app\goods\model\GoodsBrandModel;
 
 
 class AdminCarSeriesController extends AdminBaseController

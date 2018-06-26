@@ -76,21 +76,6 @@ CREATE TABLE IF NOT EXISTS `tx_goods_car_config_template` (
 
 
 
-
-
---
--- 表的结构 `tx_goods_car_grade`
---
-
-CREATE TABLE IF NOT EXISTS `tx_goods_car_grade` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '汽车等级id',
-  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '汽车等级名称',
-  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '汽车等级描述'
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 汽车等级表';
-
 --
 -- 表的结构 `tx_goods_brand`
 --

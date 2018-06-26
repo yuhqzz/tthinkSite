@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | goods Brand model
 // +----------------------------------------------------------------------
-namespace app\Goods\model;
+namespace app\goods\model;
 
 use think\Model;
 use think\db;
