@@ -20,6 +20,8 @@ class Tree
     public $icon = ['│', '├', '└'];
     public $nbsp = "&nbsp;";
     private $str = '';
+    private $idField = '';
+    private $parentField = '';
     /**
      * @access private
      */
@@ -29,20 +31,24 @@ class Tree
      * 构造函数，初始化类
      * @param array 2维数组，例如：
      * array(
-     *      1 => array('id'=>'1','parent_id'=>0,'name'=>'一级栏目一'),
-     *      2 => array('id'=>'2','parent_id'=>0,'name'=>'一级栏目二'),
-     *      3 => array('id'=>'3','parent_id'=>1,'name'=>'二级栏目一'),
-     *      4 => array('id'=>'4','parent_id'=>1,'name'=>'二级栏目二'),
-     *      5 => array('id'=>'5','parent_id'=>2,'name'=>'二级栏目三'),
-     *      6 => array('id'=>'6','parent_id'=>3,'name'=>'三级栏目一'),
-     *      7 => array('id'=>'7','parent_id'=>3,'name'=>'三级栏目二')
+     *      1 => array($this->idField=>'1',$this->parentField=>0,'name'=>'一级栏目一'),
+     *      2 => array($this->idField=>'2',$this->parentField=>0,'name'=>'一级栏目二'),
+     *      3 => array($this->idField=>'3',$this->parentField=>1,'name'=>'二级栏目一'),
+     *      4 => array($this->idField=>'4',$this->parentField=>1,'name'=>'二级栏目二'),
+     *      5 => array($this->idField=>'5',$this->parentField=>2,'name'=>'二级栏目三'),
+     *      6 => array($this->idField=>'6',$this->parentField=>3,'name'=>'三级栏目一'),
+     *      7 => array($this->idField=>'7',$this->parentField=>3,'name'=>'三级栏目二')
      *      )
-     * @return array
+     *  @param $idField 2维数组，例如：
+     *  @param $parentField 2维数组，例如：
+     * @return boolean
      */
-    public function init($arr = [])
+    public function init($arr = [], $idField = 'id',$parentField ='parent_id')
     {
         $this->arr = $arr;
         $this->ret = '';
+        $this->idField = $idField?$idField:$this->idField;
+        $this->parentField = $parentField?$parentField:$this->parentField;
         return is_array($arr);
     }
 
@@ -56,11 +62,11 @@ class Tree
         $newArr = [];
         if (!isset($this->arr[$myId]))
             return false;
-        $pid = $this->arr[$myId]['parent_id'];
-        $pid = $this->arr[$pid]['parent_id'];
+        $pid = $this->arr[$myId][$this->parentField];
+        $pid = $this->arr[$pid][$this->parentField];
         if (is_array($this->arr)) {
             foreach ($this->arr as $id => $a) {
-                if ($a['parent_id'] == $pid)
+                if ($a[$this->parentField] == $pid)
                     $newArr[$id] = $a;
             }
         }
@@ -78,7 +84,7 @@ class Tree
         if (is_array($this->arr)) {
             foreach ($this->arr as $id => $a) {
 
-                if ($a['parent_id'] == $myId) {
+                if ($a[$this->parentField] == $myId) {
                     $newArr[$id] = $a;
                 }
             }
@@ -98,14 +104,14 @@ class Tree
         if (!isset($this->arr[$myId]))
             return false;
         $newArr[] = $this->arr[$myId];
-        $pid      = $this->arr[$myId]['parent_id'];
+        $pid      = $this->arr[$myId][$this->parentField];
         if (isset($this->arr[$pid])) {
             $this->getPosition($pid, $newArr);
         }
         if (is_array($newArr)) {
             krsort($newArr);
             foreach ($newArr as $v) {
-                $a[$v['id']] = $v;
+                $a[$v[$this->idField]] = $v;
             }
         }
         return $a;
@@ -136,10 +142,10 @@ class Tree
                     $k = $adds ? $this->icon[0] : '';
                 }
                 $spacer   = $adds ? $adds . $j : '';
-                $selected = $value['id'] == $sid ? 'selected' : '';
+                $selected = $value[$this->idField] == $sid ? 'selected' : '';
                 $id       = 0;
                 $nstr     = '';
-                $parentId = $value['parent_id'];
+                $parentId = $value[$this->parentField];
                 @extract($value);
 
 
@@ -171,11 +177,11 @@ class Tree
         if (is_array($children)) {
             foreach ($children as $child) {
                 $child['_level']           = $level;
-                $returnArray[$child['id']] = $child;
+                $returnArray[$child[$this->idField]] = $child;
                 if ($maxLevel === 0 || ($maxLevel !== 0 && $maxLevel > $level)) {
 
                     $mLevel                                = $level + 1;
-                    $returnArray[$child['id']]["children"] = $this->getTreeArray($child['id'], $maxLevel, $mLevel);
+                    $returnArray[$child[$this->idField]]["children"] = $this->getTreeArray($child[$this->idField], $maxLevel, $mLevel);
                 }
 
             }
@@ -334,7 +340,7 @@ class Tree
         foreach ($child as $id => $a) {
 
             @extract($a);
-            if ($showlevel > 0 && is_array($this->getChild($a['id']))) {
+            if ($showlevel > 0 && is_array($this->getChild($a[$this->idField]))) {
                 $floder_status = " class='$dropdown $li_class'";
             } else {
                 $floder_status = " class='$li_class'";;
@@ -342,11 +348,11 @@ class Tree
             $this->str .= $recursion ? "<ul class='$ul_class'><li  $floder_status id= 'menu-item-$id'>" : "<li  $floder_status   id= 'menu-item-$id'>";
             $recursion = FALSE;
             //判断是否为终极栏目
-            if ($this->getChild($a['id'])) {
+            if ($this->getChild($a[$this->idField])) {
                 eval("\$nstr = \"$str2\";");
                 $this->str .= $nstr;
                 if ($showlevel == 0 || ($showlevel > 0 && $showlevel > $currentlevel)) {
-                    $this->getTreeViewMenu($a['id'], $effected_id, $str, $str2, $showlevel, $ul_class, $li_class, $style, $currentlevel + 1, TRUE);
+                    $this->getTreeViewMenu($a[$this->idField], $effected_id, $str, $str2, $showlevel, $ul_class, $li_class, $style, $currentlevel + 1, TRUE);
                 } elseif ($showlevel > 0 && $showlevel == $currentlevel) {
                     //$this->str .= $placeholder;
                 }
@@ -372,7 +378,7 @@ class Tree
         $n        = 0;
         if (is_array($sub_cats))
             foreach ($sub_cats as $c) {
-                $data[$n]['id'] = iconv(CHARSET, 'utf-8', $c['catid']);
+                $data[$n][$this->idField] = iconv(CHARSET, 'utf-8', $c['catid']);
                 if ($this->getChild($c['catid'])) {
                     $data[$n]['liclass']  = 'hasChildren';
                     $data[$n]['children'] = [['text' => '&nbsp;', 'classes' => 'placeholder']];
@@ -395,6 +401,95 @@ class Tree
     {
         return (strpos(',,' . $list . ',', ',' . $item . ','));
     }
+
+    /**
+     * 返回一维数组
+     * @param [type] $cate 要递归的数组
+     * @param string $html 子级分类前要显示的缩进符号。默认 '─'
+     * @param integer $pid 父级分类ID。默认为 0，表示顶级分类
+     * @param integer $level level级，配合 $html 显示足够的缩进。默认为 1，表示顶级分类
+     * @return [type]   [description]
+     */
+     public function unlimitedForLevel($html = '─', $pid = 0, $level = 1){
+        $arr = array();
+
+        foreach($this->arr as $v){
+            if($v[$this->parentField] == $pid){
+                $v['level'] = $level;
+                $v['html'] = str_repeat($html, $level - 1);
+                $arr[] = $v;
+                $arr = array_merge($arr, $this->unlimitedForLevel($html, $v[$this->parentField], $level + 1));
+            }
+        }
+        return $arr;
+    }
+    /**
+     * 返回多维数组
+     * @param string $name 子级分类在父分类数组中的 key
+     * @param integer $pid 父级分类ID。默认为0，表示顶级分类
+     * @return [type]  [description]
+     */
+    public function unlimitedForlayer($name = 'children', $pid = 0){
+        $arr = array();
+        foreach($this->arr as $v){
+            if( $v[$this->parentField] == $pid){
+                $v[$name] = $this->unlimitedForlayer($name, $v[$this->parentField]);
+                $arr[] = $v;
+            }
+        }
+        return $arr;
+    }
+
+
+    /**
+     * 传递子分类ID返回所有父级分类
+     * @param [type] $cate 要递归的数组
+     * @param [type] $id 子分类ID
+     * @return [type]  [description]
+     */
+    public function getParents($id){
+        $arr = array();
+        foreach($this->arr as $v){
+            if($v[$this->parentField] == $id){
+                $arr[] = $v;
+                $arr = array_merge(self::getParents($v[$this->parentField]), $arr);
+            }
+        }
+        return $arr;
+    }
+    /**
+     * 传递父级分类ID返回所有子分类ID
+     * @param [type] $pid 父级分类ID
+     * @return [type]  [description]
+     */
+    public function getChildrenId($pid){
+        $arr = array();
+        foreach($this->arr as $v){
+            if($v[$this->parentField] == $pid){
+                $arr[] = $v[$this->idField];
+                $arr = array_merge($arr, $this->getChildrenId($v[$this->idField]));
+            }
+        }
+        return $arr;
+    }
+    /**
+     * 传递父级分类ID返回所有子级分类
+     * @param [type] $cate 要递归的数组
+     * @param [type] $pid 父级分类ID
+     * @return [type]  [description]
+     */
+    public function getChildren( $pid = 0 ){
+        $arr = array();
+        foreach($this->arr as $v){
+            if($v[$this->parentField] == $pid){
+                $arr[] = $v;
+                $arr = array_merge($arr, $this->getChildren($this->idField));
+            }
+        }
+        return $arr;
+    }
+
+
 
 }
 

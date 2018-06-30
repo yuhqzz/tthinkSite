@@ -3,52 +3,65 @@
 <body>
 <div class="wrap js-check-wrap">
     <ul class="nav nav-tabs">
-        <li ><a href="{:url('AdminAttribute/index',array('type_id'=>$id))}">属性列表</a></li>
-        <li class="active"><a href="{:url('AdminAttribute/add',array('type_id'=>$id))}">添加属性</a></li>
+        <li ><a href="{:url('AdminAttribute/index',array('type_id'=>$type_id))}">属性列表</a></li>
+        <li ><a href="{:url('AdminAttribute/add',array('type_id'=>$type_id))}">添加属性</a></li>
+        <li class="active"><a>编辑属性</a></li>
     </ul>
     <div class="row margin-top-20">
         <div class="col-md-6">
-            <form class="js-ajax-form form-horizontal" action="{:url('AdminAttribute/addPost',array('cate_id'=>$id))}" method="post">
-                <input type="hidden" name="cate_id" value="{$id}"/>
-
-
+            <form class="js-ajax-form form-horizontal" action="{:url('AdminAttribute/editPost',array('type_id'=>$type_id))}" method="post">
+                <input type="hidden" name="attr_id" value="{$attr_id}"/>
                 <div class="form-group">
-                    <label for="input-cate_name" class="col-sm-3 control-label">属性类型</label>
+                    <label for="input-type_name" class="col-sm-3 control-label">属性类型</label>
                     <div class="col-md-6 col-sm-10">
-                        <input type="text" class="form-control" id="input-cate_name" name="cate_name" value="汽车"  readonly = "readonly">
+                        <input type="text" class="form-control" id="input-type_name" name="type_name" value="{$name}"  readonly = "readonly">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="input-attr_name" class="col-sm-3 control-label"><span class="form-required">*</span>属性名称</label>
                     <div class="col-md-6 col-sm-10">
-                        <input type="text" class="form-control" id="input-attr_name" name="attr_name">
+                        <input type="text" class="form-control" id="input-attr_name" name="attr_name" value="{$attr_name}">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="input-attr_input_type" class="col-sm-3 control-label"><span class="form-required">*</span>属性值</label>
+                    <label for="input-attr_input_type" class="col-sm-3 control-label"><span class="form-required">*</span>取值类型
+                        <a href="javascript:void(0);"
+                           title="单选、复选属性取值方式只能选从列表取值，唯一属性只能选手工输入"
+                           data-toggle="tooltip"
+                           target="_blank"><i class="fa fa-question-circle"></i></a>
+                    </label>
                     <div class="col-md-6 col-sm-10">
-                        <input type="radio"   id="input-attr_type" name="attr_type" value="0">唯一属性 &nbsp;&nbsp;
-                        <input type="radio"   id="input-attr_type" name="attr_type" value="1">单选属性
-                        <input type="radio"   id="input-attr_type" name="attr_type" value="2">复选属性
+                        <input type="radio"   id="input-attr_type" name="attr_type" value="0" {$attr_type==0?"checked":""}>唯一属性 &nbsp;&nbsp;
+                        <input type="radio"   id="input-attr_type" name="attr_type" value="1" {$attr_type==1?"checked":""}>单选属性
+                        <input type="radio"   id="input-attr_type" name="attr_type" value="2" {$attr_type==2?"checked":""}>复选属性
                     </div>
+
                 </div>
+
                 <div class="form-group">
-                    <label for="input-attr_input_type" class="col-sm-3 control-label"><span class="form-required">*</span>属性项取值方式</label>
+                    <label for="input-attr_input_type" class="col-sm-3 control-label"><span class="form-required">*</span>取值方式
+                        <a href="javascript:void(0);"
+                           title="从列表中选择,属性项值必须填值"
+                           data-toggle="tooltip"
+                           target="_blank"><i class="fa fa-question-circle"></i></a>
+
+                    </label>
                     <div class="col-md-6 col-sm-10">
-                        <input type="radio"   id="input-attr_input_type" name="attr_input_type" value="0">手工录入 &nbsp;&nbsp;
-                        <input type="radio"   id="input-attr_input_type" name="attr_input_type" value="1">从列表中选择 &nbsp;&nbsp;
+                        <input type="radio"   id="input-attr_input_type" name="attr_input_type" value="0" {$attr_input_type==0?"checked":""} {$attr_type==1||$attr_type==2?"disabled":""}>手工录入 &nbsp;&nbsp;
+                        <input type="radio"   id="input-attr_input_type" name="attr_input_type" value="1" {$attr_input_type==1?"checked":""} {$attr_type==0?"disabled":""}>从列表中选择 &nbsp;&nbsp;
                     </div>
+
                 </div>
                 <div class="form-group">
                     <label for="input-attr_values" class="col-sm-3 control-label">属性项值</label>
                     <div class="col-md-6 col-sm-10">
-                        <textarea class="form-control" id="input-attr_values" name="attr_values" cols="60" rows="5"></textarea>
+                        <textarea class="form-control" id="input-attr_values" name="attr_values" cols="60" rows="5">{$attr_values}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-10">
                         <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
-                        <a class="btn btn-default" href="{:url('AdminAttribute/index',array('cid'=>$id))}">{:lang('BACK')}</a>
+                        <a class="btn btn-default" href="{:url('AdminAttribute/index',array('type_id'=>$type_id))}">{:lang('BACK')}</a>
                     </div>
                 </div>
             </form>
@@ -56,5 +69,25 @@
     </div>
 </div>
 <script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script>
+    $(function () {
+        $('input[name="attr_type"]').change(function () {
+            var attr_type = $('input[name="attr_type"]:checked').val();
+            var attr_input_type = $('input[name="attr_input_type"]');
+            if(attr_type == 1||attr_type == 2){
+                attr_input_type.eq(0).prop('disabled',true);
+                attr_input_type.eq(1).removeAttr('disabled');
+                attr_input_type.eq(1).prop('checked','checked');
+                attr_input_type.eq(0).prop('checked','');
+            }else{
+                attr_input_type.eq(1).attr('disabled',true);
+                attr_input_type.eq(0).removeAttr('disabled');
+                attr_input_type.eq(0).prop('checked','checked');
+                attr_input_type.eq(1).prop('checked','');
+            }
+        })
+    })
+</script>
+
 </body>
 </html>

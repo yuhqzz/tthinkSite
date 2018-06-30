@@ -1,0 +1,12 @@
+<noempty name="goodsImages">
+    <foreach name="goodsImages" item="vo" key="key">
+        <li id="saved-image{$key}">
+            <input id="photo-{$key}" type="hidden" name="images[photo_urls][$vo.id]" value="{$vo.image_url}">
+            <input class="form-control" id="photo-{$key}-name" type="text" name="images[photo_names][]" value="{$vo.name}" readonly
+                   style="width: 200px;" title="图片名称" readonly>
+            <img id="photo-{$key}-preview" src="{:cmf_get_image_preview_url($vo['image_url'])}" style="height:36px;width: 36px;"
+                 onclick="imagePreviewDialog(this.src);">
+            <a href="javascript:(function(){$('#saved-image{$key}').remove();})();">移除</a>
+        </li>
+    </foreach>
+</noempty>

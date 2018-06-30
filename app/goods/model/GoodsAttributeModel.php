@@ -18,11 +18,11 @@ class GoodsAttributeModel extends Model
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getAttributeList($cid = 0){
+    public function getAttributeList($cid){
         $cid = (int)$cid;
         $c_k = service\MkeyService::getMkey(service\MkeyService::ATTRIBUTEVALUESBYSTYLEID,$cid);
         $cache = Cache::get($c_k);
-        if(!$cache){
+        if(!$cache||1){
             // 缓存不存在时
             $wh = [];
             if($cid){
@@ -39,7 +39,7 @@ class GoodsAttributeModel extends Model
 
             $cache = [];
             $cache['value'] = $list;
-            Cache::set($c_k,$cache,service\MkeyService::DAYEXPIRE);
+            Cache::set($c_k,$cache,service\MkeyService::DAY);
         }
         return $cache['value'];
     }
@@ -53,10 +53,10 @@ class GoodsAttributeModel extends Model
         if(empty($data)) return false;
         $cate_id    = intval($data['type_id']);
         $save['attr_name'] = $data['attr_name'];
-        $save['cate_id'] = $cate_id;
+        $save['type_id'] = $cate_id;
         $save['attr_type'] = intval($data['attr_type']);
         $save['attr_input_type'] = intval($data['attr_input_type']);
-        $save['attr_values'] = trim($data['config_values']);
+        $save['attr_values'] = trim($data['attr_values']);
         $id =  $this->allowField(true)->insertGetId($save);
         if($id){
             $this->clearCache($cate_id);
@@ -89,14 +89,14 @@ class GoodsAttributeModel extends Model
 
     public function clearCache($cate_id,$clear_all = false){
         $cate_id = intval($cate_id);
-        $c_k = service\MkeyService::getMkey(service\MkeyService::CONFIGLIST,$cate_id);
-        $c_k_all = service\MkeyService::getMkey(service\MkeyService::CONFIGLIST,0);
+        $c_k = service\MkeyService::getMkey(service\MkeyService::ATTRIBUTEVALUESBYSTYLEID,$cate_id);
+        $c_k_all = service\MkeyService::getMkey(service\MkeyService::ATTRIBUTEVALUESBYSTYLEID,0);
         Cache::rm($c_k);
         Cache::rm($c_k_all);
         if($clear_all){
             $data = self::all();
             foreach ($data as $val){
-                $c_k = service\MkeyService::getMkey(service\MkeyService::CONFIGLIST,$val['type_id']);
+                $c_k = service\MkeyService::getMkey(service\MkeyService::ATTRIBUTEVALUESBYSTYLEID,$val['type_id']);
                 Cache::rm($c_k);
             }
         }

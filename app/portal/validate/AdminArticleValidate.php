@@ -6,27 +6,25 @@
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
-// | Author: 老猫 <thinkcmf@126.com>
+// | Author: 小夏 < 449134904@qq.com>
 // +----------------------------------------------------------------------
-namespace app\goods\controller;
+namespace app\portal\validate;
 
-use cmf\controller\AdminBaseController;
+use think\Validate;
 
-/**
- * Class AdminIndexController
- * @package app\goods\controller
- * @adminMenuRoot(
- *     'name'   =>'商品管理',
- *     'action' =>'default',
- *     'parent' =>'',
- *     'display'=> true,
- *     'order'  => 30,
- *     'icon'   =>'th',
- *     'remark' =>'商品管理'
- * )
- */
-class AdminIndexController extends AdminBaseController
+class AdminArticleValidate extends Validate
 {
+    protected $rule = [
+        'categories' => 'require',
+        'post_title' => 'require',
+    ];
+    protected $message = [
+        'categories.require' => '请指定文章分类！',
+        'post_title.require' => '文章标题不能为空！',
+    ];
 
-
+    protected $scene = [
+//        'add'  => ['user_login,user_pass,user_email'],
+//        'edit' => ['user_login,user_email'],
+    ];
 }

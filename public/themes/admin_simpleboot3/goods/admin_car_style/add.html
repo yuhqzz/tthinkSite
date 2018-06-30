@@ -14,9 +14,11 @@
                     <div class="col-md-6 col-sm-10">
                         <select name="brand_id" id="input-brand" class="form-control">
                             <option value="0" >请选择</option>
-                            <foreach name="brandList" item ="vo">
-                                <option value="{$vo.id}" >{$vo.first_char}&nbsp;&nbsp;{$vo.name}</option>
-                            </foreach>
+                            <noempty name="brandList">
+                                <foreach name="brandList" item ="vo">
+                                    <option value="{$vo.id}" >{$vo.first_char}&nbsp;&nbsp;{$vo.name}</option>
+                                </foreach>
+                            </noempty>
                         </select>
                     </div>
                 </div>

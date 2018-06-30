@@ -21,7 +21,8 @@
                     <th width="50">{$vo.id}</th>
                     <th >{$vo.name}</th>
                     <th width="180">
-                        <a href="javascript:parent.openIframeLayer('{:url('AdminAttribute/index',array('type_id'=>$vo['id']))}','[{$vo.name}]属性配置',{});">属性配置</a>
+                        <a href="javascript:parent.openIframeLayer('{:url('AdminAttribute/index',array('type_id'=>$vo['id']))}','[{$vo.name}]属性配置',{});">
+                            属性配置</a>
                         <a href="{:url('AdminAttributeType/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
                         <a class="js-ajax-delete" href="{:url('AdminAttributeType/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
                     </th>

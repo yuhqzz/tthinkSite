@@ -973,3 +973,51 @@ function openIframeLayer(url, title, options) {
     });
 
 }
+
+
+// 修改指定表的指定字段值 包括有按钮点击切换是否 或者 排序 或者输入框文字
+function changeTableVal(table,id_name,id_value,field,obj)
+{
+    Wind.css('layer');
+    Wind.use("layer", function () {
+        var src = "";
+        if($(obj).hasClass('no')) // 图片点击是否操作
+        {
+            $(obj).removeClass('no').addClass('yes');
+            $(obj).html("<i class='fa fa-check-circle'></i>是");
+            var value = 1;
+        }else if($(obj).hasClass('yes')){ // 图片点击是否操作
+            $(obj).removeClass('yes').addClass('no');
+            $(obj).html("<i class='fa fa-ban'></i>否");
+            var value = 0;
+        }else{ // 其他输入框操作
+            var value = $(obj).val();
+        }
+        var url = GV.ROOT + "goods/Admin/changeTableVal?table="+table+"&id_name="+id_name+"&id_value="+id_value+"&field="+field+'&value='+value;
+        $.ajax({
+            url:url,
+            success: function(data){
+                if(data==1){
+                    layer.msg('更新成功', {icon: 1});
+                }else {
+                    layer.msg('更新失败', {icon: 1});
+                }
+
+                //if(!$(obj).hasClass('no') && !$(obj).hasClass('yes')){
+                 //   layer.msg('更新成功', {icon: 1});
+                //}
+            }
+        });
+    });
+}
+var orderList = function(obj) {
+    Wind.css('layer');
+    Wind.use("layer", function () {
+        var _this = $(obj);
+        var order_field = _this.data('orderfield');
+        var order_type = _this.data('ordertype');
+        $("input[name='order_field']").val(order_field);
+        $("input[name='order_field_value']").val(order_type);
+        $("#list_query_form").submit();
+    })
+}

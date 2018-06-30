@@ -3,8 +3,8 @@
 <body>
 <div class="wrap">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="{:url('AdminAttribute/index',array('cid'=>$cid))}">参数配置列表</a></li>
-        <li><a href="{:url('AdminAttribute/add',array('cid'=>$cid))}">添加</a></li>
+        <li class="active"><a href="{:url('AdminAttribute/index',array('type_id'=>$cid))}">属性配置列表</a></li>
+        <li><a href="{:url('AdminAttribute/add',array('type_id'=>$cid))}">添加属性</a></li>
     </ul>
     <form method="post" class="js-ajax-form" action="{:url('AdminAttribute/listOrder')}">
         <div class="table-actions">
@@ -14,9 +14,10 @@
             <thead>
             <tr>
                 <th width="50">排序</th>
-                <th>参数配置项名称</th>
-                <th>取值方式</th>
-                <th>取值范围</th>
+                <th width="180">属性名称</th>
+                <th width="120">取值类型</th>
+                <th width="120">取值方式</th>
+                <th width="300">取值范围</th>
                 <th width="180">操作</th>
             </tr>
             </thead>
@@ -26,11 +27,12 @@
                     <td width="50"><input name="list_orders[{$vo.attr_id}]" class="input-order" type="text"
                                           value="{$vo.list_order}"></td>
                     <td>{$vo.attr_name}</td>
-                    <td>{$vo.attr_input_type|getConfigInputType}</td>
+                    <td>{$vo.attr_type|getAttrItemType}</td>
+                    <td>{$vo.attr_input_type|getAttrInputType}</td>
                     <td>{$vo.attr_values}</td>
                     <td width="180">
-                        <a href="{:url('AdminCarConfigItems/edit',array('id'=>$vo['config_id']))}">{:lang('EDIT')}</a>
-                        <a class="js-ajax-delete" href="{:url('AdminCarConfigItems/delete',array('id'=>$vo['config_id']))}">{:lang('DELETE')}</a>
+                        <a href="{:url('AdminAttribute/edit',array('id'=>$vo['attr_id']))}">{:lang('EDIT')}</a>
+                        <a class="js-ajax-delete" href="{:url('AdminAttribute/delete',array('id'=>$vo['attr_id']))}">{:lang('DELETE')}</a>
                     </td>
                 </tr>
             </volist>

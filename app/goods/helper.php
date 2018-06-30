@@ -92,6 +92,25 @@ if (!function_exists('getSeriesName')) {
 
     }
 }
+if (!function_exists('getStyleName')) {
+    /**
+     * @param $id
+     * @return mixed|string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    function getStyleName($id)
+    {
+        $data = Db::name('goods_car_style')->where(['id'=>$id])->find();
+        if($data){
+            return $data['name'];
+        }
+        return '';
+
+    }
+}
+
 
 if (!function_exists('getGradeName')) {
     /**
@@ -105,6 +124,46 @@ if (!function_exists('getGradeName')) {
     {
         $data = config('car_grade');
          return $data[$id];
+
+    }
+}
+
+if (!function_exists('getAttrItemType')) {
+    /**
+     * @param $cid
+     * @return mixed|string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    function getAttrItemType($id)
+    {
+        if(!in_array(intval($id),[0,1,2])){
+            $id = 0;
+        }
+        $input =['唯一属性','单选属性','多选属性'];
+
+        return $input[$id];
+
+    }
+}
+
+if (!function_exists('getAttrInputType')) {
+    /**
+     * @param $cid
+     * @return mixed|string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    function getAttrInputType($id)
+    {
+        if(!in_array(intval($id),[0,1])){
+            $id = 0;
+        }
+        $input =['手工录入','从列表中选择'];
+
+        return $input[$id];
 
     }
 }

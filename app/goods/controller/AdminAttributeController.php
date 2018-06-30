@@ -36,7 +36,7 @@ class AdminAttributeController extends AdminBaseController
 
     public function add()
     {
-        $cid =  $this->request->param('cid');
+        $cid =  $this->request->param('type_id');
         $cid = intval($cid);
         if (empty($cid)) {
             $this->error("请指定属性类型!");
@@ -70,7 +70,7 @@ class AdminAttributeController extends AdminBaseController
             }
             $goodsAttributeMod = new GoodsAttributeModel();
             $goodsAttributeMod->addAttribute($data);
-            $this->success('添加成功!', url('AdminAttribute/add',['cid'=>$data['type_id']]));
+            $this->success('添加成功!', url('AdminAttribute/add',['type_id'=>$data['type_id']]));
         }
     }
 
@@ -85,8 +85,15 @@ class AdminAttributeController extends AdminBaseController
             if(empty($data)){
                 $this->error('数据不存在,操作错误!');
             }
+            $type_id = intval($data['type_id']);
+            $type_data = Db::name('goods_type')->where(['id'=>$type_id])->find();
+            if(empty($type_data)){
+                $this->error("请指定属性类型!");
+            }
+            $this->assign($type_data);
+
             $this->assign($data);
-            $this->assign('id',(int)$data['type_id']);
+            $this->assign('id',$data['type_id']);
             return $this->fetch();
         } else {
             $this->error('操作错误!');

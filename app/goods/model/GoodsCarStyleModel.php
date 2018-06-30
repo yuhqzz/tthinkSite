@@ -46,8 +46,43 @@ class GoodsCarStyleModel extends Model
         return $rs;
     }
 
+    /**
+     *
+     */
+    public function getCarStyleDataBySeriesId( $seriesId ){
+        if(empty($seriesId)) return [];
+        $wh  = [];
+        $wh['delete_time'] = 0;
+        if(is_array($seriesId)){
+            $seriesId = array_filter($seriesId);
+            if(empty($seriesId)) return [];
+            $wh['series_id'] = ['in',$seriesId];
+        }else{
+            $wh['series_id'] = intval($seriesId);
+        }
+        $data = $this->where($wh)->field('id,name,brand_id,series_id,grade_id,is_hot')->order('is_hot desc')->select();
+        $list = $data?$data->toArray():[];
+        return $list;
+    }
 
-
+    /**
+     *
+     * 根据品牌获取所有车型
+     * @param $brandId
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getCarStyleDataByBrandId( $brandId ){
+        if(empty($brandId)) return [];
+        $wh  = [];
+        $wh['delete_time'] = 0;
+        $wh['brand_id'] = intval($brandId);
+        $data = $this->where($wh)->field('id,name,brand_id,series_id,grade_id,is_hot')->order('is_hot desc')->select();
+        $list = $data?$data->toArray():[];
+        return $list;
+    }
 
 
 }

@@ -1,21 +1,25 @@
 <?php
 // +----------------------------------------------------------------------
-// | goods category model
+// | ThinkCMF [ WE CAN DO IT MORE SIMPLE ]
 // +----------------------------------------------------------------------
-namespace app\goods\model;
+// | Copyright (c) 2013-2018 http://www.thinkcmf.com All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: 老猫 <thinkcmf@126.com>
+// +----------------------------------------------------------------------
+namespace app\portal\model;
 
+use app\admin\model\RouteModel;
 use think\Model;
 use tree\Tree;
-use cmf\service;
-use think\Cache;
 
-class GoodsCategoryModel extends Model
+class PortalCategoryModel extends Model
 {
 
     protected $type = [
         'more' => 'array',
     ];
-    protected $allow_level = 3;
 
     /**
      * 生成分类 select树形结构
@@ -41,32 +45,12 @@ class GoodsCategoryModel extends Model
 
             array_push($newCategories, $item);
         }
+
         $tree->init($newCategories);
         $str     = '<option value=\"{$id}\" {$selected}>{$spacer}{$name}</option>';
         $treeStr = $tree->getTree(0, $str);
+
         return $treeStr;
-    }
-    public function getCategoryData( $update = false){
-        $cache_key = service\MkeyService::getMkey(service\MkeyService::GOODSCATEGORY);
-
-        $list = Cache::get($cache_key);
-        if($list && !$update){
-            return $list;
-        }
-        $where = ['delete_time' => 0];
-        $list = $this->order("list_order ASC")->where($where)->cache($cache_key,service\MkeyService::DAY,'goodsCategory')->select()->toArray();
-        return $list;
-    }
-
-    public function getSubCategory( $cid = 0 ,$include_self = false){
-        $tree = new  Tree();
-        $data = $this->getCategoryData();
-        $tree->init($data);
-        $childrenIds = $tree->getChildrenId($cid);
-        if( $include_self && $childrenIds){
-            array_push($childrenIds,intval($cid));
-        }
-       return $childrenIds;
     }
 
     /**
@@ -77,6 +61,9 @@ class GoodsCategoryModel extends Model
     public function adminCategoryTableTree($currentIds = 0, $tpl = '')
     {
         $where = ['delete_time' => 0];
+//        if (!empty($currentCid)) {
+//            $where['id'] = ['neq', $currentCid];
+//        }
         $categories = $this->order("list_order ASC")->where($where)->select()->toArray();
 
         $tree       = new Tree();
@@ -90,14 +77,8 @@ class GoodsCategoryModel extends Model
         $newCategories = [];
         foreach ($categories as $item) {
             $item['checked'] = in_array($item['id'], $currentIds) ? "checked" : "";
-            /*$item['url']     = cmf_url('portal/List/index', ['id' => $item['id']]);*/
-            $item['url'] = 'javascript:void(0)';
-
-            if(count(explode('-',$item['path'])) > $this->allow_level){
-                $item['str_action'] = '<a href="' . url("AdminCategory/edit", ["id" => $item['id']]) . '">' . lang('EDIT') . '</a>  <a class="js-ajax-delete" href="' . url("AdminCategory/delete", ["id" => $item['id']]) . '">' . lang('DELETE') . '</a> ';
-            }else{
-                $item['str_action'] = '<a href="' . url("AdminCategory/add", ["parent" => $item['id']]) . '">添加子分类</a>  <a href="' . url("AdminCategory/edit", ["id" => $item['id']]) . '">' . lang('EDIT') . '</a>  <a class="js-ajax-delete" href="' . url("AdminCategory/delete", ["id" => $item['id']]) . '">' . lang('DELETE') . '</a> ';
-            }
+            $item['url']     = cmf_url('portal/List/index', ['id' => $item['id']]);;
+            $item['str_action'] = '<a href="' . url("AdminCategory/add", ["parent" => $item['id']]) . '">添加子分类</a>  <a href="' . url("AdminCategory/edit", ["id" => $item['id']]) . '">' . lang('EDIT') . '</a>  <a class="js-ajax-delete" href="' . url("AdminCategory/delete", ["id" => $item['id']]) . '">' . lang('DELETE') . '</a> ';
             array_push($newCategories, $item);
         }
 
@@ -118,7 +99,7 @@ class GoodsCategoryModel extends Model
     }
 
     /**
-     * 添加商品分类
+     * 添加文章分类
      * @param $data
      * @return bool
      */
@@ -145,6 +126,17 @@ class GoodsCategoryModel extends Model
             self::rollback();
             $result = false;
         }
+
+        if ($result != false) {
+            //设置别名
+            $routeModel = new RouteModel();
+            if (!empty($data['alias']) && !empty($id)) {
+                $routeModel->setRoute($data['alias'], 'portal/List/index', ['id' => $id], 2, 5000);
+                $routeModel->setRoute($data['alias'] . '/:id', 'portal/Article/index', ['cid' => $id], 2, 4999);
+            }
+            $routeModel->getRoutes(true);
+        }
+
         return $result;
     }
 
@@ -184,7 +176,20 @@ class GoodsCategoryModel extends Model
                     $this->where('id', $child['id'])->update(['path' => $childPath], ['id' => $child['id']]);
                 }
             }
+
+            $routeModel = new RouteModel();
+            if (!empty($data['alias'])) {
+                $routeModel->setRoute($data['alias'], 'portal/List/index', ['id' => $data['id']], 2, 5000);
+                $routeModel->setRoute($data['alias'] . '/:id', 'portal/Article/index', ['cid' => $data['id']], 2, 4999);
+            } else {
+                $routeModel->deleteRoute('portal/List/index', ['id' => $data['id']]);
+                $routeModel->deleteRoute('portal/Article/index', ['cid' => $data['id']]);
+            }
+
+            $routeModel->getRoutes(true);
         }
+
+
         return $result;
     }
 

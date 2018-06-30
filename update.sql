@@ -129,7 +129,9 @@ CREATE TABLE IF NOT EXISTS `tx_goods_car_style` (
   `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT '车型描述',
   `more` text COMMENT '扩展属性',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY series_id('series_id'),
+  KEY brand_id('brand_id'),
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 汽车车型款式表';
 
 
@@ -143,12 +145,13 @@ CREATE TABLE  IF NOT EXISTS `tx_goods` (
   `category_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '分类id',
   `brand_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '品牌id',	
   `series_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '车系id',	
+  `style_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '车型id',
   `grade_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '车等级id',
   `click_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '点击数',
   `comment_count` smallint(5) DEFAULT '0' COMMENT '商品评论数',
   `market_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '市场售价',
   `shop_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '本店售价',
-  `cost_price` decimal(10,2) DEFAULT '0.00' COMMENT '厂家指导价',
+  `factory_price` decimal(10,2) DEFAULT '0.00' COMMENT '厂家指导价',
   `price_ladder` text COMMENT '价格阶梯',
   `keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '商品关键词',
   `goods_remark` varchar(255) NOT NULL DEFAULT '' COMMENT '商品简单描述',
@@ -160,12 +163,15 @@ CREATE TABLE  IF NOT EXISTS `tx_goods` (
   `is_recommend` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否推荐',
   `is_new` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否新品',
   `is_hot` tinyint(1) DEFAULT '0' COMMENT '是否热卖',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '发布时间',
   `last_update` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最后更新时间',
   `sales_sum` int(11) DEFAULT '0' COMMENT '商品销量',
   `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `model_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '属性模型id'
   PRIMARY KEY (`id`),
   KEY `cat_id` (`category_id`),
   KEY `last_update` (`last_update`),
+  KEY `create_time` (`create_time`),
   KEY `brand_id` (`brand_id`),
   KEY `series_id` (`series_id`),
   KEY `grade_id` (`grade_id`),
@@ -213,3 +219,12 @@ CREATE TABLE `tx_goods_attribute` (
   PRIMARY KEY (`attr_id`),
   KEY `cat_id` (`type_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 商品属性表';
+
+CREATE TABLE `tx_goods_images` (
+  `img_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '图片id 自增',
+  `goods_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
+  `name` varchar(500) NOT NULL DEFAULT '' COMMENT '图片名称',
+  `image_url` varchar(255) NOT NULL DEFAULT '' COMMENT '图片地址',
+  PRIMARY KEY (`img_id`),
+  KEY `goods_id` (`goods_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 商品图片表';

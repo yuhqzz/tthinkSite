@@ -6,6 +6,7 @@ namespace app\goods\model;
 
 use think\Model;
 
+
 class GoodsCarSeriesModel extends Model
 {
 

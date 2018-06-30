@@ -1,0 +1,105 @@
+<if condition="empty($goodsAttributeData)">
+    <table class="table table-bordered" >
+        <tbody>
+        <tr><td colspan="2"><b>商品属性</b>：</td> </tr>
+        <noempty name="attributeData">
+            <foreach name="attributeData" item="vo">
+                <tr class="{$vo.attr_id}">
+                    <td>{$vo.attr_name}</td>
+                    <td>
+                        <if condition='$vo.attr_type eq 0'>
+                            <div class="form-group">
+                                <div class="col-xs-8">
+                                    <input class="form-control" type="text" value="" name="attr[{$vo.attr_id}]">
+                                </div>
+                            </div>
+                            <elseif condition='$vo.attr_type eq 1' />
+                            <div class="col-xs-4">
+                                <select name="attr[{$vo.attr_id}]" class="form-control">
+                                    <noempty name="vo.attr_values">
+                                        <foreach name="vo.attr_values" item="v">
+                                            <option value="{$v}">{$v}</option>
+                                        </foreach>
+                                    </noempty>
+                                </select>
+                            </div>
+                            <elseif condition='$vo.attr_type eq 2' />
+                            <div class="col-xs-12">
+                                <noempty name="vo.attr_values">
+                                    <label class="checkbox" style="margin-left: 20px;font-weight: normal;">
+                                        <input type="checkbox"   onclick="tdCheckAll(this,{$vo.attr_id})">全选
+                                    </label>
+                                    <foreach name="vo.attr_values" item="v">
+                                        <label class="checkbox checkbox-inline">
+                                            <input type="checkbox" name="attr[{$vo.attr_id}][]" value="{$v}">{$v}
+                                        </label>
+                                    </foreach>
+                                </noempty>
+                            </div>
+                        </if>
+                    </td>
+
+                </tr>
+            </foreach>
+        </noempty>
+    </table>
+    <else/>
+    <table class="table table-bordered">
+        <tbody>
+        <tr><td colspan="2"><b>商品属性</b>：</td> </tr>
+        <noempty name="attributeData">
+            <foreach name="attributeData" item="vo">
+                <tr class="{$vo.attr_id}">
+                    <td>{$vo.attr_name}</td>
+                    <td>
+                        <if condition='$vo.attr_type eq 0'>
+                            <div class="form-group">
+                                <div class="col-xs-8">
+                                    <input class="form-control" type="text" value="{$goodsAttributeData[$vo.attr_id][0]|default=''}" name="attr[{$vo.attr_id}]">
+                                </div>
+                            </div>
+                            <elseif condition='$vo.attr_type eq 1' />
+                            <div class="col-xs-4">
+                                <select name="attr[{$vo.attr_id}]" class="form-control">
+                                    <noempty name="vo.attr_values">
+                                        <foreach name="vo.attr_values" item="v">
+                                            <option value="{$v}" {$goodsAttributeData[$vo.attr_id][0]==$v?'selected':''}>{$v}</option>
+                                        </foreach>
+                                    </noempty>
+                                </select>
+                            </div>
+                            <elseif condition='$vo.attr_type eq 2' />
+                            <div class="col-xs-12">
+                                <noempty name="vo.attr_values">
+                                    <php>
+                                        if(count($goodsAttributeData[$vo['attr_id']])==count($vo['attr_values'])){
+                                        $allChecked = 'checked';
+                                        }else{
+                                        $allChecked = '';
+                                        }
+                                    </php>
+                                    <label class="checkbox" style="margin-left: 20px;font-weight: normal;">
+                                        <input type="checkbox"  {$allChecked} onclick="tdCheckAll(this,{$vo.attr_id})">全选
+                                    </label>
+                                    <foreach name="vo.attr_values" item="v">
+                                        <label class="checkbox checkbox-inline">
+                                            <php>
+                                                if(in_array($v,$goodsAttributeData[$vo['attr_id']])){
+                                                $checked='checked';
+                                                }else{
+                                                $checked = '';
+                                                }
+                                            </php>
+                                            <input type="checkbox" name="attr[{$vo.attr_id}][]" value="{$v}" {$checked}>{$v}
+                                        </label>
+                                    </foreach>
+                                </noempty>
+                            </div>
+                        </if>
+                    </td>
+
+                </tr>
+            </foreach>
+        </noempty>
+    </table>
+</if>
