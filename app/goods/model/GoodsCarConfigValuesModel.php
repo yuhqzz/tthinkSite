@@ -75,7 +75,7 @@ class GoodsCarConfigValuesModel extends Model
             }
             $cache = [];
             $cache['value'] = $new_list;
-            Cache::set($c_k,$cache,service\MkeyService::DAYEXPIRE);
+            Cache::set($c_k,$cache,service\MkeyService::DAY);
         }
         return $cache['value'];
 

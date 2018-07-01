@@ -48,7 +48,6 @@ class GoodsCategoryModel extends Model
     }
     public function getCategoryData( $update = false){
         $cache_key = service\MkeyService::getMkey(service\MkeyService::GOODSCATEGORY);
-
         $list = Cache::get($cache_key);
         if($list && !$update){
             return $list;
@@ -63,6 +62,9 @@ class GoodsCategoryModel extends Model
         $data = $this->getCategoryData();
         $tree->init($data);
         $childrenIds = $tree->getChildrenId($cid);
+        if(empty($childrenIds)){
+            return $include_self?intval($cid):[];
+        }
         if( $include_self && $childrenIds){
             array_push($childrenIds,intval($cid));
         }
@@ -145,6 +147,7 @@ class GoodsCategoryModel extends Model
             self::rollback();
             $result = false;
         }
+        $this->clearCache();
         return $result;
     }
 
@@ -185,8 +188,14 @@ class GoodsCategoryModel extends Model
                 }
             }
         }
+        $this->clearCache();
         return $result;
     }
 
+
+    public function clearCache(){
+        $cache_key = service\MkeyService::getMkey(service\MkeyService::GOODSCATEGORY);
+        Cache::rm($cache_key);
+    }
 
 }

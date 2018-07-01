@@ -18,10 +18,10 @@ class GoodsModel extends Model
      */
    public function addGoodsData($data){
        if(empty($data['post'])) return false;
-       $this->startTrans();
+       Db::startTrans();
         // 保存主表数据
        $data['post']['create_time'] = time(); // 发布时间
-       $goods_id = $this->isUpdate(false)->allowField(false)->insertGetId($data['post']);
+       $goods_id = $this->isUpdate(false)->allowField(true)->insertGetId($data['post']);
        if($goods_id){
            // 保存属性信息
             if(isset($data['attr'])&&!empty($data['attr'])){
@@ -46,8 +46,8 @@ class GoodsModel extends Model
                 }
                 try{
                     Db::name('goods_attr')->insertAll($save_attr_data);
-                }catch (Exception $exception){
-                    $this->rollback();
+                }catch (\Exception $exception){
+                    Db::rollback();
                 }
 
             }
@@ -64,17 +64,167 @@ class GoodsModel extends Model
                 }
                 try{
                     Db::name('goods_images')->insertAll($save_images_data);
-                }catch (Exception $exception){
-                    $this->rollback();
+                }catch (\Exception $exception){
+                    Db::rollback();
                 }
             }
        }
-       $this->commit();
+       Db::commit();
        return $goods_id;
    }
 
+    /**
+     *
+     * 保存商品数据
+     */
+    public function saveGoodsData($goods_id,$data){
+        $goods_id = (int)$goods_id;
+        if(empty($goods_id)) return false;
+        if(empty($data['post'])) return false;
+        Db::startTrans();
+        // 保存主表数据
+        $data['post']['last_update'] = time(); // 更新时间
+        $where['id'] = (int)$goods_id;
+        $this->isUpdate(true)->allowField(true)->where($where)->update($data['post']);
+        if($goods_id){
+            // 先删除该商品的属性
+            try{
+                Db::name('goods_attr')->where(['goods_id'=>$goods_id])->delete();
+            }catch (\Exception $exception){
+                Db::rollback();
+            }
+            // 保存属性信息
+            if(isset($data['attr']) && !empty($data['attr'])){
+                //属性数据
+                $save_attr_data = [];
+                foreach ($data['attr'] as $key=>$val){
+                    if(is_array($val)){
+                        foreach ($val as $k=>$v){
+                            $item = [];
+                            $item['goods_id'] = $goods_id;
+                            $item['attr_id'] = $key;
+                            $item['attr_value'] = (string)$v;
+                            $save_attr_data[] = $item;
+                        }
+                    }else{
+                        $item =[];
+                        $item['goods_id'] = $goods_id;
+                        $item['attr_id'] = $key;
+                        $item['attr_value'] = (string)$val;
+                        $save_attr_data[] = $item;
+                    }
+                }
+                try{
+                    Db::name('goods_attr')->insertAll($save_attr_data);
+                }catch (\Exception $exception){
+                    Db::rollback();
+                }
+            }
+            // 先删除该商品的图片
+            try{
+                Db::name('goods_images')->where(['goods_id'=>$goods_id])->delete();
+            }catch (\Exception $exception){
+                Db::rollback();
+            }
+            // 保存图片信息
+            if(isset($data['images']['photo_urls']) && !empty($data['images']['photo_urls'])){
+                $save_images_data = [];
+                foreach ($data['images']['photo_urls'] as $key=>$val){
+                    $item =[];
+                    $item['goods_id'] = $goods_id;
+                    $item['name'] = isset($data['images']['photo_names'][$key])?$data['images']['photo_names'][$key]:'';
+                    $item['image_url'] = (string)$val;
+                    $save_images_data[] = $item;
+                }
+                try{
+                    Db::name('goods_images')->insertAll($save_images_data);
+                }catch (\Exception $exception){
+                    Db::rollback();
+                }
+            }
+        }
+        self::commit();
+        return $goods_id;
+    }
 
-   public function getGoodsList($where,$order='',$limit=1){
+    public function deleteGoods($data)
+    {
+
+        if (isset($data['id'])) {
+            $id = $data['id']; //获取删除id
+
+            $res = $this->where(['id' => $id])->find();
+
+            if ($res) {
+                $res = json_decode(json_encode($res), true); //转换为数组
+                $recycleData = [
+                    'object_id'   => $res['id'],
+                    'create_time' => time(),
+                    'table_name'  => 'goods',
+                    'name'        => $res['name'],
+                    'user_id' =>cmf_get_current_admin_id()
+
+                ];
+
+                Db::startTrans(); //开启事务
+                $transStatus = false;
+                try {
+                    Db::name('goods')->where(['id' => $id])->update([
+                        'delete_time' => time()
+                    ]);
+                    Db::name('recycle_bin')->insert($recycleData);
+
+                    $transStatus = true;
+                    // 提交事务
+                    Db::commit();
+                } catch (\Exception $e) {
+
+                    // 回滚事务
+                    Db::rollback();
+                }
+                return $transStatus;
+
+            } else {
+                return false;
+            }
+        } elseif (isset($data['ids'])) {
+            $ids = $data['ids'];
+            $res = $this->where(['id' => ['in', $ids]])
+                ->select();
+            if ($res) {
+                $res = json_decode(json_encode($res), true);
+                foreach ($res as $key => $value) {
+                    $recycleData[$key]['object_id']   = $value['id'];
+                    $recycleData[$key]['create_time'] = time();
+                    $recycleData[$key]['table_name']  = 'goods';
+                    $recycleData[$key]['name']        = $value['name'];
+                    $recycleData[$key]['user_id']        = cmf_get_current_admin_id();
+                }
+
+                Db::startTrans(); //开启事务
+                $transStatus = false;
+                try {
+                    Db::name('goods')->where(['id' => ['in', $ids]])
+                        ->update([
+                            'delete_time' => time()
+                        ]);
+                    Db::name('recycle_bin')->insertAll($recycleData);
+                    $transStatus = true;
+                    // 提交事务
+                    Db::commit();
+                } catch (\Exception $e) {
+                    // 回滚事务
+                    Db::rollback();
+                }
+                return $transStatus;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+    public function getGoodsList($where,$order='',$limit=1){
        $wh['g.delete_time'] = 0;
        if(empty($order)){
            $order = 'g.last_update desc,g.create_time desc';
@@ -131,8 +281,8 @@ class GoodsModel extends Model
            ->cache(true)
            ->fetchSql(true)
            ->limit($limit)
-           ->select();*/
-      // dump($sql);
+           ->select();
+      dump($sql);die;*/
        return $list;
    }
     /**

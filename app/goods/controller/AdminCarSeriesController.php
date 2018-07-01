@@ -46,7 +46,7 @@ class AdminCarSeriesController extends AdminBaseController
             }
         }
         $goodsCarSeriesModel = new GoodsCarSeriesModel();
-        $list = $goodsCarSeriesModel->getCarSeriesList($where,1);
+        $list = $goodsCarSeriesModel->getCarSeriesList($where,20);
         $this->assign('list',$list);
         $this->assign('q',$q);
         $this->assign('field',$field);
@@ -161,26 +161,35 @@ class AdminCarSeriesController extends AdminBaseController
      */
     public function delete()
     {
-        $goodsCarStyleModel = new GoodsCarStyleModel();
+        $goodsCarSeriesModel = new GoodsCarSeriesModel();
         $id                  = $this->request->param('id');
-        $findCarSeries = GoodsCarStyleModel::get($id);
+        $findCarSeries = GoodsCarSeriesModel::get($id);
 
-        if (empty($findCarSeries)||$findCarSeries['delete_time']>0) {
-            $this->error('车型不存在!');
+        if (empty($findCarSeries)) {
+            $this->error('车系不存在!');
+        }
+        // 存在车型不允许被删除
+        $rs = Db::name('goods_car_style')->where(['series_id'=>$id,'delete_time'=>0])->find();
+        if($rs){
+            $this->error('请先转移该车系下的车型');
+        }
+        // 存在商品不允许被删除
+        $rs = Db::name('goods')->where(['series_id'=>$id,'delete_time'=>0])->find();
+        if($rs){
+            $this->error('请先转移该车系下的车源');
         }
         $data   = [
             'object_id'   => $findCarSeries['id'],
             'create_time' => time(),
-            'table_name'  => 'goods_car_style',
-            'name'        => $findCarSeries['name']
+            'table_name'  => 'goods_brand',
+            'name'        => $findCarSeries['name'],
+            'user_id' =>cmf_get_current_admin_id()
         ];
-        $result = $goodsCarStyleModel
+        $result = $goodsCarSeriesModel
             ->where('id', $id)
             ->update(['delete_time' => time()]);
         if ($result) {
             Db::name('recycleBin')->insert($data);
-            // 删除参数配置表信息
-            Db::name('goods_car_config_values')->where(['car_style_id'=>$id])->delete();
             $this->success('删除成功!');
         } else {
             $this->error('删除失败');

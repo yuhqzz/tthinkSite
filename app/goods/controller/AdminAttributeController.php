@@ -148,6 +148,12 @@ class AdminAttributeController extends AdminBaseController
         if (empty($findCategory)) {
             $this->error('属性项不存在!');
         }
+        // 有车源引用不允许删除
+        $rs = Db::name('goods_attr')->where(['attr_id'=>$id])->find();
+        if($rs){
+            $this->error('该属性已经被车源引用，无法删除');
+        }
+
         $goodsAttributeMod = new GoodsAttributeModel();
         $result = $goodsAttributeMod->where('attr_id', $id)->delete();
         if ($result) {

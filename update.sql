@@ -126,14 +126,16 @@ CREATE TABLE IF NOT EXISTS `tx_goods_car_style` (
   `is_recommend` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否推荐,1:是,0:否',
   `car_config_tpl_id` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '参数配置模板id',
   `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `factory_price` decimal(10,2) DEFAULT '0.00' COMMENT '厂家指导价',
   `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT '车型描述',
   `more` text COMMENT '扩展属性',
   PRIMARY KEY (`id`),
-  KEY series_id('series_id'),
-  KEY brand_id('brand_id'),
+  KEY `series_id`(`series_id`),
+  KEY `brand_id`(`brand_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 汽车车型款式表';
-
+ALTER TABLE `tx_goods_car_style`
+ADD COLUMN `factory_price`  decimal(10,2) NOT NULL DEFAULT 0 AFTER `more`;
 
 --
 -- 汽车实体表
@@ -167,7 +169,7 @@ CREATE TABLE  IF NOT EXISTS `tx_goods` (
   `last_update` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最后更新时间',
   `sales_sum` int(11) DEFAULT '0' COMMENT '商品销量',
   `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
-  `model_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '属性模型id'
+  `model_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '属性模型id',
   PRIMARY KEY (`id`),
   KEY `cat_id` (`category_id`),
   KEY `last_update` (`last_update`),
@@ -220,6 +222,10 @@ CREATE TABLE `tx_goods_attribute` (
   KEY `cat_id` (`type_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 商品属性表';
 
+--
+-- 商品图片表
+-- 表的结构 `tx_goods_attribute`
+--
 CREATE TABLE `tx_goods_images` (
   `img_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '图片id 自增',
   `goods_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
@@ -228,3 +234,34 @@ CREATE TABLE `tx_goods_images` (
   PRIMARY KEY (`img_id`),
   KEY `goods_id` (`goods_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 商品图片表';
+
+--
+-- 经销商表
+-- 表的结构 `tx_goods_dealers`
+--
+CREATE TABLE `tx_goods_dealers` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id自增',
+  `name` varchar(500) NOT NULL DEFAULT '' COMMENT '经销商名称',
+  `address` varchar(255) NOT NULL DEFAULT '' COMMENT '经销商地址',
+  `telephone` varchar(255) NOT NULL DEFAULT '' COMMENT '经销商咨询电话',
+  PRIMARY KEY (`id`),
+  KEY `goods_id` (`goods_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 经销商表';
+
+--
+-- 经销商与车源关系表
+-- 表的结构 `tx_goods_dealers_map`
+--
+CREATE TABLE `tx_goods_dealers_map` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id自增',
+  `goods_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
+  `dealers_id` varchar(255) NOT NULL DEFAULT '' COMMENT '经销商_id',
+  `dealers_price` decimal(10,2) DEFAULT '0.00' COMMENT '裸车价',
+  
+  PRIMARY KEY (`id`),
+  KEY `goods_id` (`goods_id`),
+  KEY `dealers_id` (`dealers_id`),
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 商品图片表';
+
+ALTER TABLE `tx_recycle_bin`
+ADD COLUMN `user_id`  int(11) NOT NULL DEFAULT 0 AFTER `name`;

@@ -49,7 +49,7 @@ class AdminBrandController extends AdminBaseController
             }
         }
         $goodsBrandModel = new GoodsBrandModel();
-        $list = $goodsBrandModel->getBrandList($where,1);
+        $list = $goodsBrandModel->getBrandList($where,20);
         $this->assign('list',$list);
         $this->assign('q',$q);
         $this->assign('field',$field);
@@ -197,12 +197,27 @@ class AdminBrandController extends AdminBaseController
         if (empty($findBrandgory)) {
             $this->error('品牌不存在!');
         }
-
+        // 存在车系 不允许被删除
+        $rs = Db::name('goods_car_series')->where(['brand_id'=>$id,'delete_time'=>0])->find();
+        if($rs){
+            $this->error('请先转移该品牌下的车系');
+        }
+        // 存在车型不允许被删除
+        $rs = Db::name('goods_car_style')->where(['brand_id'=>$id,'delete_time'=>0])->find();
+        if($rs){
+            $this->error('请先转移该品牌下的车型');
+        }
+        // 存在商品不允许被删除
+        $rs = Db::name('goods')->where(['brand_id'=>$id,'delete_time'=>0])->find();
+        if($rs){
+            $this->error('请先转移该品牌下的车源');
+        }
         $data   = [
             'object_id'   => $findBrandgory['id'],
             'create_time' => time(),
             'table_name'  => 'goods_brand',
-            'name'        => $findBrandgory['name']
+            'name'        => $findBrandgory['name'],
+            'user_id' =>cmf_get_current_admin_id()
         ];
         $result = $goodsBrandModel
             ->where('id', $id)

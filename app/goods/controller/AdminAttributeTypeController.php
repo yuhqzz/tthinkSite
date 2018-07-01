@@ -83,12 +83,19 @@ class AdminAttributeTypeController extends AdminBaseController
     }
     public function delete()
     {
-        $id                  = $this->request->param('id');
+        $id  = $this->request->param('id');
 
         $result = Db::name('goods_type')
             ->where('id', $id)
             ->delete();
+        // 有车源引用不允许被删除
+        $rs = Db::name('goods')->where(['model_id'=>$id,'delete_time'=>0])->find();
+        if($rs){
+            $this->error('该模型已经被车源引用,不允许被删除');
+        }
         if ($result) {
+            // 删除该模型下所有属性
+            Db::name('goods_attribute')->where(['type_id'=>$id])->delete();
             $this->success('删除成功!');
         } else {
             $this->error('删除失败');

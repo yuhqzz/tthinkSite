@@ -44,7 +44,13 @@
                 <div class="form-group">
                     <label for="input-name" class="col-sm-3 control-label"><span class="form-required">*</span>车型名称</label>
                     <div class="col-md-6 col-sm-10">
-                        <input type="text" class="form-control" id="input-name" name="name" placeholder="请我输入车型名称">
+                        <input type="text" class="form-control" id="input-name" name="name" placeholder="请输入车型名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-factory_price" class="col-sm-3 control-label"><span class="form-required">*</span>厂家指导价(万元)</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-factory_price" name="factory_price" placeholder="厂家指导价">
                     </div>
                 </div>
                 <div class="form-group">
@@ -100,10 +106,11 @@
 </div>
 <script type="text/javascript" src="__STATIC__/js/admin.js"></script>
 <script type="text/javascript">
+    var domainURL = 'http://'+"{$_SERVER['HTTP_HOST']}";
     $(function () {
         $('#input-brand').change(function () {
             var  brand_id = $(this).val();
-            var url = 'http://www.txqc.com'+"{:url('AdminCarSeries/getSeriesByBrandId')}";
+            var url = domainURL+"{:url('AdminCarSeries/getSeriesByBrandId')}";
             var seriesSelect = $('#input-car-series');
             $.get(url,{brand_id:brand_id},function (data) {
                 seriesSelect.empty();

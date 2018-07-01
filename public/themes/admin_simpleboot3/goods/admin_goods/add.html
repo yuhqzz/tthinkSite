@@ -53,7 +53,6 @@
                 <a class="list-group-item" href="#A" data-toggle="tab">通用设置</a>
                 <a class="list-group-item" href="#B" data-toggle="tab">属性设置</a>
                 <a class="list-group-item" href="#C" data-toggle="tab">图片上传</a>
-                <a class="list-group-item" href="#D" data-toggle="tab">额外参数设置</a>
             </div>
         </div>
         <div class="col-md-8">
@@ -73,38 +72,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="input-name"><span class="form-required">*</span>名称
-                                    <span class="field-desc"> 汽车的名称</span>
-                            </label>
-                            <div>
-                                <input type="text" class="form-control wd-6" id="input-name" name="post[name]">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="input-goods_remark"><span class="form-required">*</span>简介
-                                <span class="field-desc">汽车的简单描述</span>
-                            </label>
-                            <div>
-                                <textarea class="form-control" name="post[goods_remark]"
-                                          id="input-goods_remark" rows="5"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="input-grade"><span class="form-required">*</span>等级
-                                <span class="field-desc">汽车的等级</span>
-                            </label>
-                            <div>
-                                <select class="form-control wd-4" name="post[grade_id]" id="input-grade">
-                                    <option value="0">请选择</option>
-                                    <foreach name="carGradeList" item="vo" key="k">
-                                        <option value="{$k}">{$vo}</option>
-                                    </foreach>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="input-grade"><span class="form-required">*</span>品牌
+                            <label for="input-brand"><span class="form-required">*</span>品牌
                                 <span class="field-desc">汽车的品牌</span>
                             </label>
                             <div>
@@ -138,11 +106,44 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label for="input-name"><span class="form-required">*</span>厂家指导价
+                            <label for="input-grade"><span class="form-required">*</span>等级
+                                <span class="field-desc">汽车的等级</span>
+                            </label>
+                            <div>
+                                <select class="form-control wd-4" name="post[grade_id]" id="input-grade">
+                                    <option value="0">请选择</option>
+                                    <noempty name="carGradeList">
+                                        <foreach name="carGradeList" item="vo" key="k">
+                                            <option value="{$k}">{$vo}</option>
+                                        </foreach>
+                                    </noempty>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-name"><span class="form-required">*</span>名称
+                                <span class="field-desc"> 汽车的名称</span>
+                            </label>
+                            <div>
+                                <input type="text" class="form-control wd-6" id="input-name" name="post[name]">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-goods_remark"><span class="form-required">*</span>简介
+                                <span class="field-desc">汽车的简单描述</span>
+                            </label>
+                            <div>
+                                <textarea class="form-control" name="post[goods_remark]" id="input-goods_remark" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-factory_price"><span class="form-required">*</span>厂家指导价
                                 <span class="field-desc"> 厂家指导零售价(单位 万元)</span></label>
                             <div class="wd-4">
-                                <input type="text" class="form-control" id="input-alias" name="post[factory_price]">
+                                <input type="text" class="form-control" id="input-factory_price" name="post[factory_price]">
                             </div>
                         </div>
                         <div class="form-group">
@@ -150,13 +151,6 @@
                                 <span class="field-desc"> 市场零售价(单位 万元)</span></label>
                             <div class="wd-4">
                                 <input type="text" class="form-control" id="input-cost_price" name="post[market_price]">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="input-shop_price"><span class="form-required">*</span>本店售价
-                                <span class="field-desc"> 本店零售价(单位 万元)</span></label>
-                            <div class="wd-4">
-                                <input type="text" class="form-control" id="input-shop_price" name="post[shop_price]">
                             </div>
                         </div>
                         <div class="form-group">
@@ -184,7 +178,6 @@
                         <div class="form-group">
                             <label>详情描述</label>
                             <div>
-                                <!--<textarea class="form-control" name="description" id="input-description"></textarea>-->
                                 <script type="text/plain" id="content" name="post[description]"></script>
                             </div>
                         </div>
@@ -195,7 +188,7 @@
                                 <span class="field-desc">商品模型</span>
                             </label>
                             <div >
-                                <select class="form-control wd-4"  id="input-model" name="model_id">
+                                <select class="form-control wd-4"  id="input-model" name="post[model_id]">
                                     <option value="0">请选择</option>
                                     <noempty name="modelList">
                                         <foreach name="modelList" item ="vo">
@@ -215,13 +208,6 @@
                         <div class="form-group img-upload">
                             <ul id="photos" class="pic-list list-unstyled form-inline"></ul>
                             <a href="javascript:uploadMultiImage('图片上传','#photos','photos-item-tpl');" class="img-upload-btn"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;添加图片</a>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="D">
-                        <div class="form-group">
-                            <label for="input-grade">授权经销商
-                                <span class="field-desc">汽车的品牌供应商</span>
-                            </label>
                         </div>
                     </div>
                 </div>
@@ -249,12 +235,6 @@
             editorcontent.sync();
         } catch (err) {
         }
-/*
-        $('.btn-cancel-thumbnail').click(function () {
-            $('#thumbnail-preview').attr('src', '__TMPL__/public/assets/images/default-thumbnail.png');
-            $('#thumbnail').val('');
-        });*/
-
         $('#input-brand').change(function () {
             var  brand_id = $(this).val();
             //console.log(GV.HOST);
@@ -273,7 +253,6 @@
                             seriesSelect.append("<option value='"+items[i].id+"'>"+items[i].name+"</option>");
                         }
                         // 初始化车型下拉选框
-
                         var firstSeries = items[0].series;
                         if(firstSeries.length>0){
                             for (var i = 0;i<firstSeries.length;i++) {
@@ -325,57 +304,6 @@
                     attr_table.empty();
                     attr_table.append(data.data);
                 }
-                //debugger;
-                //console.log(data);
-                /*if(data.code == 1){
-                    attr_table.empty();
-                    attr_table.append('<tr><td colspan="2"><b>商品属性</b>：</td> </tr>');
-                    if(data.data.length>0){
-                        for (var i = 0,len=data.data.length;i<len;i++) {
-                            var item = data.data[i];
-                            if(item.attr_type ==1 ){
-                                var tr = '';
-                                if(item.attr_values.length>0){
-                                    var selectStr = '<div class="col-xs-4"><select name="attr['+item.attr_id+']" class="form-control">';
-                                    for(var j=0,l=item.attr_values.length;j<l;j++){
-                                        selectStr +="<option value='"+item.attr_values[j]+"'>"+item.attr_values[j]+"</option>";
-                                    }
-                                    selectStr +="</select></div>";
-                                }
-                                tr += "<tr class=\"attr_"+item.attr_id+"\"><td>"+item.attr_name+"</td><td>"
-                                    +selectStr+
-                                    "</td></tr>";
-                                // 单选 select
-                                attr_table.append(tr);
-                                tr = '';
-                            }else if(data.data[i].attr_type ==2){
-                                // 多选 checkbox
-                                var tr = '';
-                                if(item.attr_values.length>0){
-                                    var checkboxStr = '<div class="col-xs-12"><label class="checkbox" style="margin-left: 20px;font-weight: normal;"><input type="checkbox"  onclick="tdCheckAll(this,'+item.attr_id+')">全选</label>';
-                                    for(var j=0,l=item.attr_values.length;j<l;j++){
-                                        checkboxStr +="<label class='checkbox checkbox-inline'><input type=\"checkbox\" name=\"attr["+item.attr_id+"][]\" value='"+item.attr_values[j]+"'>"+item.attr_values[j]+"</label>";
-                                    }
-                                }
-                                tr += "</div><tr class=\"attr_+item.attr_id+\"><td>"+item.attr_name+"</td><td>"
-                                   +checkboxStr+
-                                    "</td></tr>";
-                                attr_table.append(tr);
-                                tr = '';
-                            }else{
-                                // 唯一 input
-                                var tr = '';
-                                tr += "<tr class=\"attr_+item.attr_id+\"><td>"+item.attr_name+"</td>" +
-                                    "<td>" +
-                                    "<div class='form-group'><div class='col-xs-8'><input class='form-control'  type=\"text\"  value=\"\" name=\"attr["+item.attr_id+"]\"></div></div>" +
-                                    "</td></tr>";
-                                attr_table.append(tr);
-                                tr = '';
-                            }
-                        }
-
-                    }
-                }*/
             })
         })
     });

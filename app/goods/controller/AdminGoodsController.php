@@ -9,6 +9,8 @@
 namespace app\goods\controller;
 
 
+use app\goods\model\GoodsCarSeriesModel;
+use app\goods\model\GoodsCarStyleModel;
 use app\goods\model\GoodsModel;
 use app\goods\model\GoodsCategoryModel;
 use app\goods\model\GoodsBrandModel;
@@ -39,6 +41,7 @@ class AdminGoodsController extends AdminBaseController
         $order = '';
         if($this->request->post()){
             $query_params = $this->request->post();
+
             // 带搜索条件
            $category_id =  intval(I('category_id'));
            if($category_id){
@@ -49,7 +52,7 @@ class AdminGoodsController extends AdminBaseController
             if($grade_id){
                 $where['g.grade_id'] = $grade_id;
             }
-           $brand_id =  I('brand_id','','intval');
+           $brand_id =  I('brand_id');
             if($brand_id){
                 $where['g.brand_id'] = $brand_id;
             }
@@ -57,7 +60,7 @@ class AdminGoodsController extends AdminBaseController
             if($series_id){
                 $where['g.series_id'] = (int)$series_id;
             }
-            $select_time =  I('select_time','','intval');
+            $select_time =  I('select_time');
             if($select_time){
                 if($select_time == 1){
                     $timeField = 'g.create_time';
@@ -77,34 +80,34 @@ class AdminGoodsController extends AdminBaseController
                     $where[$timeField] = ['elt',$end_time];
                 }
             }
-            $is_on_sale =  I('is_on_sale',0,'intval');
+            $is_on_sale =  I('is_on_sale');
             if($is_on_sale == 1){
                 $where['g.is_on_sale'] = 1;// 在售
             }elseif ($is_on_sale == 2){
                 $where['g.is_on_sale'] = 0;// 待售
             }
 
-            $is_recommend =  I('is_recommend',0,'intval');
+            $is_recommend =  I('is_recommend');
             if($is_recommend == 1){
                 $where['g.is_recommend'] = 1;// 已推荐
             }elseif ($is_recommend == 2){
                 $where['g.is_recommend'] = 0;// 未推荐
             }
 
-            $is_new =  I('is_new',0,'intval');
+            $is_new =  I('is_new');
             if($is_new == 1){
                 $where['g.is_new'] = 1;// 新品
             }elseif ($is_new == 2){
                 $where['g.is_new'] = 0;// 非新品
             }
 
-            $is_hot =  I('is_hot',0,'intval');
+            $is_hot =  I('is_hot');
             if($is_hot == 1){
                 $where['g.is_hot'] = 1;// 热门
             }elseif ($is_hot == 2){
                 $where['g.is_hot'] = 0;// 非热门
             }
-            $keyword =  I('keyword','','trim');
+            $keyword =  I('keyword');
             if($keyword){
                 $where['g.name'] = ['like',"{$keyword}"];// 名称模糊
             }
@@ -125,7 +128,7 @@ class AdminGoodsController extends AdminBaseController
             $this->assign('query_params',$query_params);
            // dump($query_params);exit;
         }
-        $list =  $goodsModel->getGoodsList($where,$order,10);
+        $list =  $goodsModel->getGoodsList($where,$order,40);
 
        // dump($list->toArray());exit;
         $this->assign('goods',$list);
@@ -199,10 +202,22 @@ class AdminGoodsController extends AdminBaseController
             $goodsTypeList = $goodsTypeList?$goodsTypeList->toArray():[];
             $this->assign('modelList',$goodsTypeList);
 
+            // 获取汽车车系
+            $goodsSeriesModel = new GoodsCarSeriesModel();
+            $seriesList =  $goodsSeriesModel->getCarSeriesByBrandId($goods_data['brand_id']);
+            $this->assign('seriesList',$seriesList);
+
+            // 获取汽车车型
+            $goodsCarStyleModel = new GoodsCarStyleModel();
+            $carStyleList =  $goodsCarStyleModel->getCarStyleDataBySeriesId($goods_data['series_id']);
+            $this->assign('carStyleList',$carStyleList);
+
             $attributeHtml = $this->_getAttributeHtml($goods_data['model_id'],$goods_data['id']);
             $this->assign('attributeHtml',$attributeHtml->getData());
             $goodsImagesHtml =  $this->_getGoodsImagesHtml($goods_data['id']);
             $this->assign('goodsImagesHtml',$goodsImagesHtml->getData());
+
+
 
             return $this->fetch();
         } else {
@@ -214,36 +229,46 @@ class AdminGoodsController extends AdminBaseController
     public function editPost()
     {
         if($this->request->isPost()){
-
-            $this->success('保存成功!');
+            $data = $this->request->post();
+            $goods_id =  (int)$data['goods_id'];
+            if(empty($goods_id)){
+               $this->error('保存失败!');
+            }
+            $result = $this->validate($data['post'], 'Goods.edit');
+            if ($result !== true) {
+                $this->error($result);
+            } else {
+                $goodsModel = new GoodsModel();
+                $id = $goodsModel->saveGoodsData($goods_id,$data);
+                if(is_numeric($id)){
+                    $this->success('保存成功!', url('AdminGoods/index'));
+                }else{
+                    $this->error('保存失败!');
+                }
+            }
         }
     }
 
     public function listOrder()
     {
-        parent::listOrders(Db::name('goods_attribute'));
-        // 清缓存
-        $goodsAttributeMod = new GoodsAttributeModel();
-        $goodsAttributeMod->clearCache(0,true);
+        parent::listOrders(Db::name('goods'));
         $this->success("排序更新成功！", '');
     }
 
     public function delete()
     {
-        $id = $this->request->param('id');
-        if(!$id){
-            $this->error('删除失败');
-        }
-        $goodsAttributeMod = new GoodsAttributeModel();
-        $findCategory = $goodsAttributeMod::get($id);
 
-        if (empty($findCategory)) {
-            $this->error('属性项不存在!');
-        }
-        $goodsAttributeMod = new GoodsAttributeModel();
-        $result = $goodsAttributeMod->where('attr_id', $id)->delete();
+        $params   = $this->request->param();
+       if(isset($params['id'])){
+           // 单个删除
+           $data['id'] = $this->request->param('id');
+       }elseif(isset($params['ids'])){
+           // 批量删除
+           $data['ids'] = $this->request->param('ids/a');
+       }
+        $goodsModel = new GoodsModel();
+        $result = $goodsModel->deleteGoods($data);
         if ($result) {
-            $goodsAttributeMod->clearCache($findCategory['type_id']);
             $this->success('删除成功!');
         } else {
             $this->error('删除失败');

@@ -11,6 +11,7 @@
 namespace app\goods\controller;
 
 use cmf\controller\AdminBaseController;
+use Dompdf\Exception;
 use think\db;
 
 /**
@@ -56,4 +57,29 @@ class AdminController extends AdminBaseController
         echo  0;
     }
 
+    /**
+     *  删除商品图片
+     * @return bool|int|void
+     *
+     * @throws \think\Exception
+     */
+    public function removeGoodsImages(){
+        $img_id = I('id'); // 表主键id名
+        $goods_id = I('goods_id'); // 表主键id名
+        if(empty($img_id)||empty($goods_id)) {
+            echo 0;
+            return false;
+        }
+        $wh['img_id'] = $img_id;
+        $wh['goods_id'] = $goods_id;
+        try{
+            $rs = db::name('goods_images')->where($wh)->delete();
+            if(is_numeric($rs)){
+                echo 1;
+                return ;
+            }
+        }catch (Exception $e){
+            return 0;
+        }
+    }
 }
