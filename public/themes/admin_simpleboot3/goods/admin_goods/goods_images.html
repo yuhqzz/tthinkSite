@@ -1,7 +1,7 @@
 <noempty name="goodsImages">
     <foreach name="goodsImages" item="vo" key="key">
         <li id="saved-image{$vo.img_id}">
-            <input id="photo-{$vo.img_id}" type="hidden" name="images[photo_urls][$vo.img_id]" value="{$vo.image_url}">
+            <input id="photo-{$vo.img_id}" type="hidden" name="images[photo_urls][]" value="{$vo.image_url}">
             <input class="form-control" id="photo-{$vo.img_id}-name" type="text" name="images[photo_names][]" value="{$vo.name}" readonly
                    style="width: 200px;" title="图片名称" readonly>
             <img id="photo-{$key}-preview" src="{:cmf_get_image_preview_url($vo['image_url'])}" style="height:36px;width: 36px;"

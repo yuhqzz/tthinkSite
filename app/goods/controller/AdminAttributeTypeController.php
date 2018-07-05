@@ -12,9 +12,26 @@ namespace app\goods\controller;
 use cmf\controller\AdminBaseController;
 use think\db;
 
-
+/**
+ * Class AdminAttributeTypeController
+ * @package app\goods\controller
+ */
 class AdminAttributeTypeController extends AdminBaseController
 {
+
+    /**
+     * 商品属性模型列表
+     * @adminMenu(
+     *     'name'   => '属性模型',
+     *     'parent' => 'goods/AdminIndex/default',
+     *     'display'=> true,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '属性模型管理',
+     *     'param'  => ''
+     * )
+     */
     public function index()
     {
         $data = Db::name('goods_type')->select();
@@ -22,11 +39,37 @@ class AdminAttributeTypeController extends AdminBaseController
         $this->assign('data',$data);
         return $this->fetch();
     }
-
+    /**
+     * 添加属性模型
+     * @adminMenu(
+     *     'name'   => '添加属性模型',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '添加属性模型',
+     *     'param'  => ''
+     * )
+     */
     public function add()
     {
         return $this->fetch();
     }
+
+    /**
+     * 添加属性模型提交
+     * @adminMenu(
+     *     'name'   => '添加属性模型提交',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '添加属性模型提交',
+     *     'param'  => ''
+     * )
+     */
     public function addPost()
     {
         if ($this->request->isPost()) {
@@ -48,6 +91,20 @@ class AdminAttributeTypeController extends AdminBaseController
         }
 
     }
+
+    /**
+     * 编辑属性模型
+     * @adminMenu(
+     *     'name'   => '编辑属性模型',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '编辑属性模型',
+     *     'param'  => ''
+     * )
+     */
     public function edit()
     {
         $id = $this->request->param('id', 0, 'intval');
@@ -63,6 +120,20 @@ class AdminAttributeTypeController extends AdminBaseController
         }
 
     }
+
+    /**
+     * 编辑属性模型提交
+     * @adminMenu(
+     *     'name'   => '编辑属性模型提交',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '编辑属性模型提交',
+     *     'param'  => ''
+     * )
+     */
     public function editPost()
     {
         if ($this->request->isPost()) {
@@ -81,6 +152,20 @@ class AdminAttributeTypeController extends AdminBaseController
             }
         }
     }
+
+    /**
+     * 删除属性模型提交
+     * @adminMenu(
+     *     'name'   => '删除属性模型提交',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '删除属性模型提交',
+     *     'param'  => ''
+     * )
+     */
     public function delete()
     {
         $id  = $this->request->param('id');

@@ -134,8 +134,7 @@ CREATE TABLE IF NOT EXISTS `tx_goods_car_style` (
   KEY `series_id`(`series_id`),
   KEY `brand_id`(`brand_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 汽车车型款式表';
-ALTER TABLE `tx_goods_car_style`
-ADD COLUMN `factory_price`  decimal(10,2) NOT NULL DEFAULT 0 AFTER `more`;
+
 
 --
 -- 汽车实体表

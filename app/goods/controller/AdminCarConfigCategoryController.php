@@ -12,15 +12,18 @@ namespace app\goods\controller;
 use cmf\controller\AdminBaseController;
 use think\db;
 
-
+/**
+ * Class AdminCarConfigCategoryController
+ * @package app\goods\controller
+ */
 class AdminCarConfigCategoryController extends AdminBaseController
 {
 
     /**
      * 汽车参数配置分类列表
      * @adminMenu(
-     *     'name'   => '参数配置分类管理',
-     *     'parent' => 'goods/AdminCarConfig/default',
+     *     'name'   => '参数配置',
+     *     'parent' => 'goods/AdminIndex/default',
      *     'display'=> true,
      *     'hasView'=> true,
      *     'order'  => 10000,
@@ -41,15 +44,15 @@ class AdminCarConfigCategoryController extends AdminBaseController
     }
 
     /**
-     * 添加商品分类
+     * 添加汽车参数配置分类
      * @adminMenu(
-     *     'name'   => '添加商品分类',
+     *     'name'   => '添加汽车参数配置分类',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> true,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '添加商品分类',
+     *     'remark' => '添加汽车参数配置分类',
      *     'param'  => ''
      * )
      */
@@ -59,15 +62,15 @@ class AdminCarConfigCategoryController extends AdminBaseController
     }
 
     /**
-     * 添加商品分类提交
+     * 添加汽车参数配置分类提交
      * @adminMenu(
-     *     'name'   => '添加商品分类提交',
+     *     'name'   => '添加汽车参数配置分类提交',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> false,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '添加商品分类提交',
+     *     'remark' => '添加汽车参数配置分类提交',
      *     'param'  => ''
      * )
      */
@@ -94,15 +97,15 @@ class AdminCarConfigCategoryController extends AdminBaseController
     }
 
     /**
-     * 编辑商品分类
+     * 编辑汽车参数配置分类
      * @adminMenu(
-     *     'name'   => '编辑商品分类',
+     *     'name'   => '编辑汽车参数配置分类',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> true,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '编辑商品分类',
+     *     'remark' => '编辑汽车参数配置分类',
      *     'param'  => ''
      * )
      */
@@ -121,15 +124,15 @@ class AdminCarConfigCategoryController extends AdminBaseController
     }
 
     /**
-     * 编辑商品分类提交
+     * 编辑汽车参数配置分类提交
      * @adminMenu(
-     *     'name'   => '编辑商品分类提交',
+     *     'name'   => '编辑汽车参数配置分类提交',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> false,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '编辑商品分类提交',
+     *     'remark' => '编辑汽车参数配置分类提交',
      *     'param'  => ''
      * )
      */
@@ -153,7 +156,7 @@ class AdminCarConfigCategoryController extends AdminBaseController
     }
 
     /**
-     * 商品分类排序
+     * 编辑汽车参数配置分类排序
      * @adminMenu(
      *     'name'   => '商品分类排序',
      *     'parent' => 'index',
@@ -172,15 +175,15 @@ class AdminCarConfigCategoryController extends AdminBaseController
     }
 
     /**
-     * 删除商品分类
+     * 编辑汽车参数配置分类
      * @adminMenu(
-     *     'name'   => '删除商品分类',
+     *     'name'   => '编辑汽车参数配置分类',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> false,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '删除商品分类',
+     *     'remark' => '编辑汽车参数配置分类',
      *     'param'  => ''
      * )
      */
@@ -194,7 +197,6 @@ class AdminCarConfigCategoryController extends AdminBaseController
         if (empty($findCategory)) {
             $this->error('分类不存在!');
         }
-//判断此分类有无子分类（不算被删除的子分类）
         $goodsCarConfigItemsCount =  Db::name('goodsCarConfigItems')->where(['cate_id' => $id])->count();
 
         if ($goodsCarConfigItemsCount > 0) {

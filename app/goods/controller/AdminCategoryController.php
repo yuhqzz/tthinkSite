@@ -13,20 +13,23 @@ use app\goods\model\GoodsCategoryModel;
 use cmf\controller\AdminBaseController;
 use think\db;
 
-
+/**
+ * Class AdminCategoryController
+ * @package app\goods\controller
+ */
 class AdminCategoryController extends AdminBaseController
 {
 
     /**
-     * 商品分类列表
+     * 分类列表
      * @adminMenu(
-     *     'name'   => '分类管理',
+     *     'name'   => '汽车分类',
      *     'parent' => 'goods/AdminIndex/default',
      *     'display'=> true,
      *     'hasView'=> true,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '商品分类列表',
+     *     'remark' => '分类列表',
      *     'param'  => ''
      * )
      */
@@ -42,15 +45,15 @@ class AdminCategoryController extends AdminBaseController
     }
 
     /**
-     * 添加商品分类
+     * 添加分类
      * @adminMenu(
-     *     'name'   => '添加商品分类',
+     *     'name'   => '添加分类',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> true,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '添加商品分类',
+     *     'remark' => '添加分类',
      *     'param'  => ''
      * )
      */
@@ -65,15 +68,15 @@ class AdminCategoryController extends AdminBaseController
     }
 
     /**
-     * 添加商品分类提交
+     * 添加分类提交
      * @adminMenu(
-     *     'name'   => '添加商品分类提交',
+     *     'name'   => '添加分类提交',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> false,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '添加商品分类提交',
+     *     'remark' => '添加分类提交',
      *     'param'  => ''
      * )
      */
@@ -100,15 +103,15 @@ class AdminCategoryController extends AdminBaseController
     }
 
     /**
-     * 编辑商品分类
+     * 编辑分类
      * @adminMenu(
-     *     'name'   => '编辑商品分类',
+     *     'name'   => '编辑分类',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> true,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '编辑商品分类',
+     *     'remark' => '编辑分类',
      *     'param'  => ''
      * )
      */
@@ -129,15 +132,15 @@ class AdminCategoryController extends AdminBaseController
     }
 
     /**
-     * 编辑商品分类提交
+     * 编辑分类提交
      * @adminMenu(
-     *     'name'   => '编辑商品分类提交',
+     *     'name'   => '编辑分类提交',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> false,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '编辑商品分类提交',
+     *     'remark' => '编辑分类提交',
      *     'param'  => ''
      * )
      */
@@ -163,15 +166,15 @@ class AdminCategoryController extends AdminBaseController
     }
 
     /**
-     * 商品分类选择对话框
+     * 分类选择对话框
      * @adminMenu(
-     *     'name'   => '商品分类选择对话框',
+     *     'name'   => '分类选择对话框',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> true,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '商品分类选择对话框',
+     *     'remark' => '分类选择对话框',
      *     'param'  => ''
      * )
      */
@@ -204,15 +207,15 @@ tpl;
     }
 
     /**
-     * 商品分类排序
+     * 分类排序
      * @adminMenu(
-     *     'name'   => '商品分类排序',
+     *     'name'   => '分类排序',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> false,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '商品分类排序',
+     *     'remark' => '分类排序',
      *     'param'  => ''
      * )
      */
@@ -223,15 +226,15 @@ tpl;
     }
 
     /**
-     * 删除商品分类
+     * 删除分类
      * @adminMenu(
-     *     'name'   => '删除商品分类',
+     *     'name'   => '删除分类',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> false,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '删除商品分类',
+     *     'remark' => '删除分类',
      *     'param'  => ''
      * )
      */

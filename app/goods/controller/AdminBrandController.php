@@ -14,11 +14,24 @@ use app\goods\model\GoodsBrandModel;
 use cmf\controller\AdminBaseController;
 use think\db;
 
-
+/**
+ * Class AdminBrandController
+ * @package app\goods\controller
+ */
 class AdminBrandController extends AdminBaseController
 {
     /**
-     * 添加商品品牌列表
+     * 商品品牌列表
+     * @adminMenu(
+     *     'name'   => '品牌管理',
+     *     'parent' => 'goods/AdminIndex/default',
+     *     'display'=> true,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '商品品牌列表',
+     *     'param'  => ''
+     * )
      */
     public function index()
     {
@@ -58,6 +71,16 @@ class AdminBrandController extends AdminBaseController
 
     /**
      * 添加商品品牌
+     * @adminMenu(
+     *     'name'   => '添加商品品牌',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '添加商品品牌',
+     *     'param'  => ''
+     * )
      */
     public function add()
     {
@@ -66,6 +89,16 @@ class AdminBrandController extends AdminBaseController
 
     /**
      * 添加商品品牌提交
+     * @adminMenu(
+     *     'name'   => '添加品牌',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '添加品牌',
+     *     'param'  => ''
+     * )
      */
     public function addPost()
     {
@@ -230,6 +263,19 @@ class AdminBrandController extends AdminBaseController
         }
     }
 
+    /**
+     * 商品品牌显示/隐藏
+     * @adminMenu(
+     *     'name'   => '商品品牌显示/隐藏',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '商品品牌显示',
+     *     'param'  => ''
+     * )
+     */
     public function updateShowStatus(){
         $id = intval(input('get.id'));
         $is_show = intval(input('get.is_show'));

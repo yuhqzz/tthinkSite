@@ -19,10 +19,26 @@ use cmf\controller\AdminBaseController;
 use think\db;
 use app\goods\service\GoodsService;
 
-
+/**
+ * Class AdminGoodsController
+ * @package app\goods\controller
+ */
 class AdminGoodsController extends AdminBaseController
 {
 
+    /**
+     * 车源列表
+     * @adminMenu(
+     *     'name'   => '车源管理',
+     *     'parent' => 'goods/AdminIndex/default',
+     *     'display'=> true,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '车源列表',
+     *     'param'  => ''
+     * )
+     */
     public function index()
     {
         $goodsModel = new GoodsModel();
@@ -135,6 +151,19 @@ class AdminGoodsController extends AdminBaseController
         return $this->fetch();
     }
 
+    /**
+     * 发布车源
+     * @adminMenu(
+     *     'name'   => '发布车源',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '发布车源',
+     *     'param'  => ''
+     * )
+     */
     public function add()
     {
         // 获取 商品分类
@@ -154,6 +183,19 @@ class AdminGoodsController extends AdminBaseController
         return $this->fetch();
     }
 
+    /**
+     * 发布车源提交
+     * @adminMenu(
+     *     'name'   => '发布车源提交',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '发布车源提交',
+     *     'param'  => ''
+     * )
+     */
     public function addPost()
     {
         if($this->request->isPost()){
@@ -175,6 +217,19 @@ class AdminGoodsController extends AdminBaseController
         }
     }
 
+    /**
+     * 编辑车源
+     * @adminMenu(
+     *     'name'   => '编辑车源',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '编辑车源',
+     *     'param'  => ''
+     * )
+     */
     public function edit()
     {
         $id = $this->request->param('id', 0, 'intval');
@@ -226,6 +281,19 @@ class AdminGoodsController extends AdminBaseController
 
     }
 
+    /**
+     * 编辑车源提交
+     * @adminMenu(
+     *     'name'   => '编辑车源提交',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '编辑车源提交',
+     *     'param'  => ''
+     * )
+     */
     public function editPost()
     {
         if($this->request->isPost()){
@@ -248,13 +316,38 @@ class AdminGoodsController extends AdminBaseController
             }
         }
     }
-
+    /**
+     * 车源排序
+     * @adminMenu(
+     *     'name'   => '车源排序',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '车源排序',
+     *     'param'  => ''
+     * )
+     */
     public function listOrder()
     {
         parent::listOrders(Db::name('goods'));
         $this->success("排序更新成功！", '');
     }
 
+    /**
+     * 车源删除
+     * @adminMenu(
+     *     'name'   => '车源删除',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '车源删除',
+     *     'param'  => ''
+     * )
+     */
     public function delete()
     {
 
@@ -274,6 +367,19 @@ class AdminGoodsController extends AdminBaseController
             $this->error('删除失败');
         }
     }
+    /**
+     * 获取品牌下所有车系
+     * @adminMenu(
+     *     'name'   => '获取品牌下所有车系',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '获取品牌下所有车系',
+     *     'param'  => ''
+     * )
+     */
     public function ajaxGetCarSeriesByBrandId(){
         $brand_id = $this->request->param('brand_id');
         $brand_id = intval($brand_id);
@@ -284,7 +390,19 @@ class AdminGoodsController extends AdminBaseController
         }
         $this->result($seriesData,1);
     }
-
+    /**
+     * 获取车系下所有车型
+     * @adminMenu(
+     *     'name'   => '获取车系下所有车型',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '获取车系下所有车型',
+     *     'param'  => ''
+     * )
+     */
     public function ajaxGetCarStyleBySeriesId(){
         $series_id = $this->request->param('series_id');
         $series_id = intval($series_id);
@@ -295,7 +413,19 @@ class AdminGoodsController extends AdminBaseController
         }
         $this->result($styleData,1);
     }
-
+    /**
+     * 获取车型属性
+     * @adminMenu(
+     *     'name'   => '获取车型属性',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '获取车型属性',
+     *     'param'  => ''
+     * )
+     */
     public function ajaxGetGoodsAttributes(){
         $type_id = $this->request->param('model_id');
         $type_id = intval($type_id);
@@ -305,7 +435,19 @@ class AdminGoodsController extends AdminBaseController
         $this->result($attrData,1);
     }
 
-
+    /**
+     * 车源上架
+     * @adminMenu(
+     *     'name'   => '车源上架',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '车源上架',
+     *     'param'  => ''
+     * )
+     */
     public function toOnSale(){
         $param           = $this->request->param();
         $goodsModel = new GoodsModel();
@@ -326,6 +468,19 @@ class AdminGoodsController extends AdminBaseController
             $this->success("下架成功！", '');
         }
     }
+    /**
+     * 车源热门
+     * @adminMenu(
+     *     'name'   => '车源热门',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '车源热门',
+     *     'param'  => ''
+     * )
+     */
     public function toHot(){
         $param           = $this->request->param();
         $goodsModel = new GoodsModel();
@@ -346,6 +501,19 @@ class AdminGoodsController extends AdminBaseController
             $this->success("取消热卖成功！", '');
         }
     }
+    /**
+     * 车源推荐
+     * @adminMenu(
+     *     'name'   => '车源推荐',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '车源推荐',
+     *     'param'  => ''
+     * )
+     */
     public function recommend(){
         $param           = $this->request->param();
         $goodsModel = new GoodsModel();
@@ -366,7 +534,19 @@ class AdminGoodsController extends AdminBaseController
             $this->success("取消推荐成功！", '');
         }
     }
-
+    /**
+     * 置新品
+     * @adminMenu(
+     *     'name'   => '置新品',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '置新品',
+     *     'param'  => ''
+     * )
+     */
     public function toIsNew(){
         $param           = $this->request->param();
         $goodsModel = new GoodsModel();

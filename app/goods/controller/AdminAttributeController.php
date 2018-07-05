@@ -13,10 +13,26 @@ use app\goods\model\GoodsAttributeModel;
 use cmf\controller\AdminBaseController;
 use think\db;
 
-
+/**
+ * Class AdminAttributeController
+ * @package app\goods\controller
+ */
 class AdminAttributeController extends AdminBaseController
 {
 
+    /**
+     * 商品属性列表
+     * @adminMenu(
+     *     'name'   => '商品属性列表',
+     *     'parent' => 'goods/AdminAttributeType/index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '商品属性列表',
+     *     'param'  => ''
+     * )
+     */
     public function index()
     {
         $cid =  $this->request->param('type_id');
@@ -33,7 +49,19 @@ class AdminAttributeController extends AdminBaseController
         $this->assign('cid', $cid);
         return $this->fetch();
     }
-
+    /**
+     * 添加模型属性
+     * @adminMenu(
+     *     'name'   => '添加模型属性',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '添加模型属性',
+     *     'param'  => ''
+     * )
+     */
     public function add()
     {
         $cid =  $this->request->param('type_id');
@@ -48,7 +76,19 @@ class AdminAttributeController extends AdminBaseController
         $this->assign($data);
         return $this->fetch();
     }
-
+    /**
+     * 添加模型属性提交
+     * @adminMenu(
+     *     'name'   => '添加模型属性提交',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '添加模型属性提交',
+     *     'param'  => ''
+     * )
+     */
     public function addPost()
     {
         if($this->request->isPost()){
@@ -73,7 +113,19 @@ class AdminAttributeController extends AdminBaseController
             $this->success('添加成功!', url('AdminAttribute/add',['type_id'=>$data['type_id']]));
         }
     }
-
+    /**
+     * 编辑模型属性
+     * @adminMenu(
+     *     'name'   => '编辑模型属性',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '编辑模型属性',
+     *     'param'  => ''
+     * )
+     */
     public function edit()
     {
         $id = $this->request->param('id', 0, 'intval');
@@ -100,7 +152,19 @@ class AdminAttributeController extends AdminBaseController
         }
 
     }
-
+    /**
+     * 编辑模型属性提交
+     * @adminMenu(
+     *     'name'   => '编辑模型属性提交',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '编辑模型属性提交',
+     *     'param'  => ''
+     * )
+     */
     public function editPost()
     {
 
@@ -126,7 +190,19 @@ class AdminAttributeController extends AdminBaseController
             $this->success('保存成功!');
         }
     }
-
+    /**
+     * 模型属性排序
+     * @adminMenu(
+     *     'name'   => '模型属性排序',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '模型属性排序',
+     *     'param'  => ''
+     * )
+     */
     public function listOrder()
     {
         parent::listOrders(Db::name('goods_attribute'));
@@ -135,7 +211,19 @@ class AdminAttributeController extends AdminBaseController
         $goodsAttributeMod->clearCache(0,true);
         $this->success("排序更新成功！", '');
     }
-
+    /**
+     * 模型属性删除
+     * @adminMenu(
+     *     'name'   => '模型属性删除',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '模型属性删除',
+     *     'param'  => ''
+     * )
+     */
     public function delete()
     {
         $id = $this->request->param('id');

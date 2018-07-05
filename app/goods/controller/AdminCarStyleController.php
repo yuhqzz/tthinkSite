@@ -19,11 +19,24 @@ use app\goods\model\GoodsCarStyleModeld;
 use app\goods\service\CarConfigService;
 use app\goods\model\GoodsCarConfigValuesModel;
 
-
+/**
+ * Class AdminCarStyleController
+ * @package app\goods\controller
+ */
 class AdminCarStyleController extends AdminBaseController
 {
     /**
-     * 添加商品车款列表
+     * 汽车车型列表
+     * @adminMenu(
+     *     'name'   => '车型管理',
+     *     'parent' => 'goods/AdminIndex/default',
+     *     'display'=> true,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '汽车车型列表',
+     *     'param'  => ''
+     * )
      */
     public function index()
     {
@@ -75,7 +88,17 @@ class AdminCarStyleController extends AdminBaseController
     }
 
     /**
-     * 添加商品车款
+     * 添加车系
+     * @adminMenu(
+     *     'name'   => '添加车系',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '添加车系',
+     *     'param'  => ''
+     * )
      */
     public function add()
     {
@@ -87,7 +110,17 @@ class AdminCarStyleController extends AdminBaseController
     }
 
     /**
-     * 添加商品品牌提交
+     * 添加车系
+     * @adminMenu(
+     *     'name'   => '添加车系',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '添加车系',
+     *     'param'  => ''
+     * )
      */
     public function addPost()
     {
@@ -118,15 +151,15 @@ class AdminCarStyleController extends AdminBaseController
     }
 
     /**
-     * 编辑商品车款
+     * 编辑车型
      * @adminMenu(
-     *     'name'   => '编辑商品分类',
+     *     'name'   => '编辑车型',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> true,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '编辑商品分类',
+     *     'remark' => '编辑车型',
      *     'param'  => ''
      * )
      */
@@ -150,6 +183,20 @@ class AdminCarStyleController extends AdminBaseController
         }
         return $this->fetch();
     }
+
+    /**
+     * 编辑车型提交
+     * @adminMenu(
+     *     'name'   => '编辑车型提交',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '编辑车型提交',
+     *     'param'  => ''
+     * )
+     */
     public function editPost()
     {
         $data = $this->request->param();
@@ -179,15 +226,15 @@ class AdminCarStyleController extends AdminBaseController
 
 
     /**
-     * 商品品牌排序
+     * 车型排序
      * @adminMenu(
-     *     'name'   => '商品分类排序',
+     *     'name'   => '车型排序',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> false,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '商品分类排序',
+     *     'remark' => '车型排序',
      *     'param'  => ''
      * )
      */
@@ -198,15 +245,15 @@ class AdminCarStyleController extends AdminBaseController
     }
 
     /**
-     * 删除商品品牌
+     * 删除车型
      * @adminMenu(
-     *     'name'   => '删除商品分类',
+     *     'name'   => '删除车型',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> false,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '删除商品分类',
+     *     'remark' => '删除车型',
      *     'param'  => ''
      * )
      */
@@ -244,7 +291,19 @@ class AdminCarStyleController extends AdminBaseController
         }
     }
 
-
+    /**
+     * 车型参数配置
+     * @adminMenu(
+     *     'name'   => '车型参数配置',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '车型参数配置',
+     *     'param'  => ''
+     * )
+     */
     public function configCar(){
         $data = $this->request->param();
         $style_id = intval($data['id']);
@@ -269,7 +328,19 @@ class AdminCarStyleController extends AdminBaseController
         return $this->fetch($template);
     }
 
-
+    /**
+     * 车型参数配置提交
+     * @adminMenu(
+     *     'name'   => '车型参数配置提交',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '车型参数配置提交',
+     *     'param'  => ''
+     * )
+     */
     public function configPost(){
 
         $data = $this->request->param();

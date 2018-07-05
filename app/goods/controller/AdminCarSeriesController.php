@@ -15,11 +15,24 @@ use cmf\controller\AdminBaseController;
 use think\db;
 use app\goods\model\GoodsBrandModel;
 
-
+/**
+ * Class AdminCarSeriesController
+ * @package app\goods\controller
+ */
 class AdminCarSeriesController extends AdminBaseController
 {
     /**
-     * 添加商品品牌列表
+     * 汽车车系列表
+     * @adminMenu(
+     *     'name'   => '车系管理',
+     *     'parent' => 'goods/AdminIndex/default',
+     *     'display'=> true,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '汽车车系列表',
+     *     'param'  => ''
+     * )
      */
     public function index()
     {
@@ -36,6 +49,7 @@ class AdminCarSeriesController extends AdminBaseController
                     $goodsBrandModel = new GoodsBrandModel();
                     $brand = $goodsBrandModel->where(['name'=>$q,'delete_time'=>0])->find();
                     if($brand){
+                        $brand = $brand->toArray();
                         $brand_id = $brand['id'];
                     }
                     $where['brand_id'] = $brand_id;
@@ -54,7 +68,17 @@ class AdminCarSeriesController extends AdminBaseController
     }
 
     /**
-     * 添加商品车系
+     * 添加车系
+     * @adminMenu(
+     *     'name'   => '添加车系',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '添加车系',
+     *     'param'  => ''
+     * )
      */
     public function add()
     {
@@ -65,7 +89,17 @@ class AdminCarSeriesController extends AdminBaseController
     }
 
     /**
-     * 添加商品品牌提交
+     * 添加车系提交
+     * @adminMenu(
+     *     'name'   => '添加车系提交',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '添加车系提交',
+     *     'param'  => ''
+     * )
      */
     public function addPost()
     {
@@ -89,15 +123,15 @@ class AdminCarSeriesController extends AdminBaseController
     }
 
     /**
-     * 编辑商品品牌
+     * 编辑车系
      * @adminMenu(
-     *     'name'   => '编辑商品分类',
+     *     'name'   => '编辑车系',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> true,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '编辑商品分类',
+     *     'remark' => '编辑车系',
      *     'param'  => ''
      * )
      */
@@ -121,6 +155,19 @@ class AdminCarSeriesController extends AdminBaseController
         return $this->fetch();
     }
 
+    /**
+     * 编辑车系提交
+     * @adminMenu(
+     *     'name'   => '编辑车系提交',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '编辑车系提交',
+     *     'param'  => ''
+     * )
+     */
     public function editPost()
     {
         $data = $this->request->param();
@@ -147,15 +194,15 @@ class AdminCarSeriesController extends AdminBaseController
     }
 
     /**
-     * 删除商品品牌
+     * 删除车系
      * @adminMenu(
-     *     'name'   => '删除商品分类',
+     *     'name'   => '删除车系',
      *     'parent' => 'index',
      *     'display'=> false,
      *     'hasView'=> false,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '删除商品分类',
+     *     'remark' => '删除车系',
      *     'param'  => ''
      * )
      */
@@ -195,6 +242,19 @@ class AdminCarSeriesController extends AdminBaseController
             $this->error('删除失败');
         }
     }
+    /**
+     * 获取品牌下的车系
+     * @adminMenu(
+     *     'name'   => '获取品牌下的车系',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '获取品牌下的车系',
+     *     'param'  => ''
+     * )
+     */
     public function getSeriesByBrandId(){
         $brand_id = $this->request->param('brand_id');
         $brand_id = intval($brand_id);

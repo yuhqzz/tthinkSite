@@ -1,0 +1,20 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{:url('cache/index')}">缓存管理</a></li>
+    </ul>
+    <form id = 'list_query_form'class="well form-inline margin-top-20" method="post" action="{:url('Cache/index',array('act_type'=>'get'))}">
+        <input type="text" class="form-control" name="keyword" style="width: 200px;"
+               value="{$cache_key|default=''}" placeholder="请输入缓存键...">
+        <input type="submit" class="btn btn-primary" value="搜索"/>
+        <a class="btn btn-danger" href="{:url('AdminGoods/index')}">清空</a>
+    </form>
+    <div>
+        {$data|var_dump}
+    </div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

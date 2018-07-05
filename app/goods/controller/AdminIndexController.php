@@ -13,9 +13,8 @@ namespace app\goods\controller;
 use cmf\controller\AdminBaseController;
 use Dompdf\Exception;
 use think\db;
-
 /**
- * Class AdminController
+ * Class AdminIndexController
  * @package app\goods\controller
  * @adminMenuRoot(
  *     'name'   =>'商品管理',
@@ -23,20 +22,24 @@ use think\db;
  *     'parent' =>'',
  *     'display'=> true,
  *     'order'  => 30,
- *     'icon'   =>'th',
+ *     'icon'   =>'shopping-cart',
  *     'remark' =>'商品管理'
  * )
  */
-class AdminController extends AdminBaseController
+class AdminIndexController extends AdminBaseController
 {
-
-
-  public function index(){
-      echo 1;
-  }
     /**
-     * ajax 修改指定表数据字段  一般修改状态 比如 是否推荐 是否开启 等 图标切换的
-     * table,id_name,id_value,field,value
+     * ajax 修改指定表数据字段  一般修改状态 比如 是否推荐 是否开启 等 图标切换的 table,id_name,id_value,field,value
+     * @adminMenu(
+     *     'name'   => 'ajax 修改指定表数据字段 ',
+     *     'parent' => 'goods/AdminIndex/default',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => 'ajax 修改指定表数据字段 ',
+     *     'param'  => ''
+     * )
      */
     public function changeTableVal(){
         $table = I('table'); // 表名
@@ -58,10 +61,22 @@ class AdminController extends AdminBaseController
     }
 
     /**
-     *  删除商品图片
+     * ajax删除商品图片
+     * @adminMenu(
+     *     'name'   => 'ajax删除商品图片',
+     *     'parent' => 'goods/AdminIndex/default',
+     *     'display'=> false,
+     *     'hasView'=> false,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => 'ajax删除商品图片',
+     *     'param'  => ''
+     * )
+     *
      * @return bool|int|void
      *
      * @throws \think\Exception
+     *
      */
     public function removeGoodsImages(){
         $img_id = I('id'); // 表主键id名

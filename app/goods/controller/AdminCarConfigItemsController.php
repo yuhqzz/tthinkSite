@@ -13,20 +13,23 @@ use cmf\controller\AdminBaseController;
 use app\goods\model\GoodsCarConfigItemsModel;
 use think\db;
 
-
+/**
+ * Class AdminCarConfigItemsController
+ * @package app\goods\controller
+ */
 class AdminCarConfigItemsController extends AdminBaseController
 {
 
     /**
-     * 汽车参数配置分类列表
+     * 汽车参数配置列表
      * @adminMenu(
-     *     'name'   => '参数配置分类管理',
-     *     'parent' => 'goods/AdminCarConfig/default',
-     *     'display'=> true,
+     *     'name'   => '汽车参数配置列表',
+     *     'parent' => 'goods/AdminCarConfigCategory/index',
+     *     'display'=> false,
      *     'hasView'=> true,
      *     'order'  => 10000,
      *     'icon'   => '',
-     *     'remark' => '商品分类列表',
+     *     'remark' => '汽车参数配置列表',
      *     'param'  => ''
      * )
      */
@@ -46,7 +49,19 @@ class AdminCarConfigItemsController extends AdminBaseController
         $this->assign('cid', $cid);
         return $this->fetch();
     }
-
+    /**
+     * 添加汽车参数配置
+     * @adminMenu(
+     *     'name'   => '添加汽车参数配置',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '添加汽车参数配置',
+     *     'param'  => ''
+     * )
+     */
     public function add()
     {
         $cid =  $this->request->param('cid');
@@ -61,7 +76,19 @@ class AdminCarConfigItemsController extends AdminBaseController
         $this->assign($data);
         return $this->fetch();
     }
-
+    /**
+     * 添加汽车参数配置提交
+     * @adminMenu(
+     *     'name'   => '添加汽车参数配置提交',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '添加汽车参数配置提交',
+     *     'param'  => ''
+     * )
+     */
     public function addPost()
     {
 
@@ -91,7 +118,19 @@ class AdminCarConfigItemsController extends AdminBaseController
         $this->success('添加成功!', url('AdminCarConfigItems/add',['cid'=>$data['cate_id']]));
 
     }
-
+    /**
+     * 编辑汽车参数配置
+     * @adminMenu(
+     *     'name'   => '编辑汽车参数配置',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '编辑汽车参数配置',
+     *     'param'  => ''
+     * )
+     */
     public function edit()
     {
         $id = $this->request->param('id', 0, 'intval');
@@ -109,9 +148,20 @@ class AdminCarConfigItemsController extends AdminBaseController
         } else {
             $this->error('操作错误!');
         }
-
     }
-
+    /**
+     * 编辑汽车参数配置提交
+     * @adminMenu(
+     *     'name'   => '编辑汽车参数配置提交',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '编辑汽车参数配置提交',
+     *     'param'  => ''
+     * )
+     */
     public function editPost()
     {
 
@@ -135,7 +185,19 @@ class AdminCarConfigItemsController extends AdminBaseController
         }
         $this->success('保存成功!');
     }
-
+    /**
+     * 汽车参数配置排序
+     * @adminMenu(
+     *     'name'   => '汽车参数配置排序',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '汽车参数配置排序',
+     *     'param'  => ''
+     * )
+     */
     public function listOrder()
     {
         parent::listOrders(Db::name('goods_car_config_items'));
@@ -144,7 +206,19 @@ class AdminCarConfigItemsController extends AdminBaseController
         $goodsCarConfigItemsMod->clearCache(0,true);
         $this->success("排序更新成功！", '');
     }
-
+    /**
+     * 汽车参数配置删除
+     * @adminMenu(
+     *     'name'   => '汽车参数配置删除',
+     *     'parent' => 'index',
+     *     'display'=> false,
+     *     'hasView'=> true,
+     *     'order'  => 10000,
+     *     'icon'   => '',
+     *     'remark' => '汽车参数配置删除',
+     *     'param'  => ''
+     * )
+     */
     public function delete()
     {
         $id = $this->request->param('id');
