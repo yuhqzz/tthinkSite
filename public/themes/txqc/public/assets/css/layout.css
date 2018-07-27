@@ -137,6 +137,15 @@ body{min-width: 1190px;}
 #footer .fwUl li{float:left;display:inline;height:50px;line-height:50px;width:33.333%;text-align:center;margin-right: 0;}
 #footer .fwUl li img{vertical-align: middle;}
 #footer .foot-a{margin:0 auto;}
+.foot-b{ width: 100%;padding: 20px 0; background: #f2f2f2;text-align: center;}
+.foot-b a{color: #000000}
+
+
+
+
+
+
+
 #miniBus{position:fixed;_position:absolute;height:100%;top:0;z-index:999;_height:auto;}
 .mini-bar{position:absolute;background:#333;left:0;top:0;width:36px;height:100%;z-index:1001;zoom:1}
 .mini-bar{position:absolute;background:#333;left:0;top:0;width:36px;height:100%;z-index:1001;zoom:1}

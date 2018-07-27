@@ -1,0 +1,454 @@
+<include file="public@head"/>
+<link rel="stylesheet" href="__TMPL__/public/assets/swiper/css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="__TMPL__/public/assets/css/channel01.css">
+
+<link>
+</head>
+<body>
+    <div class="mainContainer">
+        <!--预约试驾-->
+        <div class="section section1">
+            <div class="section1-form">
+                <form action="" name="">
+                <div class="section1-form-item">
+                    <label>车&nbsp;&nbsp;型</label>
+                    <select name="car_style_id">
+                        <option>wey</option>
+                    </select>
+                </div>
+                <div class="section1-form-item">
+                    <label>姓&nbsp;&nbsp;名</label>
+                    <input type="text" name="name" placeholder="请输入名字">
+                </div>
+                <div class="section1-form-item"> 
+                    <label>电&nbsp;&nbsp;话</label>
+                    <input type="text" name="tel" placeholder="请输入电话号码">
+                </div>
+                <div class="clear"></div>
+                <p class="section1-form-item-p"> 
+                   <span>
+                        <a href="#">马上报名</a>
+                   </sapn>
+                </p>
+               </form> 
+            </div>
+            <div >
+            </div>
+        </div>
+        <!--精彩视频-->
+        <div class="section section2">
+            <div class="subContainer">
+                <div class="swiper-container" id="video_swipper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="swiper-zoom-container">
+                                <img src="__TMPL__/public/assets/images/channel/channer01.jpg" width="695" height="450" />
+                                 <img class="play" data-s="__ROOT__/upload/data/video/wey-201807111155.mp4" data-f="__ROOT__/upload/data/video/wey-201807111155.flv" src="__TMPL__/public/assets/images/channel/ivideo.png" />
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="swiper-zoom-container">
+                                <img src="__TMPL__/public/assets/images/channel/channer02.jpg" width="695" height="450" />
+                                <img class="play" data-s="__ROOT__/upload/data/video/wey-20180709151935.mp4" data-f="__ROOT__/upload/data/video/wey-20180709151935.flv" src="__TMPL__/public/assets/images/channel/ivideo.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video_box" id="video_box" style="position: absolute;z-index: 16;top:0;left: 14%;cursor: pointer;">
+                </div>
+                <div class="swiper-button-prev video_prev"></div>
+                <div class="swiper-button-next video_next"></div>
+            </div>
+        </div>
+        <!--车型亮点-->
+        <div class="section section3">
+            <div class="subContainer">
+                <div class="swiper-container" id="car_style_swipper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="swiper-zoom-container">
+                                <img src="__TMPL__/public/assets/images/channel/channer01.jpg" width="695" height="450" />
+                                <p class="car_style_title">专属打造p7平台</p>
+                            </div> 
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="swiper-zoom-container">
+                                <img src="__TMPL__/public/assets/images/channel/channer02.jpg" width="695" height="450" />
+                                <p class="car_style_title">专属打造p8平台</p>
+                            </div>
+                            
+                        </div>
+                        <div class="swiper-slide">
+                           <div class="swiper-zoom-container">
+                                <img src="__TMPL__/public/assets/images/channel/channer03.jpg" width="695" height="450" />
+                                <p class="car_style_title">专属打造p9平台</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination swiper-pagination-car-style"></div>
+                <div class="swiper-button-prev car_style_prev"></div>
+                <div class="swiper-button-next car_style_next"></div>
+            </div>
+        </div>
+        <!--精美车图-->
+        <div class="section section4">
+            <div class="subContainer">
+                <div class="swiper-container" id="car_img_swipper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="swiper-zoom-container">
+                                 <div class="car-img-item">
+                                    <img src="__TMPL__/public/assets/images/channel/img01.jpg" width="695" height="300" />
+                                    <img src="__TMPL__/public/assets/images/channel/img01-l.jpg"width="335" height="300"/>
+                                    <img src="__TMPL__/public/assets/images/channel/img01-r.jpg" width="335" height="300"/>
+                                 </div>   
+                             </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="swiper-zoom-container">
+                                 <div class="car-img-item">
+                                    <img src="__TMPL__/public/assets/images/channel/img01.jpg" width="695" height="300" />
+                                    <img src="__TMPL__/public/assets/images/channel/img01-l.jpg"width="335" height="300"/>
+                                    <img src="__TMPL__/public/assets/images/channel/img01-r.jpg" width="335" height="300"/>
+                                 </div>   
+                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-button-prev car_img_prev"></div>
+                <div class="swiper-button-next car_img_next"></div>
+            </div>
+        </div>
+        <!--车型配置-->
+        <div class="section section5">
+            <div class="subContainer car-config">
+                <div class="car-config-nav">
+                    <a href="javascript:void(0);" class="active">P8&nbsp;尊贵型</a>
+                    <a href="javascript:void(0);">P8&nbsp;尊享型</a>
+                    <a href="javascript:void(0);">P8&nbsp;旗舰型</a>
+                </div>
+                <div class="car-config-det active" id="A">
+                    <div class="config_box header">
+                        <p>价格</p>
+                        <p class="header-txt">
+                            <span>官方指导价&nbsp;&nbsp;292,800</span>
+                            <span>补贴后全国统一价&nbsp;&nbsp;259,800</span>
+                        </p>
+                    </div>
+                    <div class="config_box base">
+                        <p>基本参数</p>
+                    </div>
+                    <div class="config_box normal h49">
+                      <div class="content_title">整车参数表</div>
+                      <div class="content_left">
+                        <div class="item"><span class="inner">长×宽×高（mm）</span></div>
+                        <div class="item"><span class="inner">轴距（mm）</span></div>
+                        <div class="item"><span class="inner">最小离地间隙（mm）</span></div>
+                        <div class="item"><span class="inner">接近角(度)</span></div>
+                        <div class="item"><span class="inner">离去角(度)</span></div>
+                        <div class="item"><span class="inner">油箱容积(L)</span></div>
+                      </div>
+                      <div class="content_right" style="touch-action: pan-y pinch-zoom;">
+                        <div class="slide" style="transform: translate(0px, 0px) translateZ(0px);">
+                          <div class="item"><span class="inner">4760×1931×1655</span></div>
+                          <div class="item"><span class="inner">2950</span></div>
+                          <div class="item"><span class="inner">180</span></div>
+                          <div class="item"><span class="inner">20</span></div>
+                          <div class="item"><span class="inner">25</span></div>
+                          <div class="item"><span class="inner">45</span></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="config_box normal h49">
+                      <div class="content_title">整车参数表</div>
+                      <div class="content_left">
+                        <div class="item"><span class="inner">长×宽×高（mm）</span></div>
+                        <div class="item"><span class="inner">轴距（mm）</span></div>
+                        <div class="item"><span class="inner">最小离地间隙（mm）</span></div>
+                        <div class="item"><span class="inner">接近角(度)</span></div>
+                        <div class="item"><span class="inner">离去角(度)</span></div>
+                        <div class="item"><span class="inner">油箱容积(L)</span></div>
+                      </div>
+                      <div class="content_right" style="touch-action: pan-y pinch-zoom;">
+                        <div class="slide" style="transform: translate(0px, 0px) translateZ(0px);">
+                          <div class="item"><span class="inner">4760×1931×1655</span></div>
+                          <div class="item"><span class="inner">2950</span></div>
+                          <div class="item"><span class="inner">180</span></div>
+                          <div class="item"><span class="inner">20</span></div>
+                          <div class="item"><span class="inner">25</span></div>
+                          <div class="item"><span class="inner">45</span></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="config_box normal h49">
+      <div class="content_title">安全装备</div>
+      <div class="content_left">
+        <div class="item"><span class="inner">ACC自适应巡航(0-150km/h区间开启)</span></div>
+        <div class="item"><span class="inner">FCW前碰撞预警</span></div>
+        <div class="item"><span class="inner">AEB自动刹车系统</span></div>
+        <div class="item"><span class="inner">LKA车道保持</span></div>
+        <div class="item"><span class="inner">LDW车道偏离预警</span></div>
+        <div class="item"><span class="inner">LCA并线辅助</span></div>
+        <div class="item"><span class="inner">BSD盲点监测系统</span></div>
+        <div class="item"><span class="inner">ESP车身稳定控制系统</span></div>
+        <div class="item"><span class="inner">TCS牵引力控制系统</span></div>
+        <div class="item"><span class="inner">ABS制动防抱死系统</span></div>
+        <div class="item"><span class="inner">BA智能刹车辅助系统</span></div>
+        <div class="item"><span class="inner">EBD电子制动力分配系统</span></div>
+        <div class="item"><span class="inner">BOS制动优先系统</span></div>
+        <div class="item"><span class="inner">ESS紧急制动警示系统</span></div>
+        <div class="item"><span class="inner">HHC上坡辅助系统</span></div>
+        <div class="item"><span class="inner">HDC陡坡缓降系统</span></div>
+        <div class="item"><span class="inner">驾驶员疲劳提醒</span></div>
+        <div class="item"><span class="inner">DOW开门预警</span></div>
+        <div class="item"><span class="inner">CTA倒车侧向警告</span></div>
+        <div class="item"><span class="inner">半自动泊车</span></div>
+        <div class="item"><span class="inner">360度全景监视</span></div>
+        <div class="item"><span class="inner">EPB电子驻车系统</span></div>
+        <div class="item"><span class="inner">AUTO HOLD自动驻车系统</span></div>
+        <div class="item"><span class="inner">前/后测距雷达</span></div>
+        <div class="item"><span class="inner">RMI防侧翻</span></div>
+        <div class="item"><span class="inner">TPMS智能胎压监测系统</span></div>
+        <div class="item"><span class="inner">前排双安全气囊</span></div>
+        <div class="item"><span class="inner">前后一体式侧气帘</span></div>
+        <div class="item"><span class="inner">前排侧气囊</span></div>
+        <div class="item"><span class="inner">纯电动行驶声音提示</span></div>
+        <div class="item"><span class="inner">前/后排预紧式限力安全带</span></div>
+        <div class="item"><span class="inner">儿童安全锁</span></div>
+        <div class="item"><span class="inner">儿童座椅固定装置(LATCH)</span></div>
+      </div>
+      <div class="content_right">
+        
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_02.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_02.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_02.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_02.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_02.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_02.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_02.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_02.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span></div>
+          <div class="item"><span class="inner"><img src="__TMPL__/public/assets/images/channel/icon_01.png"></span>
+        </div>
+      </div>
+    </div>
+                </div>
+                <div class="car-config-det tab-pane " id="B" style="display: none;">
+                    <div class="config_box header">
+                        <p>价格</p>
+                        <p class="header-txt">
+                            <span>官方指导价&nbsp;&nbsp;302,800</span>
+                            <span>补贴后全国统一价&nbsp;&nbsp;269,800</span>
+                        </p>
+                    </div>
+                    <div class="config_box base">
+                        <p>基本参数</p>
+                    </div>
+                    <div class="config_box normal h49">
+                      <div class="content_title">整车参数表</div>
+                      <div class="content_left">
+                        <div class="item"><span class="inner">长×宽×高（mm）</span></div>
+                        <div class="item"><span class="inner">轴距（mm）</span></div>
+                        <div class="item"><span class="inner">最小离地间隙（mm）</span></div>
+                        <div class="item"><span class="inner">接近角(度)</span></div>
+                        <div class="item"><span class="inner">离去角(度)</span></div>
+                        <div class="item"><span class="inner">油箱容积(L)</span></div>
+                      </div>
+                      <div class="content_right" style="touch-action: pan-y pinch-zoom;">
+                        <div class="slide" style="transform: translate(0px, 0px) translateZ(0px);">
+                          <div class="item"><span class="inner">4760×1931×1655</span></div>
+                          <div class="item"><span class="inner">2950</span></div>
+                          <div class="item"><span class="inner">180</span></div>
+                          <div class="item"><span class="inner">20</span></div>
+                          <div class="item"><span class="inner">25</span></div>
+                          <div class="item"><span class="inner">45</span></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="config_box normal h49">
+                      <div class="content_title">整车参数表</div>
+                      <div class="content_left">
+                        <div class="item"><span class="inner">长×宽×高（mm）</span></div>
+                        <div class="item"><span class="inner">轴距（mm）</span></div>
+                        <div class="item"><span class="inner">最小离地间隙（mm）</span></div>
+                        <div class="item"><span class="inner">接近角(度)</span></div>
+                        <div class="item"><span class="inner">离去角(度)</span></div>
+                        <div class="item"><span class="inner">油箱容积(L)</span></div>
+                      </div>
+                      <div class="content_right" style="touch-action: pan-y pinch-zoom;">
+                        <div class="slide" style="transform: translate(0px, 0px) translateZ(0px);">
+                          <div class="item"><span class="inner">4760×1931×1655</span></div>
+                          <div class="item"><span class="inner">2950</span></div>
+                          <div class="item"><span class="inner">180</span></div>
+                          <div class="item"><span class="inner">20</span></div>
+                          <div class="item"><span class="inner">25</span></div>
+                          <div class="item"><span class="inner">45</span></div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="car-config-det" id="C" style="display: none;">
+                    <div class="config_box header">
+                        <p>价格</p>
+                        <p class="header-txt">
+                            <span>官方指导价&nbsp;&nbsp;312,800</span>
+                            <span>补贴后全国统一价&nbsp;&nbsp;279,800</span>
+                        </p>
+                    </div>
+                    <div class="config_box base">
+                        <p>基本参数</p>
+                    </div>
+                    <div class="config_box normal h49">
+                      <div class="content_title">整车参数表</div>
+                      <div class="content_left">
+                        <div class="item"><span class="inner">长×宽×高（mm）</span></div>
+                        <div class="item"><span class="inner">轴距（mm）</span></div>
+                        <div class="item"><span class="inner">最小离地间隙（mm）</span></div>
+                        <div class="item"><span class="inner">接近角(度)</span></div>
+                        <div class="item"><span class="inner">离去角(度)</span></div>
+                        <div class="item"><span class="inner">油箱容积(L)</span></div>
+                      </div>
+                      <div class="content_right" style="touch-action: pan-y pinch-zoom;">
+                        <div class="slide" style="transform: translate(0px, 0px) translateZ(0px);">
+                          <div class="item"><span class="inner">4760×1931×1655</span></div>
+                          <div class="item"><span class="inner">2950</span></div>
+                          <div class="item"><span class="inner">180</span></div>
+                          <div class="item"><span class="inner">20</span></div>
+                          <div class="item"><span class="inner">25</span></div>
+                          <div class="item"><span class="inner">45</span></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="config_box normal h49">
+                      <div class="content_title">整车参数表</div>
+                      <div class="content_left">
+                        <div class="item"><span class="inner">长×宽×高（mm）</span></div>
+                        <div class="item"><span class="inner">轴距（mm）</span></div>
+                        <div class="item"><span class="inner">最小离地间隙（mm）</span></div>
+                        <div class="item"><span class="inner">接近角(度)</span></div>
+                        <div class="item"><span class="inner">离去角(度)</span></div>
+                        <div class="item"><span class="inner">油箱容积(L)</span></div>
+                      </div>
+                      <div class="content_right" style="touch-action: pan-y pinch-zoom;">
+                        <div class="slide" style="transform: translate(0px, 0px) translateZ(0px);">
+                          <div class="item"><span class="inner">4760×1931×1655</span></div>
+                          <div class="item"><span class="inner">2950</span></div>
+                          <div class="item"><span class="inner">180</span></div>
+                          <div class="item"><span class="inner">20</span></div>
+                          <div class="item"><span class="inner">25</span></div>
+                          <div class="item"><span class="inner">45</span></div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--中国高端SUV-->
+        <div class="section section6">
+            <div class="subContainer">
+                <ul class="suv-car">
+                    <li>
+                        <div class="suv-car-title">WEY&nbsp;VV5</div>
+                        <img src="__TMPL__/public/assets/images/channel/vv5.png" width="450" height="300"" />
+                        <p class="suv-car-price">官方指导价&nbsp;15-16.3万</p>
+                        <p class="suv-car-btn"><a>咨询底价</a></p>
+                    </li>
+                    <li>
+                        <div class="suv-car-title">WEY&nbsp;VV5</div>
+                        <img src="__TMPL__/public/assets/images/channel/vv7.png"width="450" height="300" />
+                        <p class="suv-car-price">官方指导价&nbsp;15-16.3万</p>
+                        <p class="suv-car-btn"><a>咨询底价</a></p>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!--地址二维码-->
+        <div class="section section7">
+            <div class="subContainer">
+                <div class="car-address-img">
+                     <img src="__TMPL__/public/assets/images/channel/qcrode.png" width="200" height="200">   
+                </div>
+                <div  class="car-address-text">
+                    <a>WEY&nbsp;深圳大兴旗舰店</a>
+                    <p>深圳市宝安区沙井西环路2113号<br/>(新沙天虹旁)</p>
+                    <p>服务热线：&nbsp;0755-29453995</p>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<!-- <script src="__TMPL__/public/assets/ckplayer/js/ckplayer.js"></script> -->
+<script src="__TMPL__/public/assets/swiper/js/swiper.min.js"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/ckplayer/ckplayer.js"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/js/channel01.js"></script>
+<script type="text/javascript">
+var swiper1 = new Swiper('#video_swipper', {
+        zoom:true,
+        navigation: {
+          nextEl: '.video_next',
+          prevEl: '.video_prev',
+        },
+    });
+var swiper2 = new Swiper('#car_style_swipper', {
+        zoom:true,
+        navigation: {
+          nextEl: '.car_style_next',
+          prevEl: '.car_style_prev',
+        },
+       pagination: {
+        el: '.swiper-pagination-car-style',
+        clickable: true,
+      },
+    });
+var swiper3 = new Swiper('#car_img_swipper', {
+      zoom:true,
+      navigation: {
+        nextEl: '.car_img_next',
+        prevEl: '.car_img_prev',
+      },
+    });
+$(function(){
+    $('.content_title').bind('click',function(){
+        if($(this).parent('.config_box').hasClass('h49')){
+            $(this).parent('.config_box').removeClass('h49'); 
+            $(this).parent('.config_box').addClass('open'); 
+        }else{
+             $(this).parent('.config_box').removeClass('open'); 
+             $(this).parent('.config_box').addClass('h49'); 
+        }
+        
+    })
+    $('.car-config-nav a').bind('click',function(){
+        var index = $(this).index();
+        $(this).addClass('active').siblings('a').removeClass('active');
+        $('.car-config-det').eq(index).show().addClass('active').siblings('.car-config-det').removeClass('active').hide();      
+    })
+})
+</script>

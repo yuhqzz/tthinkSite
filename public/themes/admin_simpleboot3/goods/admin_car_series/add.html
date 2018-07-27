@@ -21,9 +21,33 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="input-level" class="col-sm-3 control-label"><span class="form-required">*</span>汽车等级</label>
+                    <div class="col-md-6 col-sm-10">
+                        <select name="level" id="input-level" class="form-control">
+                            <option value="" >请选择</option>
+                            <foreach name="carGradeList" item ="vo">
+                                <option value="{$vo}">{$vo}</option>
+                            </foreach>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="input-name" class="col-sm-3 control-label"><span class="form-required">*</span>车系名称</label>
                     <div class="col-md-6 col-sm-10">
                         <input type="text" class="form-control" id="input-name" name="name" placeholder="请我输入车系名称">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label"><span class="form-required">*</span>车系样图</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="hidden" name="example_img" class="form-control" id="js-thumbnail-input">
+                        <div>
+                            <a href="javascript:uploadOneImage('图片上传','#js-thumbnail-input');">
+                                <img src="__TMPL__/public/assets/images/default-thumbnail.png"
+                                     id="js-thumbnail-input-preview"
+                                     width="135" style="cursor: pointer"/>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -38,6 +62,12 @@
                     <label class="col-sm-3 control-label" for="input-description">车系描述</label>
                     <div class="col-md-6 col-sm-10">
                         <textarea class="form-control" rows="8" id="input-description" name="description"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input-keyword">关键字</label>
+                    <div class="col-md-6 col-sm-10">
+                        <textarea class="form-control" rows="5" id="input-keyword" name="keyword"></textarea>
                     </div>
                 </div>
                 <div class="form-group">

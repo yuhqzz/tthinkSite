@@ -30,4 +30,23 @@ class GoodsBrandModel extends Model
         $list= $list?$list->toArray():[];
         return $list;
     }
+
+    /***
+     *
+     * 获取热品牌
+     * @param $type
+     * @param int $limit
+     * @return array|false|\PDOStatement|string|\think\Collection
+     */
+    public function getHotBrand($type = 1,$limit = 7){
+        $wh['delete_time'] = 0;
+        $wh['is_hot'] = 1;
+        $wh['is_show'] = 1;
+        $order = 'list_order desc first_char asc';
+        $field = 'id,name,icon,first_char';
+        $list  = $this->where($wh)->field($field)->order($order)->limit($limit)->select();
+        $list = $list?$list->toArray():[];
+        return $list;
+    }
+
 }

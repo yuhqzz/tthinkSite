@@ -104,8 +104,12 @@ class AdminBrandController extends AdminBaseController
     {
         $data = $this->request->param();
         $data['name'] = trim($data['name']);
-        $data['is_hot'] = intval($data['is_hot']);
-        $data['is_show'] = intval($data['is_show']);
+        if(isset($data['is_hot'])){
+            $data['is_hot'] = intval($data['is_hot']);
+        }
+        if(isset($data['is_show'])){
+            $data['is_show'] = intval($data['is_show']);
+        }
         $data['description'] = htmlspecialchars(trim($data['description']),ENT_QUOTES);
         $result = $this->validate($data, 'GoodsBrand');
         if ($result !== true) {
@@ -171,8 +175,12 @@ class AdminBrandController extends AdminBaseController
             $this->error('保存失败!');
         }
         $data['name'] = trim($data['name']);
-        $data['is_hot'] = intval($data['is_hot']);
-        $data['is_show'] = intval($data['is_show']);
+        if(isset($data['is_hot'])){
+            $data['is_hot'] = intval($data['is_hot']);
+        }
+        if(isset($data['is_show'])){
+            $data['is_show'] = intval($data['is_show']);
+        }
         $data['description'] = htmlspecialchars(trim($data['description']),ENT_QUOTES);
         $result = $this->validate($data, 'GoodsBrand');
 

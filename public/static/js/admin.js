@@ -992,7 +992,7 @@ function changeTableVal(table,id_name,id_value,field,obj)
         }else{ // 其他输入框操作
             var value = $(obj).val();
         }
-        var url = GV.ROOT + "goods/Admin/changeTableVal?table="+table+"&id_name="+id_name+"&id_value="+id_value+"&field="+field+'&value='+value;
+        var url = GV.ROOT + "goods/admin_index/changeTableVal?table="+table+"&id_name="+id_name+"&id_value="+id_value+"&field="+field+'&value='+value;
         $.ajax({
             url:url,
             success: function(data){
@@ -1020,3 +1020,5 @@ var orderList = function(obj) {
         $("#list_query_form").submit();
     })
 }
+
+

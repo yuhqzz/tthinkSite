@@ -713,3 +713,37 @@ if (!function_exists('I')) {
         return $default;
     }
 }
+
+function getBookOrderStatus($stauts){
+    $config_stauts = [
+        0=>'客户已预约',
+        1=>'销售客服已沟通',
+        2=>'客户到店销售跟进中',
+        3=>'预约时间客户未到店'
+    ];
+  return $config_stauts[$stauts];
+}
+
+function getImgToLocal($url,$local_path = ''){
+    if (strpos($url, "http") !== 0) {
+        return false;
+    }
+
+
+}
+
+
+
+
+function bb($str){
+    if(is_string($str)){
+        //header('<mate charset=UTF8/>');
+        echo  $str."<hr />";
+
+    }elseif(is_array($str)){
+       echo  "<pre>";
+        print_r($str);
+        echo "<hr/>";
+    }
+}
+

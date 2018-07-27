@@ -396,4 +396,89 @@ class GoodsModel extends Model
         return $data;
     }
 
+    public function getLatestRecommend($brand_id = 0,$limit = 4){
+        $wh['g.delete_time'] = 0;
+        if(empty($order)){
+            $order = 'g.last_update desc,g.create_time desc';
+        }
+        $wh['g.is_on_sale'] = 1;
+        $wh['g.is_recommend'] = 1;
+        $wh['g.is_hot'] = 1;
+        if($brand_id>0){
+            $wh['g.brand_id'] = $brand_id;
+        }
+            //int_color  out_color
+        $fields = 'g.*,gcs.name as series_name,gcs.example_img,gcs.min_price,gcs.max_price,gb.name as brand_name';
+        $list = $this->table(config('database.prefix').'goods')
+            ->alias('g')
+            ->join(config('database.prefix').'goods_car_series gcs','g.series_id = gcs.id','INNER')
+            ->join(config('database.prefix').'goods_brand gb','g.brand_id = gb.id','INNER')
+            ->field($fields)
+            ->where($wh)
+            ->order($order)
+            ->limit($limit)
+            ->cache(false)
+            ->fetchSql(false)
+            ->select();
+        $list = $list?$list->toArray():[];
+        return $list;
+    }
+
+    /**
+     * 获取新品
+     * @param int $limit
+     * @return array|false|\PDOStatement|string|\think\Collection
+     */
+    public function getLatestCar($limit = 4){
+        $wh['g.delete_time'] = 0;
+        if(empty($order)){
+            $order = 'g.last_update desc,g.create_time desc';
+        }
+        $wh['g.is_on_sale'] = 1;
+        $wh['g.is_new'] = 1;
+        $fields = 'g.*,gcs.name as series_name,gcs.example_img,gcs.min_price,gcs.max_price,gb.name as brand_name';
+        $list = $this->table(config('database.prefix').'goods')
+            ->alias('g')
+            ->join(config('database.prefix').'goods_car_series gcs','g.series_id = gcs.id','INNER')
+            ->join(config('database.prefix').'goods_brand gb','g.brand_id = gb.id','INNER')
+            ->field($fields)
+            ->where($wh)
+            ->order($order)
+            ->limit($limit)
+            ->cache(false)
+            ->fetchSql(false)
+            ->select();
+        $list = $list?$list->toArray():[];
+        return $list;
+    }
+
+    /**
+     *
+     * 置顶的车型
+     * @param int $limit
+     * @return array|false|\PDOStatement|string|\think\Collection
+     */
+    public function getTopCar($limit = 4){
+        $wh['g.delete_time'] = 0;
+        if(empty($order)){
+            $order = 'g.last_update desc,g.create_time desc';
+        }
+        $wh['g.is_on_sale'] = 1;
+        $wh['g.is_top'] = 1;
+        $fields = 'g.*,gcs.name as series_name,gcs.example_img,gcs.min_price,gcs.max_price,gb.name as brand_name';
+        $list = $this->table(config('database.prefix').'goods')
+            ->alias('g')
+            ->join(config('database.prefix').'goods_car_series gcs','g.series_id = gcs.id','INNER')
+            ->join(config('database.prefix').'goods_brand gb','g.brand_id = gb.id','INNER')
+            ->field($fields)
+            ->where($wh)
+            ->order($order)
+            ->limit($limit)
+            ->cache(false)
+            ->fetchSql(false)
+            ->select();
+        $list = $list?$list->toArray():[];
+        return $list;
+    }
+
 }

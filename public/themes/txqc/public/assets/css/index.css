@@ -70,16 +70,19 @@ z-index:2;
 .jpTit a.on i{position:absolute;left:0;top:-1px;width:100%;height:3px;background:#2e71b8;}
 .jpTit a.last{/*width:152px;*/border-right:none;}
 .jpCont{padding:10px 0;text-align:left;}
-.jpCont li{float: left;display:inline;width:542px;margin:30px 0 0 35px;}
-.jpCont li .carImg{width:266px;height:178px;}
-.jpCont li .carTxt{width:273px;height:163px; border:1px solid #f0f0f0;border-left:none;position:relative;left:-7px;}
-.jpCont li .carTxt .c-txt{padding:15px 18px 0;}
-.jpCont li .carTxt .c-txt h3{font-size:16px;font-weight:normal;}
-.jpCont li .carTxt .c-txt p{color:#a3a3a3;padding-top:10px;}
-.jpCont li .carTxt .c-txt .price{color:#2e71b8;}
-.jpCont li .carTxt .c-txt .price p{padding-bottom:9px;}
-.jpCont li .carTxt .c-txt .price font{color:#333;display:inline-block;padding-left:15px;}
-.proMore{margin:20px 35px;}
+.jpCont li{float: left;display:inline;width:396px;margin:20px 0;box-sizing: border-box;  -moz-box-sizing:border-box;}
+.jpCont li .carImg{width:315px;height:210px;margin: 0 auto;}
+.jpCont li a{display: block;width: 360px;height:290px;margin: 5px auto;opacity:.8;}
+.jpCont li a:hover{background: #f2f2f2;opacity:1;}
+.jpCont li a .c-txt{padding:15px 0; text-align: center;}
+.jpCont li a .c-txt h3{color:#2e71b8;font-size:16px;font-weight:normal;margin-bottom: 15px;}
+.jpCont li a .c-txt p{}
+.jpCont li a .c-txt .price{color:#2e71b8;font-size: 16px;}
+.jpCont li a .c-txt .price .num{font-size: 16px;margin-bottom: -10px;}
+.jpCont li a .c-txt .price i{font-size: 16px;}
+.jpCont li a .c-txt .price em{color:#333;padding-left:5px;}
+
+.proMore{margin:20px 20px;}
 .proMore a{display:block;background:#efefef;padding:8px 0;text-align:center;color:#004895;font-size:14px;}
 .proMore a:hover{background:#f60;color:#fff;}
 .jpDl{display:none;}

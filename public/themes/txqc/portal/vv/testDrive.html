@@ -1,0 +1,57 @@
+<script type="text/javascript" src="__TMPL__/public/assets/vv/js/testdrive.js"></script>
+<div class="car_form">
+	 <form id="v-testdrive" method="post" class="car_form_table" action="{:url('portal/channel/ajaxSubmitBookCar')}">
+		 <div class="form-con">
+			 <div class="form-conname">请选择车系</div>
+			 <div class="sel audi mselect">
+				 <span>WEY P8</span>
+				 <select name="da[car]">
+					 <option value="1">WEY P8</option>
+					 <option value="2">WEY VV5</option>
+					 <option value="3">WEY VV7</option>
+				 </select>
+			 </div>
+		 </div>
+		 <div class="form-con">
+			 <div class="form-conname">选择试驾店</div>
+			 <div class="sel province">
+				 <input type="text" value="广东省" name="da[province]" readonly="readonly"/>
+			 </div>
+			 <div class="sel city">
+				 <input type="text" value="深圳市" name="da[city]" readonly="readonly"/>
+			 </div>
+		 </div>
+		 <div class="form-con">
+			 <div class="form-conname"></div>
+			 <div class="sel company">
+				 <input type="text" value="深圳市大兴宝锦汽车销售服务有限公司" name="da[company]" readonly="readonly" />
+			 </div>
+		 </div>
+		 <div class="form-con">
+			 <div class="form-conname">您的姓名</div>
+			 <div class="sel name">
+				 <input type="text" value="" name="da[name]" placeholder="请输入您的姓名" />
+			 </div>
+			 <div class="sel sex">
+				 <span id="ranger_p">先生</span>
+				 <select name="da[gender]">
+					 <option selected="selected" value="1">先生</option>
+					 <option value="2">女士</option>
+				 </select>
+			 </div>
+		 </div>
+		 <div class="form-con">
+			 <div class="form-conname">联系方式</div>
+			 <div class="sel phone">
+				 <input type="text" value="" maxlength="11" class="tel" name="da[mobile]" placeholder="请输入联系方式" />
+			 </div>
+		 </div>
+		 <div class="form-desc">
+		 	<input class="kuang" type="checkbox" checked="checked" name="da[agree]" />
+		 	<div class="kuang_J on"></div>
+		 	本人特此授权长城汽车股份有限公司，须按照数据保护规定，保留页面信息，并认可此消息予以长城汽车股份有限公司及其WEY中国经销商共享。本人接受长城汽车股份有限公司及其WEY中国经销商所发送的相关商业信息，并允许上述公司与我联系。
+		 </div>
+		<input type="button" class="btn_submit"/>
+	 </form>
+ </div>
+			 

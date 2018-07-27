@@ -167,5 +167,18 @@ if (!function_exists('getAttrInputType')) {
 
     }
 }
-
+if (!function_exists('getGaugeType')) {
+    /**
+     * @param $id
+     * @return mixed|string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    function getGaugeType($id)
+    {
+        $data = array_flip(config('car_gauge'));
+        return $data[$id];
+    }
+}
 

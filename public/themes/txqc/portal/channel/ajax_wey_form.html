@@ -1,0 +1,41 @@
+<div class="pop-class ask_form" id="ask_form" onsubmit="return false;">
+    <form name="ask_form" action="{:url('portal/channel/ajaxSubmitBookCar')}">
+        <p class="info error"></p>
+        <input type="hidden" name="series-id" value="{$series_id}">
+        <div class="field">
+            <div class="input-field">
+                <div class="input-half">
+                    <em class="mobile">车型</em>
+                    <div class="combo" >
+                        <select name="style-id" id="slt-series" >
+                            <option value="0">请选择车型</option>
+                            <noempty name="weyCarStyles">
+                                <foreach name="weyCarStyles" item="vo" key="k">
+                                    <option value="{$vo.id}" {$k==0?'selected':''}>{$vo.name}</option>
+                                </foreach>
+                            </noempty>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="input-field">
+                <div class="input-half" style="width: 80%">
+                    <em class="mobile">姓名</em>
+                    <div class="txt-div">
+                        <input name="customer_name" class="text" placeholder="请输入姓名"
+                               maxlength="5" />
+                    </div>
+                </div>
+            </div>
+            <div class="input-field" style="width: 80%">
+                <div class="input-half">
+                    <em class="mobile">手机</em>
+                    <div class="txt-div">
+                        <input name="mobile" class="text" placeholder="请输入手机"
+                               maxlength="11" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

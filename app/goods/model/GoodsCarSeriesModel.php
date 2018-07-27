@@ -11,14 +11,20 @@ class GoodsCarSeriesModel extends Model
 {
 
 
-    public function getCarSeriesList($where,$limit= 20){
+    public function getCarSeriesList($where,$limit= 20,$return_page = true){
         $wh['delete_time'] = 0;
         if($wh){
             $wh = array_merge($wh,$where);
         }
-        $list  = $this->where($wh)->order('list_order asc ')->paginate($limit);
+        if($return_page){
+            $list  = $this->where($wh)->order('list_order asc ')->paginate($limit);
+        }else{
+            $list = $this->where($wh)->order('list_order asc ')->limit($limit)->select();
+        }
+
         return $list;
     }
+
 
     /**
      *

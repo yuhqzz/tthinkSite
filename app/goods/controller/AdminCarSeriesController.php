@@ -85,6 +85,8 @@ class AdminCarSeriesController extends AdminBaseController
         $goodsBrandModel = new GoodsBrandModel();
         $brandList =  $goodsBrandModel->getShowBrandList();
         $this->assign('brandList',$brandList);
+        // 获取汽车等级
+        $this->assign('carGradeList',config('car_grade'));
         return $this->fetch();
     }
 
@@ -137,16 +139,18 @@ class AdminCarSeriesController extends AdminBaseController
      */
     public function edit()
     {
-        $id = $this->request->param('id', 0, 'intval');
+        $id = $this->request->param('id');
         if ($id > 0) {
             $carSeries = GoodsCarSeriesModel::get($id);
             $carSeries = $carSeries?$carSeries->toArray():[];
-            if(empty($brand)){
+            if(empty($carSeries)){
                 $this->error('车系不存在或已经删除!');
             }
             $goodsBrandModel = new GoodsBrandModel();
             $brandList =  $goodsBrandModel->getShowBrandList();
             $this->assign('brandList',$brandList);
+            // 获取汽车等级
+            $this->assign('carGradeList',config('car_grade'));
             $this->assign($carSeries);
             return $this->fetch();
         } else {
@@ -176,7 +180,9 @@ class AdminCarSeriesController extends AdminBaseController
             $this->error('保存失败!');
         }
         $data['name'] = trim($data['name']);
-        $data['is_hot'] = intval($data['is_hot']);
+        if(isset($data['is_hot'])){
+            $data['is_hot'] = intval($data['is_hot']);
+        }
         $data['brand_id'] = intval($data['brand_id']);
         $data['description'] = htmlspecialchars(trim($data['description']),ENT_QUOTES);
         $result = $this->validate($data, 'GoodsCarSeries');

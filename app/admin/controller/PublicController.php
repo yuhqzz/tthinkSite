@@ -12,6 +12,7 @@ namespace app\admin\controller;
 
 use cmf\controller\AdminBaseController;
 use think\Db;
+use think\exception\DbException;
 
 class PublicController extends AdminBaseController
 {
@@ -123,4 +124,20 @@ class PublicController extends AdminBaseController
         session('ADMIN_ID', null);
         return redirect(url('/', [], false, true));
     }
+    /**
+     *  获取区域数据
+     */
+    public function getAreaData(){
+        $id = $this->request->param('id');
+        $id = (int)$id;
+        $where['parentid'] = $id;
+       try{
+            $data = Db::name('base_area')->where($where)->order('vieworder asc')->select();
+            $data = $data?$data->toArray():[];
+        }catch (DbException $e){
+            $data = [];
+        }
+        $this->result($data,1);
+    }
+
 }

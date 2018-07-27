@@ -13,6 +13,10 @@ namespace app\goods\controller;
 use cmf\controller\AdminBaseController;
 use Dompdf\Exception;
 use think\db;
+use app\goods\model\GoodsBrandModel;
+use app\goods\model\GoodsCarSeriesModel;
+use app\goods\model\GoodsCarStyleModel;
+
 /**
  * Class AdminIndexController
  * @package app\goods\controller
@@ -97,4 +101,21 @@ class AdminIndexController extends AdminBaseController
             return 0;
         }
     }
+
+    public function ajaxGetCarData(){
+        $id = I('id');
+        $type = I('type');
+       if($type == 'series'){
+            // 获取该品牌下车系
+            $goodsCarSeriesModel = new GoodsCarSeriesModel();
+            $data = $goodsCarSeriesModel->getCarSeriesByBrandId($id);
+        }elseif ($type == 'style'){
+            // 获取该车系下车型
+            $goodsCarStyleModel = new GoodsCarStyleModel();
+            $data = $goodsCarStyleModel->getCarStyleDataBySeriesId($id);
+        }
+        $this->result($data,1);
+    }
+
+
 }

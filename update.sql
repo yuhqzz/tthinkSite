@@ -239,14 +239,24 @@ CREATE TABLE `tx_goods_images` (
 -- 表的结构 `tx_goods_dealers`
 --
 CREATE TABLE `tx_goods_dealers` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id自增',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id自增',
   `name` varchar(500) NOT NULL DEFAULT '' COMMENT '经销商名称',
   `address` varchar(255) NOT NULL DEFAULT '' COMMENT '经销商地址',
   `telephone` varchar(255) NOT NULL DEFAULT '' COMMENT '经销商咨询电话',
-  PRIMARY KEY (`id`),
-  KEY `goods_id` (`goods_id`)
+  `email` varchar(255) NOT NULL DEFAULT '' COMMENT '经销商咨询邮箱',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 经销商表';
 
+--
+-- 经销商附件地址多维信息表
+-- 表的结构 `tx_goods_dealers_extend`
+--
+CREATE TABLE `tx_goods_dealers_extend` (
+  `dealers_id` int(11)  NOT NULL COMMENT '经销商_id',
+  `area_id`  int(11)  NOT NULL COMMENT '地址id',
+  KEY `dealers_id`(`dealers_id`),
+  KEY `area_id` (`area_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 经销商附件地址多维信息表';
 --
 -- 经销商与车源关系表
 -- 表的结构 `tx_goods_dealers_map`
@@ -256,7 +266,6 @@ CREATE TABLE `tx_goods_dealers_map` (
   `goods_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
   `dealers_id` varchar(255) NOT NULL DEFAULT '' COMMENT '经销商_id',
   `dealers_price` decimal(10,2) DEFAULT '0.00' COMMENT '裸车价',
-  
   PRIMARY KEY (`id`),
   KEY `goods_id` (`goods_id`),
   KEY `dealers_id` (`dealers_id`),
@@ -264,3 +273,33 @@ CREATE TABLE `tx_goods_dealers_map` (
 
 ALTER TABLE `tx_recycle_bin`
 ADD COLUMN `user_id`  int(11) NOT NULL DEFAULT 0 AFTER `name`;
+
+
+
+--
+-- 预约试驾表
+-- 表的结构 `tx_order_book`
+--
+CREATE TABLE `tx_order_book` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id自增',
+  `name` varchar(500) NOT NULL DEFAULT '' COMMENT '用户姓名',
+  `sex`  tinyint(1) NOT NULL DEFAULT '0' COMMENT '性别:0保密,1先生 2女士',
+  `dealers_id` int(11) NOT NULL DEFAULT '0' COMMENT '经销商_id',
+  `series_id` int(11) NOT NULL DEFAULT '0' COMMENT '车系id',
+  `car_style_id` int(11) NOT NULL DEFAULT '0' COMMENT '预约车型',
+  `area_id` int(11) NOT NULL DEFAULT '0' COMMENT '预约城市id',
+  `book_telephone` varchar(255) NOT NULL DEFAULT '' COMMENT '预约电话',
+  `book_time` varchar(255) NOT NULL DEFAULT '' COMMENT '预约时间',
+  `book_to_time` varchar(255) NOT NULL DEFAULT '' COMMENT '预约到店时间',
+  `status`  tinyint(1) NOT NULL DEFAULT '0' COMMENT '预约状态:0:客户已预约 1:销售客服已沟通 2:客户到店销售跟进3:预约时间客户未到店',
+  `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
+  `delete_time`  int(11) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  PRIMARY KEY (`id`),
+  KEY `car_style_id`(`car_style_id`),
+  KEY `area_id`(`area_id`),
+  KEY `status`(`status`),
+  KEY `book_to_time`(`book_to_time`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='order应用 预约试驾表';
+
+
+

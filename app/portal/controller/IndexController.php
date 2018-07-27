@@ -10,29 +10,36 @@
 // +----------------------------------------------------------------------
 namespace app\portal\controller;
 
+use app\goods\model\GoodsBrandModel;
+use app\goods\model\GoodsModel;
+use app\goods\service\GoodsService;
 use cmf\controller\HomeBaseController;
 
 class IndexController extends HomeBaseController
 {
     public function index()
     {
-        $options = array(
-            'token'             =>  '', // 填写你设定的key
-            'appid'             =>  'wxcc77f23a1659ea15', // 填写高级调用功能的app id, 请在微信开发模式后台查询
-            'appsecret'         =>  '', // 填写高级调用功能的密钥
-            'encodingaeskey'    =>  '', // 填写加密用的EncodingAESKey（可选，接口传输选择加密时必需）
-            'mch_id'            =>  '', // 微信支付，商户ID（可选）
-            'partnerkey'        =>  '', // 微信支付，密钥（可选）
-            'ssl_cer'           =>  '', // 微信支付，证书cert的路径（可选，操作退款或打款时必需）
-            'ssl_key'           =>  '', // 微信支付，证书key的路径（可选，操作退款或打款时必需）
-            'cachepath'         =>  '', // 设置SDK缓存目录（可选，默认位置在./src/Cache下，请保证写权限）
-        );
-        \Wechat\Loader::config($options);
-// 实例SDK相关的操作对象
-        $menu = & \Wechat\Loader::get('Menu'); // 这行可以在任何地方New，IDE会带提示功能哦
+        // 获取最新发布的车源
+        // 获取热门推荐品牌下几款车型
+       /* $brandModel = new GoodsBrandModel();
+        $hotBrandData = $brandModel->getHotBrand();
+        //bb($hotBrandData);die;
+        $this->assign('hotBrandList',$hotBrandData);*/
 
-        var_dump($menu);
+        // 获取推荐置顶的4款车源
+        $goodsModel = new GoodsModel();
+        $goodsSer = new GoodsService();
 
+        $recommendData = $goodsSer->getRecommendCar(6);
+        $recommendSeriesData = $goodsSer->getRecommendSeries(1);
+
+        $this->assign('recommendData',$recommendData);
+        $this->assign('recommendSeriesData',$recommendSeriesData);
+        //今日新品
+        $latestCarList = $goodsModel->getLatestCar(4);
+        $this->assign('latestCarList',$latestCarList);
+        $topCarList = $goodsModel->getTopCar(4);
+        $this->assign('topCarList',$topCarList);
         return $this->fetch(':index');
     }
 
@@ -40,6 +47,9 @@ class IndexController extends HomeBaseController
         return $this->fetch(':about');
     }
 
+    public function contact(){
+        return $this->fetch(':contact');
+    }
     public function buyCar(){
         return $this->fetch(':maiche_list');
     }

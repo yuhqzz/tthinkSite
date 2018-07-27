@@ -1,0 +1,237 @@
+<include file="public@header"/>
+<Style>
+    .select_form_diy{
+        display: inline-block;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333333;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 0;
+        margin-right: 6px;
+        cursor: pointer;
+    }
+</Style>
+
+
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('AdminOrderBook/index')}">预约试驾列表</a></li>
+        <li class="active"><a href="{:url('AdminOrderBook/add')}">发布试驾</a></li>
+    </ul>
+    <div class="row margin-top-20">
+        <div class="col-md-6">
+            <form class="js-ajax-form form-horizontal" action="{:url('AdminOrderBook/addPost')}" method="post">
+                <div class="form-group">
+                    <label for="input-name" class="col-sm-3 control-label"><span class="form-required">*</span>姓名</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-name" name="name" placeholder="请输入姓名">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-book_telephone" class="col-sm-3 control-label"><span class="form-required">*</span>电话</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-book_telephone" name="book_telephone" placeholder="电话">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-sex" class="col-sm-3 control-label">性别</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="radio" class="radio radio-inline" id="input-sex" name="sex" value="1">先生
+                        <input type="radio" class="radio radio-inline" id="input-sex" name="sex" value="2">女士
+                        <input type="radio" class="radio radio-inline" id="input-sex" name="sex" value="0" checked>保密
+                    </div>
+                </div>
+               <div class="form-group">
+                <label for="input-book_telephone" class="col-sm-3 control-label"><span class="form-required">*</span>地点</label>
+                <div class="col-md-8 col-sm-10" id="address-down-select" data-url="{:url('admin/Public/getAreaData')}">
+                    <select name="province"  id ='province' class="select_form_diy  ">
+                        <option value="0">选择省</option>
+                        <noempty>
+                            <foreach name="area_data" item="vo">
+                                <option value="{$vo.base_areaid}">{$vo.name}</option>
+                            </foreach>
+                        </noempty>
+                    </select>
+                </div>
+               </div>
+                <div class="form-group">
+                    <label for="input-book_telephone" class="col-sm-3 control-label"><span class="form-required">*</span>电话</label>
+                    <div class="col-md-8 col-sm-10" id="brand-down-select" data-url="{:url('goods/AdminIndex/ajaxGetCarData')}">
+                        <select name="brand_id" id='brand' class="select_form_diy">
+                            <option value="0">选择品牌</option>
+                            <noempty>
+                                <foreach name="brandList" item="vo">
+                                    <option value="{$vo.id}">{$vo.name}</option>
+                                </foreach>
+                            </noempty>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"><span class="form-required">*</span>经销商</label>
+                    <div class="checkbox col-md-6 col-sm-10">
+                        <select name="dealers_id" class="select_form_diy">
+                            <option value="0">丰田大宝</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input-book_to_time"><span class="form-required">*</span>预约试驾日期</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" style="width: 47%;" class="form-control js-bootstrap-datetime " id="input-book_to_time" name="book_to_time" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-10">
+                        <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+                        <a class="btn btn-default" href="{:url('AdminOrderBook/index')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //获取省、市、区select节点
+        var addressSelect = $("#address-down-select");
+        var province = $("#province");
+        var url = "{:url('admin/Public/getAreaData')}";
+        var cities;
+        var districts;
+        province.change(function () {
+            var city = $('<select name="city" id="city" class="select_form_diy"></select>');
+            addressSelect.find('#city').remove();
+            addressSelect.find('#district').remove();
+            city.appendTo(addressSelect);
+            city.append("<option value='0'>选择市</option>");
+            var p_id = province.find("option:selected").val();
+            if (p_id == 0) {
+                city.empty();
+                city.append("<option value='0'>选择市</option>");
+            } else {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {id: p_id},
+                    success: function (data) {
+                        if (data.code == 1) {
+                            if (data.data.length > 0) {
+                                cities = data.data;
+                                for(var i=0,cl = cities.length;i<cl;i++){
+                                    city.append("<option value='"+cities[i]['base_areaid']+"'>" + cities[i]['name'] + "</option>");
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            city.change(function () {
+                var c_id = city.find("option:selected").val();
+                var district = $('<select name="district" id="district" class="select_form_diy"></select>');
+                addressSelect.find('#district').remove();
+                district.appendTo(addressSelect);
+                district.append("<option value='0'>选择区</option>");
+                if (c_id == 0) {
+                    district.empty();
+                    district.append("<option value='0'>选择区</option>");
+                }else {
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {id: c_id},
+                        success: function (data) {
+                            if (data.code == 1) {
+                                if (data.data.length > 0) {
+                                    districts = data.data;
+                                    for(var i=0,cl = districts.length;i<cl;i++){
+                                        district.append("<option value='"+districts[i]['base_areaid']+"'>" + districts[i]['name'] + "</option>");
+                                    }
+
+                                }
+                            }
+                        }
+                    });
+                }
+            });
+            }
+        );
+
+        // 品牌 车系 车系 级联
+        var brandSelect = $('#brand-down-select');
+        var brand = brandSelect.find('#brand');
+        var get_url = brandSelect.data('url');
+        brand.change(function () {
+            var carseries = $('<select name="car_series_id" id="carseries" class="select_form_diy"></select>');
+            brandSelect.find('#carseries').remove();
+            brandSelect.find('#carstyle').remove();
+            carseries.appendTo(brandSelect);
+            carseries.append("<option value='0'>选择车系</option>");
+            var b_id = brand.find("option:selected").val();
+            if (b_id == 0) {
+                carseries.empty();
+                carseries.append("<option value='0'>选择车系</option>");
+            }else {
+                $.ajax({
+                    url: get_url,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {id: b_id,type:'series'},
+                    success: function (data) {
+                        if (data.code == 1) {
+                            if (data.data.length > 0) {
+                                var carseries_data = data.data;
+                                for(var i=0,cl = carseries_data.length;i<cl;i++){
+                                    carseries.append("<option value='"+carseries_data[i]['id']+"'>" + carseries_data[i]['name'] + "</option>");
+                                }
+
+                            }
+                        }
+                    }
+                });
+            }
+            carseries.change(function () {
+                var carstyle = $('<select name="car_style_id" id="carstyle" class="select_form_diy"></select>');
+                brandSelect.find('#carstyle').remove();
+                carstyle.appendTo(brandSelect);
+                carstyle.append("<option value='0'>选择车型</option>");
+                var s_id = carseries.find("option:selected").val();
+                if (s_id == 0) {
+                    carstyle.empty();
+                    carstyle.append("<option value='0'>选择车型</option>");
+                }else {
+                    $.ajax({
+                        url: get_url,
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {id: s_id,type:'style'},
+                        success: function (data) {
+                            if (data.code == 1) {
+                                if (data.data.length > 0) {
+                                    var carstyle_data = data.data;
+                                    for(var i=0,cl = carstyle_data.length;i<cl;i++){
+                                        carstyle.append("<option value='"+carstyle_data[i]['id']+"'>" + carstyle_data[i]['name'] + "</option>");
+                                    }
+
+                                }
+                            }
+                        }
+                    });
+                }
+            })
+
+        })
+    })
+
+</script>
+</body>
+</html>

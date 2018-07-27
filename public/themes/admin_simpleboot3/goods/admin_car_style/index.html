@@ -6,13 +6,14 @@
 			<li class="active"><a href="{:url('AdminCarStyle/index')}">车型管理</a></li>
 			<li><a href="{:url('AdminCarStyle/add')}">添加车型</a></li>
 		</ul>
-		<form class="form-inline" style="margin: 25px 20px" method="post" class="js-ajax-form" action="{:url('AdminCarSeries/index')}">
+		<form class="form-inline" style="margin: 25px 20px" method="post" class="js-ajax-form" action="{:url('AdminCarStyle/index')}">
 			<div class="form-group">
 				<label for="q">字段</label>
 				<select name="field" id="q" class="form-control">
 					<option value="NULL" >请选择</option>
-					<option value="name" {$field=='name'?'selected':''}>车系名称</option>
 					<option value="brand_name" {$field =='brand_name'?'selected':''}>品牌</option>
+					<option value="series_name" {$field=='series_name'?'selected':''}>车系</option>
+					<option value="name" {$field=='name'?'selected':''}>车型</option>
 					<option value="is_hot" {$field=='is_hot'?'selected':''}>是否热门</option>
 				</select>
 			</div>
@@ -27,11 +28,10 @@
 				<thead>
 				<tr>
 					<th width="30"><input type="checkbox" name="ids[]" onclick="checkAll()"></th>
-					<th width="80">样图</th>
 					<th>品牌</th>
 					<th>车系</th>
-					<th>车级</th>
 					<th>车型</th>
+					<th>官方报价(万元)</th>
 					<th>热门</th>
 					<th>推荐</th>
 					<th>描述</th>
@@ -42,13 +42,12 @@
 				<foreach name="list" item="vo">
 					<tr>
 						<td><input type="checkbox" name="ids[]" value="{$vo.id}"></td>
-						<td><img src="/upload/{$vo.example_img}" width="80" height="60"></td>
-						<td width="100">{$vo.brand_id|getBrandName}</td>
-						<td width="100">{$vo.series_id|getSeriesName}</td>
-						<td width="100">{$vo.grade_id|getGradeName}</td>
-						<td width="150">{$vo.name}</td>
-						<td width="50">{$vo.is_hot==1?"热门":""}</td>
-						<td width="50">{$vo.is_recommend==1?"推荐":""}</td>
+						<td width="60">{$vo.brand_id|getBrandName}</td>
+						<td width="60">{$vo.series_id|getSeriesName}</td>
+						<td width="150">{$vo.series_id|getSeriesName} {$vo.year}款 {$vo.name} {$vo.gauge_id|getGaugeType}</td>
+						<td width="50">{$vo.factory_price}</td>
+						<td width="40">{$vo.is_hot==1?"热门":"否"}</td>
+						<td width="40">{$vo.is_recommend==1?"推荐":"否"}</td>
 						<td width="120">{$vo.description}</td>
 						<td width="180">
 							<a href="{:url('AdminCarStyle/configCar',array('id'=>$vo['id']))}">参数配置</a>

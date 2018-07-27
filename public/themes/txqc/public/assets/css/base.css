@@ -30,4 +30,6 @@ font{font-size:12px;}
 .f14{font-size:14px;}
 .fM{font-family:'Microsoft Yahei';}
 .text-left{text-align:left;}
+input,select,button,input:focus,button:focus {outline: none;border: 0 none;font-size: 12px;}
 
+	

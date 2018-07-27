@@ -388,7 +388,10 @@ class AdminGoodsController extends AdminBaseController
             $goodsService = new GoodsService();
             $seriesData = $goodsService->getCarSeriesDataByBrandId($brand_id,true);
         }
+      //  bb($seriesData);die;
         $this->result($seriesData,1);
+
+        $this->ajaxReturn();
     }
     /**
      * 获取车系下所有车型

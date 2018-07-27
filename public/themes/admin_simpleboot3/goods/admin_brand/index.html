@@ -48,7 +48,7 @@
 									   value="{$vo.list_order}"></td>
 							<td class="">{$vo.first_char}</td>
 							<td>{$vo.name}</td>
-							<td><img src="/upload/{$vo.icon}" width="60" height="60"></td>
+							<td><img src="{$vo.icon|cmf_get_image_url}" width="60" height="60"></td>
 							<td>{$vo.is_hot?'热门':''}</td>
 							<td data-id="{$vo.id}">{$vo.is_show==1?'<a onclick="changeShow(this,0)">隐藏<a>':'<a onclick="changeShow(this,1)">显示</a>'}</td>
 							<td>{$vo.description|htmlspecialchars_decode}</td>

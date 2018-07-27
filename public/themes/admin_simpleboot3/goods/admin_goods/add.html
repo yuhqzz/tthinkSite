@@ -277,12 +277,11 @@
             $.get(url,{series_id:series_id},function (data) {
               //  debugger;
                 styleSelect.empty();
-                //console.log(data);
                 if(data.code == 1){
                     if(data.data.length>0){
                         var items = data.data;
                         for (var i = 0;i<items.length;i++) {
-                            styleSelect.append("<option value='"+items[i].id+"'>"+items[i].name+"</option>");
+                            styleSelect.append("<option value='"+items[i].id+"'>"+items[i].showName+"</option>");
                         }
                     }else{
                         styleSelect.append("<option value='0'>请选择</option>");

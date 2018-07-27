@@ -105,7 +105,7 @@ class AdminCarStyleController extends AdminBaseController
         $goodsBrandModel = new GoodsBrandModel();
         $brandList =  $goodsBrandModel->getShowBrandList();
         $this->assign('brandList',$brandList);
-        $this->assign('carGradeList',config('car_grade'));
+        $this->assign('carGaugeList',config('car_gauge'));
         return $this->fetch();
     }
 
@@ -128,10 +128,10 @@ class AdminCarStyleController extends AdminBaseController
         $data['name'] = trim($data['name']);
         $data['brand_id'] = intval($data['brand_id']);
         $data['series_id'] = intval($data['series_id']);
-        $data['grade_id'] = intval($data['grade_id']);
+        $data['gauge_id'] = intval($data['gauge_id']);
         $data['is_hot'] = intval($data['is_hot']);
         $data['is_recommend'] = intval($data['is_recommend']);
-        $data['example_img'] = trim($data['example_img']);
+        $data['year'] = intval($data['year']);
         $data['factory_price'] = trim($data['factory_price']);
         $data['description'] = htmlspecialchars(trim($data['description']),ENT_QUOTES);
         $data['more'] = trim($data['more']);
@@ -175,7 +175,7 @@ class AdminCarStyleController extends AdminBaseController
             $goodsBrandModel = new GoodsBrandModel();
             $brandList =  $goodsBrandModel->getShowBrandList();
             $this->assign('brandList',$brandList);
-           $this->assign('carGradeList',config('car_grade'));
+            $this->assign('carGaugeList',config('car_gauge'));
             $this->assign($carStyle);
             return $this->fetch();
         } else {
@@ -207,8 +207,9 @@ class AdminCarStyleController extends AdminBaseController
         $data['name'] = trim($data['name']);
         $data['is_hot'] = intval($data['is_hot']);
         $data['is_recommend'] = intval($data['is_recommend']);
-        $data['example_img'] = trim($data['example_img']);
         $data['factory_price'] = trim($data['factory_price']);
+        $data['gauge_id'] = intval($data['gauge_id']);
+        $data['year'] = trim($data['year']);
         $data['description'] = htmlspecialchars(trim($data['description']),ENT_QUOTES);
         $data['more'] = trim($data['more']);
         $result = $this->validate($data, 'GoodsCarStyle.edit');

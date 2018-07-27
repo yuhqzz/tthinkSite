@@ -52,15 +52,25 @@ class GoodsCarStyleModel extends Model
     public function getCarStyleDataBySeriesId( $seriesId ){
         if(empty($seriesId)) return [];
         $wh  = [];
-        $wh['delete_time'] = 0;
+        $wh['gct.delete_time'] = 0;
         if(is_array($seriesId)){
             $seriesId = array_filter($seriesId);
             if(empty($seriesId)) return [];
-            $wh['series_id'] = ['in',$seriesId];
+            $wh['gct.series_id'] = ['in',$seriesId];
         }else{
-            $wh['series_id'] = intval($seriesId);
+            $wh['gct.series_id'] = intval($seriesId);
         }
-        $data = $this->where($wh)->field('id,name,brand_id,series_id,grade_id,is_hot')->order('is_hot desc')->select();
+        $order = 'is_hot desc';
+        $fields = 'gct.id,gct.name,gct.brand_id,gct.series_id,gct.is_hot,gct.year,gct.gauge_id,gct.factory_price,gcs.name as series_name';
+        $data = $this->table(config('database.prefix').'goods_car_style')
+            ->alias('gct')
+            ->join(config('database.prefix').'goods_car_series gcs','gct.series_id = gcs.id','INNER')
+            ->field($fields)
+            ->where($wh)
+            ->order($order)
+            ->cache(false)
+            ->fetchSql(false)
+            ->select();
         $list = $data?$data->toArray():[];
         return $list;
     }
@@ -79,10 +89,22 @@ class GoodsCarStyleModel extends Model
         $wh  = [];
         $wh['delete_time'] = 0;
         $wh['brand_id'] = intval($brandId);
-        $data = $this->where($wh)->field('id,name,brand_id,series_id,grade_id,is_hot')->order('is_hot desc')->select();
+        $data = $this->where($wh)->field('id,name,brand_id,series_id,is_hot')->order('is_hot desc')->select();
         $list = $data?$data->toArray():[];
         return $list;
     }
 
+    /**
+     * @param $brandId
+     */
+    public function getCarStyleListByBrandId($brandId){
+
+        $wh  = [];
+        $wh['s.delete_time'] = 0;
+        $wh['s.brand_id'] = intval($brandId);
+
+
+
+    }
 
 }

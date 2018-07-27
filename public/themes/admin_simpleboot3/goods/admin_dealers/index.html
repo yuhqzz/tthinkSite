@@ -1,0 +1,94 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('AdminBrand/index')}">品牌管理</a></li>
+			<li><a href="{:url('AdminBrand/add')}">添加品牌</a></li>
+		</ul>
+
+		<form class="form-inline" style="margin: 25px 20px" method="post" class="js-ajax-form" action="{:url('AdminBrand/index')}">
+			<div class="form-group">
+				<label for="q">字段</label>
+				<select name="field" id="q" class="form-control">
+					<option value="NULL" >请选择</option>
+					<option value="name" {$field=='name'?'selected':''}>品牌名称</option>
+					<option value="first_char" {$field =='first_char'?'selected':''}>品牌首字母</option>
+					<option value="is_show" {$field=='is_show'?'selected':''}>显示/隐藏</option>
+					<option value="is_hot" {$field=='is_hot'?'selected':''}>是否热门</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="name">字段值</label>
+				<input type="text" class="form-control" id="name"  name='q' placeholder="请输入字段值" value="{$q}">
+			</div>
+			<button type="submit" class="btn btn-default">查询</button>
+		</form>
+		<form method="post" class="js-ajax-form" action="{:url('AdminBrand/listOrder')}">
+			<div class="table-actions">
+				<button type="submit" class="btn btn-primary btn-sm js-ajax-submit">{:lang('SORT')}</button>
+			</div>
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="50">排序</th>
+						<th width="80">首字母</th>
+						<th width="150">品牌名称</th>
+						<th width="80">LOGO</th>
+						<th width="100">是否热门</th>
+						<th width="100">显示/隐藏</th>
+						<th>描述</th>
+						<th width="180">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="list" item="vo">
+						<tr>
+							<td><input name="list_orders[{$vo.id}]" class="input-order" type="text"
+									   value="{$vo.list_order}"></td>
+							<td class="">{$vo.first_char}</td>
+							<td>{$vo.name}</td>
+							<td><img src="/upload/{$vo.icon}" width="60" height="60"></td>
+							<td>{$vo.is_hot?'热门':''}</td>
+							<td data-id="{$vo.id}">{$vo.is_show==1?'<a onclick="changeShow(this,0)">隐藏<a>':'<a onclick="changeShow(this,1)">显示</a>'}</td>
+							<td>{$vo.description|htmlspecialchars_decode}</td>
+							<td><a href="{:url('AdminBrand/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+								<a class="js-ajax-delete" href="{:url('AdminBrand/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+							</td>
+						</tr>
+					</foreach>
+				</tbody>
+			</table>
+		</form>
+		<div class="pagination">{$list->render()}</div>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script>
+		function changeShow(obj,status){
+			var id =  $(obj).parents('td').attr('data-id');
+			var url = "{:url('AdminBrand/updateShowStatus')}";
+			var str = '';
+			var s_status = 0;
+			if( status == 0){
+				str = '显示';
+				s_status = 1;
+			}else{
+				str = '隐藏';
+				s_status =0 ;
+			}
+			$.get(url,{'is_show':status,'id':id},function(rs){
+				console.log(rs);
+				if(rs.code === 1){
+					var ahtml = '<a onclick="changeShow(this,'+s_status+')">'+str+'</a>'
+					$(obj).parents('td').html(ahtml);
+				}else{
+				}
+			})
+
+
+
+
+		}
+	</script>
+</body>
+</html>

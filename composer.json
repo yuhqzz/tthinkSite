@@ -30,7 +30,9 @@
         "phpoffice/phpexcel": "^1.8",
         "ezyang/htmlpurifier": "^4.9",
         "topthink/think-queue": "^1.1.4",
-        "electrolinux/phpquery": "^0.9.6"
+        "electrolinux/phpquery": "^0.9.6",
+        "zoujingli/wechat-php-sdk": "^1.3",
+        "php-curl-class/php-curl-class": "^8.1"
     },
     "extra": {
         "think-path":"simplewind/thphpinkphp"

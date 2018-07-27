@@ -1,0 +1,723 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WEY P8 VV5 VV7 深圳大兴旗舰店_WEY 深圳授权经销商_报价_试驾报名_官网</title>
+    <meta name="description" content="中国豪华SUV领导者WEY SUV深圳大兴旗舰店官方网站，提供WEY品牌旗下VV7、VV5、P8等全系车型资讯及配置价格、正品配件价格查询、WEY金融政策、预约试驾、WEY商城、WEY品牌愿景及最新动态等服务。"/>
+    <meta name="keywords" content="WEY,P8,VV5,VV7,深圳大兴,WEY 4s店,汽车报价,试驾报名">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    <meta name="applicable-device" content="pc,mobile">
+    <meta http-equiv="Cache-Control" content="no-transform ">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/assets/css/base.css?version=11211532">
+    <link rel="stylesheet" href="__TMPL__/public/assets/swiper/css/swiper.min.css?version=11211532">
+    <script type="text/javascript" src="__TMPL__/public/assets/js/jquery-1.8.2.min.js?version=11211532"></script>
+
+    <link rel="stylesheet" href="__TMPL__/public/assets/index/css/zerogrid.css?version=11211532">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/assets/css/channel.css?version=11211532">
+    <script type="text/javascript">
+        //全局变量
+        var GV = {
+                ROOT: "__ROOT__/",
+                WEB_ROOT: "__WEB_ROOT__/",
+                JS_ROOT: "static/js/"
+        };
+    </script>
+    <!-- <script src="__TMPL__/public/assets/js/jquery-migrate-1.2.1.js"></script> -->
+    <script src="__STATIC__/js/wind.js"></script>
+
+    <style>
+        .bg-theme{ background: rgb(99,42,48);z-index:99;opacity: 0.9}
+        .t-center{text-align: center;}
+        .filter{padding: 30px 0 0 0;color: #fff;}
+        .filter h2{font-size: 18px; margin-bottom: 5px;font-weight: 600;}
+        .filter select{width: 100%;padding: 9px;outline: none;box-shadow: none;margin-top: 5px;}
+        .filter input{width: 100%;padding: 10px;outline: none;box-shadow: none;margin-top: 5px;}
+        /*.close-fix{  display: inline-block;  float: right;  margin-right: 15px;  cursor: pointer;  color: #000; }
+        .close-fix:hover{  color: #fff;  }*/
+        .close-fix{
+            display: inline-block;
+            float: left;
+            cursor: pointer;
+            color: #fff;
+            background: rgb(99,42,48);
+            width:1%;
+            height: 196px;
+        }
+        .filter .wrap-col span{ font-size: 18px;}
+        #fix-form a.button{
+            cursor: pointer;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+            border:1px solid #ffffff;
+            display: inline-block;
+            text-decoration: none;
+            background: #303030;
+            margin: 5px 0;
+            text-transform: uppercase;
+            color: #fff;
+        }
+        #fix-form  a.button:hover{opacity: 0.9;}
+        #fix-form a.button.bt1 {background: #ffffff;color: #bf0707;padding: 10px 20px;width: 100%;text-align: center;border:1px solid #474747; }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <div style="padding-top:124%;background:url('__TMPL__/public/assets/images/channel/BG_01.jpg') no-repeat;background-size:cover;background-position:center;"></div>
+    </div>
+  <div class="main-container">
+      <!--预约试驾-->
+      <div class="section section1" id="section1">
+          <div class="subContainer">
+              <div id="sign-up-form"><div style="font-size:16px; text-align:center; color:#FFFFFF">WEY P8新能源插电混动，可上深圳牌，享国家政策补贴，距5万钜惠结束还有3天，立即报名预订优惠</div>
+                  <form name="p8-testdrive" action="{:url('portal/channel/ajaxSubmitBookCar')}"  method="post" onSubmit="return false;">
+                      <p class="info"></p>
+                      <div class="field">
+                          <div class="input-field">
+						
+                              <div class="input-half">
+                                  <em class="mobile">车型</em>
+                                  <div class="combo">
+                                      <select name="series-id"  >
+                                          <option value="0">请选择车型</option>
+                                          <noempty name="weyp8Styles">
+                                              <foreach name="weyp8Styles" item="vo">
+                                                  <option value="{$vo.id}">{$vo.name}</option>
+                                              </foreach>
+                                          </noempty>
+                                      </select>
+                                  </div>
+                              </div>
+                              <div class="input-half">
+                                  <em class="mobile">姓名</em>
+                                  <div class="txt-div">
+                                      <input id="txt-name" name="customer_name" class="text" placeholder="请输入姓名"
+                                             maxlength="5" />
+                                  </div>
+                              </div>
+                              <div class="input-half">
+                                  <em class="mobile">手机</em>
+                                  <div class="txt-div">
+                                      <input id="txt-mobile" name="mobile" class="text" placeholder="请输入手机"
+                                             maxlength="11" onKeyUp="this.value=this.value.replace(/\D/g,'')"/>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="field">
+                          <div class="input-field">
+                              <div class="input-half" style="text-align: center;margin-top: 20px;width: 100%;">
+                                  <a id="form-submit" class="submit btn_submit">
+                                      <img src="__TMPL__/public/assets/images/channel/applynow.png" >
+                                  </a>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+      <!--精彩视频-->
+      <div class="section section2" id="section2">
+          <div class="subContainer">
+              <div class="swiper-container" id="video_swipper" style="position: relative;">
+                  <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+                          <img src="__TMPL__/public/assets/images/channel/channer01.jpg"/>
+                          <img class="play" data-s="__ROOT__/upload/data/video/wey-201807111155.mp4" data-f="__ROOT__/upload/data/video/wey-201807111155.flv" src="__TMPL__/public/assets/images/channel/ivideo.png" />
+                      </div>
+                      <div class="swiper-slide">
+                          <img src="__TMPL__/public/assets/images/channel/channer02.jpg"  />
+                          <img class="play" data-s="__ROOT__/upload/data/video/wey-20180709151935.mp4" data-f="__ROOT__/upload/data/video/wey-20180709151935.flv" src="__TMPL__/public/assets/images/channel/ivideo.png" />
+                      </div>
+                  </div>
+                  <div class="video_box" id="video_box" ></div>
+              </div>
+
+              <div class="swiper-button-prev video_prev"></div>
+              <div class="swiper-button-next video_next"></div>
+          </div>
+      </div>
+       <!--车型亮点-->
+      <div class="section section3" id="section3">
+          <div class="subContainer">
+              <div class="swiper-container" id="car_style_swipper">
+                  <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+
+                          <img src="__TMPL__/public/assets/images/channel/channer01.jpg"/>
+                          <p class="car_style_title">不限牌不限行免购置税</p>
+
+                      </div>
+                      <div class="swiper-slide">
+
+                          <img src="__TMPL__/public/assets/images/channel/channer02.jpg"/>
+                          <p class="car_style_title">纯电续航50公里</p>
+
+
+                      </div>
+                      <div class="swiper-slide">
+
+                          <img src="__TMPL__/public/assets/images/channel/channer03.jpg"/>
+                          <p class="car_style_title">百公里加速6.5秒</p>
+
+                      </div>
+					     <div class="swiper-slide">
+
+                          <img src="__TMPL__/public/assets/images/channel/channer04.jpg"/>
+                          <p class="car_style_title">挑战严苛美规80KM/h尾碰测试</p>
+
+                      </div>
+					   <div class="swiper-slide">
+
+                          <img src="__TMPL__/public/assets/images/channel/channer05.jpg"/>
+                          <p class="car_style_title">5+3智能驾驶模式</p>
+
+                      </div>
+					     <div class="swiper-slide">
+
+                          <img src="__TMPL__/public/assets/images/channel/channer06.jpg"/>
+                          <p class="car_style_title">高科技主动安全</p>
+
+                      </div>
+					   <div class="swiper-slide">
+
+                          <img src="__TMPL__/public/assets/images/channel/channer07.jpg"/>
+                          <p class="car_style_title">用科技提前预知潜在危险</p>
+
+                      </div>
+                  </div>
+              </div>
+              <div class="swiper-pagination swiper-pagination-car-style"></div>
+              <div class="swiper-button-prev car_style_prev"></div>
+              <div class="swiper-button-next car_style_next"></div>
+          </div>
+      </div>
+      <!--精美车图-->
+      <div class="section section4" id="section4">
+          <div class="subContainer">
+              <div class="swiper-container" id="car_img_swipper">
+                  <div class="swiper-wrapper">
+                      <div class="swiper-slide">
+                          <div class="car-img-item">
+                          <img src="__TMPL__/public/assets/images/channel/p8-02.png">
+                          </div>
+                      </div>
+                      <div class="swiper-slide">
+                          <div class="car-img-item">
+                              <img src="__TMPL__/public/assets/images/channel/p8-01.png">
+                          </div>
+                      </div>
+					  <div class="swiper-slide">
+                          <div class="car-img-item">
+                              <img src="__TMPL__/public/assets/images/channel/p8-channer01.jpg">
+                          </div>
+                      </div>
+					   <div class="swiper-slide">
+                          <div class="car-img-item">
+                              <img src="__TMPL__/public/assets/images/channel/p8-channer02.jpg">
+                          </div>
+                      </div>
+					   <div class="swiper-slide">
+                          <div class="car-img-item">
+                              <img src="__TMPL__/public/assets/images/channel/p8-channer03.jpg">
+                          </div>
+                      </div>
+					   <div class="swiper-slide">
+                          <div class="car-img-item">
+                              <img src="__TMPL__/public/assets/images/channel/p8-channer04.jpg">
+                          </div>
+                      </div>
+					   <div class="swiper-slide">
+                          <div class="car-img-item">
+                              <img src="__TMPL__/public/assets/images/channel/p8-channer05.jpg">
+                          </div>
+                      </div>
+					   <div class="swiper-slide">
+                          <div class="car-img-item">
+                              <img src="__TMPL__/public/assets/images/channel/p8-channer06.jpg">
+                          </div>
+                      </div>
+					   <div class="swiper-slide">
+                          <div class="car-img-item">
+                              <img src="__TMPL__/public/assets/images/channel/p8-channer07.jpg">
+                          </div>
+                      </div>
+					   <div class="swiper-slide">
+                          <div class="car-img-item">
+                              <img src="__TMPL__/public/assets/images/channel/p8-channer08.jpg">
+                          </div>
+                      </div>
+					   <div class="swiper-slide">
+                          <div class="car-img-item">
+                              <img src="__TMPL__/public/assets/images/channel/p8-channer09.jpg">
+                          </div>
+                      </div>
+					   <div class="swiper-slide">
+                          <div class="car-img-item">
+                              <img src="__TMPL__/public/assets/images/channel/p8-channer10.jpg">
+                          </div>
+                      </div>
+					   <div class="swiper-slide">
+                          <div class="car-img-item">
+                              <img src="__TMPL__/public/assets/images/channel/p8-channer11.jpg">
+                          </div>
+                      </div>
+					   <div class="swiper-slide">
+                          <div class="car-img-item">
+                              <img src="__TMPL__/public/assets/images/channel/p8-channer12.jpg">
+                          </div>
+                      </div>
+					   <div class="swiper-slide">
+                          <div class="car-img-item">
+                              <img src="__TMPL__/public/assets/images/channel/p8-channer13.jpg">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="swiper-button-prev car_img_prev"></div>
+              <div class="swiper-button-next car_img_next"></div>
+          </div>
+      </div>
+      <!--车型配置-->
+      <div class="section section5" id="section5">
+          <div class="subContainer">
+              <div class="car-config-nav">
+                  <a href="javascript:void(0);" class="active">P8&nbsp;尊贵型</a>
+                  <a href="javascript:void(0);">P8&nbsp;尊享型</a>
+                  <a href="javascript:void(0);">P8&nbsp;旗舰型</a>
+              </div>
+              <foreach name="carConfigs" item="vo" key="k">
+                  <div style="position: absolute;width: 100%;">
+
+
+                  <div class="car-config-det {$k==0?'active':''}" id="A"><!--one item start-->
+                      <table border="1" cellpadding="0" cellspacing="0" width="100%">
+                          <foreach name="vo" item="vv" key="kk">
+                              <php> if($kk == 'name'){ continue; }</php>
+                              <tr>
+                                  <td colspan="2">{$vv.key}</td>
+                              </tr>
+                              <foreach name="vv.val" item="v">
+                                  <tr>
+                                      <td>
+                                          {$v.k}
+                                      </td>
+                                      <td>
+                                          <php> if($v['s'] == 2){</php>
+                                                <php>if($v['v'] == 0){</php>
+                                                    <img src="__TMPL__/public/assets/images/channel/icon_02.png">
+                                                <php>}else if($v['v'] == 1){</php>
+                                                    <img src="__TMPL__/public/assets/images/channel/icon_03.png">
+                                                <php>}else if($v['v'] == 2){</php>
+                                                    <img src="__TMPL__/public/assets/images/channel/icon_01.png">
+                                                <php>}</php>
+                                          <php>}else{</php>
+                                                {$v.v}
+                                          <php>}</php>
+                                      </td>
+                                  </tr>
+                              </foreach>
+                          </foreach>
+                      </table>
+                  </div>
+                  </div>
+              </foreach>
+              <div class="car-config-msg">
+                  <p class="msg">“<span class="icon01"></span>”表示有此配，“<span class="icon02"></span>”表示无此配置，“<span class="icon03"></span>”表示选装配置
+                  </p>
+              </div>
+          </div>
+      </div>
+      <div class="section section6" id="section6">
+          <div class="subContainer">
+              <ul class="suv-car">
+                  <li>
+                      <div class="suv-car-title">WEY&nbsp;VV5</div>
+                      <img src="__TMPL__/public/assets/images/channel/vv5.png" />
+                      <p class="suv-car-price">官方指导价&nbsp;15-16.3万</p>
+                      <p class="suv-car-btn"><a class="askPrice" data-series="2">咨询底价</a></p>
+                  </li>
+                  <li>
+                      <div class="suv-car-title">WEY&nbsp;VV7</div>
+                      <img src="__TMPL__/public/assets/images/channel/vv7.png" />
+                      <p class="suv-car-price">官方指导价&nbsp;16.98-18.88万</p>
+                      <p class="suv-car-btn"><a class="askPrice" data-series="3">咨询底价</a></p>
+                  </li>
+              </ul>
+              <div class="clear"></div>
+          </div>
+      </div>
+  </div>
+    <!--地址二维码-->
+<div class="address">
+
+    <div class="car-address-img">
+        <img src="__TMPL__/public/assets/images/channel/qcrode.png" width="200" height="200">
+    </div>
+    <div  class="car-address-text">
+        <a>WEY&nbsp;深圳大兴旗舰店</a>
+        <p>深圳市宝安区沙井西环路2113号<br/>(新沙天虹旁)</p>
+        <p>服务热线：&nbsp;0755-29453995</p>
+    </div>
+    <div class="clear"></div>
+</div>
+  <div class="footer-container">
+      <div style="padding-top:69%;background:url('__TMPL__/public/assets/images/channel/BG_02.jpg') no-repeat;background-size:cover;background-position:center;"></div>
+  </div>
+    <div id='fix-form'class="bg-theme"  style="display:none;width: 100%;position: fixed;bottom: 0;">
+        <span class="close-fix" >隐藏</span>
+        <div class="filter zerogrid" id="explanationZoom">
+            <form  name='fix-p8-testdrive' action="{:url('portal/channel/ajaxSubmitBookCar')}" method="post">
+                <h2 class="t-center">预约试驾，获取购车优惠</h2>
+                <p class="info"></p>
+                <div class="row">
+                    <div class="col-1-4">
+                        <div class="wrap-col">
+                            <span>车型 :</span><br/>
+                            <select name="series-id">
+                                <option value="1">P8</option>
+                                <option value="2">VV7</option>
+                                <option value="3">VV5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-1-4">
+                        <div class="wrap-col">
+                            <span>姓名:</span><br/>
+                            <input type="text" name="customer_name" placeholder="请输入姓名" maxlength="5" />
+                        </div>
+                    </div>
+                    <div class="col-1-4">
+                        <div class="wrap-col">
+                            <span>电话 :</span><br/>
+                            <input type="text" name="mobile"  placeholder="请输入手机" maxlength="11" onkeyup="this.value=this.value.replace(/\D/g,'')"/>
+                        </div>
+                    </div>
+                    <div class="col-1-4" style="width:24%;">
+                        <div class="wrap-col">
+                            <span>&nbsp;</span>
+                            <br>
+                            <a href="javascript:void (0);" class="button bt1 btn_submit">马上报名</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+<script src="__TMPL__/public/assets/swiper/js/swiper.min.js"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/ckplayer/ckplayer.js"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/js/channel.js"></script>
+<script type="text/javascript">
+var swiper1 = new Swiper('#video_swipper', {
+        navigation: {
+          nextEl: '.video_next',
+          prevEl: '.video_prev',
+        },
+    });
+var swiper2 = new Swiper('#car_style_swipper', {
+        navigation: {
+          nextEl: '.car_style_next',
+          prevEl: '.car_style_prev',
+        },
+       pagination: {
+        el: '.swiper-pagination-car-style',
+        clickable: true,
+      },
+    });
+var swiper3 = new Swiper('#car_img_swipper', {
+      navigation: {
+        nextEl: '.car_img_next',
+        prevEl: '.car_img_prev',
+      },
+    });
+$(function(){
+    $(".car-config-det").niceScroll({
+        touchbehavior:false,
+        cursorcolor: "#191f12",
+        cursoropacitymax:1,
+        cursorwidth:"15px",
+        cursorborder:"none",
+        cursorborderradius:"2px",
+        autohidemode:false,
+        background:'#c6c5c6',
+        railoffset:{'left':30}
+    });
+
+    //操作提示缩放动画
+    $(".close-fix").toggle(
+            function() {
+                $("#fix-form").animate({
+                    width: "1%",
+                    height:"31%",
+                },300);
+                $(this).css({
+                    width: "100%"
+                });
+                $(this).text('展开')
+                $("#explanationZoom").hide();
+            },
+            function() {
+                $("#fix-form").animate({
+                    width: "100%",
+                    height:"31%",
+                },300);
+                $(this).css({
+                    width: "1%"
+                });
+                $(this).text('隐藏')
+                $("#explanationZoom").show();
+            }
+    );
+
+
+
+})
+
+$(function(){
+    $(window).bind('scroll',function(e){
+        var sTop = parseInt($(window).scrollTop());
+        var divH = parseInt($('#sign-up-form').offset().top);
+        var showH = divH+185;
+        if(sTop>=showH){
+            $("#fix-form").fadeIn();
+        }else{
+            $("#fix-form").fadeOut();
+        }
+    });
+    $('.car-config-nav a').bind('click',function(){
+        var index = $(this).index();
+        $(this).addClass('active').siblings('a').removeClass('active');
+        $('.car-config-det').eq(index).show().addClass('active').siblings('.car-config-det').removeClass('active').hide();      
+    })
+    var is_ajax_request = false;
+    $("a#form-submit img").on("click", function () {
+        Wind.css('layer');
+        Wind.use("layer", function () {
+            formSubmit('sign-up-form','p8-testdrive','预约试驾');
+           /* if(is_ajax_request) {
+                $("div#sign-up-form .info").addClass('error').html('已经提交表单，请勿重复提交！');
+                return false;
+            }
+            is_ajax_request = true;
+            var form = $("div#sign-up-form form");
+            var url = form.attr('action');
+            $("div#sign-up-form .info").removeClass('error').html('');
+            var seriesVal = $('#sign-up-form form select[name="series-id"]').val();
+            //var styleVal = $('#sign-up-form form select[name="style-id"]').val();
+            var styleVal = 0;
+            var customerNameVal = $('#sign-up-form form input[name="customer_name"]').val();
+            var mobileVal = $('#sign-up-form form input[name="mobile"]').val();
+            var errorMsg = [];
+            if(seriesVal == undefined || seriesVal == 0){
+                errorMsg.push('请选择车型');
+            }
+            /!*if(styleVal == undefined || styleVal == 0){
+                errorMsg.push('请选择车型');
+            }*!/
+            if(customerNameVal == undefined || customerNameVal == 0){
+                errorMsg.push('请填写您的姓名');
+            }
+            if(mobileVal == undefined || mobileVal == 0){
+                errorMsg.push('请填写您的手机号码');
+            }else if(mobileVal.length !== 11 && !/^(13[0-9]|15[0-9]|18[0-9])\d{8}$/.test(mobileVal)){
+                errorMsg.push('请填写正确手机号码');
+            }
+            if(errorMsg.length>0){
+                $("div#sign-up-form .info").addClass('error').html(errorMsg.join(','));
+                is_ajax_request = false;
+                return false;
+            }
+            var data = {'series_id':seriesVal,'style_id':styleVal,'customer_name':customerNameVal,'mobile':mobileVal};
+            _ajaxSubmit(url,data,'p8-testdrive','预约试驾');*/
+        })
+    })
+    $('.askPrice').on("click",function(e){
+        Wind.css('layer');
+        Wind.use("layer", function () {
+            var form_html = '';
+            var url = "{:url('portal/channel/ajaxWeyForm')}";
+            var series_id = $(e.target).attr('data-series');
+            $.get(url,{series_id:series_id},function (data) {
+                layer.open({
+                    skin: 'pop-class',
+                    title:'咨询底价',
+                    area: ['640px', '400px'],
+                    shadeClose: true, //点击遮罩关闭
+                    content: data,
+                    offset: 't',
+                    anim: 1,
+                    btn:['立即咨询','取消'],
+                    yes: function(index, layero){
+                        $("#ask_form .info").removeClass('error').html('');
+                        var seriesVal = $('#ask_form input[name="series-id"]').val();
+                        var styleVal = $('#ask_form select[name="style-id"]').val();
+                        var customerNameVal = $('#ask_form input[name="customer_name"]').val();
+                        var mobileVal = $('#ask_form input[name="mobile"]').val();
+                        var errorMsg = [];
+                        if(styleVal == undefined || styleVal == 0){
+                            errorMsg.push('请选择车型');
+                        }
+                        if(customerNameVal == undefined || customerNameVal == 0){
+                            errorMsg.push('请填写您的姓名');
+                        }
+                        if(mobileVal == undefined || mobileVal == 0){
+                            errorMsg.push('请填写您的手机号码');
+                        }else if(mobileVal.length !== 11 && !/^(13[0-9]|15[0-9]|18[0-9])\d{8}$/.test(mobileVal)){
+                            errorMsg.push('请填写正确手机号码');
+                        }
+                        if(errorMsg.length>0){
+                            $("#ask_form .info").addClass('error').html(errorMsg.join(','));
+                            return false;
+                        }
+                        var data = {'series_id':seriesVal,'style_id':styleVal,'customer_name':customerNameVal,'mobile':mobileVal};
+                        var  submitUrl = "{:url('portal/channel/ajaxSubmitAskCarPrice')}";
+                        // 提交
+                        _ajaxSubmit(submitUrl,data,'ask_form','咨询底价');
+                    },
+                    no: function(index, layero){
+                        layer.close(index); //如果设定了no回调，需进行手工关闭
+                    }
+                });
+            });
+        });
+    })
+    $('#fix-form .btn_submit').on("click",function(){
+        Wind.css('layer');
+        Wind.use("layer", function () {
+            formSubmit('fix-form','fix-p8-testdrive');
+           /* var formObj = $('#fix-form').find('form');
+            var that = this;
+            if ($(that).attr('is_ajax_request') == 1) {
+                formObj.find('.info').addClass('error').html('已经提交表单，请勿重复提交！');
+                return false;
+            }
+            $(that).attr('is_ajax_request', 1);
+            var url = formObj.attr('action');
+            formObj.find('.info').removeClass('error').html('');
+            var seriesVal = formObj.find('select[name="series-id"]').val();
+            var styleVal = 0;
+            var customerNameVal = formObj.find('input[name="customer_name"]').val();
+            var mobileVal = formObj.find('input[name="mobile"]').val();
+            var errorMsg = [];
+            if (seriesVal == undefined || seriesVal == 0) {
+                errorMsg.push('请选择车型');
+            }
+            if (customerNameVal == undefined || customerNameVal == 0) {
+                errorMsg.push('请填写您的姓名');
+            }
+            if (mobileVal == undefined || mobileVal == 0) {
+                errorMsg.push('请填写您的手机号码');
+            } else if (mobileVal.length !== 11 && !/^(13[0-9]|15[0-9]|18[0-9])\d{8}$/.test(mobileVal)) {
+                errorMsg.push('请填写正确手机号码');
+            }
+            if (errorMsg.length > 0) {
+                formObj.find('.info').addClass('error').html(errorMsg.join(','));
+                $(that).attr('is_ajax_request',0);
+                return false;
+            }
+            var data = {
+                'series_id': seriesVal,
+                'style_id': styleVal,
+                'customer_name': customerNameVal,
+                'mobile': mobileVal
+            };
+            _ajaxSubmit(url, data, 'fix-p8-testdrive', '预约试驾');*/
+            //$(that).attr('is_ajax_request',0);
+        });
+    });
+
+    function formSubmit(div_Id,form_name,title){
+        var formObj = $("#"+div_Id).find('form');
+        var c_that = $(formObj).find('.btn_submit');
+        if ($(c_that).attr('is_ajax_request') == 1) {
+            formObj.find('.info').addClass('error').html('已经提交表单，请勿重复提交！');
+            return false;
+        }
+        $(c_that).attr('is_ajax_request', 1);
+        var url = formObj.attr('action');
+        formObj.find('.info').removeClass('error').html('');
+        var seriesVal = formObj.find('select[name="series-id"]').val();
+        var styleVal = 0;
+        var customerNameVal = formObj.find('input[name="customer_name"]').val();
+        var mobileVal = formObj.find('input[name="mobile"]').val();
+        var errorMsg = [];
+        if (seriesVal == undefined || seriesVal == 0) {
+            errorMsg.push('请选择车型');
+        }
+        if (customerNameVal == undefined || customerNameVal == 0) {
+            errorMsg.push('请填写您的姓名');
+        }
+        if (mobileVal == undefined || mobileVal == 0) {
+            errorMsg.push('请填写您的手机号码');
+        } else if (mobileVal.length !== 11 && !/^(13[0-9]|15[0-9]|18[0-9])\d{8}$/.test(mobileVal)) {
+            errorMsg.push('请填写正确手机号码');
+        }
+        if (errorMsg.length > 0) {
+            formObj.find('.info').addClass('error').html(errorMsg.join(','));
+            $(c_that).attr('is_ajax_request',0);
+            return false;
+        }
+        var data = {
+            'series_id': seriesVal,
+            'style_id': styleVal,
+            'customer_name': customerNameVal,
+            'mobile': mobileVal
+        };
+        _ajaxSubmit(url, data, form_name, title);
+    }
+
+    function _ajaxSubmit(url,data,form_name,title){
+        if(url == undefined || url=='') return false;
+        if(data == undefined || data == '') return false;
+        var form = $("form[name='"+form_name+"']");
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'JSON',
+            data: data,
+            complete:function(XMLHttpRequest, textStatus){
+                form.find('.btn_submit').attr('is_ajax_request',0);
+            },
+            success: function (rs) {
+                if(rs.code == 1){
+                    layer.open({
+                        skin: 'pop-class',
+                        title:title,
+                        area: ['500px', '240px'],
+                        shadeClose: true, //点击遮罩关闭
+                        content: '\<\div style="padding:20px;"> 您已成功提交！感谢您的参与，我们将会在24小时内安排客服人员与您联系。\<\/div>',
+                        offset: 't',
+                        anim: 1,
+                        yes: function(index, layero){
+                            layer.close(index);
+                            form.find('.btn_submit').attr('is_ajax_request',0);
+                            setTimeout(function(){
+                                reloadPage(window);
+                            },1000);
+
+                        }
+                    });
+                }else if(rs.code == -1){
+                    form.find(".info").addClass('error').html('您已经预定该车型，请您耐心等待，稍后我们会有客服人员与您联系！');
+                    form.find('.btn_submit').attr('is_ajax_request',0);
+                }else if(rs.code == 0) {
+                    form.find(".info").addClass('error').html(rs.msg);
+                    form.find('.btn_submit').attr('is_ajax_request',0);
+                }
+            }
+        })
+    }
+    //重新刷新页面，使用location.reload()有可能导致重新提交
+    function reloadPage(win) {
+        var location  = win.location;
+        location.href = location.pathname + location.search;
+    }
+})
+</script>
+<span style="display:none"><script src="https://s13.cnzz.com/z_stat.php?id=1274209631&web_id=1274209631" language="JavaScript"></script></span>

@@ -1,0 +1,154 @@
+<include file="public@header"/>
+<style>
+    .select-mr10{
+        margin-right: 10px;
+    }
+
+</style>
+
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="javascript:;">预约试驾订单列表</a></li>
+        <li><a href="{:url('AdminOrderBook/add')}">发布试驾</a></li>
+    </ul>
+    <form id='list_search_form' class="well form-inline margin-top-20" method="post" action="{:url('AdminOrderBook/index')}" onsubmit="return false;">&nbsp;&nbsp;
+        <div style="margin-bottom: 20px;" id="brand-down-select" data-url="{:url('goods/AdminIndex/ajaxGetCarData')}">
+            <select name="brand_id" id='brand' class="form-control select-mr10" >
+                <option value="0">选择品牌</option>
+                <noempty>
+                    <foreach name="brandList" item="vo">
+                        <option value="{$vo.id}">{$vo.name}</option>
+                    </foreach>
+                </noempty>
+            </select>
+        </div>
+        <select class="form-control" name="select_time" style="width: 140px;">
+            <option value='0' >选择经销商</option>
+            <option value='1' >大兴大宝</option>
+        </select>
+        &nbsp;
+        <select class="form-control" name="select_time" style="width: 140px;">
+            <option value='0' >不限时间</option>
+            <option value='1' >发布时间</option>
+            <option value='2' >计划到店时间</option>
+        </select>
+        <input type="text" class="form-control js-bootstrap-datetime" name="start_time"
+        value=""
+        style="width: 140px;" autocomplete="off">-
+        <input type="text" class="form-control js-bootstrap-datetime" name="end_time"
+        value=""
+        style="width: 140px;" autocomplete="off"> &nbsp; &nbsp;
+        &nbsp;
+        <select class="form-control" name="select_time" style="width: 140px;">
+            <option value='0' >订单状态</option>
+            <option value='1' >已沟通</option>
+            <option value='2' >计划到店时间</option>
+        </select>
+        <input type="text" class="form-control" name="keyword" style="width: 200px;"
+               value="" placeholder="请输入关键字...">
+        <input type="button" onclick="ajax_get_table('list_search_form',1)" class="btn btn-primary" value="搜索"/>
+        <a class="btn btn-danger" href="{:url('AdminOrderBook/index')}">清空</a>
+    </form>
+    <form class="js-ajax-form" id="list_query_form" action="" method="post">
+        <div id="order-book-list"></div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    $(document).ready(function () {
+        // ajax 加载商品列表
+        ajax_get_table('list_query_form', 1);
+    });
+    // ajax 抓取页面 form 为表单id  page 为当前第几页
+    function ajax_get_table(form, page) {
+        cur_page = page; //当前页面 保存为全局变量
+        var url = "{:url('order/AdminOrderBook/ajaxList')}";
+        $.ajax({
+            type: "POST",
+            url: url +"?p="+ page,//+tab,
+            data: $('#' + form).serialize(),// 你的formid
+            success: function (data) {
+                $("#order-book-list").html('');
+                $("#order-book-list").append(data);
+            }
+        });
+    }
+
+    // 点击排序
+    function sort(field)
+    {
+        $("input[name='orderby1']").val(field);
+        var v = $("input[name='orderby2']").val() == 'desc' ? 'asc' : 'desc';
+        $("input[name='orderby2']").val(v);
+        ajax_get_table('search-form2',cur_page);
+    }
+
+    // 品牌 车系 车系 级联
+    var brandSelect = $('#brand-down-select');
+    var brand = brandSelect.find('#brand');
+    var get_url = brandSelect.data('url');
+    brand.change(function () {
+        var carseries = $('<select name="car_series_id" id="carseries" class="form-control select-mr10"></select>');
+        brandSelect.find('#carseries').remove();
+        brandSelect.find('#carstyle').remove();
+        carseries.appendTo(brandSelect);
+        carseries.append("<option value='0'>选择车系</option>");
+        var b_id = brand.find("option:selected").val();
+        if (b_id == 0) {
+            carseries.empty();
+            carseries.append("<option value='0'>选择车系</option>");
+        }else {
+            $.ajax({
+                url: get_url,
+                type: 'POST',
+                dataType: 'JSON',
+                data: {id: b_id,type:'series'},
+                success: function (data) {
+                    if (data.code == 1) {
+                        if (data.data.length > 0) {
+                            var carseries_data = data.data;
+                            for(var i=0,cl = carseries_data.length;i<cl;i++){
+                                carseries.append("<option value='"+carseries_data[i]['id']+"'>" + carseries_data[i]['name'] + "</option>");
+                            }
+
+                        }
+                    }
+                }
+            });
+        }
+        carseries.change(function () {
+            var carstyle = $('<select name="car_style_id" id="carstyle" class="form-control select-mr10"></select>');
+            brandSelect.find('#carstyle').remove();
+            carstyle.appendTo(brandSelect);
+            carstyle.append("<option value='0'>选择车型</option>");
+            var s_id = carseries.find("option:selected").val();
+            if (s_id == 0) {
+                carstyle.empty();
+                carstyle.append("<option value='0'>选择车型</option>");
+            }else {
+                $.ajax({
+                    url: get_url,
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {id: s_id,type:'style'},
+                    success: function (data) {
+                        if (data.code == 1) {
+                            if (data.data.length > 0) {
+                                var carstyle_data = data.data;
+                                for(var i=0,cl = carstyle_data.length;i<cl;i++){
+                                    carstyle.append("<option value='"+carstyle_data[i]['id']+"'>" + carstyle_data[i]['name'] + "</option>");
+                                }
+
+                            }
+                        }
+                    }
+                });
+            }
+        })
+
+    })
+</script>
+</body>
+</html>

@@ -33,6 +33,7 @@
 						<th width="50">ID</th>
 						<th>品牌</th>
 						<th>车系名称</th>
+						<th>车系样图</th>
 						<th>描述</th>
 						<th width="180">操作</th>
 					</tr>
@@ -45,6 +46,7 @@
 						<td width="50">{$vo.id}</td>
 						<td width="100">{$vo.brand_id|getBrandName}</td>
 						<td width="150">{$vo.name}</td>
+						<td width="150"><img src="{$vo.example_img|cmf_get_image_url}" width="80" height="60"></td>
 						<td>{$vo.description}</td>
 						<td width="180"><a href="{:url('AdminCarSeries/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
 							<a class="js-ajax-delete" href="{:url('AdminCarSeries/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a></td>

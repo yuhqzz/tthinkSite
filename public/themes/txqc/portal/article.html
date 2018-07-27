@@ -1,0 +1,81 @@
+<include file="public@head"/>
+<link rel="stylesheet" href="__TMPL__/public/assets/css/about.css">
+</head>
+<body>
+<div class="head">
+    <!--nav start--->
+    <include file="public@nav"/>
+    <!--nav end--->
+</div>
+<div id="about">
+    <div class="mTags wrap">
+      <a href="#">首页</a>>  <a href="#">同行出行</a>><a>平行进口车</a>><a href="36">{$article.post_title}</a>
+    </div>
+    <div class="wAbout">
+        <div class="a-wa">
+            <div class="wrap a-nav">
+            </div>
+        </div>
+        <div class="a-wb" style="background: #f2f2f2;">
+            <div class="wrap" style="background: white;">
+                <div class="a-div" style="background: white;">
+                    <div class="tc-box article-box">
+                        <h2 style="font-size: 24px;font-weight: bold;margin-bottom: 10px;">{$article.post_title}</h2>
+                        <div class="article-infobox">
+                            <span>{:date('Y-m-d H:i',$article.published_time)} by {$article.user.user_nickname}</span>
+                    <span>
+		    			<a href="javascript:;"><i class="fa fa-eye"></i><span>{$article.post_hits}</span></a>
+						<a href="{:url('portal/Article/doLike',array('id'=>$article['id']))}" class="js-count-btn"><i
+                                class="fa fa-thumbs-up"></i><span class="count">{$article.post_like}</span></a>
+						<a href="{:url('user/favorite/add')}"
+                           class="js-favorite-btn"
+                           data-title="{:base64_encode($article.post_title)}"
+                           data-url="{:cmf_url_encode('portal/Article/index',array('id'=>$article['id']))}"
+                           data-table="portal_post"
+                           data-id="{$article['id']}"
+                        >
+                            <i class="fa fa-star-o"></i>
+                        </a>
+					</span>
+                        </div>
+                        <hr>
+                        <php>
+                            $before_content_hook_param=[
+                            'object_id'=>$article['id'],
+                            'table_name'=>'portal_post',
+                            'object_title'=>$article['post_title'],
+                            'user_id'=>$article['user_id'],
+                            'url'=>cmf_url_encode('portal/Article/index',array('id'=>$article['id'],'cid'=>$category['id'])),
+                            'object'=>$article
+                            ];
+                        </php>
+                        <hook name="before_content" param="before_content_hook_param"/>
+
+                        <div id="article_content">
+                            {$article.post_content}
+                        </div>
+                        <if condition="!empty($article['post_source'])">
+                            <div>
+                                <b>注：本文转载自{$article.post_source}，转载目的在于传递更多信息，并不代表本网赞同其观点和对其真实性负责。如有侵权行为，请联系我们，我们会及时删除。</b>
+                            </div>
+                        </if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="container tc-main">-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-9">-->
+            <!---->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!--底部的开始-->
+<include file="public@footer"/>
+<!--底部的结束-->
+<include file="public@scripts"/>
+<hook name="before_body_end"/>
+</body>
+</html>

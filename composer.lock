@@ -1,11 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "0339b73d56e766b16d82e262e10f4f1d",
-    "content-hash": "a40326d848061ca471785c03b14a64ee",
+    "content-hash": "b8c44031e454bb46f00739974b514326",
     "packages": [
         {
             "name": "dompdf/dompdf",
@@ -67,7 +66,7 @@
             ],
             "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
             "homepage": "https://github.com/dompdf/dompdf",
-            "time": "2017-11-26 14:49:08"
+            "time": "2017-11-26T14:49:08+00:00"
         },
         {
             "name": "electrolinux/phpquery",
@@ -107,7 +106,7 @@
             ],
             "description": "phpQuery is a server-side, chainable, CSS3 selector driven Document Object Model (DOM) API based on jQuery JavaScript Library",
             "homepage": "http://code.google.com/p/phpquery/",
-            "time": "2013-03-21 12:39:33"
+            "time": "2013-03-21T12:39:33+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -154,7 +153,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2018-02-23 01:58:20"
+            "time": "2018-02-23T01:58:20+00:00"
         },
         {
             "name": "mindplay/annotations",
@@ -204,7 +203,7 @@
                 "annotations",
                 "framework"
             ],
-            "time": "2016-02-14 20:09:40"
+            "time": "2016-02-14T20:09:40+00:00"
         },
         {
             "name": "phenx/php-font-lib",
@@ -241,7 +240,7 @@
             ],
             "description": "A library to read, parse, export and make subsets of different types of font files.",
             "homepage": "https://github.com/PhenX/php-font-lib",
-            "time": "2017-09-13 16:14:37"
+            "time": "2017-09-13T16:14:37+00:00"
         },
         {
             "name": "phenx/php-svg-lib",
@@ -281,7 +280,66 @@
             ],
             "description": "A library to read, parse and export to PDF SVG files.",
             "homepage": "https://github.com/PhenX/php-svg-lib",
-            "time": "2017-05-24 10:07:27"
+            "time": "2017-05-24T10:07:27+00:00"
+        },
+        {
+            "name": "php-curl-class/php-curl-class",
+            "version": "8.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-curl-class/php-curl-class.git",
+                "reference": "0090c30b4348028cabf1d03427423460ca7dc4a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/0090c30b4348028cabf1d03427423460ca7dc4a4",
+                "reference": "0090c30b4348028cabf1d03427423460ca7dc4a4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "ext-gd": "*",
+                "phpunit/phpunit": "*",
+                "squizlabs/php_codesniffer": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Curl\\": "src/Curl/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Unlicense"
+            ],
+            "authors": [
+                {
+                    "name": "Zach Borboa"
+                }
+            ],
+            "description": "PHP Curl Class makes it easy to send HTTP requests and integrate with web APIs.",
+            "homepage": "https://github.com/php-curl-class/php-curl-class",
+            "keywords": [
+                "api",
+                "class",
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "json",
+                "php",
+                "requests",
+                "rest",
+                "restful",
+                "web service",
+                "xml"
+            ],
+            "time": "2018-06-06T05:01:44+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -358,7 +416,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2017-11-04 09:26:05"
+            "time": "2017-11-04T09:26:05+00:00"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -416,7 +474,7 @@
                 "xlsx"
             ],
             "abandoned": "phpoffice/phpspreadsheet",
-            "time": "2015-05-01 07:00:55"
+            "time": "2015-05-01T07:00:55+00:00"
         },
         {
             "name": "qiniu/php-sdk",
@@ -467,7 +525,7 @@
                 "sdk",
                 "storage"
             ],
-            "time": "2018-02-20 13:59:54"
+            "time": "2018-02-20T13:59:54+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -511,7 +569,7 @@
                 "parser",
                 "stylesheet"
             ],
-            "time": "2016-07-19 19:14:21"
+            "time": "2016-07-19T19:14:21+00:00"
         },
         {
             "name": "topthink/framework",
@@ -519,12 +577,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/top-think/framework.git",
-                "reference": "0ad75865563ee4c1ac2ca80061ed1d4fb54edb1d"
+                "reference": "6e2d3acabdd0f4c812bc9a8e92a1173c88f00922"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/top-think/framework/zipball/0ad75865563ee4c1ac2ca80061ed1d4fb54edb1d",
-                "reference": "0ad75865563ee4c1ac2ca80061ed1d4fb54edb1d",
+                "url": "https://api.github.com/repos/top-think/framework/zipball/6e2d3acabdd0f4c812bc9a8e92a1173c88f00922",
+                "reference": "6e2d3acabdd0f4c812bc9a8e92a1173c88f00922",
                 "shasum": ""
             },
             "require": {
@@ -562,7 +620,7 @@
                 "orm",
                 "thinkphp"
             ],
-            "time": "2018-04-25 02:43:06"
+            "time": "2018-04-25T09:17:37+00:00"
         },
         {
             "name": "topthink/think-captcha",
@@ -598,7 +656,7 @@
                 }
             ],
             "description": "captcha package for thinkphp5",
-            "time": "2016-07-06 01:47:11"
+            "time": "2016-07-06T01:47:11+00:00"
         },
         {
             "name": "topthink/think-helper",
@@ -634,7 +692,7 @@
                 }
             ],
             "description": "The ThinkPHP5 Helper Package",
-            "time": "2017-04-05 07:15:37"
+            "time": "2017-04-05T07:15:37+00:00"
         },
         {
             "name": "topthink/think-image",
@@ -674,7 +732,7 @@
                 }
             ],
             "description": "The ThinkPHP5 Image Package",
-            "time": "2016-09-29 06:05:43"
+            "time": "2016-09-29T06:05:43+00:00"
         },
         {
             "name": "topthink/think-installer",
@@ -715,7 +773,7 @@
                     "email": "448901948@qq.com"
                 }
             ],
-            "time": "2017-05-27 06:58:09"
+            "time": "2017-05-27T06:58:09+00:00"
         },
         {
             "name": "topthink/think-queue",
@@ -760,7 +818,41 @@
                 }
             ],
             "description": "The ThinkPHP5 Queue Package",
-            "time": "2017-06-25 00:49:56"
+            "time": "2017-06-25T00:49:56+00:00"
+        },
+        {
+            "name": "zoujingli/wechat-php-sdk",
+            "version": "v1.3.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zoujingli/wechat-php-sdk.git",
+                "reference": "ccd6533775d2b8c4e2fe95cc04cefa3eef9fc095"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zoujingli/wechat-php-sdk/zipball/ccd6533775d2b8c4e2fe95cc04cefa3eef9fc095",
+                "reference": "ccd6533775d2b8c4e2fe95cc04cefa3eef9fc095",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "Wechat\\": "./Wechat"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "WeChat development of SDK",
+            "homepage": "http://www.kancloud.cn/zoujingli/wechat-php-sdk",
+            "keywords": [
+                "wechat-php-sdk"
+            ],
+            "time": "2018-05-25T09:51:41+00:00"
         }
     ],
     "packages-dev": [],

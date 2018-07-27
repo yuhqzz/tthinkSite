@@ -9,9 +9,11 @@ return array(
     'think\\helper\\' => array($vendorDir . '/topthink/think-helper/src'),
     'think\\composer\\' => array($vendorDir . '/topthink/think-installer/src'),
     'think\\captcha\\' => array($vendorDir . '/topthink/think-captcha/src'),
-    'think\\' => array($vendorDir . '/topthink/think-image/src', $vendorDir . '/topthink/think-queue/src', $baseDir . '/simplewind/thinkphp/library/think'),
+    'think\\' => array($baseDir . '/simplewind/thphpinkphp/library/think', $vendorDir . '/topthink/think-image/src', $vendorDir . '/topthink/think-queue/src'),
     'mindplay\\annotations\\' => array($vendorDir . '/mindplay/annotations/src/annotations'),
+    'Wechat\\' => array($vendorDir . '/zoujingli/wechat-php-sdk/Wechat'),
     'Qiniu\\' => array($vendorDir . '/qiniu/php-sdk/src/Qiniu'),
     'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src/FontLib'),
     'Dompdf\\' => array($vendorDir . '/dompdf/dompdf/src'),
+    'Curl\\' => array($vendorDir . '/php-curl-class/php-curl-class/src/Curl'),
 );
