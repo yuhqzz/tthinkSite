@@ -48,4 +48,31 @@ class GoodsCarSeriesModel extends Model
        return $list;
     }
 
+    /**
+     * 根据车系id 获取品牌
+     * @param $seriesId
+     * @return array
+     */
+    public function getBrandBySeriesId($seriesId){
+        $list = [];
+        if(empty($seriesId)) return $list;
+        $wh['gcs.delete_time'] = 0;
+        $wh['gcs.id'] = intval($seriesId);
+        $fields = 'gcs.id,gcs.name as series_name,gcs.brand_id,gb.name as brand_name,gb.icon,gb.first_char';
+        $data =  $this->table(config('database.prefix').'goods_car_series')
+                    ->alias('gcs')
+                    ->join(config('database.prefix').'goods_brand gb','gcs.brand_id = gb.id','INNER')
+                    ->field($fields)
+                    ->where($wh)
+                    ->cache(false)
+                    ->fetchSql(false)
+                    ->find();
+        if($data){
+            $list = $data->toArray();
+        }
+        return $list;
+    }
+
+
+
 }

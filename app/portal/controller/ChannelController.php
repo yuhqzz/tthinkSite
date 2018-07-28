@@ -25,9 +25,68 @@ class ChannelController extends HomeBaseController
     {
         return $this->fetch();
     }
-    /*public function mobileWey(){
-        return $this->fetch('mobile_wey');
-    }*/
+    public function chuanqi(){
+
+        //$series = new GoodsCarSeriesModel();
+        $brand_id = 5;
+        $brand_name = '广汽传祺';
+        //$series->getCarSeriesByBrandId($brand_id);
+        $chuanqi = [
+            [
+                'id'=>7,
+                'name'=>'传祺GS4',
+                'price'=>'7.08',
+                'img'=>'gs4.jpg',
+            ],
+            [
+                'id'=>8,
+                'name'=>'传祺GS8',
+                'price'=>'15.38',
+                'img'=>'gs8.jpg',
+            ],
+            [
+                'id'=>9,
+                'name'=>'传祺GS3',
+                'price'=>'6.78',
+                'img'=>'gs3.jpg',
+            ],
+            [
+                'id'=>6,
+                'name'=>'传祺GS7',
+                'price'=>'13.98',
+                'img'=>'gs7.jpg',
+            ],
+            [
+                'id'=>10,
+                'name'=>'传祺GA6',
+                'price'=>'7.78',
+                'img'=>'ga6.jpg',
+            ],
+            [
+                'id'=>11,
+                'name'=>'传祺GA8',
+                'price'=>'12.98',
+                'img'=>'ga8.jpg',
+            ],
+            [
+                'id'=>4,
+                'name'=>'传祺GA4',
+                'price'=>'6.78',
+                'img'=>'ga4.jpg',
+            ],
+            [
+                'id'=>5,
+                'name'=>'传祺GM8',
+                'price'=>'17.68',
+                'img'=>'gm8.jpg',
+            ],
+        ];
+        $this->assign('chuanqi',$chuanqi);
+        $this->assign('brand_id',$brand_id);
+        $this->assign('brand_name',$brand_name);
+        return $this->fetch();
+    }
+
     public function weyP8(){
         if(cmf_is_mobile()){
             return $this->fetch('mobile_wey');
@@ -102,6 +161,7 @@ class ChannelController extends HomeBaseController
         $data['book_to_time'] = 0; // 预约到店时间
         $data['book_telephone'] = $mobile; // 电话
         $data['series_id'] = $series_id; // 车系
+
         try{
             $id = $orderBookModel->addOrderBookData($data);
             if($id){
@@ -131,8 +191,10 @@ class ChannelController extends HomeBaseController
     border-right: 1px solid  #cdd1dc;" >%s</td>
             </tr>
         </table>';
+                $seriesModel = new GoodsCarSeriesModel();
+                $brand_data = $seriesModel->getBrandBySeriesId($series_id);
                 $book_date = date('Y-m-d H:i:s',$data['book_time']);
-                $book_car_style = 'WEY '.getSeriesName($series_id);
+                $book_car_style = $brand_data['brand_name'].' '.$brand_data['series_name'];
                 $body = sprintf($email_tpl,$customer_name,$book_date,$book_car_style,$mobile);
                 $result = cmf_send_email($email_config['to'], $email_config['subject'], $body);
                 $this->result(['order_book_id'=>$id],1);
@@ -224,8 +286,10 @@ border-left: 1px solid  #cdd1dc; padding-left: 5px;">联系电话:</td>
 border-right: 1px solid  #cdd1dc;" >%s</td>
         </tr>
     </table>';
+            $seriesModel = new GoodsCarSeriesModel();
+            $brand_data = $seriesModel->getBrandBySeriesId($series_id);
             $book_date = date('Y-m-d H:i:s',$data['book_time']);
-            $book_car_style = 'WEY '.getSeriesName($series_id);
+            $book_car_style = $brand_data['brand_name'].' '.$brand_data['series_name'];
             $body = sprintf($email_tpl,$customer_name,$book_date,$book_car_style,$mobile);
             $result = cmf_send_email($email_config['to'], $email_config['subject'], $body);
             $this->result(['order_book_id'=>$id],1);

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <php>$version = time();</php>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <title>深圳大兴传祺旗舰店-深圳首家A级标准广汽传祺4S店-兴耀传祺  大兴传祺 818盛大开业</title>
+    <meta name="keywords" content="大兴传祺旗舰店,深圳首家A级标准广汽传祺4S店,兴耀传祺,818，大兴传祺，盛大开业" />
+    <meta name="description" content="大兴传祺旗舰店,深圳首家A级标准广汽传祺4S店" />
+    <link rel="icon" href="__TMPL__/public/assets/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/assets/css/chuanqi.css?v={$version}" />
+    <script type="text/javascript">var _speedMark = new Date();</script>
+    <style type="text/css">
+        .dealer_address dt{
+            font-size:14px;
+            font-family:"微软雅黑";
+            font-weight:bold;
+            border-bottom:1px dotted #000;
+            padding:5px 0 5px 5px;
+            margin:5px 0;
+
+        }
+        .dealer_address dd{
+            padding:5px 0 0 5px;
+        }
+        .dealer_address li{
+            line-height:28px;
+        }
+    </style>
+</head>
+<body>
+<!--<div class="site-nav">
+    <div class="wrapper">
+        <div class="login g-fl">
+            <i class="icon"></i>
+        </div>
+        <div class="nav g-fr">
+        </div>
+    </div>
+</div>-->
+<div class="banner">
+    <div class="wrapper">
+        <div class="banner-box">
+        </div>
+    </div>
+</div>
+<div class="mod-activity">
+    <div class="wrapper">
+        <div class="activity-box clearfix">
+            <div class="activity-l g-fl">
+                <div class="h3-bg"></div>
+                <h3><span>活动详情</span><i class="icon right"></i></h3>
+                <div class="activity-text">
+                    <div class="activity-tit">
+                        <h2 class="J_title">深圳大兴传祺开业钜惠 最高直降25000元+享两年零利率+5000元礼包</h2>
+                        <p><label>活动日期：</label>2018年8月18日-19日 09:00-18:00</p>
+                        <p><label>活动地点：</label>深圳市龙华区观澜街道观光路1319-101号 龙华大兴汽车中心</p>
+                        <p><label>参与车型：</label>
+                            <span>
+                                <foreach name="chuanqi" item="vo">
+                                    <a href="javascript:;"class="J_anchors" >{$vo.name}</a> &nbsp;&nbsp;&nbsp;&nbsp;
+                                </foreach>
+                            </span>
+                        </p>
+                        <h2 class="last">4重优惠礼包，你敢来 ，就敢送!</h2>
+                    </div>
+                    <div class="activity-list"><img src="__TMPL__/public/assets/images/chuanqi/activity-list.png" width="100%"></div>
+                </div>
+            </div>
+            <div class="activity-r g-fr">
+                <h3><i class="icon"></i>报名有礼</h3>
+                <div class="mod-style">
+                    <p>团购车型：</p>
+                    <div class="style-box clearfix">
+                        <foreach name="chuanqi" item="vo" key="k">
+                            <a href="javascript:;" data-sid="{$vo.id}" class="{$k==0?'on':''}" data-bid="{$brand_id}">{$vo.name}</a>
+                        </foreach>
+                    </div>
+                    <div class="style-bottom">已选择<span>{$chuanqi[0]['name']}</span>，尽快报名，享<em>4</em>重优惠大礼包！</div>
+                </div>
+                <div class="mod-enroll">
+                    <form method="post" id="J_formEnroll" action="{:url('portal/channel/ajaxSubmitBookCar')}">
+                        <input type="hidden" name="series_id" value="{$chuanqi[0]['id']}">
+                        <input type="hidden" name="brand_id" value="$brand_id">
+                        <ul>
+                            <li>
+                                <div class="i-select J_a_city select-city">
+                                    <a href="javascript:;" class="select-text selected">
+                                        <span>深圳</span>
+                                        <i class="icon i2"></i>
+                                        <i class="icon"></i>
+                                        <input type="hidden" name="city" value="77">
+                                    </a>
+                                    <div class="menu-pop city-pop">
+                                        <dl class="clearfix">
+                                            <dd class="clearfix"><a href="javascript:;" data-val="77" data-title="深圳"><b>深圳</b></a></dd>                                        </dl>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="i-select"><input type="text" name="customer_name" placeholder="您的称呼：如张先生(女士)" /><i class="icon"></i></div>
+                            </li>
+                            <li class="li2">
+                                <div class="i-select"><input type="text" maxlength="11"  name="mobile" placeholder="请填写11位数的手机号码" /><i class="icon"></i></div>
+                            </li>
+                        </ul>
+                        <div class="btn-box">
+                            <input type="submit" class="btn"  value="立即报名">
+                            <p>火热报名中...</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mod-bg">
+    <div class="mod-bmnumber">
+    </div>
+    <div class="mod-yhstyle">
+        <div class="wrapper">
+            <div class="yhstyle-title">
+                <h3><i class="icon left"></i><span>大兴传祺开业钜惠车型</span><i class="icon right"></i></h3>
+            </div>
+            <div class="yhstyle-box">
+                <ul>
+                    <foreach name="chuanqi" item="vo">
+                        <li>
+                            <div class="icon top"></div>
+                            <div class="pic">
+                                <img src="" _src="__TMPL__/public/assets/images/chuanqi/{$vo.img}" width="291" height="201">
+                            </div>
+                            <h3>{$vo.name}</h3>
+                            <p>{$vo.price}万起<span>现场公布</span></p>
+                            <a href="javascript:;"  data-sid="{$vo.id}" data-bid="{$brand_id}" data-title="{$vo.name}">立即报名</a>
+                        </li>
+                    </foreach>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="mod-dealer">
+        <div class="wrapper">
+            <div class="dealer-title">
+                <h3><i class="icon left"></i><span>经销商信息</span><i class="icon right"></i></h3>
+            </div>
+            <div class="dealer-pic clearfix">
+                <div style="float:left;width: 620px;height: 380px;" id="dealer_address" class="dealer_address"></div>
+                <div class="dealer-text" style="float: right;margin-left: 0px;">
+                    <h3>深圳大兴传祺旗舰店-深圳首家A级标准广汽传祺4S店</h3>
+                    <p>服务热线：0755-21056666</p>
+                    <p>地址：深圳市龙华区观澜街道观光路1319-101号 龙华大兴汽车中心</p>
+                    <div style="width:100%;height:250px;display: table-cell; vertical-align: middle;text-align: center;">
+                        <img src="__TMPL__/public/assets/images/chuanqi/qrcode.jpg" width="250" height="250" style="margin-left: 100px;"/>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="fixed-footer g-hide">
+    <div class="wrapper">
+        <i class="gift"></i>
+        <div class="tmscreening clearfix" id="J_select">
+            <ul class="clearfix">
+                <li class="select-city">
+                    <div class="i-select J_c_city i-city">
+                        <a href="javascript:void(0);" class="select-text selected"><span>深圳</span>
+                            <i class="icon"></i>
+                            <input type="hidden" name="city" value="77">
+                        </a>
+                        <div class="menu-pop city-pop">
+                            <dl class="clearfix">
+                                <dd class="clearfix"><a href="javascript:;" data-val="77" data-title="深圳"><b>深圳</b></a></dd>              </dl>
+                        </div>
+                    </div>
+                </li>
+                <li class="select-style">
+                    <div class="i-select J_c_style i-style">
+                        <a href="javascript:void(0);" class="select-text selected" data-cid="{$chuanqi[0]['id']}"><span>{$chuanqi[0]['name']}</span>
+                            <i class="icon"></i>
+                            <input type="hidden" name="series_id" value="{$chuanqi[0]['id']}">
+                            <input type="hidden" name="brand_id" value="{$brand_id}">
+                        </a>
+                        <div class="menu-pop style-pop">
+                            <dl class="clearfix">
+                                <foreach name="chuanqi" item="vo">
+                                    <dd class="clearfix"><a href="javascript:;" data-val="{$vo.id}" data-title="{$vo.name}" data-bid="{$brand_id}"><b>{$vo.name}</b></a></dd>
+                                </foreach>
+                            </dl>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="i-select select-input">
+                        <input type="text" placeholder="您的称呼：如张先生(女士)" name="customer_name" />
+                    </div>
+                </li>
+                <li>
+                    <div class="i-select select-input">
+                        <input type="text" maxlength="11" placeholder="请填写11位数的手机号码" name="mobile" />
+                    </div>
+                </li>
+            </ul>
+            <a class="btn icon" id="J_btn"  href="javascript:void(0);"></a>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="J_layerbm_tmpl">
+    <div class="mod-layerbm">
+        <form method="get" id="J_formEnroll2" action="{:url('portal/channel/ajaxSubmitBookCar')}">
+            <ul>
+                <li class="clearfix li0">
+                    <label>意向车型：</label>
+                    <div class="i-select"><em></em></div>
+                    <input type="hidden" name="brand_id" value="">
+                    <input type="hidden" name="series_id" value="">
+
+                </li>
+                <li class="clearfix">
+                    <label>所在城市：</label>
+                    <div class="i-select J_b_city select-city">
+                        <a href="javascript:;" class="select-text selected">
+                            <span>深圳</span>
+                            <i class="icon"></i>
+                            <input type="hidden" name="city" value="77">
+                        </a>
+                        <div class="menu-pop city-pop">
+                            <dl class="clearfix">
+                                <dd class="clearfix"><a href="javascript:;" data-val="77" data-title="深圳"><b>深圳</b></a></dd>              </dl>
+                        </div>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <label>您的称呼：</label>
+                    <div class="i-select"><input type="text" name="customer_name" placeholder="您的称呼：如张先生(女士)" /><i class="icon"></i></div>
+                </li>
+                <li class="clearfix">
+                    <label>手机号码：</label>
+                    <div class="i-select"><input type="text" maxlength="11"  name="mobile" placeholder="请填写11位数的手机号码" /><i class="icon"></i></div>
+                </li>
+            </ul>
+            <div class="btn-box">
+                <input type="submit" data-stat="" class="btn" value="立即报名">
+                <p><em>*</em>您的个人信息仅用于本次活动，我们将会在24小时内和您联系！</p>
+            </div>
+        </form>
+    </div>
+</script>
+<script type="text/html" id="J_layermsg_tmpl">
+    <div class="mod-layermsg">
+        <i class="icon"></i>
+        <h3>恭喜您，报名成功！</h3>
+        <p>深圳大兴传祺旗舰店销售顾问将会在24小时内与您联系，请注意接听！</p>
+        <a href="javascript:;">返回活动介绍</a>
+    </div>
+</script>
+<script type="text/javascript" src="__TMPL__/public/assets/js/jquery.min.js?v={$version}"></script>
+<script type="text/javascript">
+    var __scrollT = 0;
+    var __s = 0;
+</script>
+<script type="text/javascript" src="__STATIC__/js/layer/layer.js?v={$version}"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/js/chuanqi.js?v={$version}"></script>
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vne5KHdITfEbuivkC6qcGUjwnvhBv3m3"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js?v={$version}"></script>
+<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css?v={$version}" />
+<script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map('dealer_address');
+    var poi = new BMap.Point(114.042109,22.729777);
+    map.centerAndZoom(poi, 17);
+    map.enableScrollWheelZoom();
+
+    var content = '<div style="margin:0;line-height:20px;padding:2px;">' +
+            '<img src="__TMPL__/public/assets/images/chuanqi/dx_address.jpg" alt="" style="float:right;zoom:1;overflow:hidden;width:150px;height:150px;margin-left:3px;"/>' +
+            '地址：深圳市龙华区观澜街道观光路1319-101号 龙华大兴汽车中心<br/>电话：0755-21056666<br/>简介：深圳大兴传祺旗舰店-深圳首家A级标准广汽传祺4S店。' +
+            '</div>';
+
+    //创建检索信息窗口对象
+    var searchInfoWindow = null;
+    searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+        title  : "龙华大兴汽车中心",      //标题
+        width  : 340,             //宽度
+        height : 155,              //高度
+        panel  : "panel",         //检索结果面板
+        enableAutoPan : true,     //自动平移
+        searchTypes   :[
+            BMAPLIB_TAB_SEARCH,   //周边检索
+            BMAPLIB_TAB_TO_HERE,  //到这里去
+            BMAPLIB_TAB_FROM_HERE //从这里出发
+        ]
+    });
+    var marker = new BMap.Marker(poi); //创建marker对象
+    marker.enableDragging(); //marker可拖拽
+    var opts = {
+        position : poi,    // 指定文本标注所在的地理位置
+        offset   : new BMap.Size(20, -30)    //设置文本偏移量
+    }
+    var label = new BMap.Label("深圳大兴传祺旗舰店", opts);  // 创建文本标注对象
+    label.setStyle({
+        color : "#000",
+        fontSize : "8px",
+        height : "20px",
+        lineHeight : "20px",
+        fontFamily:"微软雅黑",
+        border:"none",
+        cursor: "pointer"
+    });
+    map.addOverlay(label);
+    label.addEventListener("click", function(e){
+        searchInfoWindow.open(marker);
+    })
+    marker.addEventListener("click", function(e){
+        searchInfoWindow.open(marker);
+    })
+    map.addOverlay(marker); //在地图中添加marker
+    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+
+</script>
+</body>
+</html>
