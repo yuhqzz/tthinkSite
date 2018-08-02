@@ -92,6 +92,7 @@ input[type="submit"],
 input[type="file"] {
   cursor: pointer;
 }
+
 .placeholder {
   color: #A9A9A9;
 }
@@ -334,38 +335,7 @@ a[href^="http://tongji.baidu.com/"] {
 .icon {
   background: url('../images/chuanqi/icon.png') no-repeat;
 }
-.site-nav {
-  height: 30px;
-  line-height: 30px;
-  background-color: #3f4359;
-}
-.site-nav .login i {
-  background-position: -316px -4px;
-  width: 223px;
-  height: 15px;
-  display: inline-block;
-  position: relative;
-  top: 2px;
-}
-
-.site-nav .cx-login i {
-  background-position: -43px -154px;
-  width: 106px;
-  height: 18px;
-  display: inline-block;
-  position: relative;
-  top: 5px;
-}
-
-.site-nav .nav {
-  font-size: 0px;
-}
-.site-nav .nav a {
-  color: #cccccc;
-  font-size: 12px;
-  padding-left: 18px;
-}
-.banner {
+/*.banner {
   background: url('../images/chuanqi/banner.jpg') no-repeat center top;
 }
 .banner .banner-box {
@@ -397,9 +367,131 @@ a[href^="http://tongji.baidu.com/"] {
 }
 .banner .banner-box p em {
   color: #ffd200;
+}*/
+
+/*swiper*/
+.mod-banner {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
 }
+.mod-banner .swiper-container {
+  margin-top: -40px;
+  width: 100%;
+}
+.mod-banner .swiper-container .swiper-wrapper .swiper-slide img{
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  overflow: hidden;
+  margin-top: 40px;
+  border: none;
+}
+.swiper-button-prev,.swiper-button-next{
+  width: 15%;
+  height: 100%;
+  top:0;
+  background:none;
+}
+.swiper-button-prev{
+  left:0;}
+.swiper-button-next{
+  right:0;}
+.swiper-button-prev span,.swiper-button-next span{
+  display:block;
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  margin-top:-32px;
+  border-radius: 100%;
+  background: rgba(180,180,180,0.25) url(../images/arrows.png) no-repeat center 17px;
+  opacity: 0;
+  -webkit-transition: opacity 0.5s ease;
+  transition: opacity 0.5s ease;
+}
+.swiper-button-next span{
+  background: rgba(180,180,180,0.25) url(../images/arrows.png) no-repeat center -71px;
+  left:auto;
+  right:20px;
+}
+.swiper-button-prev:hover span,.swiper-button-next:hover span{
+  opacity: .6;
+}
+/*分页器*/
+.mod-banner .swiper-pagination{
+  top:auto;
+  bottom:50px;
+  background:none;
+}
+.mod-banner  .swiper-pagination-bullet {
+  display: inline-block;
+  width: 50px;
+  height: 30px;
+  margin: 0 3px;
+  cursor: pointer;
+  background: none;
+  border-radius:0;
+  opacity: 1;
+}
+.mod-banner  .swiper-pagination-bullet span {
+  width: 50px;
+  height: 2px;
+  display: block;
+  background: rgba(128,128,128,0.2);
+}
+.mod-banner .swiper-pagination-bullet-active span{
+  background:gray;
+}
+.mod-banner .autoplay .swiper-pagination-bullet-active span{
+  background: rgba(128,128,128,0.2);
+}
+.mod-banner  .swiper-pagination-bullet i{
+  background: gray;
+  height: 2px;
+  transform:scaleX(0);
+  transform-origin: 0;
+  display: block;
+}
+.mod-banner .autoplay .firsrCurrent i{
+  transition:transform 2.9s linear;
+  transform:scaleX(1);
+}
+.mod-banner .autoplay .current i{
+  transition:transform 4s linear;
+  transform:scaleX(1);
+}
+.mod-banner  .autoplay .replace span{
+  background:gray;
+}
+/*内容样式*/
+
+
+.slide1 .img-div {
+  padding-top:25%;
+  background: #000 url('../images/chuanqi/banner-1.jpg') no-repeat;
+  background-size:100% 100%;
+  background-position:center center;
+}
+
+
+.slide2 .img-div {
+  padding-top:25%;
+  background: #f3f3f3 url('../images/chuanqi/banner-2.jpg') no-repeat;
+  background-size:100% 100%;
+  background-position:center center;
+}
+.slide3 .img-div {
+  padding-top:25%;
+  background: #fff url('../images/chuanqi/banner-3.jpg') no-repeat;
+  background-size:100% 100% ;
+  background-position:center center;
+}
+
 .mod-activity {
   background: url('../images/chuanqi/activity.jpg') no-repeat center top;
+  margin-top: -4px;
 }
 .mod-activity .wrapper {
   position: relative;
@@ -407,7 +499,7 @@ a[href^="http://tongji.baidu.com/"] {
 }
 .mod-activity .activity-box {
   position: absolute;
-  top: -20px;
+  top: 0px;
   left: 0px;
 }
 .mod-activity .activity-box .activity-l {
@@ -417,7 +509,7 @@ a[href^="http://tongji.baidu.com/"] {
 }
 .mod-activity .activity-box .activity-l .h3-bg {
    height: 52px;
-   margin-top: 20px;
+   /*margin-top: 20px;*/
    background: #fff;
    width: 100%;
 }
@@ -443,7 +535,6 @@ a[href^="http://tongji.baidu.com/"] {
     display: inline-block;
     position: relative;
     top: 0px;
-    width: 73px;
     height: 56px;
     float: left;
     background-position: 0 -85px;
@@ -453,7 +544,7 @@ a[href^="http://tongji.baidu.com/"] {
   height: 506px;
   background: #fefefd;
   padding: 20px 0;
-  padding-top: 0px;
+  padding-top: 10px;
   padding-bottom: 25px;
 }
 .mod-activity .activity-box .activity-text h2 {
@@ -566,7 +657,7 @@ a[href^="http://tongji.baidu.com/"] {
   border: 2px solid #b10022;
   color: #ca0c31;
   font-weight: bold;
-  background: #ffd200;
+  background: #efeeee;
   height: 38px;
   line-height: 38px;
 }
