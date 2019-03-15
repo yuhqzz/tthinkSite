@@ -10,6 +10,7 @@
 // +----------------------------------------------------------------------
 namespace app\order\model;
 
+use app\goods\model\GoodsCarSeriesModel;
 use think\Model;
 use think\Db;
 
@@ -30,6 +31,9 @@ class OrderBookModel extends Model
         $add['book_telephone'] = $data['book_telephone']; // 电话
         $add['series_id'] = isset($data['series_id'])?$data['series_id']:0; // 车系
         $add['dealers_id'] = isset($data['dealers_id'])?$data['dealers_id']:0; // 供应商
+        $add['source'] = isset($data['source'])?$data['source']:0; // 供应商
+        $add['ip'] = get_client_ip(0,true); // ip
+        $add['req_domain'] = cmf_get_domain(); // 获取请求域名
         $id = $this->isUpdate(false)->allowField(true)->insertGetId($add);
         return $id;
     }
@@ -42,7 +46,7 @@ class OrderBookModel extends Model
         if($wh){
             $wh = array_merge($wh,$where);
         }
-        $fields = 'b.id,b.name,b.sex,b.dealers_id,b.car_style_id,b.series_id,b.area_id,b.book_telephone,b.book_to_time,b.book_time,b.status,b.remark,gcs.name as style_name,gcse.name as series_name';
+        $fields = 'b.id,b.name,b.sex,b.dealers_id,b.car_style_id,b.series_id,b.area_id,b.book_telephone,b.book_to_time,b.book_time,b.status,b.remark,gcs.name as style_name,gcse.name as series_name,gcse.brand_id';
         $list = $this->table(config('database.prefix').'order_book')
             ->alias('b')
             ->join(config('database.prefix').'goods_car_style gcs','b.car_style_id = gcs.id','LEFT')
@@ -53,7 +57,12 @@ class OrderBookModel extends Model
             ->cache(false)
             ->paginate($limit);
 
+       // var_dump($list);die;
         return $list;
+    }
+
+    public function series(){
+        return $this->hasOne('app\goods\model\GoodsCarSeriesModel', 'id', 'series_id', '', 'INNER')->setEagerlyType(0);
     }
 
 

@@ -21,10 +21,10 @@ class IndexController extends HomeBaseController
     {
         // 获取最新发布的车源
         // 获取热门推荐品牌下几款车型
-       /* $brandModel = new GoodsBrandModel();
+       $brandModel = new GoodsBrandModel();
         $hotBrandData = $brandModel->getHotBrand();
         //bb($hotBrandData);die;
-        $this->assign('hotBrandList',$hotBrandData);*/
+        $this->assign('hotBrandList',$hotBrandData);
 
         // 获取推荐置顶的4款车源
         $goodsModel = new GoodsModel();
@@ -38,11 +38,15 @@ class IndexController extends HomeBaseController
         //今日新品
         $latestCarList = $goodsModel->getLatestCar(4);
         $this->assign('latestCarList',$latestCarList);
-        $topCarList = $goodsModel->getTopCar(4);
+        $topCarList = $goodsModel->getTopCar(3);
         $this->assign('topCarList',$topCarList);
         return $this->fetch(':index');
     }
 
+    public function detail(){
+        return $this->fetch(':maiche_show');
+
+    }
     public function about(){
         return $this->fetch(':about');
     }
@@ -68,4 +72,17 @@ class IndexController extends HomeBaseController
 
     }
 
+    public function wey(){
+        header('location:http://www.szdxwey.com/portal/channel/book.html?b-n=wey');
+        exit;
+    }
+    public function honda(){
+        header('location:http://www.szdxhonda.cn/vehicle/channel/channel.html');
+        exit;
+    }
+
+    public function gf(){
+        header('location:http://chr.66820000.com/gf.html');
+        exit;
+    }
 }

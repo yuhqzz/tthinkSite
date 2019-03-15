@@ -181,4 +181,12 @@ if (!function_exists('getGaugeType')) {
         return $data[$id];
     }
 }
-
+if (!function_exists('getActUserPhone')) {
+    function getActUserPhone($uid){
+        $user = Db::name('activity_user')->where(['id'=>$uid])->find();
+        if($user){
+            return $user['phone'];
+        }
+        return 'xxx';
+    }
+}

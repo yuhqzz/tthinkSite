@@ -1,0 +1,60 @@
+<form id="v-testdrive" method="post">
+    <div class="dCont">
+        <dl>
+            <dt>请选择车系</dt>
+            <dd>
+                <label for="select" class="selectStyle">
+                    <select name="da[car]">
+                        <option value="2">WEY VV5</option>
+                        <option value="3">WEY VV7</option>
+                        <option value="1">WEY P8</option>
+                    </select>
+                </label>
+            </dd>
+        </dl>
+        <dl>
+            <dt>选择试驾店</dt>
+            <dd>
+                    <input type="text" value="广东省" name="da[province]" readonly="readonly" class="inputStyle" style="width: 48%;float: left;margin-right: 2%;"/>
+                    <input type="text" value="深圳市" name="da[city]" readonly="readonly" class="inputStyle" style="width: 50%;float: left;"/>
+            </dd>
+        </dl>
+        <dl>
+            <dt></dt>
+            <dd>
+                <input type="text" value="深圳市大兴宝锦汽车销售服务有限公司" name="da[company]" readonly="readonly" class="inputStyle" />
+
+            </dd>
+        </dl>
+        <dl>
+            <dt>您的姓名</dt>
+            <dd>
+                <input type="text" value="" name="da[name]" placeholder="请输入真实姓名" class="inputStyle inputName" />
+                <label for="select" class="selectStyle selSex">
+                    <select name="da[gender]">
+                        <option value="1" selected="selected">先生</option>
+                        <option value="2">女士</option>
+                    </select>
+                </label>
+            </dd>
+        </dl>
+        <dl>
+            <dt>联系方式</dt>
+            <dd>
+                <input type="text" value="" maxlength="11" name="da[mobile]" placeholder="请输入手机号码" class="inputStyle" />
+            </dd>
+        </dl>
+        <div class="contCheck">
+            <label for="checkbox" class="checkStyle">
+                <input type="checkbox" checked="checked" name="da[agree]" />
+                <span>本人特此授权长城汽车股份有限公司，须按照数据保护规定，保留页面信息，并认可此消息予以长城汽车股份有限公司及其WEY中国经销商共享。本人接受长城汽车股份有限公司及其WEY中国经销商所发送的相关商业信息，并允许上述公司与我联系。</span>
+            </label>
+        </div>
+        <input type="hidden" name="da[media]" value="" />
+        <input type="hidden" name="da[client]" value="m" />
+        <div class="contBtn">
+            <a href="javascript:;" class="btnDrive btn_submit">&nbsp;</a>
+        </div>
+    </div>
+</form>
+<script src="__TMPL__/public/assets/vv/js/m/testdrive.js" type="text/javascript" ></script>

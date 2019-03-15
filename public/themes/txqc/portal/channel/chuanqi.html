@@ -10,8 +10,12 @@
     <meta name="keywords" content="大兴传祺旗舰店,深圳首家A级标准广汽传祺4S店,兴耀传祺,818，大兴传祺，盛大开业" />
     <meta name="description" content="大兴传祺旗舰店,深圳首家A级标准广汽传祺4S店" />
     <link rel="icon" href="__TMPL__/public/assets/images/favicon.ico">
+    <link rel="stylesheet" href="__STATIC__/js/swiper/3.4/css/swiper.min.css?v={$version}">
     <link rel="stylesheet" type="text/css" href="__TMPL__/public/assets/css/chuanqi.css?v={$version}" />
-    <script type="text/javascript">var _speedMark = new Date();</script>
+    <script type="text/javascript">
+        var _speedMark = new Date();
+        var DF = "{$df}" || 'cq';
+    </script>
     <style type="text/css">
         .dealer_address dt{
             font-size:14px;
@@ -28,22 +32,27 @@
         .dealer_address li{
             line-height:28px;
         }
+
+
     </style>
 </head>
 <body>
-<!--<div class="site-nav">
-    <div class="wrapper">
-        <div class="login g-fl">
-            <i class="icon"></i>
+<div class="mod-banner">
+    <div class="swiper-container" >
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="__TMPL__/public/assets/images/chuanqi/banner-1.jpg">
+            </div>
+            <div class="swiper-slide">
+                <img src="__TMPL__/public/assets/images/chuanqi/banner-2.jpg" data-url="">
+            </div>
+            <div class="swiper-slide">
+                <img src="__TMPL__/public/assets/images/chuanqi/banner-3.jpg" data-url="">
+            </div>
         </div>
-        <div class="nav g-fr">
-        </div>
-    </div>
-</div>-->
-<div class="banner">
-    <div class="wrapper">
-        <div class="banner-box">
-        </div>
+        <div class="swiper-button-prev"><span></span></div>
+        <div class="swiper-button-next"><span></span></div>
+        <ul class="swiper-pagination autoplay"></ul>
     </div>
 </div>
 <div class="mod-activity">
@@ -55,9 +64,12 @@
                 <div class="activity-text">
                     <div class="activity-tit">
                         <h2 class="J_title">深圳大兴传祺开业钜惠 最高直降25000元+享两年零利率+5000元礼包</h2>
-                        <p><label>活动日期：</label>2018年8月18日-19日 09:00-18:00</p>
+                        <p><label>活动日期：</label>即日起-2018年8月31日</p>
                         <p><label>活动地点：</label>深圳市龙华区观澜街道观光路1319-101号 龙华大兴汽车中心</p>
-                        <p><label>参与车型：</label>
+						 <p>
+						   <label>优惠热线：</label>
+						   17896451021 或 0755-21056666</p>
+                         <p><label>参与车型：</label>
                             <span>
                                 <foreach name="chuanqi" item="vo">
                                     <a href="javascript:;"class="J_anchors" >{$vo.name}</a> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -72,30 +84,33 @@
             <div class="activity-r g-fr">
                 <h3><i class="icon"></i>报名有礼</h3>
                 <div class="mod-style">
-                    <p>团购车型：</p>
-                    <div class="style-box clearfix">
+                    <p>活动车型：</p>
+                    <div class="style-box clearfix" id="style-box">
                         <foreach name="chuanqi" item="vo" key="k">
                             <a href="javascript:;" data-sid="{$vo.id}" class="{$k==0?'on':''}" data-bid="{$brand_id}">{$vo.name}</a>
                         </foreach>
                     </div>
-                    <div class="style-bottom">已选择<span>{$chuanqi[0]['name']}</span>，尽快报名，享<em>4</em>重优惠大礼包！</div>
+                    <div class="style-bottom">已选择<span id="selected_style">{$chuanqi[0]['name']}</span>，现在报名，享<em>4</em>重优惠大礼包！</div>
                 </div>
                 <div class="mod-enroll">
-                    <form method="post" id="J_formEnroll" action="{:url('portal/channel/ajaxSubmitBookCar')}">
+                    <form method="post" id="J_formEnroll" action="{:url('portal/channel/ajaxSubmitBookCar',array('df'=>'all'))}">
                         <input type="hidden" name="series_id" value="{$chuanqi[0]['id']}">
-                        <input type="hidden" name="brand_id" value="$brand_id">
                         <ul>
                             <li>
-                                <div class="i-select J_a_city select-city">
+                                <div class="i-select J_a_brand select-city">
                                     <a href="javascript:;" class="select-text selected">
-                                        <span>深圳</span>
+                                        <span>广丰</span>
                                         <i class="icon i2"></i>
                                         <i class="icon"></i>
-                                        <input type="hidden" name="city" value="77">
+                                        <input type="hidden" name="brand_id" value="">
                                     </a>
                                     <div class="menu-pop city-pop">
-                                        <dl class="clearfix">
-                                            <dd class="clearfix"><a href="javascript:;" data-val="77" data-title="深圳"><b>深圳</b></a></dd>                                        </dl>
+                                        <dl class="clearfix" >
+                                            <dd class="clearfix"><a href="javascript:;" data-val="77" data-title="广丰"><b>广丰</b></a></dd>
+                                            <dd class="clearfix"><a href="javascript:;" data-val="77" data-title="日产"><b>日产</b></a></dd>
+                                            <dd class="clearfix"><a href="javascript:;" data-val="77" data-title="WEY"><b>WEY</b></a></dd>
+                                            <dd class="clearfix"><a href="javascript:;" data-val="77" data-title="传祺"><b>传祺</b></a></dd>
+                                        </dl>
                                     </div>
                                 </div>
                             </li>
@@ -126,25 +141,30 @@
             </div>
             <div class="yhstyle-box">
                 <ul>
-                    <foreach name="chuanqi" item="vo">
-                        <li>
-                            <div class="icon top"></div>
-                            <div class="pic">
-                                <img src="" _src="__TMPL__/public/assets/images/chuanqi/{$vo.img}" width="291" height="201">
-                            </div>
-                            <h3>{$vo.name}</h3>
-                            <p>{$vo.price}万起<span>现场公布</span></p>
-                            <a href="javascript:;"  data-sid="{$vo.id}" data-bid="{$brand_id}" data-title="{$vo.name}">立即报名</a>
-                        </li>
+                    <foreach name="brand_data" item="vo">
+                        <foeach name="vo.series" item="v">
+                            <li>
+                                <div class="icon top"></div>
+                                <div class="pic">
+                                    <img _src="__TMPL__/public/assets/images/{$v.img}" width="291" height="201">
+                                </div>
+                                <h3>{$v.name}</h3>
+                                <p><em style="text-decoration:line-through;">{$v.price}</em>万起<span>现场公布</span></p>
+                                <a href="javascript:;"  data-sid="{$v.id}" data-bid="{$vo.brand_id}" data-title="{$v.name}">咨询底价</a>
+                            </li>
+                        </foeach>
                     </foreach>
                 </ul>
             </div>
         </div>
     </div>
+    <!--<div>
+        <a href="{:url('portal/activity/index')}" target="_blank"><img src="__TMPL__/public/assets/images/chuanqi/adv01.jpg" style="max-width: 100%;width: 100%;"></a>
+    </div>-->
     <div class="mod-dealer">
         <div class="wrapper">
             <div class="dealer-title">
-                <h3><i class="icon left"></i><span>经销商信息</span><i class="icon right"></i></h3>
+                <h3><i class="icon left"></i><span>联系我们</span><i class="icon right"></i></h3>
             </div>
             <div class="dealer-pic clearfix">
                 <div style="float:left;width: 620px;height: 380px;" id="dealer_address" class="dealer_address"></div>
@@ -212,6 +232,7 @@
 <script type="text/html" id="J_layerbm_tmpl">
     <div class="mod-layerbm">
         <form method="get" id="J_formEnroll2" action="{:url('portal/channel/ajaxSubmitBookCar')}">
+            <input type="hidden" name="DF" value="{$df}">
             <ul>
                 <li class="clearfix li0">
                     <label>意向车型：</label>
@@ -265,7 +286,7 @@
 </script>
 <script type="text/javascript" src="__STATIC__/js/layer/layer.js?v={$version}"></script>
 <script type="text/javascript" src="__TMPL__/public/assets/js/chuanqi.js?v={$version}"></script>
-
+<script type="text/javascript" src="__STATIC__/js/swiper/3.4/js/swiper.min.js?v={$version}"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vne5KHdITfEbuivkC6qcGUjwnvhBv3m3"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js?v={$version}"></script>
 <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css?v={$version}" />
@@ -275,7 +296,6 @@
     var poi = new BMap.Point(114.042109,22.729777);
     map.centerAndZoom(poi, 17);
     map.enableScrollWheelZoom();
-
     var content = '<div style="margin:0;line-height:20px;padding:2px;">' +
             '<img src="__TMPL__/public/assets/images/chuanqi/dx_address.jpg" alt="" style="float:right;zoom:1;overflow:hidden;width:150px;height:150px;margin-left:3px;"/>' +
             '地址：深圳市龙华区观澜街道观光路1319-101号 龙华大兴汽车中心<br/>电话：0755-21056666<br/>简介：深圳大兴传祺旗舰店-深圳首家A级标准广汽传祺4S店。' +
@@ -307,7 +327,7 @@
         fontSize : "8px",
         height : "20px",
         lineHeight : "20px",
-        fontFamily:"微软雅黑",
+        fontFamily:"Arial",
         border:"none",
         cursor: "pointer"
     });
@@ -322,5 +342,96 @@
     marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
 
 </script>
+<span style="display:none"><script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9305051337d085fc2c53e2c738bb8250";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274329686'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/stat.php%3Fid%3D1274329686%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></span>
 </body>
 </html>
+<script>
+    window.onload = function() {
+        var mySwiper = new Swiper('.mod-banner .swiper-container', {
+            autoplay: 3000,
+            speed: 1000,
+            loop: true,
+            runCallbacksOnInit: false,
+            watchSlidesProgress : true,
+            pagination: '.mod-banner .swiper-pagination',
+            paginationClickable :true,
+            paginationBulletRender: function (swiper, index, className) {
+                return '<li class="' +className + '"><span><i></i></span></li>';
+            },
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            onProgress: function(swiper) {
+                for (var i = 0; i < swiper.slides.length; i++) {
+                    var slide = swiper.slides.eq(i);
+                    var progress = slide[0].progress;//获取slide的progress
+                    var translate;//slide的位移
+
+                    //左边出去时，slide位移减慢，slide缩放，文字Y视差。else右边进时，文字X视差
+                    if (progress > 0) {
+                        translate = progress * 0.9 * swiper.width;
+                        scale = 1 - progress * 0.1
+                        if (progress > 1) {
+                            scale = 0.9
+                        }
+                        txtPositionX = 0
+                        txtPositionY = progress * 30 + 'px'
+                    } else {
+                        translate = 0;
+                        scale = 1
+                        txtPositionX = -progress * 1000 + 'px'
+                        txtPositionY = 0
+                    }
+                    slide.transform( 'translate3d(' + (translate) + 'px,0,0) scale(' + scale + ')');
+                }
+            },
+            onSetTransition: function(swiper, speed) {
+                for (var i = 0; i < swiper.slides.length; i++) {
+                    //赋加动画时间到slide和txt
+                    slide=swiper.slides.eq(i);
+                    slide.transition(speed);
+                }
+            },
+            onSlideChangeStart: function(swiper) {
+                if (swiper.autoplaying) {
+                    swiper.bullets.eq(swiper.realIndex-1).addClass('replace');
+                    swiper.bullets.eq(swiper.realIndex-1).removeClass('current firsrCurrent');
+                    swiper.bullets.eq(swiper.realIndex).addClass('current');
+                    if(swiper.realIndex==0){
+                        swiper.bullets.removeClass('replace');
+                    }
+                }
+            },
+            //自动切换停止后，使用静态分页器
+            onAutoplayStop: function(swiper) {
+                swiper.$('.autoplay').removeClass('autoplay');
+            }/*,
+            onClick: function(swiper){
+              // console.log(swiper);
+                var imgObj = swiper.slides.eq(swiper.realIndex+1).find('img');
+                var taget_url = $(imgObj).attr('data-url');
+                if(taget_url){
+                    window.open(taget_url);
+                }
+
+            }*/
+        })
+// Set Z-Indexes
+        for (var i = 0; i < mySwiper.slides.length; i++) {
+            mySwiper.slides[i].style.zIndex = i;
+        }
+        setTimeout(firstAdd ,1);
+        function firstAdd(){
+            mySwiper.bullets.eq(0).addClass('firsrCurrent');
+        }
+    }
+
+</script>

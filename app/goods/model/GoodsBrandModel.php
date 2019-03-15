@@ -19,6 +19,7 @@ class GoodsBrandModel extends Model
         if($wh){
           $wh = array_merge($wh,$where);
         }
+        $wh['parentid'] = 0;
         $list  = $this->where($wh)->order('list_order asc first_char asc')->paginate($limit);
       return $list;
     }

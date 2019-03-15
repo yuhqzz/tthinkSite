@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <php>$version = '201181203';</php>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <title>{$theme_vars['page_title']|default=''}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="description" content="{$theme_vars['page_description']|default=''}" />
+    <meta name="keywords" content="{$theme_vars['page_keywords']|default=''}" />
+    <link rel="icon" href="__TMPL__/public/assets/images/favicon.ico">
+    <link rel="stylesheet" href="__STATIC__/js/swiper/4.3/css/swiper.min.css?v={$version}">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/assets/css/multi_brand_m1212.css?v={$version}" />
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        var DF = "{$source_id}";
+        var dealer = {$dealers};
+        //加载后台配置的代码
+        {$theme_vars['script']|default=''}
+    </script>
+    <style type="text/css">
+        {$theme_vars['style']|default=''}
+    </style>
+    <php>
+        $top_slide_id = empty($theme_vars['top_slide'])?1:$theme_vars['top_slide'];
+    </php>
+</head>
+<body>
+<div class="mod-container">
+    <div class="mod-banner swiper-container banner" id="banner_swipper" style="padding-bottom: 10px;">
+        <div class="swiper-wrapper">
+            <slides id="$top_slide_id">
+                <div class="swiper-slide" >
+                    <img src="{:cmf_get_image_url($vo.image)}" style="width:100%;height:100%;"/>
+                </div>
+            </slides>
+        </div>
+        <div class="swiper-pagination swiper-pagination-banner"></div>
+    </div>
+    <div class="mod-bg">
+        <widget name = "activity">
+        <div class="mod-activity">
+            <div class="title">
+                <h3><i class="icon"></i><span>活动详情</span><i class="icon i2"></i></h3>
+            </div>
+            <div class="activity-box">
+                <h3>{$widget.vars.title|htmlspecialchars_decode}</h3>
+                  <p><label>报名时间：</label>{$widget.vars.date|htmlspecialchars_decode}</p>
+                <p><label>活动地点：</label>{$widget.vars.address|htmlspecialchars_decode}</p>
+                <php>
+                    if($widget['vars']['concat'] != null){
+                </php>
+                <p><label>优惠热线：</label>{$widget.vars.concat|htmlspecialchars_decode}</p>
+                <php>}</php>
+				<div class="canyu-brand">
+                    <label class="canyu-txt">参展品牌：</label>
+                    <div class="canyu-brand-item">
+                        <foreach name="brandData" item="brandVo">
+                                <a href="javascript:;" class="J_anchors" data-bid="{$brandVo.brand_id}">{$brandVo.brand_name}</a>
+                        </foreach>
+                    </div>
+                </div>
+                <p><label>活动亮点：</label>
+                    {$widget.vars.remark|htmlspecialchars_decode}
+                </p>
+            </div>
+            <div class="activity-pic"><img src="{:cmf_get_image_url($widget.vars.adv)}" width="100%"></div>
+        </div>
+        </widget>
+        <div class="mod-enrollbox">
+            <div class="title">
+                <h3><i class="icon"></i><span>报名有礼</span><i class="icon i2"></i></h3>
+            </div>
+            <div class="enrollbox-box">
+               
+                <div class="mod-enroll">
+                    <form method="get" id="J_formEnroll" action="{:url('portal/channel/ajaxSubmitBookCar')}">
+                        <input type="hidden" name="source_id" value="{$source_id}">
+                        <input type="hidden" name="series_id" value="0">
+                        <div class="box-c">
+                            <ul>
+                                <li>
+                                    <select  class="i-select" name="brand_id" style="width: 100%;height: 40px;padding-left: 0.35rem;color: #8d91ac;outline-color: #03A9F4;">
+                                        <option value="0">选择品牌</option>
+                                        <foreach name="brandData" item="vo">
+                                            <option value="{$vo.brand_id}">{$vo.brand_alias}</option>
+                                        </foreach>
+                                    </select>
+                                </li>
+                                <li>
+                                    <div class="mod-style">
+                                        <p>车型：</p>
+                                        <div class="style-box clearfix" id="style-box"></div>
+                                        <div class="style-bottom" >已选择<span id="selected_style"></span>，{$theme_vars['param_1']|default=''}</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <input type="text" name="dealer_name" id="dealer-select-operate" placeholder="选择4S店" class="text" readonly>
+                                    <input type="hidden" name="dealer" value="0">
+                                    <ol class="dealer-select" id="dealer-select">
+                                    </ol>
+                                </li>
+                                <li class="clearfix">
+                                    <input type="text" name="customer_name" placeholder="您的称呼：如张先生（女士）" class="text">
+                                </li>
+                                <li>
+                                    <input type="text" name="mobile" placeholder="请填写11位数的手机号码" maxlength="11" class="text">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="btn-box">
+                            <input type="submit" class="btn" value="立即报名">
+                            <p>{$theme_vars['param_2']|default=''}</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="mod-yhstyle">
+            <div class="title">
+                <h3><i class="icon"></i><span>{$theme_vars['param_3']|default=''}</span><i class="icon i2"></i></h3>
+            </div>
+            <div class="yhstyle-box">
+                <ul class="clearfix">
+                    <foreach name="brandData" item="vv">
+                        <foreach name="vv.series" item ="vo">
+                        <li>
+                            <div class="box miaoto-{$vv.brand_id}">
+                                <div class="icon top"></div>
+                                <div class="pic">
+                                    <img src="" _src="__TMPL__/public/assets/images/multilbrand/{$vo.img}" >
+                                </div>
+                                <h3>{$vo.name} - {$vv.brand_name}</h3>
+                                <p><em style="text-decoration:line-through;">{$vo.price}</em>万起<span>现场公布</span></p>
+                                <a href="javascript:;" data-sid="{$vo.id}" data-bid="{$vv.brand_id}" data-title="{$vo.name}">咨询底价</a>
+                            </div>
+                        </li>
+                        </foreach>
+                    </foreach>
+                </ul>
+            </div>
+        </div>
+        <div class="mod-dealer">
+            <div class="title">
+                <h3><i class="icon"></i><span>联系我们</span><i class="icon i2"></i></h3>
+            </div>
+            <div class="dealer-pic">
+                <div style="margin-top: 15px;">
+                    <h4>大兴汽车高端出行服务商-同兴出行</h4>
+                    <p>服务热线：17896446832 或微信:18814308958 </p>
+                    <p>地址：深圳市宝安区新安街道创业二路与大宝路交汇处 大兴进口车中心</p>
+					<em style="font-size: 0.7em;color: #7d7373;">广汽丰田●深圳大兴大宝店</em>
+					 <p>地址：深圳市宝安区新安街道创业二路195号厂房第二栋</p>
+					 <em style="font-size: 0.7em;color: #7d7373;">广汽丰田●深圳大兴通商店</em>
+					 <p>地址：深圳市南山区嘉进隆前海汽车城A01-1</p>
+					 <em style="font-size: 0.7em;color: #7d7373;">东风日产●深圳新大兴专营店</em>
+					 <p>地址：深圳市沙井街道西环路2111号</p>
+					 <em style="font-size: 0.7em;color: #7d7373;">广汽传祺●深圳大兴宝兴店</em>
+					 <p>地址：深圳市龙华区观澜街道新澜社区观光路1319-3号大兴汽车中心</p>
+					 <em style="font-size: 0.7em;color: #7d7373;"> WEY●深圳大兴宝锦店</em>
+					 <p>地址：深圳市沙井街道西环路2113号</p>
+					 <em style="font-size: 0.7em;color: #7d7373;"> WEY●深圳大兴宝汇店</em>
+					 <p>地址：深圳市龙华区观澜街道新澜社区观光路1319-3号大兴汽车中心</p>
+                     <em style="font-size: 0.7em;color: #7d7373;"> 广汽本田●深圳大兴宝腾店</em>
+                     <p>地址：深圳市龙华区观澜街道新澜社区观光路1319-3号大兴汽车中心</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="J_fastbar" id="J_fastbar">
+        <a>立即报名</a>
+    </div>
+    <div class="fastbar-box">
+        <a href="tel:{$theme_vars['param_5']|default='17896446832'}" onClick="ask_price();" class="TopBtn2" style="bottom: 0.15rem"></a>
+    </div>
+</div>
+<span style="display:none">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b1fa0bf0abb4b2f809c3ca5496987763";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</span>
+</body>
+</html>
+<script type="text/javascript" src="__STATIC__/js/layer/mobile/layer.js?v={$version}"></script>
+<script type="text/javascript" src="__STATIC__/js/zepto.js?v={$version}"></script>
+<script type="text/javascript" src="__STATIC__/js/swiper/4.3/js/swiper.min.js?v={$version}"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/js/mutil_brand-m.js?v={$version}"></script>
+<script type="text/javascript">
+    var swiper = new Swiper('#banner_swipper', {
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'fraction',
+            renderFraction: function(currentClass, totalClass) {
+                return '<span class="' + currentClass + '"></span>' + '/' + '<span class="' + totalClass + '"></span>';
+            },
+        },
+        speed:300,
+        autoplay : {
+            delay:3000,
+            disableOnInteraction: false,
+        },
+    });
+
+    var ask_price = function(){
+        _hmt.push(['_trackMobConv', 'tel']);
+    }
+</script>
+

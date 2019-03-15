@@ -51,6 +51,7 @@ class BaseController extends Controller
                     $this->beforeAction($method, $options);
             }
         }
+        $this->assign('version',time());
     }
 
 

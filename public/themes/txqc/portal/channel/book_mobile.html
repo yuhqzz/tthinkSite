@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <php>$version = time();</php>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="renderer" content="webkit">
+	<title>{$page.page_title}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="description" content="{$page.page_description}" />
+	<link rel="icon" href="__TMPL__/public/assets/images/favicon.ico">
+    <link rel="stylesheet" href="__STATIC__/js/swiper/4.3/css/swiper.min.css?v={$version}">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/assets/book/css/mobile/book.css?v={$version}" />
+    <!--百度-->
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css?v={$version}" />
+    <script>
+        var _hmt = _hmt || [];
+    </script>
+    <script type="text/javascript">var _speedMark = new Date();</script>
+    <style type="text/css">
+        .activity-box label{
+            font-weight: bold;
+        }
+        .select-text{
+            font-size: 0.7rem;
+            height: 2rem;
+            line-height: 2.0rem;
+            padding: 0rem 0.5rem;
+            /* border: 1px solid #b4b8c8; */
+            width: 100%;
+            color: #979ab3;
+            background: #ffffff;
+        }
+        .select-text:focus{
+            border: 1px solid #99c5e5;
+            outline: #006ebf solid thin;
+        }
+
+    </style>
+    <php>
+        $top_slide_id = empty($theme_vars['top_slide'])?1:$theme_vars['top_slide'];
+        $coupon_ids = empty($theme_vars['coupon'])?0:$theme_vars['coupon'];
+        if($coupon_ids){
+            $couponser = new app\goods\service\CouponService();
+            $coupons = $couponser->getCoupon($coupon_ids);
+            if($coupons){
+            $coupons_a = array_chunk($coupons,2);
+            }
+        }
+    </php>
+</head>
+<body>
+<div class="mod-container">
+    <div class="mod-banner swiper-container banner" id="banner_swipper" style="padding-bottom: 10px;">
+            <div class="swiper-wrapper">
+                <slides id="$top_slide_id">
+                    <div class="swiper-slide" >
+                        <img src="{:cmf_get_image_url($vo.image)}" style="width:100%;height:100%;"/>
+                    </div>
+                </slides>
+            </div>
+            <div class="swiper-pagination swiper-pagination-banner"></div>
+    </div>
+    <div class="mod-bg">
+        <widget name = "activity">
+        <div class="mod-activity">
+            <div class="title">
+                <h3><i class="icon"></i><span>活动详情</span><i class="icon i2"></i></h3>
+            </div>
+            <div class="activity-box">
+                <h3><span>{$widget.vars.title|htmlspecialchars_decode}</span></h3>
+                <p><label>活动时间：</label><span>{$widget.vars.date|htmlspecialchars_decode}</span></p>
+                <p><label>活动地点：</label>
+                    {$widget.vars.address|htmlspecialchars_decode}
+                </p>
+                <php>
+                    if($widget['vars']['concat'] != null){
+                </php>
+                <p><label>咨询热线：</label>{$widget.vars.concat|htmlspecialchars_decode}</p>
+                <php>}</php>
+                <p><label>参与车型：</label>
+							<span>
+                                <foreach name="page.series" item="vo">
+                                    <a href="javascript:;"class="J_anchors" >{$vo.name}</a>
+                                </foreach>
+                            </span>
+				</p>
+                <h3 class="last">{$widget.vars.remark|htmlspecialchars_decode}</h3>
+            </div>
+            <!--领券start-->
+            <div class="coupon" id="J_coupon">
+                <div class="coupon_box_hd">
+                    <a class="coupon_box_hd_lk" href="javascript:void(0);" target="_blank" >
+                        <h4 class="coupon_box_tit">领券购车，惊喜不断</h4>
+                        <i class="coupon_box_hd_arrow"></i>
+                        <span class="coupon_box_tip" id="coupon_box_tip">领券攻略</span>
+                    </a>
+                </div>
+                <div class="swiper-container">
+                    <notempty name="coupons_a">
+                        <div class="swiper-wrapper">
+                            <foreach name="coupons_a" item ="vo">
+                                <div class="swiper-slide" >
+                                    <foreach name="vo" item="vv">
+                                        <div class="coupon_item">
+                                            <a class="coupon_lk" href="javascript:void (0);" target="_blank">
+                                                <div class="lazyimg lazyimg_loaded coupon_img">
+                                                    <img src="{$vv.img_pre}" class="lazyimg_img">
+                                                </div>
+                                                <div class="coupon_pull">
+                                                    <div class="coupon_pull_inner coupon-btn" data-coupon="{$vv.id}" >马上领取</div>
+                                                </div>
+                                                <div class="coupon_info">
+                                                    <div class="mod_price coupon_price">
+                                                        <php>if($vv['type'] == 1){</php>
+                                                        <i>¥</i><span>{$vv.coupon_price}</span><em>{$vv.title}</em>
+                                                        <php>}elseif($vv['type'] == 2){</php>
+                                                        <span>{$vv.coupon_price}</span>折<em>{$vv.title}</em>
+                                                        <php>}elseif($vv['type'] == 3){</php>
+                                                        <em>{$vv.title}</em>
+                                                        <php>}elseif($vv['type'] == 0){</php>
+                                                        <i>¥</i><span>{$vv.coupon_price}</span><em>{$vv.title}</em>
+                                                        <php>}</php>
+                                                    </div>
+                                                    <div class="coupon_limit">
+                                                        <php>if($vv['using_cars'] === 'all'){</php>
+                                                        <span> WEY 全车型 可用</span>
+                                                        <php>}else{</php>
+                                                        <span>WEY {$vv.using_cars} 可用</span>
+                                                        <php>}</php>
+                                                    </div>
+                                                    <div class="coupon_desc">
+                                                                <span data-html="true" data-selector=".coupon_desc" data-placement="top" data-toggle="popover" data-content="<h4>{$vv.description}</h4>">
+                                                                    使用说明
+                                                                </span>
+                                                    </div>
+                                                    <div class="coupon_expire">
+                                                        <php>if($vv['expire_time'] === 'all'){</php>
+                                                        <span>无时间限制 </span>
+                                                        <php>}else{</php>
+                                                        <span>有效期 {$vv.expire_time}</span>
+                                                        <php>}</php>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <div class="coupon_line"></div>
+                                        </div>
+                                    </foreach>
+                                </div>
+                            </foreach>
+                        </div>
+                        <div class="swiper-pagination coupon-pagination"></div>
+                    </notempty>
+                </div>
+            </div>
+            <!--领券end-->
+            <div class="activity-pic"><img src="{:cmf_get_image_url($widget.vars.adv)}" width="100%"></div>
+        </div>
+        </widget>
+        <div class="mod-enrollbox">
+            <div class="title">
+                <h3><i class="icon"></i><span>报名有礼</span><i class="icon i2"></i></h3>
+            </div>
+            <div class="enrollbox-box">
+                <div class="mod-style">
+                    <p>活动车型：</p>
+                    <div class="style-box clearfix">
+                      <foreach name="page.series" item="vo" key="k">
+                            <a href="javascript:;" data-sid="{$vo.id}" class="{$k==0?'on':''}" data-bid="{$brand_id}"><span>{$vo.name}</span></a>
+                        </foreach>
+                    </div>
+                    <div class="style-bottom">已选择<span>{$page['series'][0]['name']}</span>，{$theme_vars['param_1']|default=''}</div>
+                </div>
+                <div class="mod-enroll">
+                    <form method="get" id="J_formEnroll" action="{:url('portal/channel/ajaxSubmitBookCar')}">
+                        <input type="hidden" name="series_id" value="{$page['series'][0]['id']}">
+                        <input type="hidden" name="brand_id" value="{$brand_id}">
+                        <div class="box-c">
+                            <ul>
+                                <li>
+                                   <select name="dealer" class="select-text">
+                                       <option value="0">请选择4S店</option>
+                                       <foreach name="dealers" item="vo">
+                                           <option value="{$vo.id}">{$vo.name}</option>
+                                       </foreach>
+                                   </select>
+                                </li>
+                                <li class="clearfix">
+                                    <input type="text" name="customer_name" placeholder="您的称呼：如张先生（女士）" class="text">
+                                </li>
+                                <li>
+                                    <input type="text" name="mobile" placeholder="请填写11位数的手机号码" maxlength="11" class="text">
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="btn-box">
+                            <input type="submit" class="btn" value="立即报名">
+                            <p>{$theme_vars['param_2']|default=''}</p>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+        <div class="mod-yhstyle">
+            <div class="title">
+                <h3><i class="icon"></i><span>{$theme_vars['param_3']|default=''}</span><i class="icon i2"></i></h3>
+            </div>
+            <div class="yhstyle-box">
+                <ul class="clearfix">
+				<foreach name="page.series" item="vo">
+                    <li>
+                        <div class="box" data-url="{$vo.url|default=''}">
+                            <div class="icon2 top"></div>
+                            <div class="pic">
+                                <img  _src="__TMPL__/public/assets/book/images/{$vo.img}" >
+                            </div>
+                            <h3>{$vo.name}</h3>
+                            <p><em style="text-decoration:line-through;">{$vo.price}</em>万起</p>
+                            <a href="javascript:;" data-sid="{$vo.id}" data-bid="{$brand_id}" data-title="{$vo.name}">咨询底价</a>
+                        </div>
+                    </li>
+				</foreach>
+                </ul>
+            </div>
+        </div>
+        <a href="https://8341454-97.hd.faisco.cn/8341454/2qyYppg_BWcl0ig_Wg9U2Q/xydzp.html?fromQrcode=true">
+            <img src="http://thyrsi.com/t6/677/1551937968x2918527038.jpg" width="100%" height="100%">
+        </a>
+        <div class="mod-dealer">
+            <div class="title">
+                <h3><i class="icon"></i><span>联系我们</span><i class="icon i2"></i></h3>
+            </div>
+            <div class="dealer-pic">
+                <div style="width: 100%;height: 14rem;" id="dealer_address" class="dealer_address"></div>
+                <div style="margin-top: 15px;">
+                    <dl class="dealer-address-d">
+                        <php>
+                            $dealer_info_arr= json_decode($dealer_info,true);
+                        </php>
+                        <foreach name="dealer_info_arr" item="vo">
+                            <dt>{$vo.name}</dt>
+                            <dd>{$vo.desc}</dd>
+                            <dd>服务热线：{$vo.mobile}</dd>
+                            <dd>服务地址：{$vo.address}</dd>
+                        </foreach>
+                    </dl>
+                    <div style="width:100%;height:5rem;display: table-cell; vertical-align: middle;text-align: center;">
+                        <img src="__TMPL__/public/assets/book/images/{$page.brand_pinyin}/qrcode.jpg" width="150" height="150" style="margin-left: 5rem;"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mod-fastbar g-hide" id="J_fastbar" >
+        <div class="fastbar-top"><i class="icon"></i><a href="tel:{$page.activity.act_ask_phone}" onclick="ask_pric();">咨询底价</a></div>
+        <div class="fastbar-box">
+            <div class="gift-box" style="display: none">
+                <i class="icon gift"></i><i class="icon2 txt"></i>
+            </div>
+            <a href="javascript:;" class="btn" style="right:40%;"><i class="icon"></i></a>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="J_layermsg2_tmpl">
+    <div class="mod-layermsg">
+        <i class="icon"></i>
+        <h3>恭喜您，领取成功！</h3>
+        <p> 感谢您的参与，祝您购车愉快!</p>
+        <a href="javascript:;">返回活动页面</a>
+    </div>
+</script>
+<script type="text/html" id="J_layertooltips_tmpl">
+    <div class="tooltips">
+        <img src="__TMPL__/public/assets/book/images/lcdec.jpg" width="100%" height="100%">
+    </div>
+    <a class="btn-box-close">X</a>
+</script>
+<notempty name="coupons"><foreach name="coupons" item ="vo">
+    <script type="text/html" id="J_layerCoupon_tmpl_{$vo.id}">
+        <div class="mod-layerbm">
+            <form method="get" id="J_formEnroll_{$vo.id}" action="{:url('portal/channel/ajaxCoupon')}">
+                <div class="coupon_item">
+                    <input type="hidden" name="coupon_id" value="{$vo.id}">
+                    <a class="coupon_lk" href="javascript:void (0);" target="_blank">
+                        <div class="lazyimg lazyimg_loaded coupon_img">
+                            <img src="{$vo.img_pre}" class="lazyimg_img">
+                        </div>
+                        <div class="coupon_pull">
+                            <div class="coupon_pull_inner">{$vo.type_name}</div>
+                        </div>
+                        <div class="coupon_info">
+                            <div class="mod_price coupon_price">
+                                <php>if($vo['type'] == 1){</php>
+                                <i>¥</i><span>{$vo.coupon_price}</span><em>{$vo.title}</em>
+                                <php>}elseif($vo['type'] == 2){</php>
+                                <span>{$vo.coupon_price}</span>折<em>{$vo.title}</em>
+                                <php>}elseif($vo['type'] == 3){</php>
+                                <em style="font-size: 0.8rem;">{$vo.title}</em>
+                                <php>}elseif($vo['type'] == 0){</php>
+                                <i>¥</i><span>{$vo.coupon_price}</span><em>{$vo.title}</em>
+                                <php>}</php>
+                            </div>
+                            <div class="coupon_limit">
+                                <php>if($vo['using_cars'] === 'all'){</php>
+                                <span> WEY 全车型 可用</span>
+                                <php>}else{</php>
+                                <span>WEY {$vv.using_cars} 可用</span>
+                                <php>}</php>
+                            </div>
+                            <div class="coupon_expire">
+                                <php>if($vo['expire_time'] === 'all'){</php>
+                                <span>无时间限制 </span>
+                                <php>}else{</php>
+                                <span>有效期 {$vv.expire_time}</span>
+                                <php>}</php>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="coupon_line"></div>
+                </div>
+                <input class="coupon_input" type="text" maxlength="11"  name="mobile" placeholder="请您的输入手机号码进行领取" />
+                <p class="msg" id="msg" style="width: 60%;height: 26px;margin: auto 20%;text-align: center;color: #000;"></p>
+                <div class="btn-box">
+                    <input type="submit" data-coupon="{$vo.id}" class="btn" value="确定">
+                </div>
+
+            </form>
+        </div>
+        <a class="btn-box-close">X</a>
+    </script></foreach></notempty>
+<script type="text/javascript">var __scrollT =__s = 0;</script>
+<span style="display:none"><script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d3949dbb81cc4dcb5fe6a334054534d0";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script src="https://s13.cnzz.com/z_stat.php?id=1274209631&web_id=1274209631" language="JavaScript"></script></span>
+<script type="text/javascript">!function(e,r,t,n,a){function o(e){var r;return reg=new RegExp("(^| )"+e+"=([^;]*)(;|$)"),(r=document.cookie.match(reg))?unescape(r[2]):null}e[n]=e[n]||{},e[n]["phonetracker.start"]=(new Date).getTime(),e[n].uid=a;var c=r.getElementsByTagName(t)[0],i=r.createElement(t);i.asyn=!0,i.src="//ada.baidu.com/phone-tracker/getjs?uid="+a+"&from=self&referer="+document.referrer+"&cookie_BD_IS_FROM_FC_AD="+o("BD_IS_FROM_FC_AD"),c.parentNode.insertBefore(i,c)}(window,document,"script","bdDataLayer","nWR4PHDYn1D");</script>
+</body>
+</html>
+<script type="text/javascript" src="__STATIC__/js/layer/mobile/layer.js?v={$version}"></script>
+<script type="text/javascript" src="__STATIC__/js/zepto.js?v={$version}"></script>
+<script type="text/javascript" src="__STATIC__/js/alloy_touch.js?v={$version}"></script>
+<script type="text/javascript" src="__STATIC__/js/alloy_touch.css.js?v={$version}"></script>
+<script type="text/javascript" src="__STATIC__/js/countdown.js?v={$version}"></script>
+<script type="text/javascript" src="__STATIC__/js/swiper/4.3/js/swiper.min.js?v={$version}"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/book/js/mobile/book.js?v={$version}"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=vne5KHdITfEbuivkC6qcGUjwnvhBv3m3"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js?v={$version}"></script>
+<script type="text/javascript">
+    var swiper = new Swiper('#banner_swipper', {
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'fraction',
+            renderFraction: function(currentClass, totalClass) {
+                return '<span class="' + currentClass + '"></span>' + '/' + '<span class="' + totalClass + '"></span>';
+            },
+        },
+        speed:300,
+        autoplay : {
+            delay:3000,
+            disableOnInteraction: false,
+        },
+    });
+    // 百度地图
+    var dealer_info = {$dealer_info};
+    var map = null;
+    map = new BMap.Map("dealer_address");
+    map.centerAndZoom(new BMap.Point(dealer_info[0].point.x,dealer_info[0].point.y), 12);
+    map.enableScrollWheelZoom();
+    for(var i=0;i<dealer_info.length;i++){
+        var marker = new BMap.Marker(new BMap.Point(dealer_info[i].point.x,dealer_info[i].point.y));  // 创建标注
+        var content = '<div style="margin:0;line-height:20px;padding:2px;">' +
+                '<img src="__TMPL__/public/assets/book/images/'+dealer_info[i].dx_img+'" alt="" style="float:right;zoom:1;overflow:hidden;width:150px;height:150px;margin-left:3px;"/>' +
+                '地址：'+dealer_info[i].address+'<br/>电话：'+dealer_info[i].mobile+'<br/>简介：'+dealer_info[i].desc+
+                '</div>';
+
+        var label = drawLabel(dealer_info[i].name,marker);
+        map.addOverlay(marker);               // 将标注添加到地图中
+        addClickHandler(dealer_info[i].name,content,marker,label);
+
+    }
+    function addClickHandler(title,content,marker,label){
+        marker.addEventListener("click",function(e){
+            openInfo(title,content,e)}
+        );
+        label.addEventListener("click",function(e){
+            openInfo(title,content,e)}
+        );
+    }
+    function openInfo(title,content,e){
+        var p = e.target;
+        var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+        var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
+            title  : title,      //标题
+            width  : 340,             //宽度
+            height : 155,              //高度
+            panel  : "panel",         //检索结果面板
+            enableAutoPan : true,     //自动平移
+            searchTypes   :[
+                BMAPLIB_TAB_SEARCH,   //周边检索
+                BMAPLIB_TAB_TO_HERE,  //到这里去
+                BMAPLIB_TAB_FROM_HERE //从这里出发
+            ]
+        });
+        searchInfoWindow.open(point); //开启信息窗口
+    }
+
+    function drawLabel(title,marker){
+        var point = new BMap.Point(marker.getPosition().lng, marker.getPosition().lat);
+        var opts = {
+            position : point,    // 指定文本标注所在的地理位置
+            offset   : new BMap.Size(20, -30)    //设置文本偏移量
+        }
+        var label = new BMap.Label(title, opts);  // 创建文本标注对象
+        label.setStyle({
+            color : "#000",
+            fontSize : "8px",
+            height : "20px",
+            lineHeight : "20px",
+            fontFamily:"Arial",
+            border:"none",
+            cursor: "pointer"
+        });
+        map.addOverlay(label);
+        return label;
+    }
+
+    var ask_pric = function(){
+        _hmt.push(['_trackMobConv', 'tel']);
+    }
+    var mySwiper2 = new Swiper('#J_coupon .swiper-container',{
+        autoplay: false,
+        pagination: {
+            el: '.coupon-pagination',
+        }
+    });
+</script>

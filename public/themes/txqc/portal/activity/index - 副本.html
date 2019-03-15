@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我正在抢大兴传祺818开业大奖，领奖品领到手软，快来一起参与吧！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="持续八天大派送，万元大奖等你拿！" />
+    <link rel="stylesheet" href="__TMPL__/public/assets/css/reset.min.css?v={$version}">
+    <link rel="stylesheet" href="__TMPL__/public/assets/bootstrap-3.3.7/css/bootstrap.min.css?v={$version}">
+    <link rel="stylesheet" href="__TMPL__/public/assets/css/activity.css?v={$version}">
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?v={$version}"></script>
+</head>
+<body>
+
+<div class="header"></div>
+<img src="{:cmf_get_image_url('__TMPL__/public/assets/images/chuanqi/chuanqi-activity.jpg')}" alt="chuanqi" width="0" height="0">
+<div class="container">
+    <ul class="nav-toolbar">
+        <li class="active">818现金红包天天抽</li>
+        <li>我的抽奖</li>
+    </ul>
+    <div class="clear" style="clear: both;"></div>
+    <div class="act-title">
+        <h4 class="act-title-txt" style="text-align: center;">庆大兴传祺8月18日开业<br/><br/>天天抽818元现金红包</h4>
+    </div>
+    <div class="act-operate">
+        <span class="act-btn" {$isLogin?"disabled='true'":""}>{$isLogin?"待开奖":"我要抽奖"}</span>
+        <div class="act-user-list">
+            <foreach name="latest_user" item="vo">
+                <a><i class="glyphicon glyphicon-user"></i>{$vo.phone|mobile_hide}</a>
+            </foreach>
+        </div>
+    </div>
+    <div class="act-detail section">
+        <h5 class="act-item"><em>活动奖品:</em>818元现金红包</h5>
+        <h5 class="act-date"><em>活动时间:</em>8月11-8月17日</h5>
+        <noempty name="wining_list">
+            <div class="wining_list_user" style="margin: 1rem auto;border: 1px dashed #ffdc8f; width: 70%;padding-left: 3rem;">
+                <h5 style="font-weight: 900;">中奖名单</h5>
+                <dl>
+                    <foreach name="wining_list" item="vo">
+                        <dt>{$vo.create_time|date="Y-m-d",###}</dt>
+                        <dd>{$vo.user_phone|mobile_hide} &nbsp;&nbsp;{$vo.code}</dd>
+                    </foreach>
+                </dl>
+            </div>
+        </noempty>
+        <dl class="act-rule-desc">
+            <dt>活动规则：</dt>
+            <dd>1、在上方报名处，点击抽奖，输入正常使用手机号，就可获得一个兑奖码；</dd>
+            <dd>2、报名抽奖成功后将本页分享给好友，好友进入活动页面，参与活动抽奖，即可为自己增加一个兑奖码；</dd>
+            <dd>3、循环大抽奖，活动期间，每天24:00，系统按照随机抽样的方式，自动抽取一个兑奖码，该兑奖码为当天抽奖活动中奖凭证，并在本页及公众号中公布；</dd>
+            <dd>4、用户凭报名手机号及中奖的兑奖码，于8月18日在深圳大兴传祺旗舰店领取！</dd>
+            <dd>5、本活动最终解释权归深圳大兴传祺旗舰店所有！</dd>
+            <dd>
+                <em>温馨提示</em>
+                <p><i class="glyphicon glyphicon-hand-right"></i> 手机号必须是正常使用的手机号，停机或者无效的手机号将取消中奖资格。</p>
+                <p><i class="glyphicon glyphicon-hand-right"></i> 中奖手机号及中奖码为领奖凭证，在领取奖品时需当场验证，核实为虚假信息的将取消中奖资格。</p>
+                <p><i class="glyphicon glyphicon-hand-right"></i> 该活动仅限深圳地区用户参与。</p>
+            </dd>
+        </dl>
+    </div>
+    <div class="my-act section" style="display: none;">
+        <h5 class="act-item"><em>活动奖品:</em>818元现金红包</h5>
+        <h5 class="act-date"><em>活动时间:</em>8月11-8月17日</h5>
+        <div class="winning-list">
+            <php>if($isLogin){</php>
+            <p>我的({$user.phone})兑奖码:</p>
+            <dl>
+                <dt>已被抽中的兑奖码:</dt>
+                <php>if($current_wining_code){</php>
+                <dd class="win-item ing">{$current_wining_code}</dd>
+                <php>}else{</php>
+                <dd class="win-item">暂无</dd>
+                <php>}</php>
+                <dt>我获得的兑奖码：</dt>
+                <dd>
+                    <p style="margin: 1rem;">已获得<em class="code-num">{$codeCount}</em>个兑奖码</p>
+                    <div class="code-list">
+                        <foreach name="codeList" item="vo">
+                            <span class="code-list-item"><em class="code-list-t">兑奖码：</em>{$vo.code}</span>
+                        </foreach>
+                    </div>
+                </dd>
+            </dl>
+            <php>}else{</php>
+            <p class="login">您还未登录，请先<a class="login-btn"  id="login-btn">登录</a></p>
+            <php>}</php>
+        </div>
+    </div>
+</div>
+<div style="margin: -4rem auto 8rem;width: 40%;" >
+    <img src="__TMPL__/public/assets/images/chuanqi/qrcode.jpg" >
+</div>
+<div class="footer">
+    <a  id='shareBtn' class="share-btn" data-uid="{$user.id|default=0}" onClick="document.getElementById('mcover').style.display='block';">分享给好友增加中奖几率</a>
+</div>
+<div id="mcover" onClick="document.getElementById('mcover').style.display='';" style=""><img src="__TMPL__/public/assets/images/tishi.png"></div>
+<input type="hidden" name="user_token" value="{$user_token|default=''}">
+<script type="text/html" id="login-form-tpl">
+    <form  name="act-login-form" method="post" action="{:url('portal/activity/userLogin')}" onsubmit="return false;">
+        <div class="act-submit-form" >
+            <div class="layui-row">
+                <div class="info"></div>
+            </div>
+            <div class="layui-row">
+                <div class="cell">
+                    <input type="text" name="phone"  placeholder="请输入手机号码" class="cell_input" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" maxlength="11">
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+<script type="text/html" id="act-submit-form-tpl">
+    <form  class="layui-form" name="act-submit-form" method="post" action="{:url('portal/activity/draw')}" onsubmit="return false;">
+        <input type="hidden" name="act_code" value="">
+        <input type="hidden" name="org_sign" value="">
+        <div class="act-submit-form" >
+            <div class="layui-row">
+                <div class="info"></div>
+            </div>
+            <div class="layui-row">
+                <div class="cell">
+                    <input type="text" name="phone"  placeholder="请输入兑奖联系手机号" class="cell_input" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" maxlength="11">
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="">
+                    <p class="down_info">请填写真实的兑奖联系方式</p>
+                    <p>凭此兑奖</p>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+
+<span style="display:none"><script src="https://s19.cnzz.com/z_stat.php?id=1274329686&web_id=1274329686" language="JavaScript"></script></span>
+</body>
+</html>
+<script type="text/javascript" src="__STATIC__/js/layer/mobile/layer.js?v={$version}"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/js/jquery-1.8.2.min.js?version=11211532"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/js/activity-chuanqi.js?v={$version}"></script>
+<script>
+    var url = location.href.split('#')[0]; // 传给后台PHP
+
+    url = encodeURIComponent(url);
+    var shareUrl = location.href;
+    $.ajax({
+        type: "POST",
+        url: "http://www.sztxqc.cn/portal/activity/jssdkAuth.html",
+        data:{"url":url},
+        dataType : "json",
+        success: function(data) {
+            wx.config({
+                debug: false,
+                appId: data.appId,
+                timestamp:data.timestamp ,
+                nonceStr: data.nonceStr,
+                signature: data.signature,
+                jsApiList: [     //把需要的接口加入至列表
+                    "onMenuShareTimeline", //分享给好友
+                    "onMenuShareAppMessage", //分享到朋友圈
+                    "onMenuShareQQ", //分享到QQ
+                    "onMenuShareWeibo", //分享到微博
+                    "onMenuShareQZone",// 分享到QQ空间
+                ]
+            });
+            wx.ready(function (){
+                var shareData = {
+                    title: '我正在抢大兴传祺818开业大奖，领奖品领到手软，快来一起参与吧！',  //标题
+                    desc: ' 持续八天大派送，万元大奖等你拿！',
+                    link: shareUrl,
+                    imgUrl: "{:cmf_get_image_url('__TMPL__/public/assets/images/chuanqi/chuanqi-activity.jpg')}"
+                };
+                wx.onMenuShareAppMessage(shareData);
+                wx.onMenuShareTimeline(shareData);
+                wx.onMenuShareQQ(shareData);
+                wx.onMenuShareWeibo(shareData);
+                wx.onMenuShareQZone(shareData);
+            });
+
+        }
+    });
+
+
+</script>
+

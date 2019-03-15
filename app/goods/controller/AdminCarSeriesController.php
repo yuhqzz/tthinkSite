@@ -142,6 +142,7 @@ class AdminCarSeriesController extends AdminBaseController
         $id = $this->request->param('id');
         if ($id > 0) {
             $carSeries = GoodsCarSeriesModel::get($id);
+            var_dump($carSeries);die;
             $carSeries = $carSeries?$carSeries->toArray():[];
             if(empty($carSeries)){
                 $this->error('车系不存在或已经删除!');
@@ -191,7 +192,7 @@ class AdminCarSeriesController extends AdminBaseController
             $this->error($result);
         }
         $goodsCarSeriesModel = new GoodsCarSeriesModel();
-        $result = $goodsCarSeriesModel->isUpdate(true)->allowField(true)->save($data);
+        $result = $goodsCarSeriesModel->where('id','=',$data['id'])->isUpdate(true)->allowField(true)->save($data);
         if ($result === false) {
             $this->error('保存失败!');
         }

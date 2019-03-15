@@ -1,0 +1,21 @@
+{
+  "name": "txqc",
+  "description": "",
+  "main": "",
+  "authors": [
+    "yhq <yhq@123.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/yuhqzz/tthinkSite",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "^2.22.2"
+  }
+}

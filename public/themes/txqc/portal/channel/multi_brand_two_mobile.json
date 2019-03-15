@@ -1,0 +1,230 @@
+{
+  "name": "专题多品牌TWO-移动模板",
+  "action": "portal/channel/multi_brand",
+  "description": "专题多品牌TWO-移动模板文件",
+  "order": 10.0,
+  "more": {
+    "vars": {
+      "page_title":{
+        "title": "页面标题",
+        "value": "大兴汽车集团双12限时抢购会-部分车型5折秒杀",
+        "type": "text",
+        "placeholder": "页面标题",
+        "tip": "页面标题",
+        "rule": {
+          "require": true
+        }
+      },
+      "page_keywords":{
+        "title": "页面SEO关键字",
+        "value": "大兴汽车集团双12限时抢购会-部分车型5折秒杀",
+        "type": "text",
+        "placeholder": "关键字",
+        "tip": "关键字"
+
+      },
+      "page_description":{
+        "title": "页面描述",
+        "value": "",
+        "type": "text",
+        "placeholder": "大兴汽车集团双12限时抢购会-部分车型5折秒杀",
+        "tip": "页面描述"
+      },
+      "top_slide": {
+        "title": "顶部幻灯片",
+        "value": "",
+        "type": "text",
+        "dataSource": {
+          "api": "admin/Slide/index",
+          "multi": false
+        },
+        "placeholder": "请选择顶部banner片",
+        "tip": "顶部banner片",
+        "rule": {
+          "require": true
+        }
+      },
+      "style":{
+        "title": "样式",
+        "value": "",
+        "type": "textarea",
+        "placeholder": "可以在此编写css样式",
+        "tip": "css样式"
+      },
+      "script":{
+        "title": "js",
+        "value": "",
+        "type": "textarea",
+        "placeholder": "可以在此编写js",
+        "tip": "js代码"
+
+      },
+      "param_1":{
+        "title": "额外参数1",
+        "value": "现在报名，享优先提车特权！",
+        "type": "text",
+        "placeholder": "额外参数1",
+        "tip": "额外参数1-现在报名，享优先提车特权！"
+      },
+      "param_2":{
+        "title": "额外参数2",
+        "value": "火热报名中...",
+        "type": "text",
+        "placeholder": "额外参数2",
+        "tip": "额外参数2-火热报名中..."
+      },
+      "param_3":{
+        "title": "额外参数3",
+        "value": "部分热销车型",
+        "type": "text",
+        "placeholder": "额外参数3",
+        "tip": "额外参数3-部分热销车型"
+      },
+      "param_4":{
+        "title": "额外参数4",
+        "value": "4",
+        "type": "text",
+        "placeholder": "额外参数4",
+        "tip": "额外参数4 -4"
+      },
+      "param_5":{
+        "title": "额外参数5",
+        "value": "",
+        "type": "text",
+        "placeholder": "额外参数5",
+        "tip": "额外参数5"
+      },
+      "param_6":{
+        "title": "额外参数6",
+        "value": "",
+        "type": "textarea",
+        "placeholder": "额外参数6-分析代码",
+        "tip": "额外参数6 -分析代码"
+      }
+    },
+    "widgets":{
+      "activity": {
+        "title": "活动",
+        "display": "1",
+        "vars": {
+          "title": {
+            "title": "活动标题",
+            "value": "",
+            "type": "text",
+            "placeholder": "请配置活动",
+            "tip": "请配置活动标题",
+            "rule": {
+              "require": true
+            }
+          },
+          "sub_title": {
+            "title": "活动子标题",
+            "value": "",
+            "type": "text",
+            "placeholder": "请配置活动",
+            "tip": "请配置活动子标题",
+            "rule": {
+              "require": true
+            }
+          },
+          "date":{
+            "title": "活动时间",
+            "value": "",
+            "type": "text",
+            "placeholder": "请配置活动",
+            "tip": "请配置活动时间",
+            "rule": {
+              "require": true
+            }
+          },
+          "address":{
+            "title": "活动地点",
+            "value": "",
+            "type": "text",
+            "placeholder": "活动地点",
+            "tip": "请配置活动地点",
+            "rule": {
+              "require": true
+            }
+          },
+          "concat":{
+            "title": "服务热线",
+            "value": "",
+            "type": "text",
+            "placeholder": "服务热线",
+            "tip": "请配置服务热线"
+          },
+          "adv":{
+            "title": "活动广告图",
+            "value": "",
+            "type": "image",
+            "placeholder": "活动广告图",
+            "tip": "活动广告图",
+            "rule": {
+              "require": true
+            }
+          },
+          "remark":{
+            "title": "活动说明",
+            "value": "",
+            "type": "textarea",
+            "placeholder": "活动说明",
+            "tip": "请配置活动说明",
+            "rule": {
+              "require": true
+            }
+          }
+        }
+      },
+      "siteInfo":{
+        "title": "多站点信息配置变量",
+        "display": "1",
+        "vars": {
+          "params":{
+            "title": "站点参数",
+            "value": "",
+            "type": "array",
+            "item":{
+              "name": {
+                "title": "站点名称",
+                "value": "wey",
+                "type": "text",
+                "rule": {
+                  "require": true
+                }
+              },
+              "code": {
+                "title": "站点唯一码",
+                "value": "szdxwey",
+                "type": "text",
+                "rule": {
+                  "require": true
+                }
+              },
+              "ask_phone": {
+                "title": "拨号电话",
+                "value": "18565626611",
+                "type": "text",
+                "rule": {
+                  "require": true
+                }
+              },
+              "analytics": {
+                "title": "分析代码",
+                "value": "<span style=\"display:none\"><script> var _hmt = _hmt || []; (function() { var hm = document.createElement(\"script\"); hm.src = \"https://hm.baidu.com/hm.js?d3949dbb81cc4dcb5fe6a334054534d0\"; var s = document.getElementsByTagName(\"script\")[0]; s.parentNode.insertBefore(hm, s); })(); </script>",
+                "type": "textarea",
+                "rule": {
+                  "require": true
+                }
+              }
+            },
+            "rule": {
+              "require": true
+            },
+            "tip": "请配置站点信息"
+          }
+        }
+      }
+    }
+  }
+}

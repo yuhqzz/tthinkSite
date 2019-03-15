@@ -1,0 +1,192 @@
+<include file="public@header" />
+<script src="/assets/libs/bootstrap-table/src/extensions/toolbar/bootstrap-table-toolbar.js"></script>
+<script src="__STATIC__/js/tableExport.js"></script>
+<script src="/assets/libs/bootstrap-table/src/extensions/export/bootstrap-table-export.js"></script>
+<script src="/assets/libs/moment/moment.js"></script>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('ActivityAdmin/index')}">活动列表</a></li>
+        <li ><a href="{:url('ActivityUser/index',array('id'=>$activity['id']))}">活动用户列表</a></li>
+        <li class="active"><a href="{:url('ActivityUser/signInUser',array('act_id'=>$activity['id']))}">活动签到表</a></li>
+    </ul>
+    <div id="toolbar" class="toolbar">
+        <a href="javascript:;" class="btn btn-danger" title="删除" onclick="Page.del();" ><i class="fa fa-trash">删除</i> </a>
+    </div>
+    <table class="table table-hover table-bordered" id="table" width="100%">
+    </table>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    var $table = $('#table');
+    var delUrl = "{:url('ActivityUser/signinDelete')}";
+    var Page = {
+        del:function (id) {
+            Wind.use('artDialog', function () {
+                art.dialog({
+                    content: '你确定要删除吗？',
+                    icon: 'question',
+                    close: function () {
+                        return true;
+                    },
+                    ok: function () {
+                        var ids = [];
+                        if(id == undefined){
+                            var selections = $table.bootstrapTable('getSelections');
+                            for(var item in selections){
+                                ids.push(selections[item].id);
+                            }
+
+                        }else{
+                            ids.push(id);
+                        }
+                        $.get(delUrl,{'ids':ids.join(',')},function () {
+                            $('#table').bootstrapTable('refresh');
+                        })
+
+
+
+                        return true;
+                    },
+                    cancelVal: '关闭',
+                    cancel: true
+                });
+
+            });
+        },
+    };
+    $table.bootstrapTable({
+        url: "{:url('ActivityUser/signInUser',array('act_id'=>$activity['id']))}",
+        pk: 'id',
+        sortName: 'signin_time',
+        sortOrder: 'desc',
+        pagination:true,
+        sidePagination:'server',
+        pageNumber:'1',
+        pageSize:'25',
+        pageList:[25,50, 100,'ALL'],
+        search:true,
+        idField:'phone',
+        trimOnSearch:true,
+        showRefresh:true,
+        toolbarAlign:'left',
+        buttonsAlign:'right',
+        toolbar:'#toolbar',
+        showExport: true,  //是否显示导出按钮
+        exportDataType: 'basic',
+        exportTypes:['excel'],  //导出文件类型
+        Icons:'glyphicon-export',
+        exportOptions:{
+            ignoreColumn: [0,1],  //忽略某一列的索引
+            fileName: '活动签到'+moment().format('YYYY年MM月DD日'),  //文件名称设置
+            worksheetName: 'sheet1',  //表格工作区名称
+            tableName: '活动签到',
+            excelstyles: ['background-color', 'color', 'font-size', 'font-weight']
+        },
+        formatExport:function () {
+            return '导出数据';
+        },
+        toggle:'table',
+        columns: [
+            [
+                {
+                    checkbox: true
+                },
+                {
+                    field: 'id',
+                    title: 'ID',
+                    operate:false,
+                    sortable:true,
+                    align:"center",
+                    width:'50px',
+                },
+                {
+                    field: 'username',
+                    title: '用户名',
+                    sortable:true,
+                    align:"center",
+                    width:'200px',
+                },
+                {
+                    field: 'phone',
+                    title: '手机号码',
+                    operate:false,
+                    align:"center",
+                    width:'200px',
+                },
+                {
+                    field: 'ip',
+                    title: '报名IP',
+                    operate:false,
+                    align:"center",
+                    searchable:false
+                },
+                {
+                    field: 'signin_time',
+                    title: '签到时间',
+                    operate:false,
+                    searchable:false,
+                    align:"center",
+                    formatter:function (value, row, index) {
+                        return moment(row['signin_time']*1000).format('YYYY-MM-DD HH:mm:ss');
+                    }
+
+                },
+                {
+                    field: 'signup_name',
+                    title: '邀约人',
+                    operate:false,
+                    searchable:false,
+                    align:"center",
+                    formatter:function (value, row, index) {
+                        return value?value:'自报名用户';
+                    }
+
+                },
+                {
+                    field: 'flag',
+                    title: '领取手环',
+                    operate:false,
+                    searchable:false,
+                    align:"center",
+                    formatter:function (value, row, index) {
+                        var txt =['未领取','已领取'];
+                        var color = ['btn-info','btn-success'];
+                        return "<span class='"+color[value]+"'>"+txt[value]+"</span>";
+                    }
+                },
+                {
+                    field: 'operate',
+                    title: '操作',
+                    searchable:false,
+                    events:'actionEvents',
+                    align: 'center',
+                    width:'120px',
+                    formatter:function(value,row,index){
+                        var e = '<a  style="display: block;" class="btn btn-danger btn-del btn-xs" onclick="Page.del('+row['id']+')">'+
+                            '<i class="glyphicon glyphicon-trash"></i>删除</a>';
+                        return e;
+                    }
+                }]
+
+        ]
+    })
+
+    function showMsg(msg,icon){
+        Wind.use('artDialog', function () {
+            art.dialog({
+                content: msg,
+                icon: icon,
+                ok: function () {
+                    $('#table').bootstrapTable('refresh');
+                    return true;
+                }
+            });
+
+        });
+    }
+
+</script>
+</body>
+</html>

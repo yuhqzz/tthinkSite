@@ -1,153 +1,249 @@
 <include file="public@header"/>
-<style>
-    .select-mr10{
-        margin-right: 10px;
-    }
-
-</style>
-
 </head>
+<script src="/assets/libs/bootstrap-table/src/extensions/toolbar/bootstrap-table-toolbar.js"></script>
+<script src="__STATIC__/js/tableExport.js"></script>
+<script src="/assets/libs/bootstrap-table/src/extensions/export/bootstrap-table-export.js"></script>
+<script src="/assets/libs/moment/moment.js"></script>
 <body>
-<div class="wrap js-check-wrap">
+<div class="wrap">
     <ul class="nav nav-tabs">
         <li class="active"><a href="javascript:;">预约试驾订单列表</a></li>
+        <li ><a href="{:url('AdminOrderCoupon/index')}">优惠券订单列表</a></li>
         <li><a href="{:url('AdminOrderBook/add')}">发布试驾</a></li>
     </ul>
-    <form id='list_search_form' class="well form-inline margin-top-20" method="post" action="{:url('AdminOrderBook/index')}" onsubmit="return false;">&nbsp;&nbsp;
-        <div style="margin-bottom: 20px;" id="brand-down-select" data-url="{:url('goods/AdminIndex/ajaxGetCarData')}">
-            <select name="brand_id" id='brand' class="form-control select-mr10" >
-                <option value="0">选择品牌</option>
-                <noempty>
-                    <foreach name="brandList" item="vo">
-                        <option value="{$vo.id}">{$vo.name}</option>
-                    </foreach>
-                </noempty>
-            </select>
+    <div id="toolbar" class="toolbar">
+       <a href="javascript:;" class="btn btn-danger btn-del" title="删除" ><i class="fa fa-trash">删除</i> </a>
+        <div class="dropdown btn-group">
+            <a class="btn btn-primary btn-more dropdown-toggle " data-toggle="dropdown"><i class="fa fa-cog"></i> 导出</a>
+            <ul class="dropdown-menu text-center" role="menu">
+                <li><a class="btn btn-export" href="javascript:;" data-type="basic"><i class="fa fa-eye"></i>当前页所有</a></li>
+                <li><a class="btn btn-export" href="javascript:;" data-type="selected"><i class="fa fa-eye-slash"></i>选中</a></li>
+            </ul>
         </div>
-        <select class="form-control" name="select_time" style="width: 140px;">
-            <option value='0' >选择经销商</option>
-            <option value='1' >大兴大宝</option>
-        </select>
-        &nbsp;
-        <select class="form-control" name="select_time" style="width: 140px;">
-            <option value='0' >不限时间</option>
-            <option value='1' >发布时间</option>
-            <option value='2' >计划到店时间</option>
-        </select>
-        <input type="text" class="form-control js-bootstrap-datetime" name="start_time"
-        value=""
-        style="width: 140px;" autocomplete="off">-
-        <input type="text" class="form-control js-bootstrap-datetime" name="end_time"
-        value=""
-        style="width: 140px;" autocomplete="off"> &nbsp; &nbsp;
-        &nbsp;
-        <select class="form-control" name="select_time" style="width: 140px;">
-            <option value='0' >订单状态</option>
-            <option value='1' >已沟通</option>
-            <option value='2' >计划到店时间</option>
-        </select>
-        <input type="text" class="form-control" name="keyword" style="width: 200px;"
-               value="" placeholder="请输入关键字...">
-        <input type="button" onclick="ajax_get_table('list_search_form',1)" class="btn btn-primary" value="搜索"/>
-        <a class="btn btn-danger" href="{:url('AdminOrderBook/index')}">清空</a>
-    </form>
-    <form class="js-ajax-form" id="list_query_form" action="" method="post">
-        <div id="order-book-list"></div>
-    </form>
+    </div>
+    <table class="table table-hover table-bordered" id="table" width="100%">
+    </table>
 </div>
 <script src="__STATIC__/js/admin.js"></script>
 <script>
-    $(document).ready(function () {
-        // ajax 加载商品列表
-        ajax_get_table('list_query_form', 1);
-    });
-    // ajax 抓取页面 form 为表单id  page 为当前第几页
-    function ajax_get_table(form, page) {
-        cur_page = page; //当前页面 保存为全局变量
-        var url = "{:url('order/AdminOrderBook/ajaxList')}";
-        $.ajax({
-            type: "POST",
-            url: url +"?p="+ page,//+tab,
-            data: $('#' + form).serialize(),// 你的formid
-            success: function (data) {
-                $("#order-book-list").html('');
-                $("#order-book-list").append(data);
-            }
-        });
-    }
-
-    // 点击排序
-    function sort(field)
-    {
-        $("input[name='orderby1']").val(field);
-        var v = $("input[name='orderby2']").val() == 'desc' ? 'asc' : 'desc';
-        $("input[name='orderby2']").val(v);
-        ajax_get_table('search-form2',cur_page);
-    }
-
-    // 品牌 车系 车系 级联
-    var brandSelect = $('#brand-down-select');
-    var brand = brandSelect.find('#brand');
-    var get_url = brandSelect.data('url');
-    brand.change(function () {
-        var carseries = $('<select name="car_series_id" id="carseries" class="form-control select-mr10"></select>');
-        brandSelect.find('#carseries').remove();
-        brandSelect.find('#carstyle').remove();
-        carseries.appendTo(brandSelect);
-        carseries.append("<option value='0'>选择车系</option>");
-        var b_id = brand.find("option:selected").val();
-        if (b_id == 0) {
-            carseries.empty();
-            carseries.append("<option value='0'>选择车系</option>");
-        }else {
-            $.ajax({
-                url: get_url,
-                type: 'POST',
-                dataType: 'JSON',
-                data: {id: b_id,type:'series'},
-                success: function (data) {
-                    if (data.code == 1) {
-                        if (data.data.length > 0) {
-                            var carseries_data = data.data;
-                            for(var i=0,cl = carseries_data.length;i<cl;i++){
-                                carseries.append("<option value='"+carseries_data[i]['id']+"'>" + carseries_data[i]['name'] + "</option>");
-                            }
-
-                        }
-                    }
-                }
-            });
+    var delUrl = "{:url('AdminOrderBook/delete')}";
+    var $table = $('#table');
+    function initTable(exportDataType){
+        if(exportDataType == undefined){
+            exportDataType = ''
         }
-        carseries.change(function () {
-            var carstyle = $('<select name="car_style_id" id="carstyle" class="form-control select-mr10"></select>');
-            brandSelect.find('#carstyle').remove();
-            carstyle.appendTo(brandSelect);
-            carstyle.append("<option value='0'>选择车型</option>");
-            var s_id = carseries.find("option:selected").val();
-            if (s_id == 0) {
-                carstyle.empty();
-                carstyle.append("<option value='0'>选择车型</option>");
-            }else {
-                $.ajax({
-                    url: get_url,
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: {id: s_id,type:'style'},
-                    success: function (data) {
-                        if (data.code == 1) {
-                            if (data.data.length > 0) {
-                                var carstyle_data = data.data;
-                                for(var i=0,cl = carstyle_data.length;i<cl;i++){
-                                    carstyle.append("<option value='"+carstyle_data[i]['id']+"'>" + carstyle_data[i]['name'] + "</option>");
+        $table.bootstrapTable({
+            url: "{:url('AdminOrderBook/index')}",
+            pk: 'id',
+            sortName: 'book_time',
+            sortOrder: 'desc',
+            pagination:true,
+            sidePagination:'server',
+            pageNumber:'1',
+            pageSize:'25',
+            pageList:[25,50, 100],
+            search:true,
+            advancedSearch:"true",
+            idTable:"advancedTable",
+            showRefresh:true,
+            toolbarAlign:'left',
+            buttonsAlign:'right',
+            toolbar:'#toolbar',
+            showExport: true,  //是否显示导出按钮
+            exportDataType: exportDataType,
+            exportTypes:['excel'],  //导出文件类型
+            Icons:'glyphicon-export',
+            exportOptions:{
+                ignoreColumn: [0,1],  //忽略某一列的索引
+                fileName: '预约试驾'+moment().format('YYYY年MM月DD日'),  //文件名称设置
+                worksheetName: 'sheet1',  //表格工作区名称
+                tableName: '预约试驾线索报表',
+                excelstyles: ['background-color', 'color', 'font-size', 'font-weight']
+            },
+            formatExport:function () {
+                return '导出数据';
+            },
+            formatAdvancedSearch:function(){
+              return  '更多搜索';
+            },
+            toggle:'table',
+            columns: [
+                [
+                    {
+                        checkbox: true
+                    },
+                    {
+                        field: 'id',
+                        title: 'ID',
+                        align:'center',
+                        sortable:true
+                    },
+                    {   field: 'name',
+                        title: '用户姓名',
+                        align:'center',
+                        sortable:true
+                    },
+                    {
+                        field: 'book_telephone',
+                        title: '电话',
+                        align:'center',
+                        operate:false
+                    },
+                    {
+                        field: 'book_position',
+                        title: '号码归属地',
+                        align:'center',
+                        operate:false,
+                        searchable:false,
+                        formatter:function (value, row, index) {
+                            var value = row['book_telephone'];
+                            var field  = this.field;
+                            $.get("{:url('AdminOrderBook/getMobilePosition')}",{'tel':value},function (d) {
+                                if(d.code==1){
+                                    $('#'+field+'-'+index+'-'+value).text(d.data.location);
                                 }
 
+                            });
+                            return '<span class="btn-change text-success " id="'+field+'-'+index+'-'+value+'" ><i class="fa fa-spinner"></span>';
+                        }
+                    },
+                    {
+                        field: 'ip',
+                        title: 'IP',
+                        align:'center',
+                        operate:false,
+                        searchable:false,
+                        formatter:function (value, row, index) {
+                            return value;
+                        }
+                    },
+                    {
+                        field: 'book_time',
+                        title: '预约时间',
+                        operate:false,
+                        align:'center',
+                        sortable:true,
+                        formatter:function (value, row, index) {
+                            return moment(value*1000).format('YYYY-MM-DD HH:mm:ss');
+                        }
+
+                    },
+                    {
+                        field: 'brand_name',
+                        title: '品牌',
+                        align:'center',
+                        operate:false,
+                        searchable:false
+                    },
+                    {
+                        field: 'series_id',
+                        title: '车系ID',
+                        operate:false,
+
+                    },
+                    {
+                        field: 'series_name',
+                        title: '车系',
+                        operate:false,
+                        searchable:false
+                    },
+                    {
+                        field: 'dealerName',
+                        title: '预约4S店',
+                        align:'center',
+                        operate:false,
+                        searchable:false
+                    },
+                    {
+                        field: 'source',
+                        title: '来源',
+                        align:'center',
+                        operate:false,
+                        searchable:false,
+                        formatter:function (value, row, index) {
+                            if(value=='99'){
+                                return '多品牌页面';
+                            }else{
+                                return row['brand_name']+'页面';
                             }
                         }
+                    },
+                    {
+                        field: 'req_domain',
+                        title: '报名域名',
+                        align:'center',
+                        operate:false,
+                        searchable:false
                     }
-                });
+                ]
+            ],
+            onCheck:function () {
+                if($table.bootstrapTable('getSelections').length == 0){
+                    $("#toolbar .btn.btn-del").addClass('disabled');
+                }else {
+                    $("#toolbar .btn.btn-del").removeClass('disabled');
+                }
+            },
+            onUncheck:function () {
+                if($table.bootstrapTable('getSelections').length == 0){
+                    $("#toolbar .btn.btn-del").addClass('disabled');
+                }else {
+                    $("#toolbar .btn.btn-del").removeClass('disabled');
+                }
+            },
+            onCheckAll:function () {
+                if($table.bootstrapTable('getSelections').length == 0){
+                    $("#toolbar .btn.btn-del").addClass('disabled');
+                }else{
+                    $("#toolbar .btn.btn-del").removeClass('disabled');
+                }
+            },
+            onUncheckAll:function () {
+                if($table.bootstrapTable('getSelections').length == 0){
+                    $("#toolbar .btn.btn-del").addClass('disabled');
+                }else{
+                    $("#toolbar .btn.btn-del").removeClass('disabled');
+                }
             }
         })
+    }
 
+    $("#toolbar .btn-export").on('click',function () {
+        $table.bootstrapTable('destroy');
+        initTable($(this).data('type'));
+
+    })
+    $("#toolbar .btn.btn-del").on('click',function () {
+       // console.log(JSON.stringify($table.bootstrapTable('getSelections')));
+        Wind.use('artDialog', function () {
+            art.dialog({
+                content: '你确定要删除吗？',
+                icon: 'question',
+                close: function () {
+                    return true;
+                },
+                ok: function () {
+                    var ids = [];
+                    var selections = $table.bootstrapTable('getSelections');
+                    for(var item in selections){
+                        ids.push(selections[item].id);
+                    }
+                    $.get(delUrl,{'ids':ids.join(',')},function () {
+                        $('#table').bootstrapTable('refresh');
+                        $("#toolbar .btn.btn-del").addClass('disabled');
+                    })
+                    return true;
+                },
+                cancelVal: '关闭',
+                cancel: true
+            });
+
+        });
+
+    })
+    $(function () {
+        initTable();
+        $("#toolbar .btn.btn-del").addClass('disabled');
     })
 </script>
 </body>

@@ -4,11 +4,11 @@
 		 <div class="form-con">
 			 <div class="form-conname">请选择车系</div>
 			 <div class="sel audi mselect">
-				 <span>WEY P8</span>
+				 <span>{$select_car.name|default='WEY P8'}</span>
 				 <select name="da[car]">
-					 <option value="1">WEY P8</option>
-					 <option value="2">WEY VV5</option>
-					 <option value="3">WEY VV7</option>
+					 <option value="1" {$select_car.id==1?'selected="selected"':''}>WEY P8</option>
+					 <option value="2" {$select_car.id==2?'selected="selected"':''}>WEY VV5</option>
+					 <option value="3" {$select_car.id==3?'selected="selected"':''}>WEY VV7</option>
 				 </select>
 			 </div>
 		 </div>
@@ -49,9 +49,8 @@
 		 <div class="form-desc">
 		 	<input class="kuang" type="checkbox" checked="checked" name="da[agree]" />
 		 	<div class="kuang_J on"></div>
-		 	本人特此授权长城汽车股份有限公司，须按照数据保护规定，保留页面信息，并认可此消息予以长城汽车股份有限公司及其WEY中国经销商共享。本人接受长城汽车股份有限公司及其WEY中国经销商所发送的相关商业信息，并允许上述公司与我联系。
-		 </div>
-		<input type="button" class="btn_submit"/>
+ 	     本人接受深圳WEY大兴经销商所发送的相关商业信息，并允许上述公司与我联系。		 </div>
+		 <input type="button" class="btn_submit"/>
 	 </form>
  </div>
 			 

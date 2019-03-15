@@ -50,4 +50,11 @@ return [
         ],
         'simple' => false
     ],
+    'Channel/chuanqi'  => [
+        'name'   => '传祺落地页',
+        'vars'   => [
+
+        ],
+        'simple' => false
+    ],
 ];

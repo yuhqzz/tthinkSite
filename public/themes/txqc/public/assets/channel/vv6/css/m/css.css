@@ -1,0 +1,230 @@
+body, h1, h2, h3, h4, h5, h6, blockquote, p, dl, dt, dd, ul, ol, li, th, td, form, fieldset, legend, button, input, textarea { margin: 0; padding: 0; }
+
+em, i { font-style: normal; }
+
+body, button, input, select, textarea { font: 8px arial, "SimHei", "SimSun", sans-serif; }
+
+button, input, select, textarea, h1, h2, h3, h4, h5, h6 { font-size: 100%; }
+
+ol, ul { list-style: none; }
+
+img, fieldset { border: 0; vertical-align: middle; }
+
+textarea { resize: none; }
+
+a { outline: 0; }
+a:active { star: expression(this.onFocus=this.blur()); }
+
+:focus { outline: 0; }
+
+table { table-layout: fixed; }
+
+.clear { font-size: 0; line-height: 0; height: 0; overflow: hidden; clear: both; visibility: hidden; }
+
+ul.fl, ol.fl { float: left; display: block; }
+
+/*body*/
+body { margin: 0; padding: 0; color: #fff; font-size: 12px; text-align: left; background: #d7d7d9; }
+
+a, a:link, a:visited, a:active { color: #404d71; text-decoration: none; }
+a:hover { color: #fbf9f9; text-decoration: underline; }
+
+.container{
+  margin: 0;
+  padding: 0;
+}
+
+img{
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.section{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+#vv6_video{
+  height: 4.5rem;
+  background: url("../../images/m/cch_m_03.jpg") no-repeat center center;
+}
+/**swiper**/
+.play{
+  position: absolute;
+  top: 1.6rem;
+  left: 3.2rem;
+  width: 1.0rem;
+  height: 1.0rem;
+  z-index: 1151;
+  opacity: 0.8;
+}
+.swiper-pagination-style.swiper-pagination-bullets{
+  margin: 0 auto;
+  width: 100%;
+
+}
+.swiper-pagination-style .swiper-pagination-bullet{
+  width: 58px;
+  height: 8px;
+  margin: 3px;
+  border-radius: 0;
+  background: #a8d5d3;
+}
+.swiper-pagination-style .swiper-pagination-bullet.swiper-pagination-bullet-active{
+  background: #09fff6;
+}
+.swiper-pagination-pictures .swiper-pagination-bullet{
+  background: #a8d5d3;
+}
+.swiper-pagination-pictures .swiper-pagination-bullet.swiper-pagination-bullet-active{
+  background: #ffffff;
+}
+.video_box{
+  position: absolute;
+  top:0;
+  left:0;
+  z-index: 1152;
+}
+.inputsWrapper{
+  position: absolute;
+  top:0rem;
+
+}
+
+/*------表单-----------*/
+input, select {
+  color: #999;
+  background: 0 0;
+  border: 0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  outline: 0;
+  width: 8rem;
+  height: 1rem;
+}
+.abs {
+  position: relative;
+  display: block;
+  height: 0.75rem;
+  line-height: .75rem;
+  font-size: 0.32rem;
+}
+.inputsWrapper #model{
+  width: 4.5rem;
+  top: 1.27rem;
+  left: 2.2rem;
+}
+
+.inputsWrapper #province{
+  width: 2.0rem;
+  top: 1.33rem;
+  left: 2.2rem;
+}
+.inputsWrapper #city{
+  width: 2.0rem;
+  top: 0.59rem;
+  left: 4.8rem;
+}
+.inputsWrapper #dealer{
+  width: 4.5rem;
+  top: 0.63rem;
+  left: 2.2rem;
+  font-size: 0.26rem;
+}
+.inputsWrapper #name{
+  top: 0.75rem;
+  left: 2.2rem;
+}
+
+.inputsWrapper #sex{
+  width: 4.5rem;
+  top: 0.80rem;
+  left: 2.2rem;
+}
+.inputsWrapper #mobile{
+  width: 4.5rem;
+  top:0.85rem;
+  left: 2.2rem;
+}
+.inputsWrapper #btnSubmit{
+  width: 5.5rem;
+  left: 0.93rem;
+  top: 1.15rem;
+  height: 1.0rem;
+  border-radius: 0;
+}
+
+.car_config img{
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: none;
+}
+.dealer{
+  background: url("../../images/m/main_07.jpg?v=1") no-repeat center 100%;
+  background-size: cover;
+
+}
+.dealer_qrcode{
+  width: 100%;
+}
+.dealer_qrcode>img{
+  display: block;
+  width: 65px;
+  height: 65px;
+  margin: 0.2rem auto;
+
+}
+.dealer_info {
+  width: 50%;
+  margin: 0 auto;
+  font-size: 0.16rem;
+}
+.dealer_info .dealer_n{
+  font-weight: bold;
+  height: 0.35rem;
+  line-height: 0.35rem;
+  letter-spacing: 2px;
+}
+.dealer_info p{
+  margin: 0.1rem 0;
+}
+.footer_fx>img,.footer_fx>a{
+  width: 2.5rem;
+  margin: 0.5rem auto;
+  display: block;
+}
+.nice_pictures{
+  background: url("../../images/m/main_bg.jpg")  repeat;
+}
+#nice_pictures_swiper .nice_pictures_top{
+  width: 100%;
+  padding: 0.3rem 1%;
+  display: flex;
+}
+#nice_pictures_swiper .nice_pictures_top>img{
+  display: block;
+  width: 30%;
+  margin-left: 0.15rem;
+}
+#nice_pictures_swiper .nice_pictures_down{
+  width: 94%;
+  margin: 0 auto;
+  display: flex;
+}
+#nice_pictures_swiper .swiper-wrapper{
+  margin-bottom: 0.8rem;
+}
+
+.swiper-pagination-nice-pictures .swiper-pagination-bullet{
+  width: 58px;
+  height: 8px;
+  margin: 3px;
+  border-radius: 0;
+  background: #a8d5d3;
+}

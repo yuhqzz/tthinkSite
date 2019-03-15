@@ -1,0 +1,253 @@
+<include file="public@header"/>
+</head>
+<script src="/assets/libs/bootstrap-table/src/extensions/toolbar/bootstrap-table-toolbar.js"></script>
+<script src="/assets/libs/moment/moment.js"></script>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('AdminOrderBook/index')}">预约试驾订单列表</a></li>
+        <li class="active"><a href="{:url('AdminOrderCoupon/index')}">优惠券订单列表</a></li>
+    </ul>
+    <div id="toolbar" class="toolbar">
+       <a href="javascript:;" class="btn btn-danger btn-del" title="删除" ><i class="fa fa-trash">删除</i> </a>
+    </div>
+    <table class="table table-hover table-bordered" id="table" width="100%">
+    </table>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    var delUrl = "{:url('AdminOrderCoupon/delete')}";
+    var $table = $('#table');
+    function initTable(){
+        $table.bootstrapTable({
+            url: "{:url('AdminOrderCoupon/index')}",
+            pk: 'id',
+            sortName: 'create_time',
+            sortOrder: 'desc',
+            pagination:true,
+            sidePagination:'server',
+            pageNumber:'1',
+            pageSize:'25',
+            pageList:[25,50, 100],
+            search:true,
+            advancedSearch:"true",
+            idTable:"advancedTable",
+            showRefresh:true,
+            toolbarAlign:'left',
+            buttonsAlign:'right',
+            toolbar:'#toolbar',
+            showExport: false,  //是否显示导出按钮
+            formatAdvancedSearch:function(){
+              return  '更多搜索';
+            },
+            toggle:'table',
+            columns: [
+                [
+                    {
+                        checkbox: true
+                    },
+                    {
+                        field: 'id',
+                        title: 'ID',
+                        align:'center',
+                        sortable:true
+                    },
+                    {   field: 'coupon.type',
+                        title: '类型',
+                        align:'center',
+                        sortable:true,
+                        searchable:false,
+                        formatter:function (value, row, index) {
+                            var txt = ['优惠券','抵用券','折扣券','优惠政策特权券'];
+                            return '<span>'+txt[value]+'</span>';
+                        }
+                    },
+                    {   field: 'coupon.title',
+                        title: '优惠券名称',
+                        align:'center',
+                        sortable:true,
+                        width:'120px',
+                        searchable:false,
+                    },
+                    {   field: 'coupon_id',
+                        title: '优惠券id',
+                        align:'center',
+                        visible:false,
+                        searchable:false
+
+                    },
+                    {
+                        field: 'telephone',
+                        title: '电话',
+                        align:'center',
+                        operate:false,
+
+                    },
+                    {
+                        field: 'book_status',
+                        title: '报名状态',
+                        align:'center',
+                        operate:false,
+                        searchable:false,
+                        formatter:function (value, row, index) {
+                            var value = row['telephone'];
+                            var field  = this.field;
+                            $.get("{:url('AdminOrderCoupon/getBookStatus')}",{'tel':value},function (d) {
+                                if(d.code == 1){
+                                    $('#'+field+'-'+index+'-'+value).text('已报名');
+                                    $('#'+field+'-'+index+'-'+value).removeClass('text-info').addClass('text-success');
+                                }else{
+                                    $('#'+field+'-'+index+'-'+value).text('未报名');
+                                }
+
+                            });
+                            return '<span class="btn-change text-info " id="'+field+'-'+index+'-'+value+'" ><i class="fa fa-spinner"></span>';
+                        }
+                    },
+                    {
+                        field: 'position',
+                        title: '号码归属地',
+                        align:'center',
+                        operate:false,
+                        searchable:false,
+                        formatter:function (value, row, index) {
+                            var value = row['telephone'];
+                            var field  = this.field;
+                            $.get("{:url('AdminOrderBook/getMobilePosition')}",{'tel':value},function (d) {
+                                if(d.code==1){
+                                    $('#'+field+'-'+index+'-'+value).text(d.data.location);
+
+                                }
+
+                            });
+                            return '<span class="btn-change text-success " id="'+field+'-'+index+'-'+value+'" ><i class="fa fa-spinner"></span>';
+                        }
+                    },
+                    {
+                        field: 'ip',
+                        title: 'IP',
+                        align:'center',
+                        operate:false,
+                        searchable:false,
+                        formatter:function (value, row, index) {
+                            return value;
+                        }
+                    },
+                    {
+                        field: 'create_time',
+                        title: '领取时间',
+                        operate:false,
+                        align:'center',
+                        sortable:true,
+                        formatter:function (value, row, index) {
+                            return moment(value*1000).format('YYYY-MM-DD HH:mm:ss');
+                        }
+                    },
+                    {
+                        field: 'coupon.expire_time',
+                        title: '过期时间',
+                        operate:false,
+                        align:'center',
+                        searchable:false,
+                        formatter:function (value, row, index) {
+                            if(value==='all'){
+                                return '一直有效';
+                            }else {
+                                return value+' 23:59:59截止';
+                            }
+
+                        }
+
+                    },
+                    {
+                        field: 'code',
+                        title: '核销唯一码',
+                        align:'center',
+                        operate:false,
+                        searchable:false
+                    },
+                    {
+                        field: 'status',
+                        title: '状态',
+                        operate:false,
+                        searchable:false,
+                        formatter:function (value, row, index) {
+                            var txt = ['未领取','未使用','已使用','已失效'];
+                            return "<span>"+txt[value]+"</span>";
+                        }
+                    },
+                    {
+                        field: 'req_domain',
+                        title: '领取域名',
+                        align:'center',
+                        operate:false,
+                        searchable:false
+                    }
+                ]
+            ],
+            onCheck:function () {
+                if($table.bootstrapTable('getSelections').length == 0){
+                    $("#toolbar .btn.btn-del").addClass('disabled');
+                }else {
+                    $("#toolbar .btn.btn-del").removeClass('disabled');
+                }
+            },
+            onUncheck:function () {
+                if($table.bootstrapTable('getSelections').length == 0){
+                    $("#toolbar .btn.btn-del").addClass('disabled');
+                }else {
+                    $("#toolbar .btn.btn-del").removeClass('disabled');
+                }
+            },
+            onCheckAll:function () {
+                if($table.bootstrapTable('getSelections').length == 0){
+                    $("#toolbar .btn.btn-del").addClass('disabled');
+                }else{
+                    $("#toolbar .btn.btn-del").removeClass('disabled');
+                }
+            },
+            onUncheckAll:function () {
+                if($table.bootstrapTable('getSelections').length == 0){
+                    $("#toolbar .btn.btn-del").addClass('disabled');
+                }else{
+                    $("#toolbar .btn.btn-del").removeClass('disabled');
+                }
+            }
+        })
+    }
+
+    $("#toolbar .btn.btn-del").on('click',function () {
+       // console.log(JSON.stringify($table.bootstrapTable('getSelections')));
+        Wind.use('artDialog', function () {
+            art.dialog({
+                content: '你确定要删除吗？',
+                icon: 'question',
+                close: function () {
+                    return true;
+                },
+                ok: function () {
+                    var ids = [];
+                    var selections = $table.bootstrapTable('getSelections');
+                    for(var item in selections){
+                        ids.push(selections[item].id);
+                    }
+                    $.get(delUrl,{'ids':ids.join(',')},function () {
+                        $('#table').bootstrapTable('refresh');
+                        $("#toolbar .btn.btn-del").addClass('disabled');
+                    })
+                    return true;
+                },
+                cancelVal: '关闭',
+                cancel: true
+            });
+
+        });
+
+    })
+    $(function () {
+        initTable();
+        $("#toolbar .btn.btn-del").addClass('disabled');
+    })
+</script>
+</body>
+</html>

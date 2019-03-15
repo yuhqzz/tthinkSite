@@ -1,0 +1,385 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>WEY VV6 智能豪华SUV 上市</title>
+    <meta name="keywords" content="大兴汽车 WEY VV6 智能豪华" />
+    <meta name="description" content="大兴汽车 WEY VV6 智能豪华" />
+    <link type="text/css" rel="stylesheet" href="__TMPL__/public/assets/channel/vv6/css/css.css?v=1123" />
+    <link type="text/css"rel="stylesheet" href="__STATIC__/js/swiper/4.3/css/swiper.min.css?version=11211532">
+	<style type="text/css">
+	.footer{ height:60px; line-height:40px; margin:0 auto; color: #9f9f9f;background-color: #333;}.author {background-color: #3d3d3d;color: #747474;line-height: 22px;font-size: 12px;}.author .section {text-align: right;width: 990px;margin: 0 auto;background-color: #3d3d3d;}.footer .section{width: 990px;margin: 0 auto;padding:10px 0;text-align:center; font-size:12px; background-color: #333;font-family:Arial,\5B8B\4F53;}
+	</style>
+    <php>
+        $host_domain = 'http://wey.txjkc.com';
+    </php>
+</head>
+<body>
+<div class="top1">
+    <div class="main">
+        <div class="c1">
+            
+        </div>
+    </div>
+</div>
+<style>
+    .play{
+        position: relative;
+        left: 31rem;
+        top: -19.8rem;
+    }
+    .swiper-pagination-style.swiper-pagination-bullets{
+        margin:3.2rem auto;
+        bottom: -15px;
+
+    }
+    .swiper-pagination-style .swiper-pagination-bullet{
+        width: 120px;
+        height: 20px;
+        border-radius: 0;
+        background: #a8d5d3;
+    }
+    .swiper-pagination-style .swiper-pagination-bullet.swiper-pagination-bullet-active{
+        background: #09fff6;
+    }
+    #video_swipper{
+        left: 3.05rem;
+        top: 9.34rem;
+
+    }
+    .video_box{
+        position: absolute;
+        top:0;
+        left:0;
+        z-index: 1152;
+
+    }
+</style>
+
+<div class="top2">
+    <div class="main">
+        <div class="swiper-container" id="video_swipper" style="position: relative;">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="__TMPL__/public/assets/channel/vv6/images/vv6bg01.jpg"/>
+                    <img class="play" data-s="__ROOT__/upload/data/video/wey-201808301822.mp4" data-f="__ROOT__/upload/data/video/wey-201808301822.flv" src="__TMPL__/public/assets/images/channel/ivideo.png" />
+                </div>
+                <div class="swiper-slide">
+                    <img src="__TMPL__/public/assets/channel/vv6/images/vv6bg01.jpg"  />
+                    <img class="play" data-s="__ROOT__/upload/data/video/wey-201808301821.mp4" data-f="__ROOT__/upload/data/video/wey-201808301821.flv" src="__TMPL__/public/assets/images/channel/ivideo.png" />
+                </div>
+            </div>
+            <div class="video_box" id="video_box" ></div>
+            <div class="swiper-pagination swiper-pagination-style"></div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="top3">
+    <div class="main">
+        <div class="c3">
+            <div class="c31">
+                <form name="autoform" action="{:url('portal/channel/ajaxSubmitBookCar2')}" class="form-box icon-formDl">
+                    <dl>
+                        <dt class="icon-name"><span>*</span><label>姓名</label><i>：</i></dt>
+                        <dd><input name="name" type="text" maxlength="10" placeholder="请填写姓名" class="textInp" valid="def"></dd>
+                    </dl>
+                    <dl>
+                        <dt class="icon-sex"><span>*</span><label>性别</label><i>：</i></dt>
+                        <dd><select id="sex" name="sex" valid="def"><option value="0">先生</option><option value="1">女士</option></select></dd>
+                    </dl>
+                    <dl style="margin-right: 0px;">
+                        <dt class="icon-mobile"><span>*</span><label>手机号码</label><i>：</i></dt>
+                        <dd><input type="tel" name="mobile" placeholder="请填写手机号码" class="textInp" maxlength="11" valid="def"></dd>
+                    </dl>
+                    <dl>
+                        <dt class="icon-city"><span>*</span><label>所在城市</label><i>：</i></dt>
+                        <dd><select id="city" name="city" valid="def"><option value="0">请选择城市</option></select></dd>
+                    </dl>
+                    <dl>
+                        <dt class="icon-province"><span>*</span><label>所在省份</label><i>：</i></dt>
+                        <dd><select id="province" name="province" valid="def"><option value="0">请选择省份</option></select></dd>
+                    </dl>
+                    <dl style="margin-right: 0px;">
+                        <dt class="icon-dealer"><span>*</span><label>请选择经销商</label><i>：</i></dt>
+                        <dd><select name="dealer" id="dealer" valid="def"><option value="0" selected="selected">请选择经销商</option></select></dd>
+                    </dl>
+                    <dl>
+                        <dt class="icon-intentcar"><span>*</span><label>意向车型</label><i>：</i></dt>
+                        <dd>
+                            <select name="series_id" id="intentbrandid" valid="nozero|请选择意向车型">
+                                <option value="12">WEY VV6</option>
+                                <option value="1">WEY VV5</option>
+                                <option value="2">WEY VV7</option>
+                                <option value="3">WEY P8</option>
+                            </select></dd>
+                    </dl>
+                    <div class="formText"><span>*</span><input type="checkbox" id="clause" valid="noempty|请勾选我同意《授权声明》" checked="checked"> <label for="clause">本人特此授权深圳市大兴宝锦汽车销售服务有限公司，须按照数据保护规定，保留页面信息，并认可此信息予以深圳市大兴宝锦汽车销售服务有限公司。<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本人接受深圳市大兴宝锦汽车销售服务有限公司所发送的相关商业信息，并允许上述公司与我联系。</label></div>
+                    <div class="inpBox"><a href="javascript:AF.forms[0].submit();" class="subBtn lr3" id="submitOk"></a></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="top4">
+    <div class="main">
+        <div class="c4">
+            <div class="c41">
+                <div class="turn1" id="c5a">                                          
+                    <ul>                                                              
+                        <li style="display:block">
+                            <img src="__TMPL__/public/assets/channel/vv6/images/gd1.png" alt="" />
+                            <div class="bgmm">AEB主动式紧急制动系统（带行人/自行车识别）</div>
+                        </li>    
+                        <li style="display: none;">
+                            <img src="__TMPL__/public/assets/channel/vv6/images/gd2.png" alt="" />
+                            <div class="bgmm">ICA智能巡航辅助</div>
+                        </li> 
+                        <li style="display: none;">
+                            <img src="__TMPL__/public/assets/channel/vv6/images/gd3.png" alt="" />
+                            <div class="bgmm">TJA交通拥堵辅助</div>
+                        </li>    
+                        <li style="display: none;">
+                            <img src="__TMPL__/public/assets/channel/vv6/images/gd4.png" alt="" />
+                            <div class="bgmm">LCK车道居中保持辅助系统</div>
+                        </li>    
+                        <li style="display: none;">
+                            <img src="__TMPL__/public/assets/channel/vv6/images/gd5.png" alt="" />
+                            <div class="bgmm">智能四驱+标准、运动、经济三种驾驶模+雪地、泥地、沙地三种全地形模式</div>
+                        </li>    
+                        <li style="display: none;">
+                            <img src="__TMPL__/public/assets/channel/vv6/images/gd6.png" alt="" />
+                            <div class="bgmm">智能电子换挡</div>
+                        </li>    
+                        <li style="display: none;">
+                            <img src="__TMPL__/public/assets/channel/vv6/images/gd7.png" alt="" />
+                            <div class="bgmm">19寸铝合金轮辋+米其林豪华轮胎</div>
+                        </li>   
+                        <li style="display: none;">
+                            <img src="__TMPL__/public/assets/channel/vv6/images/gd8.png" alt="" />
+                            <div class="bgmm">高级NAPPA菱形打孔真皮座椅</div>
+                        </li>           
+                    </ul> 
+                    <p class="op"></p>                                                            
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="top6">
+    <div class="main">
+        <div class="c6">
+            <div class="c61">
+                <div id="tabs1" class="tabs11">
+                    <div class="cur"><a class="tabs1_1" href="javascript:void(0)"  target="_self"></a></div>
+                    <div><a class="tabs1_2" href="javascript:void(0)"  target="_self"></a></div>
+                </div>
+                <div class="tabs1_context">
+                    <for start="1" end="6">
+                        <div class="c66{$i} cvbn">
+                            <a class="group1"  href="{$host_domain}/themes/txqc/public/assets/channel/vv6/images/tg{$i}.{$i==5?'png':'jpg'}"><img src="__TMPL__/public/assets/channel/vv6/images/tg{$i}.{$i==5?'png':'jpg'}"/></a>
+                        </div>
+                    </for>
+                </div>
+                <div class="tabs1_context" style="display:none;">
+                    <for start="6" end="11" name="j">
+                        <div class="c67{$j-5} cvbn">
+                            <a class="group1"  href="{$host_domain}/themes/txqc/public/assets/channel/vv6/images/tg{$j}.{$j==10?'png':'jpg'}"><img src="__TMPL__/public/assets/channel/vv6/images/tg{$j}.{$j==10?'png':'jpg'}"/></a>
+                        </div>
+                    </for>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="top7">
+    <div class="main">
+        <div class="c7">
+            <div class="c71">
+                <iframe src='{:url("portal/channel/vv6_config")}' frameborder=no allowtransparency="true" border=0 marginwidth=0 marginheight=0 align=center width=1140 scrolling=no  height=390 noresize ></iframe>
+            </div>
+            <div class="c72 yysj lr2"><img src="__TMPL__/public/assets/channel/vv6/images/yysj.png" alt="立即预约" /></div>
+        </div>
+    </div>
+</div>
+<div class="footer"><div class="section">深圳市大兴宝锦汽车销售服务有限公司 地址：深圳市宝安区沙井西环路2113号(新沙天虹旁) 服务热线:0755-29453995</div></div>
+<script src="__TMPL__/public/assets/js/jquery-1.8.2.min.js" type="text/javascript"></script>
+<script src="__STATIC__/js/swiper/4.3/js/swiper.min.js"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/ckplayer/ckplayer.js"></script>
+<script src="__TMPL__/public/assets/js/scroll_min.js" type="text/javascript"></script>
+<script src="__TMPL__/public/assets/colorbox/jquery.colorbox-min.js" type="text/javascript"></script>
+<link type="text/css" rel="stylesheet" href="__TMPL__/public/assets/colorbox/css/colorbox.css" />
+<script type="text/javascript">
+    $(".yysj").click(function(){
+
+            var speed=200;//滑动的速度
+            $('body,html').animate({ scrollTop: 1350 }, speed);
+            return false;
+
+    })
+</script>
+<script type="text/javascript" src="__TMPL__/public/assets/channel/vv6/js/autoform3.js"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/channel/vv6/js/selectpick_i.js"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/channel/vv6/js/linkage.js"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/channel/vv6/js/vv6.js"></script>
+<script type="text/javascript" >
+   $(".form-box input").focus(function () {
+       var d = $(this).parents("dd");
+       d.addClass("cur").prev().addClass("cur");
+       return false;
+   }).blur(function () {
+       var d = $(this).parents("dd");
+       d.removeClass("cur").prev().removeClass("cur");
+   });
+</script>
+<!-- 结束 -->
+<script type="text/javascript">
+        imgfade($("#c5a"));
+           if($(window).scrollTop()>=($(document).height()-$(window).height())){
+               $('.c41_11,.px5').css({"bottom":"80px"});
+           }else{
+               $('.c41_11,.px5').css({"bottom":"0px"});
+           }
+          $(window).scroll(function(){
+               st=$(window).scrollTop();
+               dis=$(document).height()-$(window).height();
+               if(st>=(dis-80)){
+                   $('.c41_11,.px5').css({"bottom":"80px"});
+               }else{
+                   $('.c41_11,.px5').css({"bottom":"0px"});
+               }
+
+          }) 
+
+                /*左右点击 淡入淡出jquery 封装 imgfade函数*/
+        function imgfade(turn1){
+             var $key=0;
+             var $left=turn1.children("a:eq(0)");
+             var $right=turn1.children("a:eq(1)");
+             var $p=turn1.children("p.op");
+             var $li=turn1.find("li");
+             var $length=$li.length;
+           
+             /*点*/
+             var html="";    
+             for(i=0;i<$length;i++){
+                 if(i==0){
+                   html+="<span class='cur'></span>";
+                 }else{
+                   html+="<span></span>";
+                 } 
+             }
+             $p.append(html);  
+             $p.find("span").on("click",function(){
+                 var num=$(this).index();
+                 $(this).addClass("cur").siblings().removeClass("cur");
+                  $li.eq(num).fadeIn(600).siblings().fadeOut(300);
+                 return $key=num;
+             });
+
+             /*左键*/ 
+             $left.click(function(){           
+                $li.eq($key).fadeOut(600);
+               $key++;
+               if( $key>$li.length-1){
+                   $key=0;
+               }
+                $li.eq($key).fadeIn(300);
+                $p.find("span").eq($key).addClass("cur").siblings().removeClass("cur");
+             }) 
+             /*右键*/ 
+             $right.click(function(){         
+                 $li.eq($key).fadeOut(600);
+                 $key--;
+
+               if( $key<-$li.length+1){
+                   $key=0;
+               }
+                $li.eq($key).fadeIn(300);
+                $p.find("span").eq($key).addClass("cur").siblings().removeClass("cur");
+             })
+        }
+</script>
+<script type="text/javascript">
+    //div切换
+    function tabsdiv(_tabs_context){
+            return function(){
+                $(this).siblings().removeClass('cur');
+                $(this).addClass('cur');
+                var num = $(this).index();
+                $(_tabs_context).hide().eq(num).show();
+            }
+        }
+    $('#tabs1 div').click(tabsdiv('.tabs1_context'));
+
+    //精美图片轮播
+    $(document).ready(function(){
+        $(".group1").colorbox({rel:'group1'});
+    });
+    /**
+     *
+     *  视频轮播
+     */
+    var video_swiper = new Swiper('#video_swipper', {
+        pagination: {
+            el: '.swiper-pagination-style',
+            clickable: true,
+        },
+        on: {
+            slideChangeTransitionStart: function(event){
+                CKobject.getObjectById('video_player').videoPause();
+                $("#video_box").fadeOut();
+                video_swiper.allowTouchMove= true;
+            },
+        }
+    });
+    var page = page || {};
+    page.video = function () {
+        $(".top2 .play").on("click", function () {
+            video_swiper.allowTouchMove= false;
+            var videoData = {
+                html5addr: $(this).attr('data-s'),
+                flashaddr: $(this).attr('data-f')
+            };
+            var videoHeight = $(this).siblings().height(), videoWidth = $(this).siblings().width()+4;
+            // var videoHeight = 470, videoWidth = 695;
+            page.playVideo(videoData, videoHeight, videoWidth);
+            $("#video_box").fadeIn();
+            $('#video_player').click(function () { CKobject.getObjectById('video_player').playOrPause(); })
+        })
+    }
+
+    page.playVideo = function (videoData, videoHeight, videoWidth) {
+        var playerSwf = "__STATIC__/js/ckplayer/ckplayer.swf";
+        var containerId = "video_box";
+        var flashvars = {
+            f: videoData.flashaddr, //使用flash播放器时视频地址的
+            c: 0, //风格配置参数
+            p: 1, //1默认播放0暂停
+            e: 1
+        };
+        var params = {
+            bgcolor: '#FFF',
+            allowFullScreen: true,
+            allowScriptAccess: 'always',
+            wmode: 'transparent',
+            control: false
+        };
+        var html5video = [];
+        html5video.push(videoData.html5addr);
+        CKobject.embed(playerSwf, containerId, 'video_player', videoWidth, videoHeight, true, flashvars, html5video, params);
+    }
+
+    $(function(){
+        page.video();
+    })
+</script>
+</body>
+</html>

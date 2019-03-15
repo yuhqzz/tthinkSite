@@ -1,0 +1,110 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('Dealer/index')}">4S店列表</a></li>
+        <li><a href="{:url('Dealer/add')}">添加4S店</a></li>
+        <li class="active"><a >编辑</a></li>
+    </ul>
+    <div class="row margin-top-20">
+        <div class="col-md-6">
+            <form class="js-ajax-form form-horizontal" action="{:url('Dealer/editPost',array('id'=>$id))}" method="post">
+                <div class="form-group">
+                    <label for="input-type" class="col-sm-3 control-label"><span class="form-required">*</span>经销商类型</label>
+                    <div class="col-md-6 col-sm-10">
+                        <select name="type" class="form-control" id="input-type">
+                            <option value="0">请选择</option>
+                            <option value="1" {$type==1?'selected="selected"':''} >4S店</option>
+                            <option value="2" {$type==2?'selected="selected"':''} >综合店</option>
+                            <option value="3" {$type==3?'selected="selected"':''} >港口店</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-name" class="col-sm-3 control-label"><span class="form-required">*</span>4S店名称</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-name" name="name" value="{$name}">
+                        <span class="help-block">4S店名称</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-main_brand" class="col-sm-3 control-label"><span class="form-required">*</span>经营品牌</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input id="input-main_brand"  data-source="{:url('goods/ajax/brand')}" data-showField="name" data-keyField="id" data-multiple ="true"  class="form-control selectpage" name="main_brand" type="text"  value="{$main_brand}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-address" class="col-sm-3 control-label"><span class="form-required">*</span>地址</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-address" name="address" value="{$address}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-contact_name" class="col-sm-3 control-label"><span class="form-required">*</span>联系人</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-contact_name" name="contact_name" value="{$contact_name}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-telephone" class="col-sm-3 control-label"><span class="form-required">*</span>服务热线</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-telephone" name="telephone" value="{$telephone}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-email" class="col-sm-3 control-label"><span class="form-required">*</span>服务邮箱</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-email" name="email" value="{$email}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-wechat" class="col-sm-3 control-label">微信</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-wechat" name="wechat" value="{$wechat}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">微信公众号</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="hidden" name="wechat_qrcode" class="form-control" id="js-thumbnail-input" value="{$wechat_qrcode}">
+                        <div>
+                            <a href="javascript:uploadOneImage('图片上传','#js-thumbnail-input');">
+                                <img src="{$wechat_qrcode?$wechat_qrcode:'__TMPL__/public/assets/images/default-thumbnail.png'}"
+                                     id="js-thumbnail-input-preview"
+                                     width="135" style="cursor: pointer"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-weibo" class="col-sm-3 control-label">微博</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-weibo" name="weibo" value="{$weibo}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-qq" class="col-sm-3 control-label">QQ</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-qq" name="qq" placeholder="QQ">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-position" class="col-sm-3 control-label">地理位置</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-position" name="position" placeholder="地理位置">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-10">
+                        <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                        <a class="btn btn-default" href="{:url('AdminBrand/index')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -724,14 +724,59 @@ function getBookOrderStatus($stauts){
   return $config_stauts[$stauts];
 }
 
-function getImgToLocal($url,$local_path = ''){
-    if (strpos($url, "http") !== 0) {
-        return false;
+
+/**
+ *  是否为正确的手机号码
+ * @param $mobile
+ * @return bool
+ */
+function isTelNumber($mobile)
+{
+    if(empty($mobile)) return false;
+    $mobile = $mobile;
+    $rtn = false;
+    //移动号段
+    if (preg_match('/^((13[4-9])|(15([0-2]|[7-9]))|(18[2|3|4|7|8])|(178)|(147))[\d]{8}$/', $mobile)) {
+        $rtn = true;
     }
-
-
+    //电信号段
+    if (preg_match('/^((133)|(153)|(18[0|1|9])|(177)|(199))[\d]{8}$/', $mobile)) {
+        $rtn = true;
+    }
+    //联通号段
+    if (preg_match(' /^((13[0-2])|(145)|(15[5-6])|(176)|(18[5-6]))[\d]{8}$/', $mobile)) {
+        $rtn = true;
+    }
+    return $rtn;
+}
+/**
+ * Encode array to utf8 recursively
+ * @param $dat
+ * @return array|string
+ */
+function array_utf8_encode($dat)
+{
+    if (is_string($dat))
+        return utf8_encode($dat);
+    if (!is_array($dat))
+        return $dat;
+    $ret = array();
+    foreach ($dat as $i => $d)
+        $ret[$i] = array_utf8_encode($d);
+    return $ret;
 }
 
+/**
+ *
+ * 获取用户昵称
+ * @param $uid
+ * @return string
+ * @throws \think\exception\DbException
+ */
+function getUserName($uid){
+    $user = \app\portal\model\UserModel::get($uid);
+    return isset($user['user_nickname'])?$user['user_nickname']:'';
+}
 
 
 

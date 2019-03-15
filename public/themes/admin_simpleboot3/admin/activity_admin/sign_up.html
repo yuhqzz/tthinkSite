@@ -1,0 +1,59 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('ActivityAdmin/index')}">活动列表</a></li>
+        <li class="active"><a href="{:url('ActivityAdmin/signup',array('id'=>$id))}">活动报名</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('ActivityAdmin/signUpPost')}">
+        <input type="hidden" name="act_id" value="{$id}">
+        <div class="form-group">
+            <label for="input-activity-title" class="col-sm-3 control-label"><span class="form-required">*</span>活动名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-activity-title" name="title"  value="{$title}" readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-activity-title" class="col-sm-3 control-label"><span class="form-required">*</span>报名用户</label>
+            <div class="col-md-6 col-sm-10">
+                <table class="table table-bordered">
+                    <th>姓名</th>
+                    <th>电话</th>
+                    <th></th>
+                    <tr>
+                        <td><input class="form-control" type="text" name="row[username][]"></td>
+                        <td><input class="form-control" type="text" name="row[tel][]" ></td>
+                        <td>
+                            <a class="btn btn-success btn-xs" onclick="Page.addRow(this);"><i class="glyphicon glyphicon-plus"></i>添加一行</a>
+                            <a class="btn btn-danger btn-xs" onclick="Page.delRow(this);"><i class="glyphicon glyphicon-minus"></i>删除一行</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-10">
+                <button type="submit" class="btn btn-primary js-ajax-submit">报名</button>
+                <!--js-ajax-submit-->
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
+<script type="application/javascript">
+    var Page = {};
+    Page.addRow = function (obj) {
+       var tr = $(obj).parents('tr');
+       var table = $(obj).parents('table');
+       var btr = tr.clone(true);
+        $(btr).find('input').val('');
+        $(table).append($(btr));
+    }
+    Page.delRow = function (obj) {
+        var tr = $(obj).parents('tr');
+        $(tr).remove();
+    }
+</script>

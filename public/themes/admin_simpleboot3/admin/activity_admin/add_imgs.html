@@ -1,0 +1,47 @@
+<include file="public@header" />
+<style type="text/css">
+	.pic-list li {
+		margin: 10px;
+	}
+	.pic-list li a:hover{
+		text-decoration: none;
+	}
+	.img-upload{min-height: 175px;border: 1px silver dashed}
+	.img-upload-btn{margin: 10px;}
+	.img-upload-btn:hover{text-decoration: none;}
+</style>
+<script type="text/html" id="photos-item-tpl">
+	<li id="saved-image{id}">
+		<input id="photo-{id}" type="hidden" name="images[photo_urls][]" value="{filepath}">
+		<input class="form-control" id="photo-{id}-name" type="text" name="images[photo_names][]" value="{name}" readonly
+			   style="width: 200px;" title="图片名称" readonly>
+		<img id="photo-{id}-preview" src="{url}" style="height:36px;width: 36px;"
+			 onclick="imagePreviewDialog(this.src);">
+		<a href="javascript:(function(){$('#saved-image{id}').remove();})();">移除</a>
+	</li>
+</script>
+</head>
+<body>
+	<div class="wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:url('ActivityAdmin/index')}">活动列表</a></li>
+			<li class="active"><a href="javascript:void(0);">活动图集</a></li>
+		</ul>
+		<form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('ActivityAdmin/doAddImgs')}">
+
+			<input type="hidden" class="form-control"  name="act_id" value="{$act_id}" >
+
+			<div class="form-group img-upload">
+				<ul id="photos" class="pic-list list-unstyled form-inline"></ul>
+				<a href="javascript:uploadMultiImage('图片上传','#photos','photos-item-tpl');" class="img-upload-btn"><span class="glyphicon glyphicon-plus-sign"></span>&nbsp;&nbsp;添加图片</a>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary js-ajax-submit">保存</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

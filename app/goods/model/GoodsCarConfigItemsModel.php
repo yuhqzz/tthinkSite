@@ -57,6 +57,7 @@ class GoodsCarConfigItemsModel extends Model
         $save['config_input_type'] = intval($data['config_input_type']);
         $save['config_values'] = trim($data['config_values']);
         $save['description'] = htmlentities(trim($data['description']),ENT_QUOTES);
+        $save['config_field'] = trim($data['config_field']);
         $id =  $this->allowField(true)->insertGetId($save);
         if($id){
             $this->clearCache($cate_id);
@@ -80,6 +81,7 @@ class GoodsCarConfigItemsModel extends Model
         $save['config_input_type'] = intval($data['config_input_type']);
         $save['config_values'] = trim($data['config_values']);
         $save['description'] = htmlentities(trim($data['description']),ENT_QUOTES);
+        $save['config_field'] = trim($data['config_filed']);
         $res = $this->isUpdate(true)->allowField(true)->save($save, ['id' => $id]);
         if($res){
             $this->clearCache($cate_id);

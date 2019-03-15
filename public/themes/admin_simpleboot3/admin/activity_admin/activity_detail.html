@@ -1,0 +1,79 @@
+<include file="public@header" />
+<style>
+	.page-header .tongji{
+		width: 50%;
+		float: left;
+	}
+	.wininglist{
+		width: 50%;
+		float: left;
+		font-size: 16px;
+	}
+	.wininglist h3{
+		width: 100%;
+	}
+	.wininglist p{
+		float: left;
+	}
+	.wininglist p em{
+		margin:0 6px;
+		font-size: 18px;
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+	<ul class="nav nav-tabs">
+		<li><a href="{:url('ActivityAdmin/index')}">活动列表</a></li>
+		<li class="active"><a href="">活动详情</a></li>
+	</ul>
+	<div class="page-header">
+		<div class="tongji">
+			<h1>活动报名 <small style="margin: 0 25px;color: red;">{$user_count|default=0}</small>人数</h1>
+			<h1>已派送兑奖码<small style="margin: 0 25px;color: red;">{$code_count|default=0}</small>个</h1>
+		</div>
+		<div class="wininglist">
+			<h3>中奖结果:</h3>
+			<noempty name="wining_list">
+				<foreach name="wining_list" item="v">
+					<p><em>{$v.create_time|date="Y-m-d",###}</em>兑奖码:<span>{$v.code}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手机号:<span>{$v.user_id|getActUserPhone}</span></p>
+				</foreach>
+			</noempty>
+		</div>
+	</div>
+	<div class="clear" style="clear: both;"></div>
+	<div style="margin: 15px 0;">
+		<a class="btn btn-primary" href="{:url('ActivityAdmin/chouJiang')}">去抽奖</a>
+	</div>
+	<table class="table table-hover table-bordered">
+		<thead>
+		<tr>
+			<th width="50">ID</th>
+			<th>用户名</th>
+			<th>电话</th>
+			<th>报名ip</th>
+			<th>报名时间</th>
+			<th>状态</th>
+			<th width="130">{:lang('ACTIONS')}</th>
+		</tr>
+		</thead>
+		<tbody>
+			<foreach name="userList" item="vo">
+				<tr>
+					<td>{$vo.id}</td>
+					<td>{$vo.user_name}</td>
+					<td>{$vo.phone}</td>
+					<td>{$vo.ip}</td>
+					<td>{$vo.reg_time|date="Y-m-d H:i",###}</td>
+					<td>{$vo.status==1?'激活':'未激活'}</td>
+					<td><a href="javascript:parent.openIframeLayer('{:url('ActivityAdmin/userCode',array('user_id'=>$vo['id']))}','[{$vo.phone}]的兑奖码',{});">查看兑奖码</a></td>
+				</tr>
+			</foreach>
+		</tbody>
+	</table>
+	<div class="pagination">{$userList->render()}</div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

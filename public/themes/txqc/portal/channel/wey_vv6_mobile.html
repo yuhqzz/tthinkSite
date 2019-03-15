@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <php>$version = time();</php>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="keywords" content="深圳大兴汽车 WEY VV6 智能豪华" />
+    <meta name="description" content="深圳大兴汽车 WEY VV6 智能豪华" />
+    <title>WEY VV6 智能豪华SUV 上市</title>
+    <link type="text/css" rel="stylesheet" href="__TMPL__/public/assets/channel/vv6/css/m/css.css?v={$version}" />
+    <link type="text/css"rel="stylesheet" href="__STATIC__/js/swiper/4.3/css/swiper.min.css?version={$version}">
+    <script type="text/javascript">
+        // 750设计稿适配
+        (function(doc, win) {
+            var docEl = doc.documentElement,
+                    isIOS = navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+                    dpr = isIOS ? Math.min(win.devicePixelRatio, 3) : 1,
+                    dpr = window.top === window.self ? dpr : 1, //被iframe引用时，禁止缩放
+                    dpr = 1,
+                    scale = 1 / dpr,
+                    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+            docEl.dataset.dpr = dpr;
+            var metaEl = doc.createElement('meta');
+            metaEl.name = 'viewport';
+            metaEl.content = 'initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale;
+            docEl.firstElementChild.appendChild(metaEl);
+            var recalc = function() {
+                var width = docEl.clientWidth;
+                if (width / dpr > 750) {
+                    width = 750 * dpr;
+                }
+                // 乘以100，px : rem = 100 : 1
+                docEl.style.fontSize = 100 * (width / 750) + 'px';
+            };
+            recalc()
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+        })(document, window);
+    </script>
+    <script>
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?9305051337d085fc2c53e2c738bb8250";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+<body>
+<div class="container" id="webpage">
+    <!--banner-->
+    <div class="section">
+        <img class="img100" src="__TMPL__/public/assets/channel/vv6/images/m/main_01.jpg">
+    </div>
+    <!--video-->
+    <div class="section" id="vv6_video">
+        <div class="swiper-container" id="video_swipper" style="position: relative;">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="__TMPL__/public/assets/channel/vv6/images/m/ivideo_bg1.jpg"/>
+                    <img class="play" data-s="__ROOT__/upload/data/video/wey-201808301822.mp4" data-f="__ROOT__/upload/data/video/wey-201808301822.flv" src="__TMPL__/public/assets/images/channel/ivideo.png" />
+                </div>
+                <div class="swiper-slide">
+                    <img src="__TMPL__/public/assets/channel/vv6/images/m/ivideo_bg2.jpg"  />
+                    <img class="play" data-s="__ROOT__/upload/data/video/wey-201808301821.mp4" data-f="__ROOT__/upload/data/video/wey-201808301821.flv" src="__TMPL__/public/assets/images/channel/ivideo.png" />
+                </div>
+            </div>
+            <div class="video_box" id="video_box" ></div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-style"></div>
+    </div>
+    <!--预约表单-->
+    <div class="section" style="position: relative;" id="vv6TestDriveForm">
+        <img class="img100" src="__TMPL__/public/assets/channel/vv6/images/m/main_03.jpg">
+        <form action="{:url('portal/channel/ajaxSubmitBookCar')}" name="vv6TestDriveForm" method="post">
+            <div class="inputsWrapper">
+                <select id="model" class="abs absreset"  name="series_id" >
+                    <option value="0">请选择车型</option>
+                    <option value="12">WEY VV6</option>
+                    <option value="1">WEY VV5</option>
+                    <option value="2">WEY VV7</option>
+                    <option value="3">WEY P8</option>
+                </select>
+                <input type="text" name="province" id="province" class="abs" value="广东" readonly="readonly">
+                <input type="text" id="city" name="city" class="abs" value="深圳" readonly="readonly">
+                <input type="text" id="dealer" name="dealer" class="abs" value="深圳市大兴宝锦汽车销售服务有限公司" readonly="readonly">
+                <input id="name" class="abs absreset" name="customer_name" maxlength="20" type="text" placeholder="点击输入姓名">
+                <select id="sex" name="sex" class="abs" >
+                    <option value="0">男</option>
+                    <option value="1">女</option>
+                </select>
+                <input id="mobile" name="mobile" class="abs absreset"  type="text" placeholder="点击输入手机号码" maxlength="11" onkeyup="this.value=this.value.replace(/\D/g,'')">
+                <div id="btnSubmit" class="abs"></div>
+            </div>
+        </form>
+    </div>
+    <!--车型亮点-->
+    <div class="section pictures">
+        <img class="img100" src="__TMPL__/public/assets/channel/vv6/images/m/main_04.jpg">
+        <div class="swiper-container" id="pictures_swiper">
+            <div class="swiper-wrapper">
+                <for start="1" end="9" name="i">
+                    <div class="swiper-slide"><img class="swiper-lazy" data-src="__TMPL__/public/assets/channel/vv6/images/m/car_nice{$i}.jpg" width="100%"/></div>
+                </for>
+            </div>
+            <div class="swiper-pagination swiper-pagination-pictures"></div>
+        </div>
+    </div>
+    <div class="section nice_pictures">
+        <img  src="__TMPL__/public/assets/channel/vv6/images/m/main_09.jpg">
+        <div class="swiper-container" id="nice_pictures_swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="nice_pictures_top">
+                        <img src="__TMPL__/public/assets/channel/vv6/images/tg1.jpg">
+                        <img src="__TMPL__/public/assets/channel/vv6/images/tg2.jpg">
+                        <img src="__TMPL__/public/assets/channel/vv6/images/tg3.jpg">
+                    </div>
+                     <div class="nice_pictures_down">
+                         <img src="__TMPL__/public/assets/channel/vv6/images/tg4.jpg">
+                     </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="nice_pictures_top">
+                        <img src="__TMPL__/public/assets/channel/vv6/images/tg6.jpg">
+                        <img src="__TMPL__/public/assets/channel/vv6/images/tg7.jpg">
+                        <img src="__TMPL__/public/assets/channel/vv6/images/tg8.jpg">
+                    </div>
+                    <div class="nice_pictures_down">
+                        <img src="__TMPL__/public/assets/channel/vv6/images/tg9.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination swiper-pagination-nice-pictures"></div>
+        </div>
+    </div>
+    <!--车型配置-->
+    <div class="section car_config">
+        <img src="__TMPL__/public/assets/channel/vv6/images/m/main_06.jpg">
+        <div style="position: absolute;top:0.6rem; width:100%;height: 6.3rem;overflow-x:hidden;overflow-y:scroll; padding: 0 0.05rem;">
+            <img src="__TMPL__/public/assets/channel/vv6/images/m/table.jpg">
+        </div>
+    </div>
+    <!--公众号-->
+    <div class="section dealer" >
+       <!-- <img src="__TMPL__/public/assets/channel/vv6/images/m/main_07.jpg">-->
+        <div class="dealer_qrcode">
+            <img src="__TMPL__/public/assets/channel/vv6/images/qrcode.jpg">
+        </div>
+        <div class="dealer_info">
+            <ul>
+                <li>
+                    <p class="dealer_n">
+                        WEY深圳大兴旗舰店-大兴宝锦店
+                    </p>
+                    <p class="dealer_a">
+                        <em>服务地址:</em>深圳市宝安区沙井西环路2113号<br/>(新沙天虹旁)
+                    </p>
+                    <p class="dealer_t">
+                        <em>服务热线:</em>
+                        0755-29453995
+                    </p>
+                </li>
+                <li>
+                    <p class="dealer_n">
+                        WEY深圳大兴旗舰店-大兴宝兴店
+                    </p>
+                    <p class="dealer_a">
+                        <em>服务地址:</em>深圳市龙华区观澜街道观光路1319号<br/>(龙华大兴汽车中心)
+                    </p>
+                    <p class="dealer_t">
+                        <em>服务热线:</em>0755-85280069
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="footer_fx" style="width: 100%;display: flex;">
+            <img src="__TMPL__/public/assets/channel/vv6/images/m/yysj.png" alt="立即预约" id="footer_fx_i"/>
+            <a href="tel:17896450946" onclick="_hmt.push(['_trackMobConv', 'tel']);"><img  src="__TMPL__/public/assets/channel/vv6/images/m/mszx.png" alt="马上咨询" id="footer_fx_a"/></a>
+        </div>
+    </div>
+</div>
+<script src="__TMPL__/public/assets/js/jquery-1.8.2.min.js?v={$version}" type="text/javascript"></script>
+<script src="__STATIC__/js/swiper/4.3/js/swiper.min.js?v={$version}"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/ckplayer/ckplayer.js?v={$version}"></script>
+<script type="text/javascript" src="__STATIC__/js/layer/mobile/layer.js?v={$version}"></script>
+<script src="__TMPL__/public/assets/channel/vv6/js/m/vv6.js?v={$version}" type="text/javascript"></script>
+<span style="display: none;">
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274329686'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/stat.php%3Fid%3D1274329686%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</span>
+<script type="text/javascript">!function(e,r,t,n,a){function o(e){var r;return reg=new RegExp("(^| )"+e+"=([^;]*)(;|$)"),(r=document.cookie.match(reg))?unescape(r[2]):null}e[n]=e[n]||{},e[n]["phonetracker.start"]=(new Date).getTime(),e[n].uid=a;var c=r.getElementsByTagName(t)[0],i=r.createElement(t);i.asyn=!0,i.src="//ada.baidu.com/phone-tracker/getjs?uid="+a+"&from=self&referer="+document.referrer+"&cookie_BD_IS_FROM_FC_AD="+o("BD_IS_FROM_FC_AD"),c.parentNode.insertBefore(i,c)}(window,document,"script","bdDataLayer","nWR4PHDYn1D");</script>
+
+<script>
+    /**
+     *
+     *  视频轮播
+     */
+    var video_swiper = new Swiper('#video_swipper', {
+        pagination: {
+            el: '.swiper-pagination-style',
+            clickable: true,
+        },
+        on: {
+            slideChangeTransitionStart: function(event){
+                if(CKobject.getObjectById('video_player') != null){
+                    CKobject.getObjectById('video_player').videoPause();
+                    $("#video_box").fadeOut();
+                    video_swiper.allowTouchMove = true;
+                }
+
+            },
+        }
+    });
+    var nice_pictures_swiper = new Swiper("#nice_pictures_swiper",{
+        pagination: {
+            el: '.swiper-pagination-nice-pictures',
+            clickable: true,
+        }
+    });
+    $(".pictures").each(function () {
+        var $this = $(this);
+        $this.find('.swiper-slide').each(function () {
+            var $img = $(this).find('.swiper-lazy');
+            if ($img.size()) {
+                $('<div class="swiper-lazy-preloader" style="margin-top: 1.8rem;"></div>').appendTo($(this))
+            }
+        })
+
+        new Swiper($this.find('.swiper-container')[0], {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+            },
+            spaceBetween: 50,
+            lazy: true,
+            // observer: true,
+            pagination: {
+                el: $this.find('.swiper-pagination')[0],
+            },
+        });
+    })
+    var page = page || {};
+    page.video = function () {
+        $("#vv6_video .play").on("click", function () {
+            video_swiper.allowTouchMove= false;
+            var videoData = {
+                html5addr: $(this).attr('data-s'),
+                flashaddr: $(this).attr('data-f')
+            };
+            var videoHeight = $(this).siblings().height(), videoWidth = $(this).siblings().width()+4;
+            // var videoHeight = 470, videoWidth = 695;
+            page.playVideo(videoData, videoHeight, videoWidth);
+            $("#video_box").fadeIn();
+            $('#video_player').click(function () { CKobject.getObjectById('video_player').playOrPause(); })
+        })
+    }
+
+    page.playVideo = function (videoData, videoHeight, videoWidth) {
+        var playerSwf = "__STATIC__/js/ckplayer/ckplayer.swf";
+        var containerId = "video_box";
+        var flashvars = {
+            f: videoData.flashaddr, //使用flash播放器时视频地址的
+            c: 0, //风格配置参数
+            p: 1, //1默认播放0暂停
+            e: 1
+        };
+        var params = {
+            bgcolor: '#FFF',
+            allowFullScreen: true,
+            allowScriptAccess: 'always',
+            wmode: 'transparent',
+            control: false
+        };
+        var html5video = [];
+        html5video.push(videoData.html5addr);
+        CKobject.embed(playerSwf, containerId, 'video_player', videoWidth, videoHeight, true, flashvars, html5video, params);
+    }
+    $(function(){
+        page.video();
+
+        $("#footer_fx_i").click(function(){
+            var h = parseInt($('#vv6TestDriveForm').offset().top);
+            var speed=200;//滑动的速度
+            $('body,html').animate({ scrollTop: h}, speed);
+            return false;
+
+        })
+         function ask_price(){
+            _hmt.push(['_trackMobConv', 'tel']);
+        }
+    })
+
+
+</script>
+
+</body>
+</html>

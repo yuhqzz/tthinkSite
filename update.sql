@@ -236,22 +236,31 @@ CREATE TABLE `tx_goods_images` (
 
 --
 -- 经销商表
--- 表的结构 `tx_goods_dealers`
+-- 表的结构 `tx_dealers`
 --
-CREATE TABLE `tx_goods_dealers` (
+CREATE TABLE `tx_dealers` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id自增',
   `name` varchar(500) NOT NULL DEFAULT '' COMMENT '经销商名称',
   `address` varchar(255) NOT NULL DEFAULT '' COMMENT '经销商地址',
-  `telephone` varchar(255) NOT NULL DEFAULT '' COMMENT '经销商咨询电话',
-  `email` varchar(255) NOT NULL DEFAULT '' COMMENT '经销商咨询邮箱',
+  `logo` varchar(255) NOT NULL DEFAULT '' COMMENT '经销商店面logo',
+  `telephone` varchar(32) NOT NULL DEFAULT '' COMMENT '经销商咨询固定电话',
+  `mobile` varchar(32) NOT NULL DEFAULT '' COMMENT '经销商咨询移动电话',
+  `email` varchar(64) NOT NULL DEFAULT '' COMMENT '经销商咨询邮箱',
+  `public_number` varchar(100) NOT NULL DEFAULT '' COMMENT '公众号名称',
+  `public_number_qrcode` varchar(255) NOT NULL DEFAULT '' COMMENT '公众号二维码',
+  `address_point` varchar(64) NOT NULL DEFAULT '' COMMENT '地址经纬度坐标点',
+  `creator` int(11) NOT NULL DEFAULT '0' COMMENT '经销商创建者',
+  `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '经销商创建时间',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '经销商状态',
+  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 经销商表';
-
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='经销商表';
 --
 -- 经销商附件地址多维信息表
 -- 表的结构 `tx_goods_dealers_extend`
 --
-CREATE TABLE `tx_goods_dealers_extend` (
+CREATE TABLE `tx_dealers_extend` (
   `dealers_id` int(11)  NOT NULL COMMENT '经销商_id',
   `area_id`  int(11)  NOT NULL COMMENT '地址id',
   KEY `dealers_id`(`dealers_id`),
@@ -259,9 +268,9 @@ CREATE TABLE `tx_goods_dealers_extend` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 经销商附件地址多维信息表';
 --
 -- 经销商与车源关系表
--- 表的结构 `tx_goods_dealers_map`
+-- 表的结构 `tx_dealers_map`
 --
-CREATE TABLE `tx_goods_dealers_map` (
+CREATE TABLE `tx_dealers_map` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id自增',
   `goods_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '商品id',
   `dealers_id` varchar(255) NOT NULL DEFAULT '' COMMENT '经销商_id',
@@ -303,3 +312,65 @@ CREATE TABLE `tx_order_book` (
 
 
 
+--
+-- 活动用户表
+-- 表的结构 `tx_activity_base`
+--
+
+CREATE TABLE IF NOT EXISTS `tx_activity_user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `user_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '用户名',
+  `pass` varchar(64)  NOT NULL DEFAULT '' COMMENT '登陆密码',
+  `phone` varchar(16)  NOT NULL DEFAULT '' COMMENT '电话',
+  `mac` varchar(200)  NOT NULL DEFAULT '' COMMENT '客户端mac地址',
+  `ip` varchar(32)  NOT NULL DEFAULT '' COMMENT '客户端注册ip',
+  `reg_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '电话',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态,1:启用,0:不启用',
+  `delete_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
+  PRIMARY KEY (`id`),
+  KEY `tx_user_login` (`user_name`),
+  KEY `tx_phone` (`phone`),
+  KEY `tx_mac` (`mac`),
+  UNIQUE KEY `phone`(`phone`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='活动参与用户表';
+
+
+--
+-- 活动码表
+-- 表的结构 `tx_activity_base`
+--
+
+CREATE TABLE IF NOT EXISTS `tx_activity_code` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '活动码',
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
+  `active` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否激活 0 未激活 1已激活',
+  `is_share` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '是否分享',
+  `is_filter` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否过滤 0 否 1 过滤',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '生成时间',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态,1:启用,0:作废',
+  `delete_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
+  PRIMARY KEY (`id`),
+  KEY `tx_code`(`code`),
+  KEY `tx_active`(`active`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='活动码表';
+
+--
+-- 活动用户表
+-- 表的结构 `tx_activity_record`
+--
+
+CREATE TABLE IF NOT EXISTS `tx_activity_record` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '活动码',
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户id',
+  `start_time` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `end_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '结束时间',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `delete_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态,1:启用,0:作废',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='goods应用 商品分类表';

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>广汽本田大兴宝腾新年献礼，2019超级锦鲤送好友!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="广汽本田大兴宝腾新年献礼，2019超级锦鲤送好友!！" />
+    <link rel="stylesheet" href="__TMPL__/public/assets/css/reset.min.css?v={$version}">
+    <link rel="stylesheet" href="__TMPL__/public/assets/bootstrap-3.3.7/css/bootstrap.min.css?v={$version}">
+    <link rel="stylesheet" href="__TMPL__/public/assets/css/activity.css?v={$version}">
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?v={$version}"></script>
+</head>
+
+<body>
+<div class="header">
+    <img src="__TMPL__/public/assets/images/activity-20190105.jpg">
+</div>
+<!--<img src="{:cmf_get_image_url('__TMPL__/public/assets/images/chuanqi/chuanqi-activity.jpg')}" alt="chuanqi" width="0" height="0">-->
+<div class="container">
+    <ul class="nav-toolbar">
+        <li class="active" tabindex="0">88元红包整点抽</li>
+        <li tabindex="1">超级锦鲤大奖</li>
+        <li tabindex="2">我的抽奖</li>
+    </ul>
+    <div class="clear" style="clear: both;"></div>
+    <div class="act-detail">
+        <div class="act act88">
+            <dl class="active" >
+                <dt>抽奖时间</dt>
+                <dd>2018年12月31至2019年1月4日<br/>每天22：00</dd>
+                <dt>奖品</dt>
+                <dd>88元现金红包x8</dd>
+            </dl>
+        </div>
+        <div class="act act2019 dsn">
+            <dl>
+                <dt>抽奖时间</dt>
+                <dd>2019年1月4日18：00</dd>
+                <dt>奖品◆好事成双</dt>
+                <dd>2019超级锦鲤大奖(内含2019现金红包)x2</dd>
+                <dd>注:登录后分享链接给好友，好友成功报名激活抽奖资格</dd>
+            </dl>
+        </div>
+        <div class="act my-act dsn">
+            <dl>
+                <php>if(!$isLogin){</php>
+                    <dt> 您还未登录，请先<a class="login-btn"  id="login-btn">登录</a></dt>
+                <php>}else{</php>
+                    <dt>我的({$user.phone})兑奖码</dt>
+                    <dt>已被抽中的兑奖码</dt>
+                    <php>if($current_wining_code){</php>
+                    <dd class="win-item ing">{$current_wining_code}</dd>
+                    <php>}else{</php>
+                    <dd class="win-item">暂无</dd>
+                    <php>}</php>
+                    <dt>我获得的兑奖码</dt>
+                    <dd>
+                        <p style="margin: 1rem;">已获得<em class="code-num">{$codeCount}</em>个兑奖码</p>
+                        <div class="code-list">
+                            <foreach name="codeList" item="vo">
+                                <span class="code-list-item"><em class="code-list-t">兑奖码：</em>{$vo.code}</span>
+                            </foreach>
+                        </div>
+                    </dd>
+                <php>}</php>
+            </dl>
+        </div>
+     </div>
+    <div class="act-operate">
+        <span class="act-btn" {$isLogin?"disabled='true'":""}>{$isLogin?"待开奖":"我要抽奖"}</span>
+        <div class="act-user-list">
+            <foreach name="latest_user" item="vo">
+                <a><i class="glyphicon glyphicon-user"></i>{$vo.booking_phone|mobile_hide}</a>
+            </foreach>
+        </div>
+    </div>
+    <div class="act-rule section">
+       <!--<noempty name="wining_list">
+            <div class="wining_list_user" style="margin: 1rem auto;border: 1px dashed #ffdc8f; width: 70%;padding-left: 3rem;">
+                <h5 style="font-weight: 900;">中奖名单</h5>
+                <dl>
+                    <foreach name="wining_list" item="vo">
+                        <dt>{$vo.create_time|date="Y-m-d",###}</dt>
+                        <dd>{$vo.user_phone|mobile_hide} &nbsp;&nbsp;{$vo.code}</dd>
+                    </foreach>
+                </dl>
+            </div>
+        </noempty>-->
+        <dl class="act-rule-desc">
+            <dt class="act-rule-btn">活动规则</dt>
+            <dd>1、在上方报名处，点击抽奖，输入正常使用手机号，就可获得一个兑奖码；</dd>
+            <dd>2、报名抽奖成功后将本页分享给好友，好友进入活动页面，参与活动抽奖，即可为自己增加一个兑奖码；</dd>
+            <dd>3、循环大抽奖，活动期间，每天22:00，系统按照随机抽样的方式，自动抽取一个兑奖码，该兑奖码为当天抽奖活动中奖凭证，并在本页及公众号中公布；</dd>
+            <dd>4、用户凭报名手机号及中奖的兑奖码，关注微信公众号"大兴汽车微管家",联系客服领取！</dd>
+            <dd>
+                <em>温馨提示</em>
+                <p><i class="glyphicon glyphicon-hand-right"></i> 该活动仅限深圳地区用户参与。</p>
+                <p><i class="glyphicon glyphicon-hand-right"></i> 手机号必须是正常使用的手机号，停机或者无效的手机号将取消中奖资格。</p>
+                <p><i class="glyphicon glyphicon-hand-right"></i> 中奖手机号及中奖码为领奖凭证，在领取奖品时需当场验证，核实为虚假信息的将取消中奖资格。</p>
+                <p><i class="glyphicon glyphicon-hand-right"></i> 对于采用非正常手段破坏网络稳定性、违反活动规则的用户，将取消其活动资格。</p>
+                <p><i class="glyphicon glyphicon-hand-right"></i> 如对活动有任何疑义，可关注微信公众号"大兴汽车微管家"咨询客服小兴。</p>
+                <p><i class="glyphicon glyphicon-hand-right"></i> 活动最终解释权归广汽本田大兴宝腾店所有。</p>
+            </dd>
+        </dl>
+    </div>
+</div>
+<div style="margin: -4rem auto 8rem;width: 40%;" >
+    <img src="__TMPL__/public/assets/images/dx-qr-code.jpg" >
+</div>
+<div class="footer">
+    <a  id='shareBtn' class="share-btn" data-uid="{$user.id|default=0}" onClick="document.getElementById('mcover').style.display='block';">分享给好友增加中奖几率</a>
+</div>
+<div id="mcover" onClick="document.getElementById('mcover').style.display='';" style=""><img src="__TMPL__/public/assets/images/tishi.png"></div>
+<input type="hidden" name="user_token" value="{$user_token|default=''}">
+<script type="text/html" id="login-form-tpl">
+    <form  name="act-login-form" method="post" action="{:url('portal/activity/userLogin')}" onsubmit="return false;">
+        <div class="act-submit-form" >
+            <div class="layui-row">
+                <div class="info"></div>
+            </div>
+            <div class="layui-row">
+                <div class="cell">
+                    <input type="text" name="phone"  placeholder="请输入手机号码" class="cell_input" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" maxlength="11">
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+<script type="text/html" id="act-submit-form-tpl">
+    <form  class="layui-form" name="act-submit-form" method="post" action="{:url('portal/activity/draw')}" onsubmit="return false;">
+        <input type="hidden" name="act_code" value="">
+        <input type="hidden" name="org_sign" value="">
+        <div class="act-submit-form" >
+            <div class="layui-row">
+                <div class="info"></div>
+            </div>
+            <div class="layui-row">
+                <div class="cell">
+                    <input type="text" name="phone"  placeholder="请输入兑奖联系手机号" class="cell_input" onkeyup="this.value=this.value.replace(/[^0-9-]+/,'');" maxlength="11">
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="">
+                    <p class="down_info">请填写真实的兑奖联系方式</p>
+                    <p>凭此兑奖</p>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+
+
+</body>
+</html>
+<script type="text/javascript" src="__STATIC__/js/layer/mobile/layer.js?v={$version}"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/js/jquery-1.8.2.min.js?version=11211532"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/js/activity-chuanqi.js?v={$version}"></script>
+<script>
+    var url = location.href.split('#')[0]; // 传给后台PHP
+    url = encodeURIComponent(url);
+    var shareUrl = location.href;
+    $.ajax({
+        type: "POST",
+        url: "http://hb.szdxhonda.cn/portal/activity/jssdkAuth.html",
+        data:{"url":url},
+        dataType : "json",
+        success: function(data) {
+            wx.config({
+                debug: false,
+                appId: data.appId,
+                timestamp:data.timestamp ,
+                nonceStr: data.nonceStr,
+                signature: data.signature,
+                jsApiList: [     //把需要的接口加入至列表
+                    "onMenuShareTimeline", //分享给好友
+                    "onMenuShareAppMessage", //分享到朋友圈
+                ]
+            });
+            wx.ready(function (){
+                var shareData = {
+                    title: '我正在抢广汽本田大兴宝腾新年献礼红包，领奖品领到手软，快来一起参与吧！',  //标题
+                    desc: ' 红包天天抢，最高可领2019元xian金hong包！',
+                    link: shareUrl,
+                    imgUrl: "{:cmf_get_image_url('__TMPL__/public/assets/images/share1.png')}"
+                };
+                wx.onMenuShareAppMessage(shareData);
+                wx.onMenuShareTimeline(shareData);
+            });
+
+        }
+    });
+</script>
+

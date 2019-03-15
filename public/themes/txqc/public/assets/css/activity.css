@@ -1,0 +1,237 @@
+@charset "utf-8";
+body{
+    background:#bc0612;
+}
+.container{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.section{
+    background: #bc0612;
+    padding: 1rem 1.5rem 1rem 1.5rem;
+}
+/*.header{
+    background: url('../images/activity-20190105.jpg') no-repeat ;
+    padding-top: 66%;
+    background-size: 100% 100%;
+}*/
+
+img{
+    border: 0;
+    max-width: 100%;
+    height: auto;
+    vertical-align: top;
+}
+.nav-toolbar{
+    width: 100%;
+    margin: 1.2rem auto;
+}
+.nav-toolbar li{
+    width: 33%;
+    letter-spacing:0;
+    float: left;
+    background: #bc0612;
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+    font-weight: bold;
+    color: #fffaf5;
+    border-radius: 0.3rem;
+}
+.nav-toolbar li.active{
+    background: #ff4225;
+}
+.nav-toolbar li:hover,.nav-toolbar li:focus{
+    outline: none;
+    border: none;
+}
+.section{
+    margin-bottom: 6rem;
+}
+.act-title{
+    text-align: center;
+    color: #bc0612;
+    padding: 4rem 0;
+    font-weight: bold;
+    background: #fff;
+}
+.act-title h4{
+    margin: 0;
+    padding: 0;
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+.dsn{
+    display: none;
+}
+.section .act-item em,.section .act-date em{
+    font-weight: bold;
+    margin-right: 0.4rem;
+    font-size: 1.3rem;
+}
+.act-rule-desc dt{
+    font-size: 1.3rem;
+}
+.act-rule-desc dd{
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    color: #e5dddd;
+    padding: 0 2.5rem;
+}
+.act-operate{
+    padding: 1rem 0;
+    background: #bc0612;;
+}
+.act-operate .act-btn{
+    display: block;
+    width: 6rem;
+    height: 6rem;
+    border-radius: 6rem;
+    background: #db3004;
+    line-height: 6rem;
+    text-align: center;
+    margin: 1rem auto;
+    color: #f5f7e3;
+    font-weight: 800;
+}
+.act-user-list{
+    margin: 1.4rem 2%;
+}
+.act-user-list a{
+    display: inline-block;
+    width: 24%;
+    font-size: 11px;
+    color: #ffffff;
+}
+.footer{
+    position: fixed;
+    bottom: 0rem;
+    width: 100%;
+    height: 6rem;
+    background: #bc0612;
+    border-top:0.1rem solid #c3c3c3;
+}
+.share-btn{
+    display: block;
+    width: 95%;
+    height: 4rem;
+    line-height: 4rem;
+    text-align: center;
+    background: #0b0707;
+    color: #c8b8b9;
+    margin: 1rem auto;
+    letter-spacing: 0.5rem;
+    font-weight: 600;
+}
+.layui-row{
+    margin-bottom: 1rem;
+}
+
+.layui-row .info{
+    font-size: 1.2rem;
+    color: #0b2e13;
+}
+
+.login{
+    width: 80%;
+    margin: 1rem auto;
+    font-size: 1.4rem;
+}
+.c_txt{
+    display: block;
+    font-size: 2rem;
+    color: #bc0612;
+    font-weight: bold;
+}
+.cell input{
+    border-radius: 6px;
+    outline: none;
+    border: 1px solid #bc0612;
+    padding: 5px;
+
+}
+.cell input:focus{
+    outline: none;
+}
+.down_info{
+    font-size: 1.2rem;
+}
+#mcover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    z-index: 20000;
+}
+.code-list{
+    height: 7.6rem;
+    max-height: 7.6rem;
+    overflow-y: scroll;
+}
+.code-list span{
+    display: inline-block;
+    text-align: center;
+    width: 5rem;
+}
+
+.winning-list .code-num{
+    margin: 0 0.5rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.winning-list .code-list{
+    width: 100%;
+    height: auto;
+    max-height: 30rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}
+.winning-list .code-list .code-list-item{
+ display: inline-block;
+ width: 32%;
+}
+.code-list-item .code-list-t{
+    font-size: 1.2rem;
+}
+.win-item{
+    font-size: 1.4rem;
+    color: #000;
+    padding: 1rem ;
+}
+.win-item.ing{
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #0aa25a;
+}
+.act-detail dl{
+    margin: 2rem;
+    padding: 2rem;
+    border: 3px solid #f7a913;
+    border-image: -webkit-linear-gradient(#fe9a45, #9b11ac) 20 20;
+    border-image: -moz-linear-gradient(#fe9a45, #9b11ac) 20 20;
+    border-image: -o-linear-gradient(#fe9a45, #9b11ac) 20 20;
+    border-image: linear-gradient(#fe9a45, #9b11ac) 20 20;
+    color: white;
+}
+.act-detail dl dt{
+    font-weight: bold;
+    font-size: 2.0rem;
+}
+.act-detail dl dd{
+    margin-left: 0.5rem;
+    font-size: 1.6rem;
+}
+.act-rule-btn{
+    width: 30%;
+    margin: 3rem auto;
+    padding: 0.5rem;
+    background: #e4dcd1;
+    text-align: center;
+    font-size: 1.5rem;
+    border: 1px solid #de9b9b;
+    border-radius: 1rem;
+}

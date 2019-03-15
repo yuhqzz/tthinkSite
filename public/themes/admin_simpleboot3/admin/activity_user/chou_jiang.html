@@ -1,0 +1,65 @@
+<include file="public@header" />
+<link href="__TMPL__/public/assets/cj/css/style.css?v={$mci}" rel="stylesheet">
+</head>
+<body>
+<div class="wrap js-check-wrap">
+	<ul class="nav nav-tabs">
+		<li ><a href="{:url('ActivityAdmin/index')}">活动列表</a></li>
+		<li ><a href="{:url('ActivityUser/index',array('id'=>$activity['id']))}">活动用户列表</a></li>
+		<li class="active"><a href="{:url('ActivityUser/index',array('id'=>$activity['id']))}">活动抽奖</a></li>
+	</ul>
+	<div class="cj_container" >
+		<div class="cj_title">
+			<a id="init_btn" class="start init-btn">初始化数据</a>
+			<h4> 本次抽奖有<span id="cj_num"> 0</span>个有效兑奖码</h4>
+		</div>
+		<div class="cj_box">
+			<div class="jz">
+				<span class="phone">电话</span><br />
+				<div class="start" id="btntxt">开始</div>
+
+			</div>
+			<div class="zjmd" style="height: 480px;">
+				<p class="p1">中奖者名单</p>
+				<div class="list" id="content">
+					<div class="zjmd_bt_xy"></div>
+					<div class="dajmd"><h1></h1></div>
+					<div class="zjmd_bt_dj"></div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="cj_btn">
+			<a class="start svbtn" id="saveBtn">保存名单</a>
+		</div>
+	</div>
+	<!--确认弹出层-->
+	<div class="confirmbox">
+		<div class="zj_top">
+			<img src="__TMPL__/public/assets/cj/img/zj_top.png" alt="">
+		</div>
+		<div class="address">
+		</div>
+		<div class="lucknum">
+
+		</div>
+		<div class="conbox">
+
+		</div>
+		<div class="clear"></div>
+		<div class="btnbox">
+			<div class="start new_s daj" id="btnqr" >确认</div>
+			<div class="start new_s 22stop" id="btnqx" style="background:#FC6666;">取消</div>
+		</div>
+		<div class="zj_bottom">
+			<img src="__TMPL__/public/assets/cj/img/zj_bottom.png" alt="">
+		</div>
+	</div>
+	<input type="hidden" name="mci" value="{$mci}">
+</div>
+<script type="text/javascript" src="__TMPL__/public/assets/js/jquery-1.10.2.min.js?v={$mci}"></script>
+<script type="text/javascript" src="__STATIC__/js/layer/layer.js?v={$mci}"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/cj/js/cj2.js?v={$mci}"></script>
+</body>
+</html>

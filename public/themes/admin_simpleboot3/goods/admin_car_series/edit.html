@@ -9,14 +9,14 @@
     </ul>
     <div class="row margin-top-20">
         <div class="col-md-6">
-            <form class="js-ajax-form form-horizontal" action="{:url('AdminCarSeries/addPost')}" method="post">
+            <form class="js-ajax-form form-horizontal" action="{:url('AdminCarSeries/editPost',array('id'=>$id))}" method="post">
                 <div class="form-group">
                     <label for="input-brand" class="col-sm-3 control-label"><span class="form-required">*</span>汽车品牌</label>
                     <div class="col-md-6 col-sm-10">
                         <select name="brand_id" id="input-brand" class="form-control">
                             <option value="0" >请选择</option>
                             <foreach name="brandList" item ="vo">
-                                <option value="{$vo.id}" {$brand_id==$vo.id?'selected':''}>{$vo.first_char}&nbsp;&nbsp;{$vo.name}</option>
+                                <option value="{$vo.id}" {$brand_id==$vo.id?'selected="selected"':''}>{$vo.first_char}&nbsp;&nbsp;{$vo.name}</option>
                             </foreach>
                         </select>
                     </div>

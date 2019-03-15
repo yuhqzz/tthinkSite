@@ -11,10 +11,15 @@
 namespace app\admin\controller;
 
 use app\goods\model\GoodsBrandModel;
+use app\goods\model\GoodsCarConfigItemsModel;
 use app\goods\model\GoodsCarSeriesModel;
 use app\goods\model\GoodsCarStyleModel;
+use app\goods\validate\GoodsCarConfigCategoryValidate;
 use cmf\controller\AdminBaseController;
+use cmf\service\MkeyService;
+use think\Cache;
 use think\Db;
+use think\Exception;
 use think\exception\DbException;
 
 class AdminToolController extends AdminBaseController
@@ -132,6 +137,174 @@ EOF;
        // $spider->downloadImage('http://cartype.image.mucang.cn/cartype-logo/2018/0720/17/a1c60218fa06434cba29fc457eb1b652.jpg!210x140');
 
     }
+
+    /**
+     * 导入品牌
+     *
+     */
+    public function loadCarBrand2(){
+        $cache = Cache::get('ck_a_li_brand_data');
+        if(empty($cache)){
+            $url = 'https://jisucxdq.market.alicloudapi.com/car/brand';
+            $rs = $this->_requestAli($url);
+            if(!empty($rs)){
+                Cache::set('ck_a_li_brand_data',$rs,86400);
+            }
+            $cache = $rs;
+        }
+        $data = \Qiniu\json_decode($cache,true);
+        $goodsBrandModel = new GoodsBrandModel();
+        $spider = new  \spider\SpiderImg('goods/');
+        $index = 0;
+        foreach($data['result'] as $val){
+                $add['name'] = $val['name'];
+                $add['first_char'] = strtoupper($val['initial']);
+                $filenameStr = '';
+                if(stripos($val['logo'],'.png') !== false ){
+                    $spider->downloadImage($val['logo']);
+                    $img = $spider->getRealSavePath();
+                    $filename = basename($img);
+                    $filenameStr = 'goods/'.date('Ymd').'/'.$filename;
+                }
+                $add['icon'] = $filenameStr;
+                $more['orgBrandId'] = $val['id'];
+                $add['more'] = json_encode($more);
+                $rs = $goodsBrandModel->allowField(true)->insert($add);
+                if($rs){
+                    $index++;
+                }
+        }
+        echo $index;
+    }
+
+    /**
+     * 导入品牌
+     *
+     */
+    public function loadCarSeries2(){
+        set_time_limit(0);
+        $res = [];
+        $prev_brand_id = intval(I('b_id'));
+        $goodsBrandModel = new GoodsBrandModel();
+        $brands =  $goodsBrandModel->where(['delete_time'=>0,'parentid'=>0,'id'=>['gt',$prev_brand_id]])->order('id asc')->limit(1)->select();
+        $brands =  $brands->toArray();
+        $goodsSeriesModel = new GoodsCarSeriesModel();
+        $spider = new  \spider\SpiderImg('goods/');
+        $error_brand = [];
+        $brand_id = 0;
+        if( empty($brands)){
+            echo  '数据已全部刷完';
+            die;
+        }
+       // var_dump($brands[0]['id']);die;
+       /* $brand_id = $brands[0]['id'];
+        $url = "http://www.txqc.com/admin/admin_tool/loadCarSeries2?b_id={$brand_id}";
+        echo "<script type='text/javascript'>";
+        echo "window.location.href='$url'";
+        echo "</script>";die;*/
+        foreach($brands as $item){
+            $brand_id = (int)$item['id'];
+            $more = \Qiniu\json_decode($item['more'],true);
+            $org_brand_id  = (int)$more['orgBrandId'];
+            if(empty($org_brand_id)) {
+                $error_brand[] =$brand_id;
+                continue;
+            }
+            $cache = Cache::get('ck_a_li_brand_series_data_'.$org_brand_id);
+            if(empty($cache)){
+                $url = 'https://jisucxdq.market.alicloudapi.com/car/carlist?parentid='.$org_brand_id;
+                $rs = $this->_requestAli($url);
+                if(!empty($rs)){
+                    Cache::set('ck_a_li_brand_series_data_'.$org_brand_id,$rs,86400*30);
+                }
+                $cache = $rs;
+            }
+            $data = \Qiniu\json_decode($cache,true);
+            $index = 0;
+            foreach($data['result'] as $val){
+                //1.保存子公司 厂家
+                $add['name'] = $val['name'];
+                $add['first_char'] = strtoupper($val['initial']);
+                $add['icon'] = $item['icon'];
+                $add['parentid'] = $brand_id;
+                $more['orgComId'] = $val['id'];
+                $more['orgParentId'] = $val['parentid'];
+                $more['fullname'] = $val['fullname'];
+                $more['price'] = $val['price'];
+                $add['more'] = json_encode($more);
+                $insert_id = $goodsBrandModel->allowField(true)->insertGetId($add);
+                if(  $insert_id && !empty($val['carlist']) ){
+                    // 2. 保存车系 数据
+                    foreach($val['carlist'] as $v){
+                        $add1['name'] = $v['name'];
+                        $add1['brand_id'] = $brand_id; //品牌id
+                        $add1['brand_name'] = $item['name']; //品牌名称
+                        $add1['brand_sub_id'] = $insert_id; //子品牌公司 id
+                        $add1['brand_sub_name'] = $val['name']; //子品牌公司 名称
+                        $add1['description'] = '';
+                        $add1['keyword'] = $item['name'].','.$val['name'].' '.$v['name'];
+                        $add1['level'] = 0;
+                        $add1['max_price'] = 0;
+                        $add1['min_price'] = 0;
+                        $all_car_style_price = [];
+                        if(isset($v['list']) && $v['list']){
+                            // 保存车型
+                            foreach($v['list'] as $vv){
+                                $add2['series_id'] = (int)$vv['parentid'];
+                                $add2['style_id'] = (int)$vv['id'];
+                                $add2['name'] = $vv['name'];
+                                $add2['logo'] = $vv['logo'];
+                                $add2['price'] = $vv['price'];
+                                $add2['yeartype'] = $vv['yeartype'];
+                                $add2['productionstate'] = $vv['productionstate'];
+                                $add2['salestate'] = $vv['salestate'];
+                                $add2['sizetype'] = $vv['sizetype'];
+                                $rs = Db::name('goods_car_style_tmp')->insert($add2);
+                                /*$sql = Db::name()->getLastSql();
+                                echo $sql;die;*/
+                                $all_car_style_price[] = floatval($vv['price']);
+                            }
+                            sort($all_car_style_price,SORT_NUMERIC);
+                        }
+
+                        $add1['max_price'] = end($all_car_style_price);
+                        reset($all_car_style_price);
+                        $add1['min_price'] = current($all_car_style_price);
+                        $more['orgSeriesId'] = $v['id'];
+                        $more['orgBrandSubId'] = $v['parentid'];
+                        $more['fullname'] = $v['fullname'];
+                        if(!empty($v['logo'])){
+                            $spider->downloadImage($v['logo']);
+                            $img = $spider->getRealSavePath();
+                            $filename = basename($img);
+                            $filenameStr = 'goods/'.date('Ymd').'/'.$filename;
+                            $add1['example_img'] = $filenameStr;
+                        }else{
+                            $add1['example_img'] = '';
+                        }
+                        $add1['more'] = json_encode($more);
+                        $rs = $goodsSeriesModel->allowField(true)->insert($add1);
+                        if($rs){
+                            $index++;
+                        }
+                    }
+                }
+            }
+            $res[$item['name']] = $index;
+            bb($res);
+            bb($error_brand);
+            sleep(2);
+        }
+
+        $url = "http://www.txqc.com/admin/admin_tool/loadCarSeries2?b_id={$brand_id}";
+        echo "<script type='text/javascript'>";
+        echo "window.location.href='$url'";
+        echo "</script>";
+
+    }
+
+
+
     /**
      * 导入品牌
      *
@@ -223,6 +396,456 @@ EOF;
         bb($res);
     }
 
+
+    /**
+     *
+     * 导入车型配置参数
+     */
+    public function loadCarStyleConfig(){
+        die;
+        header('Content-type:text/html;charset=utf-8');
+        set_time_limit(0);
+        ini_set('memory_limit', '1024M');
+        error_reporting(E_ALL);
+        $prev_style_id = 0;
+        ob_end_clean();
+        while(true){
+           $goodsCarStyleModel = new GoodsCarStyleModel();
+           $data =  $goodsCarStyleModel->where(['delete_time'=>0,'is_update'=>0,'salestate'=>1,'id'=>['gt',$prev_style_id]])->order('id asc')->limit(1)->find();
+           if(empty($data)) {
+                $this->_flush('数据刷取完成');
+               break;
+           }
+           $style_id = (int)$data['id'];
+           $org_car_style_id = (int)$data['org_style_id'];
+          /* $ck_key = 'ck_a_li_brand_style_config_data_'.$org_car_style_id;
+           $cache = Cache::get($ck_key);
+           if(empty($cache)){*/
+               $url = 'https://jisucxdq.market.alicloudapi.com/car/detail?carid='.$org_car_style_id;
+               $rs = $this->_requestAli($url);
+              /* if(!empty($rs)){
+                   Cache::set($ck_key,$rs,86400*30);
+               }*/
+               $cache = $rs;
+           //}
+           $config_data = \Qiniu\json_decode($cache,true);
+           if(!empty($config_data)){
+               $this->_flush($org_car_style_id.'数据获取成功');
+               $save['style_id']= $org_car_style_id;
+               $save['new_style_id']= (int)$style_id;
+               $save['data_json']= json_encode($config_data,JSON_UNESCAPED_UNICODE);
+               $rs = Db::name('goods_car_style_config_temp')->insert($save);
+               if(is_numeric($rs)){
+                   $goodsCarStyleModel->where(['id'=>$style_id])->update(['is_update'=>1]);
+                   $this->_flush($org_car_style_id.'数据保存成功');
+                   unset($save,$config_data);
+               }else{
+                   $this->_flush($org_car_style_id.'数据保存失败');
+               }
+           }
+            //sleep(1);
+           $prev_style_id = $style_id;
+       }
+    }
+
+    public function loadCarConfigCategory(){
+        header('Content-type:text/html;charset=utf-8');
+        set_time_limit(0);
+        ob_end_clean();
+        $json =<<<EOF
+{
+	"result": {
+		"id": "42902",
+		"basic-基本信息": {
+			"price": "厂家指导价",
+			"saleprice": "商家报价",
+			"sizetype":"车型级别",
+			"yeartype":"上市时间",
+			"warrantypolicy": "保修政策",
+			"vechiletax": "车船税减免",
+			"comfuelconsumption": "综合工况油耗(L/100km)",
+			"userfuelconsumption": "网友油耗(L/100km)",
+			"officialaccelerationtime100": "官方0-100公里加速时间(s)",
+			"testaccelerationtime100": "实测0-100公里加速时间(s)",
+			"maxspeed": "最高车速(km/h)",
+			"seatnum": "乘车人数(区间)(个)",
+			"accelerationtime100":"加速时间(0-100km/h)(s)",
+			"brakingdistance":"制动距离(100-0km/h)(m)"
+		},
+		"body-车身尺寸": {
+			"color": "车身颜色",
+			"len": "车长(mm)",
+			"width": "车宽(mm)",
+			"height": "车高(mm)",
+			"wheelbase": "轴距(mm)",
+			"fronttrack": "前轮距(mm)",
+			"reartrack": "后轮距(mm)",
+			"weight": "整车重量(kg)",
+			"fullweight": "满载重量(kg)",
+			"mingroundclearance": "最小离地间隙(mm)",
+			"approachangle": "接地角(°)",
+			"departureangle": "离去角(°)",
+			"luggagevolume": "行李箱容积(L)",
+			"luggagemode": "行李箱盖开合方式",
+			"luggageopenmode": "行李箱打开方式",
+			"inductionluggage": "感应行李箱",
+			"doornum": "车门个数",
+			"tooftype": "车顶形式",
+			"hoodtype": "车篷款式",
+			"roofluggagerack": "车顶行李箱架",
+			"sportpackage": "运动外观套件"
+		},
+		"engine-动力系统": {
+			"position": "发动机位置",
+			"model": "发动机型号",
+			"displacement": "排量(L)",
+			"displacementml": "排量(mL)",
+			"intakeform": "进气形式",
+			"cylinderarrangetype": "气缸排列型式",
+			"cylindernum": "气缸数(个)",
+			"valvetrain": "每缸气门个数(个)",
+			"valvestructure": "气门结构",
+			"compressionratio": "压缩比",
+			"bore": "缸径(mm)",
+			"stroke": "行程(mm)",
+			"maxhorsepower": "最大马力(Ps)",
+			"maxpower": "最大功率(kW)",
+			"maxpowerspeed": "最大功率转速(rpm)",
+			"maxtorque": "最大扭矩(Nm)",
+			"maxtorquespeed": "最大扭矩转速(rpm)",
+			"fueltype": "燃料类型",
+			"fuelgrade": "燃油标号",
+			"fuelmethod": "供油方式",
+			"fueltankcapacity": "燃油箱容积(L)",
+			"cylinderheadmaterial": "缸盖材料",
+			"cylinderbodymaterial": "缸体材料",
+			"environmentalstandards": "环保标准",
+			"startstopsystem": "启停系统",
+			"gearbox": "变数箱",
+			"shiftpaddles": "换挡拨片"
+		},
+		"chassisbrake-底盘制动": {
+			"bodystructure": "车体结构",
+			"powersteering": "转向助力",
+			"frontbraketype": "前制动类型",
+			"rearbraketype": "后制动类型",
+			"parkingbraketype": "驻车制动类型",
+			"drivemode": "驱动方式",
+			"airsuspension": "空气悬挂",
+			"adjustablesuspension": "可调悬挂",
+			"frontsuspensiontype": "前悬挂类型",
+			"rearsuspensiontype": "后悬挂类型",
+			"centerdifferentiallock": "中央差速器锁"
+		},
+		"safe-安全配置": {
+			"airbagdrivingposition": "驾驶位安全气囊",
+			"airbagfrontpassenger": "副驾驶位安全气囊",
+			"airbagfrontside": "前排侧安全气囊",
+			"airbagfronthead": "前排头部安全气囊(气帘)",
+			"airbagknee": "膝部气囊",
+			"airbagrearside": "后排侧安全气囊",
+			"airbagrearhead": "后排头部安全气囊(气帘)",
+			"safetybeltprompt": "安全带未系提示",
+			"safetybeltlimiting": "安全带限力功能",
+			"safetybeltpretightening": "安全带预收紧功能",
+			"frontsafetybeltadjustment": "前安全带调节",
+			"rearsafetybelt": "后安全带",
+			"tirepressuremonitoring": "胎压监测装置",
+			"zeropressurecontinued": "零压续航",
+			"centrallocking": "中控门锁",
+			"childlock": "儿童锁",
+			"remotekey": "遥控钥匙",
+			"keylessentry": "无钥匙进入系统",
+			"keylessstart": "无钥匙启动系统",
+			"engineantitheft": "发动机电子防盗"
+		},
+		"wheel-车轮信息": {
+			"fronttiresize": "前轮胎规格",
+			"reartiresize": "后轮胎规格",
+			"sparetiretype": "备胎类型",
+			"hubmaterial": "轮毂材料"
+		},
+		"drivingauxiliary-行车辅助": {
+			"abs": "刹车防抱死(ABS)",
+			"ebd": "电子制动分配系统(EBD)",
+			"brakeassist": "刹车辅助",
+			"tractioncontrol": "牵引力控制",
+			"esp": "动态稳定控制系统(ESP)",
+			"eps": "随速助力转向调节(EPS)",
+			"automaticparking": "自动驻车",
+			"hillstartassist": "上坡辅助",
+			"hilldescent": "陡坡缓降",
+			"frontparkingradar": "泊车雷达(车前)",
+			"reversingradar": "倒车雷达(车后)",
+			"reverseimage": "倒车影像",
+			"panoramiccamera": "全景摄像头",
+			"cruisecontrol": "定速巡航",
+			"adaptivecruise": "自适应巡航",
+			"gps": "GPS导航系统",
+			"automaticparkingintoplace": "自动泊车入位",
+			"ldws": "车道偏离预警系统",
+			"activebraking": "主动刹车/主动安全系统",
+			"integralactivesteering": "整体主动转向系统",
+			"nightvisionsystem": "夜视系统",
+			"blindspotdetection": "盲点监测"
+		},
+		"doormirror-门窗/后视镜": {
+			"openstyle": "开门方式",
+			"electricwindow": "电动车窗",
+			"uvinterceptingglass": "防紫外线/隔热玻璃",
+			"privacyglass": "隐私玻璃",
+			"antipinchwindow": "电动窗防夹功能",
+			"skylightopeningmode": "天窗开合方式",
+			"skylightstype": "天窗形式",
+			"rearwindowsunshade": "后窗遮阳帘",
+			"rearsidesunshade": "后排侧遮阳帘",
+			"rearwiper": "后雨刷器",
+			"sensingwiper": "感应雨刷",
+			"electricpulldoor": "电动吸合门",
+			"rearmirrorwithturnlamp": "后视镜带侧转向灯",
+			"externalmirrormemory": "外后视镜记忆功能",
+			"externalmirrorheating": "外后视镜加热功能",
+			"externalmirrorfolding": "外后视镜电动折叠功能",
+			"externalmirroradjustment": "外后视镜电动调节",
+			"rearviewmirrorantiglare": "内后视镜防眩目功能",
+			"sunvisormirror": "遮阳板化妆镜"
+		},
+		"light-灯光配置": {
+			"headlighttype": "前大灯类型",
+			"optionalheadlighttype": "选配前大灯类型",
+			"headlightautomaticopen": "前大灯自动开闭",
+			"headlightautomaticclean": "前大灯自动清洗功能",
+			"headlightdelayoff": "前大灯延时关闭",
+			"headlightdynamicsteering": "前大灯随动转向",
+			"headlightilluminationadjustment": "前大灯照射范围调整",
+			"headlightdimming": "会车前灯防炫目功能",
+			"frontfoglight": "前雾灯",
+			"readinglight": "阅读灯",
+			"interiorairlight": "车内氛围灯",
+			"daytimerunninglight": "日间行车灯",
+			"ledtaillight": "LED尾灯",
+			"lightsteeringassist": "转向辅助灯"
+		},
+		"internalconfig-内部配置": {
+			"steeringwheelbeforeadjustment": "方向盘前后调节",
+			"steeringwheelupadjustment": "方向盘上下调节",
+			"steeringwheeladjustmentmode": "方向盘调节方式",
+			"steeringwheelmemory": "方向盘记忆设置",
+			"steeringwheelmaterial": "方向盘表面材料",
+			"steeringwheelmultifunction": "多功能方向盘",
+			"steeringwheelheating": "方向盘加热",
+			"computerscreen": "行车电脑显示屏",
+			"huddisplay": "HUD抬头数字显示",
+			"interiorcolor": "内饰颜色",
+			"rearcupholder": "后排杯架",
+			"supplyvoltage": "车内车源电压",
+			"airconditioningcontrolmode": "空调控制方式",
+			"tempzonecontrol": "温度分区控制",
+			"rearairconditioning": "后排独立空调",
+			"reardischargeoutlet": "后排出风口",
+			"airconditioning": "空气调节/花粉过滤",
+			"airpurifyingdevice": "车内空气净化装置",
+			"carrefrigerator": "车载冰箱"
+		},
+		"seat-座椅配置": {
+			"sportseat": "运动座椅",
+			"seatmaterial": "座椅材料",
+			"seatheightadjustment": "座椅高度调节",
+			"driverseatadjustmentmode": "驾驶座座椅调节方式",
+			"auxiliaryseatadjustmentmode": "副驾驶座座椅调节方式",
+			"driverseatlumbarsupportadjustment": "驾驶座腰部支撑调节",
+			"driverseatshouldersupportadjustment": "驾驶座肩部支撑调节",
+			"frontseatheadrestadjustment": "前座椅头枕调节",
+			"rearseatadjustmentmode": "后排座椅调节方式",
+			"rearseatreclineproportion": "后排座位放到比例",
+			"rearseatangleadjustment": "后排座椅角度调节",
+			"frontseatcenterarmrest": "前座中央扶手",
+			"rearseatcenterarmrest": "后座中央扶手",
+			"seatventilation": "座椅通风",
+			"seatheating": "座椅加热",
+			"seatmassage": "座椅按摩功能",
+			"electricseatmemory": "电动座椅记忆",
+			"childseatfixdevice": "儿童安全座椅固定装置",
+			"thirdrowseat": "第三排座椅"
+		},
+		"entcom-信息娱乐": {
+			"locationservice": "定位互动服务",
+			"bluetooth": "蓝牙系统",
+			"externalaudiointerface": "外接音源接口",
+			"builtinharddisk": "内置硬盘",
+			"cartv": "车载电视",
+			"speakernum": "扬声器数量",
+			"audiobrand": "音响品牌",
+			"dvd": "DVD",
+			"cd": "CD",
+			"consolelcdscreen": "中控台液晶",
+			"rearlcdscreen": "后排液晶屏"
+		}
+	}
+}
+EOF;
+      //  echo '<pre>';
+       // print_r(\Qiniu\json_decode($json,true));
+
+        $config_data = \Qiniu\json_decode($json,true);
+        foreach($config_data['result'] as $key=>$val){
+            if( $key == 'id'){
+                continue;
+            }
+            $config_arr =  explode('-',$key);
+            $add['name'] = $config_arr[1];
+            $add['field_name'] = $config_arr[0];
+            $cate_id = Db::name('goods_car_config_category')->insertGetId($add);
+            if($cate_id){
+                // 添加配置项
+                foreach($val as $k=>$v){
+                    $save['cate_id'] = $cate_id;
+                    $save['config_name'] = trim($v);
+                    $save['config_input_type'] = 0;
+                    $save['config_values'] = '';
+                    $save['description'] = $save['config_name'];
+                    $save['config_field'] = trim($k);
+                    $configItems = new GoodsCarConfigItemsModel();
+                    $rs = $configItems->addConfigItems($save);
+                    if($rs){
+                       $this->_flush($config_arr[1].'-'.$v.' 添加成功！');
+                    }else{
+                        $this->_flush($config_arr[1].'-'.$v.' 添加失败！');
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     *
+     * 创建车型参数配置数据表
+     */
+    public function createCarStyleConfigTable(){
+        /*Cache::rm(MkeyService::getMkey(MkeyService::CONFIGLIST,0));
+        die;*/
+        $sql = "DROP TABLE IF EXISTS `tx_goods_car_config_vals`;";
+        Db::execute($sql);
+        $configItems = new GoodsCarConfigItemsModel();
+        $items = $configItems->getConfigList();
+        if($items){
+            $sql = "CREATE TABLE `tx_goods_car_config_vals` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `styleid` int(11) NOT NULL DEFAULT  0 COMMENT '车型id',";
+            foreach($items as $val){
+                $sql.= "`field_{$val['config_id']}` varchar(64) DEFAULT NULL COMMENT '{$val['config_name']}',";
+
+            }
+            $sql .= "PRIMARY KEY (`id`),
+  UNIQUE KEY `styleid` (`styleid`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;";
+            try{
+                Db::execute($sql);
+                $this->_flush('创建成功');
+            }catch(\Exception $e){
+                $this->_flush($e);
+            }
+        }
+    }
+
+
+    /**
+     *
+     * 刷每个车型的配置
+     *
+     * @return bool
+     * @throws Exception
+     */
+    public function loadEveryCarStyleConfigs(){
+        header('Content-type:text/html;charset=utf-8');
+        set_time_limit(0);
+        ob_end_clean();
+        $configItems = new GoodsCarConfigItemsModel();
+        $items = $configItems->getConfigList();
+        $error = [];
+        if(empty($items)){
+            return false;
+        }
+        $new_items = [];
+        foreach($items as $item){
+            $new_items[$item['config_field']] = $item['config_id'];
+        }
+        $base = ['basic','body','engine','gearbox','chassisbrake','safe','wheel','drivingauxiliary','doormirror','light','internalconfig','seat','entcom','aircondrefrigerator','actualtest'];
+        $start = 0;
+        while(true){
+            $data = Db::name('goods_car_style_config_temp')->where(['id'=>['gt',$start],'is_update'=>0])->order( 'id asc ')->limit(1)->select();
+            if(empty($data)) break;
+            if($data){
+                $config_detail = $data->toArray();
+                if(empty($config_detail)) break;
+                if($config_detail){
+                    $adds = [];
+                    foreach($config_detail as $config_item){
+                        $config = \Qiniu\json_decode($config_item['data_json'],true);
+                        if(empty($config['result'])){
+                            $error[] = $config_item['new_style_id'];
+                            continue;
+                        }
+                        $add = [];
+                        $add['styleid'] = $config_item['new_style_id'];
+                        foreach($config['result'] as $key=>$val){
+                            if(is_array($val)){
+                                if(in_array($key,$base)){
+                                    foreach($val as $k=>$v){
+                                        if(isset($new_items[$k]) && !empty($new_items[$k])){
+                                            $field = 'field_'.intval($new_items[$k]);
+                                            $add[$field] = empty($v)?'-':$v;
+                                        }
+                                    }
+                                }
+                            }else{
+                                if(isset($new_items[$key]) && !empty($new_items[$key])){
+                                    $field = 'field_'.intval($new_items[$key]);
+                                    $add[$field] =  empty($val)?'-':$val;
+                                }
+                            }
+                        }
+                        $adds[] = $add;
+                    }
+                    $rs = Db::name('goods_car_config_vals')->insertAll($adds);
+
+                    if($rs){
+                        $this->_flush(count($adds).'插入成功');
+                    Db::name('goods_car_style_config_temp')->where(['id'=>['in',get_arr_column($config_detail,'id')]])->update(['is_update'=>1]);
+                        $end_arr = end($config_detail);
+                        $start = $end_arr['id'];
+                    }else{
+                        $this->_flush(import(',',get_arr_column($config_detail,'id')).' 更新失败');
+                        break;
+                    }
+                }
+
+            }
+        }
+
+        $this->_flush('程序结束');
+        if(!empty($error)){
+            echo '<hr>';
+            echo '<pre>';
+            print_r($error);
+        }
+
+    }
+
+
+
+
+
+
+    private function _flush($str){
+        //ob_end_clean();
+        echo str_repeat(" ", 1024 * 2);//人为将缓冲数据扩充到2k
+        echo $str . '<br />';
+        flush();
+       // ob_flush();
+        //sleep(1);
+
+    }
     private function _str_re($name){
 
         return str_replace(['美规','中东','欧规','加规','墨规'],'',$name);
@@ -254,137 +877,64 @@ EOF;
     }
 
 
-    /**
-     * 添加幻灯片
-     * @adminMenu(
-     *     'name'   => '添加幻灯片',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> true,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '添加幻灯片',
-     *     'param'  => ''
-     * )
-     */
-    public function add()
-    {
-        return $this->fetch();
-    }
+    private function _requestAli($url,$method='GET'){
 
-    /**
-     * 添加幻灯片提交
-     * @adminMenu(
-     *     'name'   => '添加幻灯片提交',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> false,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '添加幻灯片提交',
-     *     'param'  => ''
-     * )
-     */
-    public function addPost()
-    {
-        $data           = $this->request->param();
-        $slidePostModel = new SlideModel();
-        $result         = $slidePostModel->validate(true)->save($data);
-        if ($result === false) {
-            $this->error($slidePostModel->getError());
-        }
-        $this->success("添加成功！", url("slide/index"));
+        //$host = "https://jisucxdq.market.alicloudapi.com";
+        //$path = "/car/brand";
+       // $method = "GET";
+        $appcode = "e9293d7dc887403d84c6a4cbb799b0ff";
+        $headers = array();
+        array_push($headers, "Authorization:APPCODE " . $appcode);
+       // $querys = "";
+        //$bodys = "";
+       // $url = $host . $path;
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_FAILONERROR, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        // if (1 == strpos("$".$host, "https://"))
+        // {
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        // }
+        $content= curl_exec($curl);
+
+        return $content;
     }
 
 
+    public function demo(){
+
+        $host = "https://jisucxdq.market.alicloudapi.com";
+        $path = "/car/brand";
+        $method = "GET";
+        $appcode = "e9293d7dc887403d84c6a4cbb799b0ff";
+        $headers = array();
+        array_push($headers, "Authorization:APPCODE " . $appcode);
+        $querys = "";
+        $bodys = "";
+        $url = $host . $path;
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_FAILONERROR, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+       // if (1 == strpos("$".$host, "https://"))
+       // {
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+       // }
+        $content= curl_exec($curl);
+        print_r(\Qiniu\json_decode($content,true));
 
 
-    /**
-     * 编辑幻灯片
-     * @adminMenu(
-     *     'name'   => '编辑幻灯片',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> true,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '编辑幻灯片',
-     *     'param'  => ''
-     * )
-     */
-    public function edit()
-    {
-        $id             = $this->request->param('id');
-        $slidePostModel = new SlideModel();
-        $result         = $slidePostModel->where('id', $id)->find();
-        $this->assign('result', $result);
-        return $this->fetch();
-    }
-
-    /**
-     * 编辑幻灯片提交
-     * @adminMenu(
-     *     'name'   => '编辑幻灯片提交',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> false,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '编辑幻灯片提交',
-     *     'param'  => ''
-     * )
-     */
-    public function editPost()
-    {
-        $data           = $this->request->param();
-        $slidePostModel = new SlideModel();
-        $result         = $slidePostModel->validate(true)->save($data, ['id' => $data['id']]);
-        if ($result === false) {
-            $this->error($slidePostModel->getError());
-        }
-        $this->success("保存成功！", url("slide/index"));
-    }
-
-    /**
-     * 删除幻灯片
-     * @adminMenu(
-     *     'name'   => '删除幻灯片',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> false,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '删除幻灯片',
-     *     'param'  => ''
-     * )
-     */
-    public function delete()
-    {
-        $id             = $this->request->param('id', 0, 'intval');
-        $slidePostModel = new SlideModel();
-        $result       = $slidePostModel->where(['id' => $id])->find();
-        if (empty($result)){
-            $this->error('幻灯片不存在!');
-        }
-
-        //如果存在页面。则不能删除。
-        $slidePostCount = Db::name('slide_item')->where('slide_id', $id)->count();
-        if ($slidePostCount > 0) {
-            $this->error('此幻灯片有页面无法删除!');
-        }
-
-        $data         = [
-            'object_id'   => $id,
-            'create_time' => time(),
-            'table_name'  => 'slide',
-            'name'        => $result['name']
-        ];
-
-        $resultSlide = $slidePostModel->save(['delete_time' => time()], ['id' => $id]);
-        if ($resultSlide) {
-            Db::name('recycleBin')->insert($data);
-        }
-        $this->success("删除成功！", url("slide/index"));
     }
 
 }

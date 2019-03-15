@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <php>$version = time();</php>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <title>大兴汽车集团双11限时抢购会-部分车型5折秒杀</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="description" content="大兴汽车集团双11限时抢购会-部分车型5折秒杀" />
+    <link rel="icon" href="__TMPL__/public/assets/images/favicon.ico">
+    <link rel="stylesheet" href="__STATIC__/js/swiper/4.3/css/swiper.min.css?v={$version}">
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/assets/css/multi_brand_m.css?v={$version}" />
+    <script>
+        var _hmt = _hmt || [];
+    </script>
+    <script type="text/javascript">
+        var DF = "{$source_id}";
+        var dealer = {$dealers};
+
+    </script>
+    <style>
+        .canyu-brand{
+            display: flex;
+        }
+        .canyu-brand label{
+            width: 95px;
+            padding-left: 5px;
+            font-size: 0.6rem;
+        }
+        .canyu-brand-item a{
+            display: inline-block;
+            width: 85px;
+
+            float: left;
+        }
+        .dealer-select{
+            border: 1px solid #d6cccc;
+            margin-top: 5px ;
+        }
+        .dealer-select li{
+            width: auto;
+            padding: 5px 10px;
+        }
+        .dealer-select li:hover{
+            background: firebrick;
+            color: #ffffff;
+        }
+        .mod-shuang1-box{
+           padding: 0 0.5rem;
+        }
+        .mod-yhstyle .mod-shuang1-box li{
+            width: 50%;
+            float: left;
+            margin-bottom: .5rem;
+            height: 250px;
+            max-height: 250px;
+        }
+        .mod-shuang1-box li .shuang11-box{
+            position: relative;
+            top:165px;
+            left: 0;
+
+        }
+        .mod-shuang1-box li .shuang11-box span{
+            color: #ffffff;
+        }
+        .mod-yhstyle .yhstyle-box.mod-shuang1-box li .s11-btn{
+            display: block;
+            margin: 0 auto;
+            opacity: 0.8;
+            background:url("__TMPL__/public/assets/images/multilbrand/common/m/msbtn.jpg") no-repeat center center;
+        }
+        .mod-yhstyle .yhstyle-box.mod-shuang1-box li .s11-btn:hover a {
+            opacity: 1.0;
+            background:url("__TMPL__/public/assets/images/multilbrand/common/m/msbtn.jpg") no-repeat center center;
+        }
+        .mod-yhstyle .yhstyle-box.mod-shuang1-box li .s11-btn:hover{
+            opacity: 1.0;
+            background:url("__TMPL__/public/assets/images/multilbrand/common/m/msbtn.jpg") no-repeat center center;
+        }
+
+    </style>
+</head>
+<body>
+<div class="mod-container" style="background: #dc189e;">
+    <div class="mod-banner swiper-container banner" id="banner_swipper" style="padding-bottom: 10px;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide ">
+                <img src="__TMPL__/public/assets/images/multilbrand/common/banner_1111_m_01.jpg"/>
+            </div>
+            <div class="swiper-slide ">
+                <img src="__TMPL__/public/assets/images/multilbrand/common/banner_1111_m_02.jpg"/>
+            </div>
+            <div class="swiper-slide ">
+                <img src="__TMPL__/public/assets/images/multilbrand/common/banner_1111_m_03.jpg"/>
+            </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-banner"></div>
+    </div>
+    <div class="mod-bg">
+        <div class="mod-activity">
+            <div class="title">
+                <h3><i class="icon"></i><span>活动详情</span><i class="icon i2"></i></h3>
+            </div>
+            <div class="activity-box">
+                <h3><span>大兴汽车集团双11限时抢购会-</span>-部分车型5折秒杀</h3>
+                  <p><label>报名时间：</label>即日起-2018年11月10日</p>
+                <p><label>活动地点：</label>大兴汽车参展品牌4S店</p>
+                <!--  <p>
+                    <label>优惠热线：</label>
+                    17896451021 或 0755-21056666</p>
+              -->
+				<div class="canyu-brand">
+                    <label class="canyu-txt">参展品牌：</label>
+                    <div class="canyu-brand-item">
+                        <foreach name="brandData" item="brandVo">
+                                <a href="javascript:;" class="J_anchors" data-bid="{$brandVo.brand_id}">{$brandVo.brand_name}</a>
+                        </foreach>
+                    </div>
+                </div>
+                <p><label>活动亮点：</label>大兴汽车集团，深圳本土全国十佳汽车营销品牌，双11全系车型底价销售，VV5旗舰型半价车限时抢购8.15万，VV7旗舰型半价车限时抢购9.44万，传祺GS4/GA4半价秒、抽半价特惠活动，广汽丰田首付低至一万元，一元试驾开一天，现在报名享优先提车特权！</p>
+            </div>
+            <div class="activity-pic"><img src="__TMPL__/public/assets/images/multilbrand/common/act_02.jpg" width="100%"></div>
+        </div>
+        <div class="mod-enrollbox">
+            <div class="title">
+                <h3><i class="icon"></i><span>报名有礼</span><i class="icon i2"></i></h3>
+            </div>
+            <div class="enrollbox-box">
+               
+                <div class="mod-enroll">
+                    <form method="get" id="J_formEnroll" action="{:url('portal/channel/ajaxSubmitBookCar')}">
+                        <input type="hidden" name="source_id" value="{$source_id}">
+                        <input type="hidden" name="series_id" value="0">
+                        <div class="box-c">
+                            <ul>
+                                <li>
+                                    <select  class="i-select" name="brand_id" style="width: 100%;height: 40px;padding-left: 0.35rem;color: #3f4359;outline-color: #03A9F4;">
+                                        <option value="0">选择品牌</option>
+                                        <foreach name="brandData" item="vo">
+                                            <option value="{$vo.brand_id}">{$vo.brand_alias}</option>
+                                        </foreach>
+                                    </select>
+                                </li>
+                                <li>
+                                    <div class="mod-style">
+                                        <p>车型：</p>
+                                        <div class="style-box clearfix" id="style-box">
+
+                                        </div>
+                                        <div class="style-bottom" >已选择<span id="selected_style"></span>，现在报名，享优先提车特权！</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <input type="text" name="dealer_name" id="dealer-select-operate" placeholder="选择4S店" class="text" readonly>
+                                    <input type="hidden" name="dealer" value="0">
+                                    <ol class="dealer-select" id="dealer-select">
+                                    </ol>
+                                </li>
+                                <li class="clearfix">
+                                    <input type="text" name="customer_name" placeholder="您的称呼：如张先生（女士）" class="text">
+                                </li>
+                                <li>
+                                    <input type="text" name="mobile" placeholder="请填写11位数的手机号码" maxlength="11" class="text">
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="btn-box">
+                            <input type="submit" class="btn" value="立即报名">
+                            <p>火热报名中...</p>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <!--<div class="mod-yhstyle" style="padding: 0.5rem 2%;">
+            <a href="{:url('portal/activity/index')}" target="_blank"><img src="__TMPL__/public/assets/images/chuanqi/adv01.jpg" style="max-width: 100%;width: 100%;"></a>
+        </div>-->
+        <!-- 双11半价车型-->
+        <div class="mod-yhstyle mod-shuang11">
+            <div class="title">
+                <h3><i class="icon"></i><span>双11半价秒杀车型</span><i class="icon i2"></i></h3>
+            </div>
+            <div class="yhstyle-box mod-shuang1-box">
+                <ul class="clearfix">
+                    <li style="background: url('__TMPL__/public/assets/images/multilbrand/common/m/vv5.jpg') no-repeat center center">
+                        <div class="shuang11-box">
+                            <h3>VV5 - 长城WEY</h3>
+                            <p style="text-align: center;"><span>现场半价秒杀</span></p>
+                            <a class="s11-btn" href="javascript:;" data-sid="3" data-bid="3" data-name="长城WEY" data-title="VV5"></a>
+                        </div>
+                    </li>
+                    <li style="background: url('__TMPL__/public/assets/images/multilbrand/common/m/vv7.jpg') no-repeat center center">
+                        <div class="shuang11-box">
+                            <h3>VV7 - 长城WEY</h3>
+                            <p style="text-align: center;"><span>现场半价秒杀</span></p>
+                            <a class="s11-btn" href="javascript:;" data-sid="2" data-bid="3" data-name="长城WEY" data-title="VV7"></a>
+                        </div>
+
+                    </li>
+                    <li style="background: url('__TMPL__/public/assets/images/multilbrand/common/m/gs4.jpg') no-repeat center center">
+                        <div class="shuang11-box">
+                            <h3>GS4 - 广汽传祺</h3>
+                            <p style="text-align: center;"><span>现场半价秒杀</span></p>
+                            <a class="s11-btn" href="javascript:;" data-sid="5" data-bid="7" data-name="广汽传祺" data-title="GS4"></a>
+                        </div>
+                    </li>
+                    <li style="background: url('__TMPL__/public/assets/images/multilbrand/common/m/ga4.jpg') no-repeat center center">
+                        <div class="shuang11-box">
+                            <h3>GA4 - 广汽传祺</h3>
+                            <p style="text-align: center;"><span>现场半价秒杀</span></p>
+                            <a class="s11-btn" href="javascript:;" data-sid="4" data-bid="5" data-name="广汽传祺" data-title="GA4"></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="mod-yhstyle">
+            <div class="title">
+                <h3><i class="icon"></i><span>部分热销车型展示</span><i class="icon i2"></i></h3>
+            </div>
+            <div class="yhstyle-box">
+                <ul class="clearfix">
+                    <foreach name="brandData" item="vv">
+                        <foreach name="vv.series" item ="vo">
+                        <li>
+                            <div class="box miaoto-{$vv.brand_id}">
+                                <div class="icon top"></div>
+                                <div class="pic">
+                                    <img src="" _src="__TMPL__/public/assets/images/multilbrand/{$vo.img}" >
+                                </div>
+                                <h3>{$vo.name} - {$vv.brand_name}</h3>
+                                <p><em style="text-decoration:line-through;">{$vo.price}</em>万起<span>现场公布</span></p>
+                                <a href="javascript:;" data-sid="{$vo.id}" data-bid="{$vv.brand_id}" data-title="{$vo.name}">咨询底价</a>
+                            </div>
+                        </li>
+                        </foreach>
+                    </foreach>
+                </ul>
+            </div>
+        </div>
+        <div class="mod-dealer">
+            <div class="title">
+                <h3><i class="icon"></i><span>联系我们</span><i class="icon i2"></i></h3>
+            </div>
+            <div class="dealer-pic">
+               <!-- <div style="width: 100%;height: 14rem;" id="dealer_address" class="dealer_address"></div>-->
+                <div style="margin-top: 15px;">
+                    <h4>大兴汽车高端出行服务商-同兴出行</h4>
+                    <p>服务热线：17896446832 或微信:18814308958 </p>
+                    <p>地址：深圳市宝安区新安街道创业二路与大宝路交汇处 大兴进口车中心</p>
+					<em style="font-size: 0.7em;color: #7d7373;">广汽丰田●深圳大兴大宝店</em>
+					 <p>地址：深圳市宝安区新安街道创业二路195号厂房第二栋</p>
+					 <em style="font-size: 0.7em;color: #7d7373;">广汽丰田●深圳大兴通商店</em>
+					 <p>地址：深圳市南山区嘉进隆前海汽车城A01-1</p>
+					 <em style="font-size: 0.7em;color: #7d7373;">东风日产●深圳新大兴专营店</em>
+					 <p>地址：深圳市沙井街道西环路2111号</p>
+					 <em style="font-size: 0.7em;color: #7d7373;">广汽传祺●深圳大兴宝兴店</em>
+					 <p>地址：深圳市龙华区观澜街道新澜社区观光路1319-3号大兴汽车中心</p>
+					 <em style="font-size: 0.7em;color: #7d7373;"> WEY●深圳大兴宝锦店</em>
+					 <p>地址：深圳市沙井街道西环路2113号</p>
+					 <em style="font-size: 0.7em;color: #7d7373;"> WEY●深圳大兴宝汇店</em>
+					 <p>地址：深圳市龙华区观澜街道新澜社区观光路1319-3号大兴汽车中心</p>
+                     <em style="font-size: 0.7em;color: #7d7373;"> 广汽本田●深圳大兴宝腾店</em>
+                     <p>地址：深圳市龙华区观澜街道新澜社区观光路1319-3号大兴汽车中心</p>
+                    <!--<div style="width:100%;height:5rem;display: table-cell; vertical-align: middle;text-align: center;">
+                        <img src="__TMPL__/public/assets/images/chuanqi/qrcode-wgj.jpg" width="150" height="150" style="margin-left: 5rem;"/>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mod-fastbar g-hide" id="J_fastbar" >
+       <div class="fastbar-top" style="background: #dc189e;opacity: 0.8;"><i class="icon"></i><a href="tel:17896446832" onClick="ask_pric();" style="font-size:0.8rem; color: #ffffff;font-weight: bold;">咨询底价</a></div>
+        <div class="fastbar-box">
+            <div class="fastbar-time" style="">
+            </div>
+            <div class="gift-box" style="display: none">
+                <i class="icon gift"></i><i class="icon2 txt"></i>
+            </div>
+            <a href="javascript:;" class="btn" style="right:40%;"><i class="icon"></i></a>
+        </div>
+    </div>
+</div>
+<!--<script>
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?9305051337d085fc2c53e2c738bb8250";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>-->
+<span style="display:none">
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?b1fa0bf0abb4b2f809c3ca5496987763";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</span>
+</body>
+</html>
+<script type="text/javascript" src="__STATIC__/js/layer/mobile/layer.js?v={$version}"></script>
+<script type="text/javascript" src="__STATIC__/js/zepto.js?v={$version}"></script>
+<!--<script type="text/javascript" src="__TMPL__/public/assets/js/jquery.min.js?v={$version}"></script>-->
+<script type="text/javascript" src="__STATIC__/js/swiper/4.3/js/swiper.min.js?v={$version}"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/js/mutil_brand-m.js?v={$version}"></script>
+
+<script type="text/javascript">
+    var swiper = new Swiper('#banner_swipper', {
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            type: 'fraction',
+            renderFraction: function(currentClass, totalClass) {
+                return '<span class="' + currentClass + '"></span>' + '/' + '<span class="' + totalClass + '"></span>';
+            },
+        },
+        speed:300,
+        autoplay : {
+            delay:3000,
+            disableOnInteraction: false,
+        },
+    });
+
+    var ask_pric = function(){
+        _hmt.push(['_trackMobConv', 'tel']);
+    }
+</script>
+

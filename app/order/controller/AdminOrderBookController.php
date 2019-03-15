@@ -10,6 +10,8 @@
 // +----------------------------------------------------------------------
 namespace app\order\controller;
 
+use app\admin\model\PhoneLocationModel;
+use app\goods\model\DealerModel;
 use cmf\controller\AdminBaseController;
 use app\goods\model\GoodsBrandModel;
 use app\order\model\OrderBookModel;
@@ -44,10 +46,44 @@ class AdminOrderBookController extends AdminBaseController
      */
     public function index()
     {
+        $this->model = new OrderBookModel();
+        $this->relationSearch = true;
+        //设置过滤方法
+        $this->request->filter(['strip_tags']);
+        if ($this->request->isAjax())
+        {
+            list($where, $sort, $order, $offset, $limit) = $this->buildparams();
 
-        $goodsBrandModel = new GoodsBrandModel();
-        $brandList =  $goodsBrandModel->getShowBrandList();
-        $this->assign('brandList',$brandList);
+            $total = $this->model
+                ->with(['series'])
+                ->where($where)
+               	->where('order_book_model.delete_time','=',0)
+                ->order($sort, $order)
+                ->count();
+           // echo $this->model->getLastSql();die;
+            $list = $this->model
+                ->with(['series'])
+                ->where($where)
+                ->where('order_book_model.delete_time','=',0)
+                ->order($sort, $order)
+                ->limit($offset, $limit)
+                ->select();
+            if($list){
+                $dealerModel = new DealerModel();
+                foreach ($list as $row){
+                    $row['brand_name']  = getBrandName($row['series']['brand_id']);
+                    $row['series_name']  = $row['series']['name'];
+                    $dealer =  $dealerModel::get($row['dealers_id']);
+                    $row['dealerName']  = $dealer?$dealer['name']:'';
+                    //unset($row['series']);
+                }
+            }
+
+            $list = collection($list)->toArray();
+            $result = array("total" => $total, "rows" => $list);
+            return json($result);
+
+        }
         return $this->fetch();
     }
 
@@ -123,6 +159,7 @@ class AdminOrderBookController extends AdminBaseController
         }
         $orderBookModel = new OrderBookModel();
         $list =  $orderBookModel->getList($where,$order,40);
+
         //dump($list->toArray());exit;
         $this->assign('orderList',$list);
         return $this->fetch('admin_order_book/list');
@@ -345,6 +382,7 @@ class AdminOrderBookController extends AdminBaseController
             // 批量删除
             $data['ids'] = $this->request->param('ids/a');
         }
+
         if(is_array($data['ids'])){
               // 批量删除
             $where['id'] = ['in',$data['ids']];
@@ -362,8 +400,9 @@ class AdminOrderBookController extends AdminBaseController
             $result =  Db::name('order_book')
                 ->where($where)
                 ->update(['delete_time' => time()]);
+
             if ($result) {
-                Db::name('recycleBin')->insert($data);
+                Db::name('recycleBin')->insertAll($items);
                 $this->success('删除成功!');
             } else {
                 $this->error('删除失败');
@@ -389,8 +428,29 @@ class AdminOrderBookController extends AdminBaseController
                 $this->error('删除失败');
             }
         }
-
     }
+
+    /**
+     *
+     * 获取电话号码归属地
+     */
+    public function getMobilePosition(){
+        if($this->request->isAjax()){
+            $mobile = $this->request->param('tel');
+            if(!isTelNumber($mobile)){
+                $this->result([],0,'电话号码非法');
+            }
+            $phoneLocation = new PhoneLocationModel();
+            $location = $phoneLocation->getLocationCity($mobile);
+            if($location){
+                $this->result(['location'=>$location],1);
+            }else{
+                $this->result([],0,'未知电话号码');
+            }
+        }
+        $this->result([],0,'非法请求');
+    }
+
 
 
 }

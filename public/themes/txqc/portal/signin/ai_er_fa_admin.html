@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎莅临“领者锋芒，驭动未来”，大兴汽车领袖之夜_活动后台</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <meta name="description" content="领者锋芒，驭动未来”，大兴汽车领袖之夜！" />
+    <link rel="stylesheet" href="__TMPL__/public/assets/css/reset.min.css?v={$version}">
+    <link rel="stylesheet" href="__TMPL__/public/assets/bootstrap-3.3.7/css/bootstrap.min.css?v={$version}">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/assets/libs/bootstrap-table/dist/bootstrap-table.css">
+    <script >
+        //designWidth:设计稿的实际宽度值，需要根据实际设置
+        //maxWidth:制作稿的最大宽度值，需要根据实际设置
+        //这段js的最后面有两个参数记得要设置，一个为设计稿实际宽度，一个为制作稿最大宽度，例如设计稿为750，最大宽度为750，则为(750,750)
+        ;(function(designWidth, maxWidth) {
+            var doc = document,
+                win = window,
+                docEl = doc.documentElement,
+                remStyle = document.createElement("style"),
+                tid;
+
+            function refreshRem() {
+                var width = docEl.getBoundingClientRect().width;
+                maxWidth = maxWidth || 540;
+                width>maxWidth && (width=maxWidth);
+                var rem = width * 100 / designWidth;
+                remStyle.innerHTML = 'html{font-size:' + rem + 'px;}';
+            }
+
+            if (docEl.firstElementChild) {
+                docEl.firstElementChild.appendChild(remStyle);
+            } else {
+                var wrap = doc.createElement("div");
+                wrap.appendChild(remStyle);
+                doc.write(wrap.innerHTML);
+                wrap = null;
+            }
+            //要等 wiewport 设置好后才能执行 refreshRem，不然 refreshRem 会执行2次；
+            refreshRem();
+
+            win.addEventListener("resize", function() {
+                clearTimeout(tid); //防止执行两次
+                tid = setTimeout(refreshRem, 300);
+            }, false);
+
+            win.addEventListener("pageshow", function(e) {
+                if (e.persisted) { // 浏览器后退的时候重新计算
+                    clearTimeout(tid);
+                    tid = setTimeout(refreshRem, 300);
+                }
+            }, false);
+
+            if (doc.readyState === "complete") {
+                doc.body.style.fontSize = "16px";
+            } else {
+                doc.addEventListener("DOMContentLoaded", function(e) {
+                    doc.body.style.fontSize = "16px";
+                }, false);
+            }
+        })(750, 750);
+
+    </script>
+    <style type="text/css">
+        body {
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; color:#FFFFFF;
+            background-color: #000000;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .container{
+            padding-right: 0;
+            padding-left: 0;
+        }
+        .banner{
+            width: 100%;
+            height: 9.9rem;
+        }
+        .sign-in {
+            width: 100%;
+            height: auto;
+            max-width: 750px;
+            margin: 0 auto;
+            text-align: center;
+            position: absolute;
+            top:7.3rem;
+        }
+        .sign-in-form{
+            width: 100%;
+            margin-bottom: 26px;
+        }
+        .sign-in .sign-in-title{
+            width: 80%;
+            margin: 0.1rem auto 0.3rem;
+            height: 0.65rem;
+            line-height: 0.65rem;
+            font-size: 0.4rem;
+            font-weight: bold;
+        }
+        .sign-in .sign-in-input{
+            width: 80%;
+            margin: 0.1rem auto 0.3rem;
+            height: 0.8rem;
+            line-height: 0.8rem;
+            font-size: 0.35rem;
+            background: #020508;
+            color: #fff;
+            padding: 0.4rem;
+        }
+        .sign-in .sign-in-input:focus{
+            border-color:#fff;
+            outline: #0b0d11;
+        }
+        .sign-in .sign-in-welcome{
+            padding: 0 5px 0 5px;
+            width: 100%;
+            font-size: 0.25rem;
+            color: #0b0d11;
+        }
+        .sign-in .sign-in-welcome p{
+            text-align: left;
+        }
+        .hyy{
+            margin-left: 20px;
+        }
+        .butn {
+            background: #080108;
+            background-image: -webkit-linear-gradient(top, #080108, #010d14);
+            background-image: -moz-linear-gradient(top, #080108, #010d14);
+            background-image: -ms-linear-gradient(top, #080108, #010d14);
+            background-image: -o-linear-gradient(top, #080108, #010d14);
+            background-image: linear-gradient(to bottom, #080108, #010d14);
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            -webkit-box-shadow: 7px 6px 6px #0a010a;
+            -moz-box-shadow: 7px 6px 6px #0a010a;
+            box-shadow: 7px 6px 6px #0a010a;
+            font-size: 0.35rem;
+           /* padding: 4px ;
+            border: solid #ffffff 1px;*/
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #000000;
+            font-weight: 800;
+            letter-spacing: 3.5px;
+           /* font-family: cursive;*/
+            width: 80%;
+            height: 0.8rem;
+            padding: 0 0.4rem;
+            line-height: 0.8rem;
+            border: 1px solid #ada1a1;
+        }
+        .butn.btnsh{
+            width: auto;
+            padding: 0px 20px 0px 20px;
+        }
+
+        .butn:hover {
+            background: #635c5f;
+            border: none;
+            background-image: -webkit-linear-gradient(top, #635c5f, #020508);
+            background-image: -moz-linear-gradient(top, #635c5f, #020508);
+            background-image: -ms-linear-gradient(top, #635c5f, #020508);
+            background-image: -o-linear-gradient(top, #635c5f, #020508);
+            background-image: linear-gradient(to bottom, #635c5f, #020508);
+            text-decoration: none;
+        }
+        .butn.disabled{
+            background: #635c5f;
+            background-image: -webkit-linear-gradient(top, #635c5f, #020508);
+            background-image: -moz-linear-gradient(top, #635c5f, #020508);
+            background-image: -ms-linear-gradient(top, #635c5f, #020508);
+            background-image: -o-linear-gradient(top, #635c5f, #020508);
+            background-image: linear-gradient(to bottom, #635c5f, #020508);
+            text-decoration: none;
+        }
+        .butn:active,.butn:focus{
+            border: none;
+            outline: none;
+        }
+        .tip{
+            width: 80% !important;
+            padding: 10px !important;
+            background: #1c1b20 !important;
+            border-radius: 4px !important;
+            border:none;
+        }
+        .tip .layui-m-layercont{
+            padding: 0 !important;
+        }
+        .act-sign-in-user,.act-sign-up,.act-sign-up-user,.act-logout{
+            padding: 10px;
+        }
+        .nav-tabs{
+            border-bottom: none;
+        }
+        .nav-tabs>li>a{
+            color: #fff;
+        }
+    </style>
+</head>
+<body >
+<div class="container">
+    <div class="banner">
+        <img src="__TMPL__/public/assets/images/sign-in/bg01.jpg"/>
+    </div>
+    <php>if($admin_signed_in == 1){</php>
+    <div class="sign-in">
+        <div class="sign-in-welcome" >
+            <ul class="nav nav-tabs">
+                <li role="act-sign-in-user"><a href="javascript:void (0);">签到名单</a></li>
+                <li role="act-sign-up" class="active"><a href="javascript:void (0);">活动报名</a></li>
+                <li role="act-sign-up-user" ><a href="javascript:void (0);">报名用户</a></li>
+                <li role="act-logout"><a href="javascript:void (0);">登出</a></li>
+            </ul>
+            <!---->
+            <div class="panel panel-default act-sign-in-user" id="act-sign-in-user" style="display: none">
+                <table class="table table-hover table-bordered" id="sign-in-user" width="100%" data-url="{:url('portal/Signin/getAiErFaSignInUser',array('act_id'=>1))}">
+                </table>
+            </div>
+            <div class="panel panel-default act-sign-up" id="act-sign-up" style="display: block;" >
+                <form class="act-sign-up-form" name="act-sign-up-form">
+                    <div class="form-group">
+                        <label for="input-username">姓名</label>
+                        <input type="text" name="username" class="form-control" id="input-username" placeholder="请输入姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-phone">电话</label>
+                        <input type="text" name="phone" class="form-control" id="input-phone" placeholder="请输入手机号码">
+                    </div>
+                    <button type="button" class="btn btn-default" id="act-sign-up-btn" onclick="Page.do_sign_up(this);">报名</button>
+                </form>
+            </div>
+            <div class="panel panel-default act-sign-up-user" id="act-sign-up-user" style="display: none;" >
+                <table class="table table-hover table-bordered" id="sign-up-user" width="100%" data-url="{:url('portal/Signin/getAiErFaSignUpUser',array('act_id'=>1))}">
+                </table>
+            </div>
+            <div class="panel panel-default act-logout" id="act-logout" style="display: none;">
+                <button type="button" class="btn btn-default navbar-btn" id="logout" onClick="Page.do_logout();">登出</button>
+            </div>
+        </div>
+    </div>
+    <php>}else{</php>
+    <div class="sign-in sign-in-form">
+        <p class="sign-in-title" >活动后台</p>
+        <input id="pass" class="form-control sign-in-input" placeholder="请输入密码" type="password"/>
+        <input class="butn sign-in-btn" type="button" value="登录" onClick="Page.do_login(this);" id="button" />
+    </div>
+    <php>}</php>
+    <div class="footer" style="padding: 0px;">
+        <img src="__TMPL__/public/assets/images/sign-in/bg03.jpg"/>
+    </div>
+
+</div>
+
+    <script type="text/javascript" src="__TMPL__/public/assets/js/jquery-1.8.2.min.js?v={$version}"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer/mobile/layer.js?v={$version}"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/assets/libs/bootstrap-table/dist/bootstrap-table.js"></script>
+    <!-- Latest compiled and minified Locales -->
+    <script src="/assets/libs/bootstrap-table/dist/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="/assets/libs/bootstrap-table/src/extensions/toolbar/bootstrap-table-toolbar.js"></script>
+    <script src="/assets/libs/moment/moment.js"></script>
+    <script>
+        var Page ={};
+        $(function () {
+            var act_id = "{$act_id}";
+            var ajaxing = false;
+
+            $("html, body").scrollTop(0).animate({scrollTop: $(".nav").offset().top-200});
+
+            $('.nav li').on('click',function () {
+                var div_id = $(this).attr('role');
+                $('.sign-in-welcome .panel').hide();
+                $('.sign-in-welcome #'+div_id).show();
+                if(!$(this).hasClass('active')){
+                    $(this).addClass('active');
+                    $(this).siblings('li').removeClass('active');
+                }else{
+                    $(this).siblings('li').removeClass('active');
+                }
+                if( div_id == 'act-sign-in-user'){
+                    Page.init_table($('#sign-in-user'));
+                    $('#sign-in-user').bootstrapTable('refresh');
+                }else if(div_id == 'act-sign-up-user'){
+                    Page.init_table2($('#sign-up-user'));
+                    $('#sign-up-user').bootstrapTable('refresh');
+                }else{
+                    $('#sign-in-user').bootstrapTable('destroy');
+                }
+
+            })
+
+
+            // 登录
+            Page.do_login = function (obj){
+                if($(obj).hasClass('disabled')){
+                    return false;
+                }
+                if(ajaxing){
+                    showMsg('登录中请稍后！',2);
+                    return false;
+                }
+                var pass = $.trim($("#pass").val());
+                $('#button').addClass('disabled');
+                $('#button').prop('disabled', true);
+                $('#button').val("登录中...");
+
+                if (pass.length < 0) {
+                    showMsg('请输入密码！',3);
+                    $('#button').removeClass('disabled');
+                    $('#button').prop('disabled', false);
+                    $('#button').val("登录");
+                    return false;
+                }
+                ajaxing = true;
+                var  ajax_url = "{:url('portal/Signin/aiErFaAdminDoLogin',array('act_id'=>$act_id))}";
+                $.ajax({
+                    url:ajax_url,
+                    data:{'pass':pass},
+                    type:"post",
+                    dataType:"json",
+                    success: function(d){
+                        ajaxing = false;
+                        if(d.code == 1){
+                            showMsg('登录成功!',3);
+                            setTimeout(function(){
+                                reloadPage(window);
+                            },1000);
+                        }else{
+                            showMsg(d.msg,3);
+                            $('#button').removeClass('disabled');
+                            $('#button').prop('disabled', false);
+                            $('#button').val("登录");
+                        }
+                    },
+                    error:function(){
+                        ajaxing = false;
+                    }
+                })
+            }
+            // 登出
+            Page.do_logout = function (){
+                var  ajax_url = "{:url('portal/Signin/aiErFaAdminDoLogout',array('act_id'=>$act_id))}";
+                $.ajax({
+                    url:ajax_url,
+                    data:{},
+                    type:"post",
+                    dataType:"json",
+                    success: function(d){
+                        if(d.code == 1){
+                            showMsg('登出成功!',3);
+                            setTimeout(function(){
+                                reloadPage(window);
+                            },1000);
+                        }else{
+                            showMsg(d.msg,3);
+                        }
+                    }
+                })
+
+            }
+            // 列表
+            Page.init_table = function($table){
+                $table.bootstrapTable({
+                    pk: 'id',
+                    sortName: 'signin_time',
+                    sortOrder: 'desc',
+                    pagination:true,
+                    sidePagination:'server',
+                    pageNumber:'1',
+                    pageSize:'All',
+                    pageList:[25,50, 100,'All'],
+                    search:true,
+                    showRefresh:true,
+                    height:'500',
+                    toolbarAlign:'left',
+                    buttonsAlign:'left',
+                    onlyInfoPagination:true,
+                    toggle:'table',
+                    columns: [
+                        [
+                            {
+                                field: 'phone',
+                                title: '电话',
+                                align:'center',
+                                valign:'middle',
+                                width:'200px',
+                            },
+                            {
+                                field: 'signin_time',
+                                title: '签到时间',
+                                sortable:true,
+                                width:'200px',
+                                align:'center',
+                                valign:'middle',
+                                formatter:function (value, row, index) {
+                                    return moment(value*1000).format('HH:mm:ss');
+                                }
+                            },
+                            {
+                                field: 'flag',
+                                title: '领取手环',
+                                align:'center',
+                                valign:'middle',
+                                sortable:true,
+                                formatter:function (value, row, index) {
+                                    var txt = ['未领取','已领取'];
+                                    var color =['btn-danger','btn-success'];
+                                    return "<span class='"+color[value]+"'>"+txt[value]+"</span>";
+                                }
+                            }
+                        ]
+
+                    ],
+                    formatDetailPagination:function (totalRows) {
+                        return '共 '+totalRows+' 条记录';
+                    }
+                })
+            }
+            // 列表
+            Page.init_table2 = function($table){
+                $table.bootstrapTable({
+                    pk: 'id',
+                    sortName: 'signup_time',
+                    sortOrder: 'desc',
+                    pagination:true,
+                    sidePagination:'server',
+                    pageNumber:'1',
+                    pageSize:'All',
+                    pageList:[25,50,100,'All'],
+                    search:true,
+                    showRefresh:true,
+                    toolbarAlign:'left',
+                    buttonsAlign:'left',
+                    toggle:'table',
+                    height:'500',
+                    onlyInfoPagination:true,
+                    striped:true,
+                    detailView:true,
+                    columns: [
+                        [
+                            {
+                                field: 'username',
+                                title: '姓名',
+                                align:'center',
+                                valign:'middle',
+                                visible:false,
+                                width:'200px',
+                            },
+                            {
+                                field: 'phone',
+                                title: '电话',
+                                align:'center',
+                                valign:'middle',
+                                width:'200px',
+                                formatter:function (value, row, index) {
+                                   if(row['remark']){
+                                       return value+"<br/> <i style='color: red;'>("+row['remark']+")</i>";
+                                   }
+                                    return value;
+                                }
+                            },
+                            {
+                                field: 'signup_time',
+                                title: '报名时间',
+                                sortable:true,
+                                align:'center',
+                                valign:'middle',
+                                width:'200px',
+                                formatter:function (value, row, index) {
+                                    return moment(value*1000).format('YYYY-MM-DD HH:mm:ss');
+                                }
+                            },
+                            {
+                                field: 'signed_in',
+                                title: '签到',
+                                align:'center',
+                                valign:'middle',
+                                sortable:true,
+                                formatter:function (value, row, index) {
+                                    var txt = ['未签到','已签到'];
+                                    var color =['btn-danger','btn-success'];
+                                    return "<span class='"+color[value]+"'>"+txt[value]+"</span>";
+                                }
+                            },
+                            {
+                                field: 'signup_name',
+                                title: '邀约人',
+                                align:'center',
+                                visible:false,
+                                valign:'middle',
+                                sortable:true,
+                                formatter:function (value, row, index) {
+                                    return value?value:'-';
+                                }
+                            }
+
+                        ]
+
+                    ],
+                    detailFormatter:function (index, row) {
+
+                        return "<table class='border table-bordered'>" +
+                        "<tr>" +
+                        "<td>姓名</td>" +
+                        "<td>"+row['username']+"</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<td>邀约人</td>" +
+                        "<td>"+row['signup_name']+"</td>" +
+                        "</tr>" +
+                        "</table>";
+
+
+
+                    },
+                    formatDetailPagination:function (totalRows) {
+                        return '共 '+totalRows+' 条记录';
+                    }
+                })
+            }
+            Page.do_sign_up = function(obj){
+                if($(obj).hasClass('disabled')){
+                    return false;
+                }
+                if(ajaxing){
+                    showMsg('报名中请稍后！',2);
+                    return false;
+                }
+                var phone = $.trim($("form[name='act-sign-up-form'] input[name='phone']").val());
+                var username = $.trim($("form[name='act-sign-up-form'] input[name='username']").val());
+                $('#act-sign-up-btn').addClass('disabled');
+                $('#act-sign-up-btn').prop('disabled', true);
+                $('#act-sign-up-btn').text("报名中...");
+
+                if (username.length < 1) {
+                    showMsg('请输入姓名！',3);
+                    $('#act-sign-up-btn').removeClass('disabled');
+                    $('#act-sign-up-btn').prop('disabled', false);
+                    $('#act-sign-up-btn').text("报名");
+                    return false;
+                }
+                if (phone.length < 8) {
+                    showMsg('请输入正确的手机号码！',3);
+                    $('#act-sign-up-btn').removeClass('disabled');
+                    $('#act-sign-up-btn').prop('disabled', false);
+                    $('#act-sign-up-btn').text("报名");
+                    return false;
+                }
+                ajaxing = true;
+                var  ajax_url = "{:url('portal/Signin/aiErFaDoSignUp',array('act_id'=>$act_id))}";
+                $.ajax({
+                    url:ajax_url,
+                    data:{'username':username,'phone':phone},
+                    type:"post",
+                    dataType:"json",
+                    success: function(d){
+                        ajaxing = false;
+                        if(d.code == 1){
+                            showMsg('报名成功!',3);
+                            $("form[name='act-sign-up-form']")[0].reset();
+                            $('#act-sign-up-btn').removeClass('disabled');
+                            $('#act-sign-up-btn').prop('disabled', false);
+                            $('#act-sign-up-btn').text("报名");
+                        }else{
+                            showMsg(d.msg,3);
+                            $('#act-sign-up-btn').removeClass('disabled');
+                            $('#act-sign-up-btn').prop('disabled', false);
+                            $('#act-sign-up-btn').text("报名");
+                        }
+                    },
+                    error:function(){
+                        ajaxing = false;
+                        $('#act-sign-up-btn').removeClass('disabled');
+                        $('#act-sign-up-btn').prop('disabled', false);
+                        $('#act-sign-up-btn').text("报名");
+                    }
+                })
+
+
+
+
+
+
+            }
+
+        })
+        //消息提示
+        function showMsg(info,time) {
+            layer.open({
+                content: info,
+                className:'tip'
+                ,time: time
+            });
+        }
+
+        //刷新页面
+        function reloadPage(win) {
+            var location  = win.location;
+            location.href = location.pathname + location.search;
+        }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+@charset "utf-8";
+body{
+    background:#bc092c;
+}
+.container{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.section{
+    background: #fff;
+    padding: 1rem 1.5rem 1rem 1.5rem;
+}
+.header{
+    background: url('../images/chuanqi/mobile/banner-1.jpg') no-repeat ;
+    padding-top: 66%;
+    background-size: 100% 100%;
+}
+
+img{
+    max-width: 100%;
+    width: 100%;
+}
+.nav-toolbar{
+    width: 100%;
+    margin: 1.2rem auto;
+}
+.nav-toolbar li{
+    float: left;
+    width: 50%;
+    background: #bc092c;
+    height: 4rem;
+    line-height: 4rem;
+    text-align: center;
+    letter-spacing: 0.3rem;
+    font-weight: bold;
+    color: #fffaf5;
+}
+.nav-toolbar li.active{
+    background: #d32e50;
+}
+.section{
+    margin-bottom: 6rem;
+}
+.act-title{
+    text-align: center;
+    color: #9e1215;
+    padding: 4rem 0;
+    font-weight: bold;
+    background: #fff;
+}
+.act-title h4{
+    margin: 0;
+    padding: 0;
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+.section .act-item em,.section .act-date em{
+    font-weight: bold;
+    margin-right: 0.4rem;
+    font-size: 1.3rem;
+}
+.act-rule-desc dt{
+    font-size: 1.3rem;
+}
+.act-rule-desc dd{
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    color: #201919;
+}
+.act-operate{
+    padding: 1rem 0;
+    background: #f5f7e3;
+}
+.act-operate .act-btn{
+    display: block;
+    width: 10rem;
+    height: 10rem;
+    border-radius: 10rem;
+    background: red;
+    line-height: 10rem;
+    text-align: center;
+    margin: 2rem auto;
+    color: #fff;
+    font-weight: 800;
+}
+.act-user-list{
+    margin: 1.4rem 2%;
+}
+.act-user-list a{
+    display: inline-block;
+    width: 24%;
+    font-size: 11px;
+}
+.footer{
+    position: fixed;
+    bottom: 0rem;
+    width: 100%;
+    height: 6rem;
+    background: #fffaf3;
+    border-top:0.1rem solid #c3c3c3;
+}
+.share-btn{
+    display: block;
+    width: 95%;
+    height: 4rem;
+    line-height: 4rem;
+    text-align: center;
+    background: #1A0A08;
+    color: #fff;
+    margin: 1rem auto;
+    letter-spacing: 0.5rem;
+    font-weight: 600;
+}
+.layui-row{
+    margin-bottom: 1rem;
+}
+
+.layui-row .info{
+    font-size: 1.2rem;
+    color: #0b2e13;
+}
+
+.login{
+    width: 80%;
+    margin: 1rem auto;
+    font-size: 1.4rem;
+}
+.c_txt{
+    display: block;
+    font-size: 2rem;
+    color: #e80707;
+    font-weight: bold;
+}
+.down_info{
+    font-size: 1.2rem;
+}
+#mcover {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    z-index: 20000;
+}
+
+.winning-list .code-num{
+    margin: 0 0.5rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+.winning-list .code-list{
+    width: 100%;
+    height: auto;
+    max-height: 30rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+}
+.winning-list .code-list .code-list-item{
+ display: inline-block;
+ width: 32%;
+}
+.code-list-item .code-list-t{
+    font-size: 1.2rem;
+}
+.win-item{
+    font-size: 1.4rem;
+    color: #000;
+    padding: 1rem ;
+}
+.win-item.ing{
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #0aa25a;
+}

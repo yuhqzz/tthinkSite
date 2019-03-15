@@ -1,0 +1,210 @@
+<include file="public@header"/>
+<style>
+    .using-cars-box{
+        width: 100%;
+    }
+    .using-cars-box ul {
+        list-style: none;
+
+    }
+    .using-cars-box ul li{
+        width: 50%;
+        float: left;
+    }
+    .using-cars-box ul li input[type='checkbox']{
+        margin-right: 15px;
+        cursor: pointer;
+    }
+</style>
+
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('AdminCoupon/index')}">优惠券列表</a></li>
+        <li class="active"><a href="{:url('AdminCoupon/add')}">添加优惠券</a></li>
+    </ul>
+    <div class="row margin-top-20">
+        <div class="col-md-6">
+            <form class="js-ajax-form form-horizontal" action="{:url('AdminCoupon/addPost')}" method="post">
+                <div class="form-group">
+                    <label for="select-type" class="col-sm-3 control-label"><span class="form-required">*</span>优惠券种类</label>
+                    <div class="col-md-6 col-sm-10">
+                        <select name="type" id="select-type" class="form-control">
+                            <option value="0">优惠券</option>
+                            <option value="1">抵用券</option>
+                            <option value="2">折扣券</option>
+                            <option value="3">优惠政策特权券</option>
+                        </select>
+                        <span class="help-block">优惠券种类</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-title" class="col-sm-3 control-label"><span class="form-required">*</span>优惠券标题</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-title" name="title" placeholder="请输入优惠券标题">
+                        <span class="help-block">优惠券标题</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label"><span class="form-required">*</span>优惠券图标</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="hidden" name="img" class="form-control" id="js-thumbnail-img">
+                        <div>
+                            <a href="javascript:uploadOneImage('图片上传','#js-thumbnail-img');">
+                                <img src="__TMPL__/public/assets/images/default-thumbnail.png"
+                                     id="js-thumbnail-img-preview"
+                                     width="80" style="cursor: pointer"/>
+                            </a>
+                        </div>
+                        <p class="help-block">请上传80*80 格式为jpg 的优惠券图片</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-coupon_price" class="col-sm-3 control-label">优惠券面值</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="number" class="form-control" id="input-coupon_price" name="coupon_price" placeholder="请输入优惠券面值">
+                        <span class="help-block">优惠券面值</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-quantity" class="col-sm-3 control-label">优惠券数量</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="number" class="form-control" id="input-quantity" name="quantity" placeholder="请输入优惠券数量" value="9999">
+                        <span class="help-block">优惠券数量</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-using_cars" class="col-sm-3 control-label">适用车型</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-using_cars" name="using_cars" placeholder="请输入适用车型" value="全车型">
+                        <span class="help-block">适用车型 <a class="btn btn-info btn-sm checked" id="all_using_cars">全车型</a></span>
+                         <div class="using-cars-box" style="display: none">
+                             <ul style="list-style-type: none;">
+                                 <li><input type="checkbox" value="VV5">VV5</li>
+                                 <li><input type="checkbox" value="VV6">VV6</li>
+                                 <li><input type="checkbox" value="VV7">VV7</li>
+                                 <li><input type="checkbox" value="P8">P8</li>
+                             </ul>
+                         </div>
+                         <div class="clearfix"></div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input_expire_time">过期时间</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control js-bootstrap-date" id="input_expire_time" name="expire_time">
+                        <span class="help-block"><a class="btn btn-info btn-sm" id="never_expire">不过期</a> 过期时间 </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input-description">使用说明</label>
+                    <div class="col-md-6 col-sm-10">
+                        <textarea class="form-control" rows="8" id="input-description" name="description"></textarea>
+                        <p class="help-block">优惠券使用说明</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">状态</label>
+                    <div class="col-md-6 col-sm-10">
+                        <label class="radio-inline"><input type="radio" name="status" value="1" checked="true"> 开启 </label>
+                        <label class="radio-inline"><input type="radio" name="status" value="0"> 禁用 </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="input-remark">备注</label>
+                    <div class="col-md-6 col-sm-10">
+                        <textarea class="form-control" rows="8" id="input-remark" name="remark"></textarea>
+                        <p class="help-block">备注</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-10">
+                        <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+                        <a class="btn btn-default" href="{:url('AdminBrand/index')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script>
+    var formPage = {
+            init:function(){
+                this.checkAllUsingCars();
+                this.neverExpire();
+            },
+            checkAllUsingCars:function () {
+                var self = this;
+                var allNode = $('#all_using_cars');
+                $(allNode).on('click',function () {
+                    var $that = $(this);
+                    if($that.hasClass('checked')){
+                        $that.removeClass('checked');
+                        $('.using-cars-box').show();
+                        self.usingCheck();
+                    }else{
+                        $that.addClass('checked');
+                        $('#input-using_cars').val('全车型');
+                        self.unUsingCheck();
+                        $('.using-cars-box').hide();
+                    }
+
+                })
+
+            },
+         usingCheck:function () {
+            var using_check_nodes = $('.using-cars-box').find('input[type="checkbox"]');
+            var input_vals = [];
+            $(using_check_nodes).on('click',function () {
+                var $that = $(this);
+                console.log($that.attr('checked') );
+                if( $that.attr('checked') === 'checked'){
+                    input_vals.remove($that.val());
+                    $('#input-using_cars').val(input_vals.join(','));
+                    $that.attr('checked',false);
+                }else {
+                    input_vals.push($that.val());
+                    $('#input-using_cars').val(input_vals.join(','));
+                    $that.attr('checked',true);
+                }
+            })
+        },
+        unUsingCheck:function () {
+            var using_check_nodes = $('.using-cars-box').find('input[type="checkbox"]');
+            $(using_check_nodes).each(function (i,e) {
+                $(using_check_nodes).eq(i).attr('checked',false);
+                $(using_check_nodes).eq(i).unbind('click');
+            });
+        },
+        neverExpire:function () {
+            $('#never_expire').on('click',function () {
+                $('#input_expire_time').val('不过期');
+            })
+                
+        }
+
+
+    };
+        
+        
+    $(function () {
+        formPage.init();
+    })
+    Array.prototype.indexOf = function(val) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] == val) return i;
+        }
+        return -1;
+    };
+    Array.prototype.remove = function(val) {
+        var index = this.indexOf(val);
+        if (index > -1) {
+            this.splice(index, 1);
+        }
+    };
+</script>
+</body>
+</html>

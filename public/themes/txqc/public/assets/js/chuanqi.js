@@ -64,7 +64,7 @@ $(function () {
     }
     isScrollTop(__s);
 
-    function screen(_dom, text, isUrl, callback) {
+    function screen(_dom, text, field, callback) {
         var $c_dom = $(_dom);
         var _timer_arr = null;
         //筛选
@@ -93,11 +93,11 @@ $(function () {
             var _val = $(this).attr('data-val');
             if (_val != 0) {
                 $c_dom.find('a.select-text').attr('data-cid', _val);
-                $c_dom.find('input[name="series_id"]').val(_val);
+                $c_dom.find('input[name="'+field+'"]').val(_val);
                 $c_dom.find('span').text(_text);
             } else {
                 $c_dom.find('a.select-text').removeAttr('data-cid');
-                $c_dom.find('input[name="series_id"]').val('');
+                $c_dom.find('input[name="'+field+'"]').val('');
                 $c_dom.find('span').text(text);
             }
             $c_dom.find('.menu-pop').hide();
@@ -108,24 +108,51 @@ $(function () {
         });
     }
 
-    screen('.J_c_style', '请选择车型', 0, function(){
-    });
+    /*screen('.J_c_style', '请选择车型', 0, function(){
+    });*/
+    screen('.J_a_brand', '请选择品牌', 'brand_id', function(){
+        var brand_id = $('.J_a_brand').find('input[name="brand_id"]').val();
+        $.ajax({
+            url: 'portal/channel/ajax_get_series.html',
+            data: {'brand_id':brand_id},
+            type: "get",
+            cache: false,
+            dataType: 'json',
+            success:function(data){
+                if ( data.code == 1) {
+                    var html = '';
+                    for(var i = 0;i<data.data.length;i++){
+                        if(i==0){
+                            html += '<a href="javascript:;" data-sid="'+data.data[i].series_id+'" class="on" data-bid="'+data.data[i].brand_id+'">'+data.data[i].series_name+'</a>';
+                        }else {
+                            html += '<a href="javascript:;" data-sid="'+data.data[i].series_id+'" class="" data-bid="'+data.data[i].brand_id+'">'+data.data[i].series_name+'</a>';
+                        }
+                    }
+                    $("#style-box").html(html);
+                    $("#selected_style").html(data.data[0].series_name);
+                }
+            }
+        })
 
+
+    });
     function formEnroll($formEnroll){
 	   	$formEnroll.on('submit', function(){
 	    	var _username = $formEnroll.find('input[name="customer_name"]').val();
 	    	var _mobile = $formEnroll.find('input[name="mobile"]').val();
-	    	var _city = $formEnroll.find('input[name="city"]').val();
             var series_id = $formEnroll.find('input[name="series_id"]').val();
+            var brand_id = $formEnroll.find('input[name="brand_id"]').val();
+
+            if(brand_id == ''){
+                $formEnroll.find('input[type="submit"]').next('p').text('请选择品牌');
+                return false;
+            }
             if(series_id == ''){
 
                 $formEnroll.find('input[type="submit"]').next('p').text('请选择车型');
                 return false;
             }
-	    	if(_city == ''){
-                $formEnroll.find('input[type="submit"]').next('p').text('请选择城市');
-	    		return false;
-	    	}
+
 	    	if(_username == ''){
 	    		//layer.msg('姓名不能为空');
                 $formEnroll.find('input[type="submit"]').next('p').text('姓名不能为空');
@@ -217,6 +244,7 @@ $(function () {
                     customer_name: _username,
                 	mobile: _mobile,
                     city: _city,
+                    df:DF
                 },
                 type: $('#J_formEnroll').attr('method'),
                 cache: false,

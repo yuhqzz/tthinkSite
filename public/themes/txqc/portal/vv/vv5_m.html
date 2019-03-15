@@ -1,0 +1,153 @@
+﻿<php>$version = time();</php>
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <title>WEY VV5 一周岁了，送上超大豪礼</title>
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="keywords" content="WEY VV5,SUV,安全,豪华,中国豪华SUV,预约试驾,车型配置"/>
+    <meta name="description" content="年轻有WEY，安全有WEY，豪华有WEY，WEY VV5荣耀上市。"/>
+    <script>MClient='m'</script>
+    <script type="text/javascript">
+        (function(win, doc, dw) {
+            var docEl = doc.documentElement,
+                    dw = dw || 640,
+                    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                    recalc = function() {
+                        var docElWidth = docEl.clientWidth;
+                        (docElWidth > 640) && (docElWidth = 640);
+                        if (!docElWidth) return;
+                        docEl.style.fontSize = docElWidth / (dw / 100) + 'px';  //基于750px设计稿
+                    };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(window, document, 750);
+    </script>
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/assets/vv/css/bootstrap.min.css?v={$version}"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/js/swiper/3.4/css/swiper.min.css?v={$version}"/>
+   <!-- <link rel="stylesheet" type="text/css" href="__TMPL__/public/assets/vv/css/common.css?v={$version}"/>-->
+    <link rel="stylesheet" type="text/css" href="__TMPL__/public/assets/vv/m/css/vv5.css?v={$version}"/>
+    <!--<script type="text/javascript" src="__TMPL__/public/assets/vv/js/browserck_api.js"></script>-->
+</head>
+<div class="load"></div>
+<div class="main">
+    <div class="bigbg">
+        <div class="page1">
+        </div>
+        <div class="page2"></div>
+        <div class="page4">
+            <div class="testDrive">
+                <div id="testDrive"></div>
+            </div>
+        </div>
+        <div class="page_news">
+        </div>
+        <div class="page5">
+            <!-- 精彩视频 -->
+            <div class="video_big" id="videoid1">
+                <video poster="__TMPL__/public/assets/vv/m/images/vv5/poster.jpg" src="__TMPL__/public/assets/vv/video/vv5.mp4" type="video/mp4" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-player-type="h5" controls="controls" preload="auto">Your browser does not support the video tag.</video>
+            </div>
+        </div>
+        <div class="page6">
+            <!-- 精美车图-->
+            <div class="meitu-swiper swiper-container" id="meituList">
+                <div class="swiper-wrapper">
+                    <for start="1" end="15">
+                    <div class="swiper-slide"><img src="__TMPL__/public/assets/vv/m/images/vv5/car/{$i}.jpg" alt=""></div>
+                    </for>
+                </div>
+            </div>
+            <span class="prev"></span>
+            <span class="next"></span>
+        </div>
+        <div class="page7">
+            <div class="configBox">
+                <div class="config-car">
+                    <span>车型选择</span>
+                    <div class="select2">
+                        <h3>VV5超豪型 15.00万元</h3>
+                        <select name="select" id="carSelect">
+                            <option value="1">VV7豪华型 16.98万元</option>
+                            <option value="2">VV7超豪型 17.78万元</option>
+                            <option value="3">VV7旗舰型 18.88万元</option>
+                            <option value="4" selected>VV5超豪型 15.00万元</option>
+                            <option value="5">VV5旗舰型 16.30万元</option>
+                            <option value="6">P8尊贵型  25.98万元</option>
+                            <option value="7">P8尊享型  26.98万元</option>
+                            <option value="8">P8旗舰型  27.98万元</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="configContent">
+                    <div class="loading"></div>
+                </div>
+            </div>
+            <img src="__TMPL__/public/assets/vv/m/images/vv5/vv5.png" width="100%" alt="">
+        </div>
+    </div>
+    <div class="footer"><img src="__TMPL__/public/assets/vv/m/images/foot.jpg" alt=""></div>
+</div>
+<div class="fix_b">
+    <a href="tel:17896450946" onclick="ask_price();">立即咨询</a>
+</div>
+<div id="mask"></div>
+<div class="showSuccess">
+    <div class="show_suc_cont">
+        <span class="exit"></span>
+        <dl>
+            <dt></dt>
+            <dd></dd>
+        </dl>
+    </div>
+</div>
+<div class="weui_dialog_alert" id="dialog2">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title"> </strong></div>
+        <div class="weui_dialog_bd weui_dialog_content"> </div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:;" class="weui_btn_dialog primary">确定</a>
+        </div>
+    </div>
+</div>
+<!--统计代码--->
+<span style="display:none">
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?d3949dbb81cc4dcb5fe6a334054534d0";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <script type="text/javascript">
+        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cspan id='cnzz_stat_icon_1274209631'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/stat.php%3Fid%3D1274209631%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">!function(e,r,t,n,a){function o(e){var r;return reg=new RegExp("(^| )"+e+"=([^;]*)(;|$)"),(r=document.cookie.match(reg))?unescape(r[2]):null}e[n]=e[n]||{},e[n]["phonetracker.start"]=(new Date).getTime(),e[n].uid=a;var c=r.getElementsByTagName(t)[0],i=r.createElement(t);i.asyn=!0,i.src="//ada.baidu.com/phone-tracker/getjs?uid="+a+"&from=self&referer="+document.referrer+"&cookie_BD_IS_FROM_FC_AD="+o("BD_IS_FROM_FC_AD"),c.parentNode.insertBefore(i,c)}(window,document,"script","bdDataLayer","nWR4PHDYn1D");</script>
+</span>
+<script>
+
+    var ask_price = function(){
+        _hmt.push(['_trackMobConv', 'tel']);
+    }
+</script>
+
+
+<script type="text/javascript" src="__STATIC__/js/jquery/jquery-2.1.1.min.js"></script>
+<!--<script type="text/javascript" src="__STATIC__/js/flexible.js"></script>-->
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?v={$version}"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/vv/js/bootstrap.min.js?v={$version}" ></script>
+<!--<script type="text/javascript" src="__TMPL__/public/assets/vv/js/common.js?v={$version}"></script>-->
+<script type="text/javascript" src="__STATIC__/js/jquery/jquery.rotate.min.js?v={$version}"></script>
+<script type="text/javascript" src="__STATIC__/js/swiper/3.4/js/swiper.min.js?v={$version}"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/vv/m/js/weixin.js?v={$version}"></script>
+<script type="text/javascript" src="__TMPL__/public/assets/vv/m/js/common-vv5.js?v={$version}"></script>
+</body>
+</html>

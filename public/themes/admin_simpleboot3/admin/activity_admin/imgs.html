@@ -1,0 +1,198 @@
+<include file="public@header" />
+<script src="/assets/libs/moment/moment.js"></script>
+<style>
+	.order{
+		display: inline-block;
+		width: 30px;
+		cursor: pointer;
+	}
+</style>
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:url('ActivityAdmin/index')}">活动列表</a></li>
+			<li><a href="{:url('ActivityAdmin/add')}">发布活动</a></li>
+		</ul>
+		<div id="toolbar" class="toolbar">
+			<a href="javascript:;" class="btn btn-info btn-add" title="上传" onclick="Page.add();" ><i class="fa fa-plus">上传</i> </a>
+			<a href="javascript:;" class="btn btn-danger btn-del " title="删除" onclick="Page.del();" ><i class="fa fa-trash">删除</i> </a>
+		</div>
+		<table class="table table-hover table-bordered" id="table" width="100%">
+		</table>
+	</div>
+	<script src="__STATIC__/js/admin.js"></script>
+	<script>
+        var $table = $('#table');
+		var addUrl = "{:url('ActivityAdmin/addImgs',array('act_id'=>$act_id))}";
+		var delUrl = "{:url('ActivityAdmin/deleteImgs',array('act_id'=>$act_id))}";
+		var Page = {
+		    add:function(){
+                redirect(addUrl);
+			},
+            del:function (id) {
+                Wind.use('artDialog', function () {
+                    art.dialog({
+                        content: '你确定要删除吗？',
+                        icon: 'question',
+                        close: function () {
+                            return true;
+                        },
+                        ok: function () {
+                            var ids = [];
+                            if(id == undefined){
+                                var selections = $table.bootstrapTable('getSelections');
+                                for(var item in selections){
+                                    ids.push(selections[item].id);
+                                }
+
+                            }else{
+                                ids.push(id);
+                            }
+                            $.get(delUrl,{'ids':ids.join(',')},function () {
+                                $('#table').bootstrapTable('refresh');
+                            })
+                            return true;
+                        },
+                        cancelVal: '关闭',
+                        cancel: true
+                    });
+
+                });
+            },
+            order: function (obg) {
+                var id = $(obg).attr('data-id'),
+                    type = $(obg).attr('data-type');
+                var tr =  $(obg).parents('tr');
+                var ntr = $(tr).next('tr');
+                if(ntr !== undefined ){
+                    //
+                    replaceEach(tr,ntr);
+                }else {
+                    alert('已经到底了')
+                }
+
+                alert(id)
+                if(type == 1){
+                    var ntr = $(tr).next('tr');
+                    if(ntr !== undefined ){
+                        //
+                        replaceEach(tr,ntr);
+                    }else {
+                        alert('已经到底了')
+                    }
+
+
+
+                }else if(type == 1){
+                    var ptr = $(tr).prev('tr');
+                    if(ptr !== undefined ){
+                        //
+                        replaceEach(tr,ptr);
+                    }else {
+                        alert('已经到底了')
+                    }
+                }
+            }
+		};
+
+        $table.bootstrapTable({
+            url: "{:url('ActivityAdmin/imgs',array('act_id'=>$act_id))}",
+            pk: 'id',
+            sortName: 'createtime',
+            sortOrder: 'desc',
+            pagination:true,
+            sidePagination:'server',
+            pageNumber:'1',
+            pageSize:'25',
+            pageList:[25,50, 100],
+            search:true,
+            advancedSearch:"true",
+            idTable:"advancedTable",
+            showRefresh:true,
+            toolbarAlign:'left',
+            buttonsAlign:'right',
+            toolbar:'#toolbar',
+            formatAdvancedSearch:function(){
+                return  '更多搜索';
+            },
+            toggle:'table',
+            columns: [
+                [
+                    {
+                        checkbox: true
+					},
+                    {
+                        field: 'id',
+						title: 'ID',
+						operate:false,
+						sortable:true,
+                        width:'50px',
+					},
+                    {
+                        field: 'img_url',
+                        title: '图片链接',
+                        operate:false,
+                        formatter:function (value, row, index) {
+                            return "<a href=\"javascript:parent.imagePreviewDialog('"+value+"');\">\n" +
+                                "                    <i class=\"fa fa-photo fa-fw\"></i>\n" +
+                                "                    </a>";
+                        }
+                    },
+                    {
+                        field: 'img_path',
+                        title: '图片路径',
+                        operate:false,
+                        width:'50px',
+                    },
+                    {
+                        field: 'createtime',
+                        title: '发布时间',
+                        operate:false,
+                        sortable:true,
+                        formatter:function (value, row, index) {
+                            return moment(value*1000).format('YYYY-MM-DD HH:mm:ss');
+                        }
+                    },
+                    {
+                        field: 'order_opt',
+                        title: '排序',
+                        operate:false,
+                        width:'50px',
+                        formatter:function (value, row, index) {
+                            return "<a class='order' data-type ='1' data-id='"+row['id']+"' onclick='Page.order(this)'><i class=\"fa fa-level-down\" title='下移'></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a data-type='2' data-id='"+row['id']+"' onclick='Page.order(this)'><i class=\"fa fa-level-up \" title='上移' ></i></a>";
+                        }
+                    },
+                    {
+                        field: 'operate',
+						title: '操作',
+                        searchable:false,
+						events:'actionEvents',
+                        align: 'center',
+                        formatter:function(value,row,index){
+
+                        }
+                    }
+				]
+
+            ]
+		})
+
+        function replaceEach(aNode, bNode){
+            var aParent = aNode.parentNode;
+            var bParent = bNode.parentNode;
+            if(aParent && bParent){
+                var aNode2 = aNode.cloneNode(true);
+
+                bParent.replaceChild(aNode2, bNode);
+                aParent.replaceChild(bNode, aNode);
+            }
+        }
+
+
+	</script>
+
+
+
+</body>
+</html>

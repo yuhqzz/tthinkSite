@@ -1,0 +1,233 @@
+<include file="public@header"/>
+</head>
+<script src="/assets/libs/bootstrap-table/src/extensions/toolbar/bootstrap-table-toolbar.js"></script>
+<script src="__STATIC__/js/tableExport.js"></script>
+<script src="/assets/libs/bootstrap-table/src/extensions/export/bootstrap-table-export.js"></script>
+<script src="/assets/libs/moment/moment.js"></script>
+<body>
+<div class="wrap">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="javascript:;">优惠券列表</a></li>
+		<li><a href="{:url('AdminCoupon/add')}">添加优惠券</a></li>
+	</ul>
+	<div id="toolbar" class="toolbar">
+		<a href="javascript:;" class="btn btn-info btn-add" title="添加" onclick="Page.add();"><i class="fa fa-plus">添加</i> </a>
+		<a href="javascript:;" class="btn btn-danger btn-del" title="删除" onclick="Page.del();"><i class="fa fa-trash">删除</i> </a>
+	</div>
+	<table class="table table-hover table-bordered" id="table" width="100%">
+	</table>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+	var domain = 'http://'+window.location.host;
+    var $table = $('#table');
+    var Page = {};
+    var add = "{:url('AdminCoupon/add')}";
+    var edit = "{:url('AdminCoupon/edit')}";
+    var del = "{:url('AdminCoupon/delete')}";
+    Page.add = function () {
+        redirect(add);
+    }
+    Page.edit = function (id) {
+        redirect(edit+'?id='+parseInt(id));
+    }
+    Page.view = function(id){
+        redirect(detail+'?id='+parseInt(id));
+    }
+    Page.del = function (id) {
+        Wind.use('artDialog', function () {
+            art.dialog({
+                content: '你确定要删除吗？',
+                icon: 'question',
+                close: function () {
+                    return true;
+                },
+                ok: function () {
+                    var ids = [];
+                    if(id == undefined){
+                        var selections = $table.bootstrapTable('getSelections');
+                        for(var item in selections){
+                            ids.push(selections[item].id);
+                        }
+                    }else{
+                        ids.push(id);
+                    }
+                    $.get(del,{'ids':ids.join(',')},function () {
+                        $('#table').bootstrapTable('refresh');
+                    })
+                    return true;
+                },
+                cancelVal: '关闭',
+                cancel: true
+            });
+
+        });
+    }
+
+
+    function initTable(){
+        $table.bootstrapTable({
+            url: "{:url('AdminCoupon/index')}",
+            pk: 'id',
+            sortName: 'id',
+            sortOrder: 'desc',
+            pagination:true,
+            sidePagination:'server',
+            pageNumber:'1',
+            pageSize:'25',
+            pageList:[25,50, 100],
+            search:true,
+            showRefresh:true,
+            toolbarAlign:'left',
+            buttonsAlign:'right',
+            toolbar:'#toolbar',
+            toggle:'table',
+            columns: [
+                [
+                    {
+                        checkbox: true
+                    },
+                    {
+                        field: 'id',
+                        title: 'ID',
+                        sortable:true
+                    },
+                    {   field: 'type',
+                        title: '优惠券类型',
+                        sortable:true,
+						align:"center",
+                        formatter:function(value,row,index){
+                            var txt = ['优惠券','抵用券','折扣券','优惠政策特权券'];
+                            return txt[value];
+
+                        }
+                    },
+                    {   field: 'title',
+                        title: '优惠券标题',
+                        sortable:true,
+                        width:'120px'
+
+                    },
+                    {   field: 'quantity',
+                        title: '数量',
+                        align:"center",
+                    },
+                    {   field: 'img',
+                        title: '图片',
+                        align:"center",
+                        formatter:function (value) {
+							if(value){
+							    var url = domain+'/upload/'+value;
+                                return "<a href=\"javascript:imagePreviewDialog('"+url+"')\"><i class=\"fa fa-photo fa-fw\"></i></a>";
+							}else{
+                                return "<a href=\"javascript:void(0);\" title='暂无图片'><i class=\"fa fa-photo fa-fw\"></i></a>";
+							}
+
+                        }
+                    },
+                    {   field: 'coupon_price',
+                        title: '面额',
+                        searchable:false,
+                    },
+                    {   field: 'using_cars',
+                        title: '适用车型',
+                        searchable:false,
+                        formatter:function (value) {
+                            if(value ==='all'){
+                                return '全部车型';
+                            }else{
+                                return value;
+                            }
+                        }
+                    },
+                    {   field: 'expire_time',
+                        title: '过期时间',
+                        sortable:true,
+                        align:"center",
+                        searchable:false,
+                        formatter:function (value) {
+                        	if(value ==='all'){
+                        	    return '一直有效';
+							}else{
+                        	    return value+' 23:59:59 截止';
+							}
+
+						}
+                    },
+                    {   field: 'description',
+                        title: '使用说明',
+
+                        searchable:false,
+                    },
+                    {   field: 'create_time',
+                        title: '创建时间',
+                        operate:false,
+                        searchable:false,
+                    },
+                    {   field: 'status',
+                        title: '状态',
+                        operate:false,
+                        searchable:false,
+						align:"center",
+                        formatter:function(value,row,index){
+                            var colorc = ['red','green'];
+                            var txt = ['不启用','启用'];
+                            if( value == 1 ){
+                                return "<span class='btn-changer fa fa-toggle-on' style='color: "+colorc[value]+";' title='"+txt[value]+"' data-toggle='0' data-field='status'></span>";
+							}else{
+                                return "<span class='btn-changer fa fa-toggle-off' style='color: "+colorc[value]+";' title='"+txt[value]+"' data-toggle='1' data-field='status'></span>";
+							}
+                        }
+                    },
+                    {
+                        field: 'operate',
+                        title: '操作',
+                        searchable:false,
+                        events:'actionEvents',
+                        align: 'center',
+                        formatter:function(value,row,index){
+                            var e = '<a  style="display: block;" class="btn btn-success btn-xs" onclick="Page.edit('+row['id']+')">'+
+                                '<i class="glyphicon glyphicon-edit"></i>编辑</a>';
+                            var d = '<a  style="display: block;margin-top:5px;" class="btn btn-info btn-xs" onclick="Page.view('+ row['id'] + ')">'+
+                                '<i class="glyphicon glyphicon-list-alt"></i>查看</a>';
+
+                            var del = '<a  style="display: block;margin-top:5px;" class="btn btn-danger btn-xs" onclick="Page.del('+ row['id'] + ')">'+
+                                '<i class="glyphicon glyphicon-trash"></i>删除</a>';
+                            return e+d+del;
+
+                        }
+                    }
+
+                ]
+            ],
+            onCheck:function () {
+                $("#toolbar .btn.btn-del").removeClass('disabled');
+            },
+            onUncheck:function () {
+                if($table.bootstrapTable('getSelections').length == 0){
+                    $("#toolbar .btn.btn-del").addClass('disabled');
+                }
+            },
+            onCheckAll:function () {
+
+            }
+        })
+    }
+
+    /*$("#toolbar .btn-export").on('click',function () {
+        $table.bootstrapTable('destroy');
+        initTable($(this).data('type'));
+    })
+    $("#toolbar .btn.btn-edit").on('click',function () {
+        console.log(JSON.stringify($table.bootstrapTable('getSelections')));
+
+    })
+    $("#toolbar .btn.btn-del").on('click',function () {
+        console.log(JSON.stringify($table.bootstrapTable('getSelections')));
+    })*/
+    $(function () {
+        initTable();
+    })
+</script>
+</body>
+</html>

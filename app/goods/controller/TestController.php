@@ -10,17 +10,15 @@
 // +----------------------------------------------------------------------
 namespace app\goods\controller;
 
+use app\goods\api\BrandApi;
 use cmf\controller\HomeBaseController;
 use think\Cache;
 
 class TestController extends HomeBaseController
 {
-    public function index()
+    public function getBrand()
     {
-
-        $data =   Cache::init();
-
-        dump($data);
-        // return $this->fetch(':index');
+       $brandapi = new  BrandApi();
+       return $brandapi->index($this->request);
     }
 }

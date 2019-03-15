@@ -6,13 +6,14 @@
                 <input type="checkbox" class="js-check-all" onclick="checkAll(this)">
             </label>
         </th>
-        <th width="100">车系</th>
-        <th width="120">车型</th>
+        <th width="100">品牌</th>
+        <th width="120">车系</th>
         <th width="80">姓名</th>
-        <th width="80">预约时间</th>
-        <th width="80">预期到店时间</th>
-        <th width="150">状态</th>
-        <th width="150">备注</th>
+		<th width="120">电话</th>
+        <th width="130">预约时间</th>
+        <th width="80">来源</th>
+
+        <th width="120">状态</th>
         <th width="150">操作</th>
     </tr>
     </thead>
@@ -28,10 +29,21 @@
                     <input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]"
                            value="{$vo.id}" title="ID:{$vo.id}">
                 </td>
+                <td>{$vo.brand_id|getBrandName}</td>
                 <td>{$vo.series_name}</td>
-                <td>{$vo.style_name}</td>
-                <td>{$vo.name}:{$vo.book_telephone}</td>
+                <td>{$vo.name}</td>
+				<td>{$vo.book_telephone}</td>
                 <td>{$vo.book_time|date="Y-m-d H:i",###}</td>
+                <td>
+                    <php>
+                        if($vo['dealers_id'] == 99){
+                            echo "多品牌页面";
+                        }else{
+                          echo getBrandName($vo['brand_id']).'页面';
+                        }
+                    </php>
+
+                </td>
                 <td><php> if($vo['book_to_time']>0){</php>{$vo.book_to_time|date="Y-m-d H:i",###}<php>}</php></td>
                 <td>{$vo.status|getBookOrderStatus}</td>
                 <td>{$vo.remark}</td>

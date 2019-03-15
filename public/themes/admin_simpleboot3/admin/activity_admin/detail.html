@@ -1,0 +1,109 @@
+<include file="public@header" />
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('ActivityAdmin/index')}">活动列表</a></li>
+        <li><a href="{:url('ActivityAdmin/edit',array('id'=>$id))}">编辑活动</a></li>
+        <li class="active"><a href="{:url('ActivityAdmin/detail',array('id'=>$id))}">活动详情</a></li>
+    </ul>
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="">
+        <div class="form-group">
+            <label for="input-activity-title" class="col-sm-3 control-label"><span class="form-required">*</span>活动名称</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-activity-title" name="title" value="{$title}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-activity-address" class="col-sm-3 control-label"><span class="form-required">*</span>活动地点</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-activity-address" name="address" value="{$address}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="input-description"><span class="form-required">*</span>活动介绍</label>
+            <div class="col-md-6 col-sm-10">
+                <textarea class="form-control" rows="8" id="input-description" name="description" readonly>{$description}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label  class="col-sm-3 control-label"><span class="form-required">*</span>活动海报</label>
+            <div class="col-md-6 col-sm-10">
+                <div>
+                        <img src="{$poster|cmf_get_image_url}"
+                             id="js-thumbnail-input-preview"
+                             width="135" style="cursor: pointer" onclick="imagePreviewDialog(this.src);"/>
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">是否需要预报名</label>
+            <div class="checkbox col-md-6 col-sm-10">
+                <label for="input_need_sign_up">
+                    <input type="checkbox" name="need_sign_up" id="input_need_sign_up" value="1" {$need_sign_up==1?'checked="true"':''}" readonly>需要
+                </label>
+            </div>
+        </div>
+        <div class="form-group input-signup_stime">
+            <label for="input-signup_stime" class="col-sm-3 control-label"><span class="form-required">*</span>预报名开始时间</label>
+            <div class="col-md-6 col-sm-10">
+                <input id = "input-signup_stime" class="form-control js-bootstrap-datetime" type="text" name="signup_stime"
+                       value="{:date('Y-m-d H:i:s',$signup_stime)}" readonly>
+            </div>
+        </div>
+        <div class="form-group input-signup_etime">
+            <label for="input-signup_etime" class="col-sm-3 control-label"><span class="form-required">*</span>预报名结束时间</label>
+            <div class="col-md-6 col-sm-10">
+                <input id = "input-signup_etime" class="form-control" type="text" name="signup_etime"
+                       value="{:date('Y-m-d H:i:s',$signup_etime)}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-start_time" class="col-sm-3 control-label"><span class="form-required">*</span>活动开始时间</label>
+            <div class="col-md-6 col-sm-10">
+                <input id = "input-start_time" class="form-control " type="text" name="start_time"
+                       value="{:date('Y-m-d H:i:s',$start_time)}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-end_time" class="col-sm-3 control-label"><span class="form-required">*</span>活动结束时间</label>
+            <div class="col-md-6 col-sm-10">
+                <input id = "input-end_time" class="form-control " type="text" name="end_time"
+                       value="{:date('Y-m-d H:i:s',$end_time)}" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">报名</label>
+            <div class="checkbox col-md-6 col-sm-10">
+                <label for="input_status">
+                    <input type="checkbox" name="status" id="input_status" value="1" {$status==1?'checked="true"':''} readonly>开启
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">置顶</label>
+            <div class="checkbox col-md-6 col-sm-10">
+                <label for="input_istop">
+                    <input type="checkbox" class="disabled" name="istop" id="input_istop" value="1" {$istop==1?'checked':''} readonly>置顶
+                </label>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>
+<script>
+    $(function () {
+        if("{$need_sign_up}" == 1){
+            $('.input-signup_stime').show();
+
+            $('.input-signup_etime').show();
+        }else {
+            $('.input-signup_stime').hide();
+
+            $('.input-signup_etime').hide();
+        }
+    })
+</script>

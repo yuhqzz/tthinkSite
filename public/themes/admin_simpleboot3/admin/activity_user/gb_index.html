@@ -1,0 +1,194 @@
+<include file="public@header" />
+<script src="/assets/libs/bootstrap-table/src/extensions/toolbar/bootstrap-table-toolbar.js"></script>
+<script src="__STATIC__/js/tableExport.js"></script>
+<script src="/assets/libs/bootstrap-table/src/extensions/export/bootstrap-table-export.js"></script>
+<script src="/assets/libs/moment/moment.js"></script>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li ><a href="{:url('ActivityAdmin/index')}">活动列表</a></li>
+        <li class="active"><a href="{:url('ActivityUser/index',array('id'=>$activity['id']))}">活动用户列表</a></li>
+    </ul>
+    <div id="toolbar" class="toolbar">
+        <a href="javascript:;" class="btn btn-danger" title="删除" onclick="Page.del();" ><i class="fa fa-trash">删除</i> </a>
+        <a href="javascript:;" class="btn btn-success" title="抽奖" onclick="Page.choujiang();" ><i class="fa fa-calculator">抽奖</i> </a>
+    </div>
+    <table class="table table-hover table-bordered" id="table" width="100%">
+    </table>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    var $table = $('#table');
+    var delUrl = "{:url('ActivityUser/delete',array('act_id'=>$activity['id']))}";
+    var Page = {
+        del:function (id) {
+            Wind.use('artDialog', function () {
+                art.dialog({
+                    content: '你确定要删除吗？',
+                    icon: 'question',
+                    close: function () {
+                        return true;
+                    },
+                    ok: function () {
+                        var ids = [];
+                        if(id == undefined){
+                            var selections = $table.bootstrapTable('getSelections');
+                            for(var item in selections){
+                                ids.push(selections[item].id);
+                            }
+
+                        }else{
+                            ids.push(id);
+                        }
+                        $.get(delUrl,{'ids':ids.join(',')},function () {
+                            $('#table').bootstrapTable('refresh');
+                        })
+
+
+
+                        return true;
+                    },
+                    cancelVal: '关闭',
+                    cancel: true
+                });
+
+            });
+        },
+        choujiang:function () {
+            var choujiangUrl = "{:url('ActivityUser/chouJiang',array('act_id'=>$activity['id']))}";
+            redirect(choujiangUrl);
+        }
+    };
+    $table.bootstrapTable({
+        url: "{:url('ActivityUser/index',array('id'=>$activity['id']))}",
+        pk: 'id',
+        sortName: 'gba.ctime',
+        sortOrder: 'desc',
+        pagination:true,
+        sidePagination:'server',
+        pageNumber:'1',
+        pageSize:'100',
+        pageList:[50,100, 500,'ALL'],
+        search:true,
+        idField:'phone',
+        trimOnSearch:true,
+        showRefresh:true,
+        toolbarAlign:'left',
+        buttonsAlign:'right',
+        toolbar:'#toolbar',
+        toggle:'table',
+        columns: [
+            [
+                {
+                    checkbox: true
+                },
+                {
+                    field: 'book_id',
+                    title: '报名编号',
+                    operate:false,
+                    align:"center",
+                    width:'50px',
+                },
+                {
+                    field: 'nickname',
+                    title: '用户名',
+                    sortable:true,
+                    align:"center",
+                    width:'200px',
+                },
+                {
+                    field: 'booking_phone',
+                    title: '报名号码',
+                    operate:false,
+                    align:"center",
+                    width:'200px',
+                },
+                {
+                    field: 'booking_phone',
+                    title: '号码归属地',
+                    align:'center',
+                    operate:false,
+                    searchable:false,
+                    formatter:function (value, row, index) {
+                        var field  = this.field;
+                        $.get("{:url('ActivityUser/getMobilePosition')}",{'tel':value,'type':2},function (d) {
+                            if(d.code==1){
+                                $('#'+field+'-'+index+'-'+value).text(d.data.location);
+                            }
+
+                        });
+                        return '<span class="btn-change text-success " id="'+field+'-'+index+'-'+value+'" ><i class="fa fa-spinner"></span>';
+                    }
+                },
+                {
+                    field: 'ip',
+                    title: '报名IP',
+                    operate:false,
+                    align:"center",
+                    searchable:false
+                },
+                {
+                    field: 'booking_ctime',
+                    title: '报名时间',
+                    operate:false,
+                    searchable:false,
+                    align:"center",
+                    formatter:function (value, row, index) {
+                        return moment(row['booking_ctime']*1000).format('YYYY-MM-DD HH:mm:ss');
+                    }
+                },
+                {
+                    field: 'source_phone',
+                    title: '邀约人电话',
+                    operate:false,
+                    searchable:true,
+                    align:"center",
+                    formatter:function (value, row, index) {
+                        return value?value:'-';;
+                    }
+                },
+                {
+                    field: 'is_filter',
+                    title: '是否过滤',
+                    operate:false,
+                    searchable:true,
+                    align:"center",
+                    formatter:function (value, row, index) {
+                        return value == 1?'过滤':'不过滤';
+                    }
+                },
+                {
+                    field: 'operate',
+                    title: '操作',
+                    searchable:false,
+                    events:'actionEvents',
+                    align: 'center',
+                    width:'120px',
+                    formatter:function(value,row,index){
+                        var e = '<a  style="display: block;" class="btn btn-danger btn-del btn-xs" onclick="Page.del('+row['id']+')">'+
+                            '<i class="glyphicon glyphicon-trash"></i>删除</a>';
+                            return e;
+                    }
+                }]
+
+        ]
+    })
+
+    function showMsg(msg,icon){
+        Wind.use('artDialog', function () {
+            art.dialog({
+                content: msg,
+                icon: icon,
+                ok: function () {
+                    $('#table').bootstrapTable('refresh');
+                    return true;
+                }
+            });
+
+        });
+    }
+
+</script>
+</body>
+</html>

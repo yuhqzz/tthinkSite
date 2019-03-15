@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>广汽丰田C-HR试驾会_活动签到</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <meta name="description" content="C-HR试驾会驾驭非凡！" />
+    <link rel="stylesheet" href="__TMPL__/public/assets/css/reset.min.css?v={$version}">
+    <link rel="stylesheet" href="__TMPL__/public/assets/bootstrap-3.3.7/css/bootstrap.min.css?v={$version}">
+    <script >
+        //designWidth:设计稿的实际宽度值，需要根据实际设置
+        //maxWidth:制作稿的最大宽度值，需要根据实际设置
+        //这段js的最后面有两个参数记得要设置，一个为设计稿实际宽度，一个为制作稿最大宽度，例如设计稿为750，最大宽度为750，则为(750,750)
+        ;(function(designWidth, maxWidth) {
+            var doc = document,
+                win = window,
+                docEl = doc.documentElement,
+                remStyle = document.createElement("style"),
+                tid;
+
+            function refreshRem() {
+                var width = docEl.getBoundingClientRect().width;
+                maxWidth = maxWidth || 540;
+                width>maxWidth && (width=maxWidth);
+                var rem = width * 100 / designWidth;
+                remStyle.innerHTML = 'html{font-size:' + rem + 'px;}';
+            }
+
+            if (docEl.firstElementChild) {
+                docEl.firstElementChild.appendChild(remStyle);
+            } else {
+                var wrap = doc.createElement("div");
+                wrap.appendChild(remStyle);
+                doc.write(wrap.innerHTML);
+                wrap = null;
+            }
+            //要等 wiewport 设置好后才能执行 refreshRem，不然 refreshRem 会执行2次；
+            refreshRem();
+
+            win.addEventListener("resize", function() {
+                clearTimeout(tid); //防止执行两次
+                tid = setTimeout(refreshRem, 300);
+            }, false);
+
+            win.addEventListener("pageshow", function(e) {
+                if (e.persisted) { // 浏览器后退的时候重新计算
+                    clearTimeout(tid);
+                    tid = setTimeout(refreshRem, 300);
+                }
+            }, false);
+
+            if (doc.readyState === "complete") {
+                doc.body.style.fontSize = "16px";
+            } else {
+                doc.addEventListener("DOMContentLoaded", function(e) {
+                    doc.body.style.fontSize = "16px";
+                }, false);
+            }
+        })(750, 750);
+    </script>
+    <style type="text/css">
+        body {
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; color:#FFFFFF;
+            background-color: #000000;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .container{
+            padding-right: 0;
+            padding-left: 0;
+        }
+        .banner{
+            width: 100%;
+            height: 9.9rem;
+        }
+        .sign-in {
+            width: 100%;
+            height: auto;
+            max-width: 750px;
+            margin: 0 auto;
+            text-align: center;
+            position: absolute;
+            top:9.3rem;/*7.3*/
+        }
+        .sign-in-form{
+            width: 100%;
+            margin-bottom: 26px;
+        }
+        .sign-in .sign-in-title{
+            width: 80%;
+            margin: 0.1rem auto 0.3rem;
+            height: 0.65rem;
+            line-height: 0.65rem;
+            font-size: 0.4rem;
+            font-weight: bold;
+        }
+        .sign-in .sign-in-input{
+            width: 80%;
+            margin: 0.1rem auto 0.3rem;
+            height: 0.8rem;
+            line-height: 0.8rem;
+            font-size: 0.35rem;
+            background: #0d2585;/**/
+            color: #fff;
+            padding: 0.4rem;
+        }
+        .sign-in .sign-in-input:focus{
+            border-color:#fff;
+            outline: #0d2585;
+        }
+        .sign-in .sign-in-welcome{
+            padding: 0 34px 0 57px;
+            width: 100%;
+            font-size: 0.25rem;
+        }
+        .sign-in .sign-in-welcome p{
+            text-align: left;
+        }
+        .hyy{
+            margin-left: 20px;
+        }
+        .butn {
+            background: #128ad9;
+            background-image: -webkit-linear-gradient(top, #128ad9, #0d2585);
+            background-image: -moz-linear-gradient(top, #128ad9, #0d2585);
+            background-image: -ms-linear-gradient(top, #128ad9, #0d2585);
+            background-image: -o-linear-gradient(top, #128ad9, #0d2585);
+            background-image: linear-gradient(to bottom, #128ad9, #0d2585);
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            -webkit-box-shadow: 7px 6px 6px #0d2585;
+            -moz-box-shadow: 7px 6px 6px #0d2585;
+            box-shadow: 7px 6px 6px #0d2585;
+            font-size: 0.35rem;
+           /* padding: 4px ;
+            border: solid #ffffff 1px;*/
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #0d2585;
+            font-weight: 800;
+            letter-spacing: 3.5px;
+           /* font-family: cursive;*/
+            width: 80%;
+            height: 0.8rem;
+            padding: 0 0.4rem;
+            line-height: 0.8rem;
+            border: 1px solid #ada1a1;
+        }
+        .butn.btnsh{
+            width: auto;
+            padding: 0px 20px 0px 20px;
+        }
+
+        .butn:hover {
+            background: #635c5f;
+            border: none;
+            background-image: -webkit-linear-gradient(top, #128ad9, #0d2585);
+            background-image: -moz-linear-gradient(top, #128ad9, #0d2585);
+            background-image: -ms-linear-gradient(top, #128ad9, #0d2585);
+            background-image: -o-linear-gradient(top, #128ad9, #0d2585);
+            background-image: linear-gradient(to bottom, #128ad9, #0d2585);
+            text-decoration: none;
+        }
+        .butn.disabled{
+            background: #635c5f;
+            background-image: -webkit-linear-gradient(top, #128ad9, #0d2585);
+            background-image: -moz-linear-gradient(top, #128ad9, #0d2585);
+            background-image: -ms-linear-gradient(top, #128ad9, #0d2585);
+            background-image: -o-linear-gradient(top, #128ad9, #0d2585);
+            background-image: linear-gradient(to bottom, #128ad9, #0d2585);
+            text-decoration: none;
+        }
+        .butn:active,.butn:focus{
+            border: none;
+            outline: none;
+        }
+        .tip{
+            width: 80% !important;
+            padding: 10px !important;
+            background: #0d2585 !important;
+            border-radius: 4px !important;
+            border:none;
+        }
+        .tip .layui-m-layercont{
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body >
+<div class="container">
+    <div class="banner">
+        <img src="__TMPL__/public/assets/images/sign-in/bg04.jpg"/>
+    </div>
+    <php>if($signed_in == 1){</php>
+    <div class="sign-in">
+        <div class="sign-in-welcome" >
+            <p style="font-size: 0.3rem;">尊敬的 : {$signin_user.phone}
+                <php>if(isset($signin_user['remark'])&&!empty($signin_user['remark'])){</php>
+                <span style="margin-left: 5px;color: red;">({$signin_user['remark']})</span>
+                <php>}</php>
+            </p>
+            <php>if($signin_user['flag'] == 0 ){</php>
+                <p class="hyy">您好！请向签到处工作人员领取活动入场试驾牌，并妥善保管。</p>
+                <p class="hyy">领取试驾牌后请点击下方的确认按钮，激活试驾牌。</p>
+            <input class="butn btnsh" type="button" value="确认激活试驾牌" id="button" data-tel="{$signin_user.phone}" onclick="shou_huan(this);"/>
+            <php>}else{</php>
+                <p class="hyy">您好！欢迎来到CHR试驾会活动现场！</p>
+                <p class="hyy" style="margin-bottom: 15px;">祝您玩的愉快！</p>
+            <php>}</php>
+        </div>
+    </div>
+    <php>}else{</php>
+    <div class="sign-in sign-in-form">
+        <p class="sign-in-title" >来宾签到</p>
+        <input id="inptel" class="form-control sign-in-input" placeholder="请输入您的手机号码签到"/>
+        <input class="butn sign-in-btn" type="button" value="签到" onClick="ck(this);" id="button" />
+    </div>
+    <php>}</php>
+    <div class="footer" style="padding: 0px;">
+        <img src="__TMPL__/public/assets/images/sign-in/bg05.jpg"/>
+    </div>
+
+</div>
+    <script type="text/javascript" src="__STATIC__/js/layer/mobile/layer.js?v={$version}"></script>
+    <script type="text/javascript" src="__TMPL__/public/assets/js/jquery-1.8.2.min.js?v={$version}"></script>
+    <script>
+        var act_id = "{$act_id}";
+        var ajaxing = false;
+        function ck(obj){
+            if($(obj).hasClass('disabled')){
+                return false;
+            }
+            if(ajaxing){
+                showMsg('签到中请稍后！',2);
+                return false;
+            }
+            var tel = $.trim($("#inptel").val());
+            //var name = $.trim($("#inpusername").val());
+            $('#button').addClass('disabled');
+            $('#button').prop('disabled', true);
+            $('#button').val("签到中...");
+
+            if (tel.length < 8) {
+                showMsg('请输入正确的手机号码！',3);
+                $('#button').removeClass('disabled');
+                $('#button').prop('disabled', false);
+                $('#button').val("签到");
+                return false;
+            }
+            ajaxing = true;
+            var  ajax_url = "{:url('portal/Signin/userSignIn',array('act_id'=>$act_id))}";
+            $.ajax({
+                url:ajax_url,
+                data:{'mobile':tel},
+                type:"post",
+                dataType:"json",
+                success: function(d){
+                    ajaxing = false;
+                    if(d.code == 1){
+                        showMsg('签到成功!',3);
+                        setTimeout(function(){
+                            reloadPage(window);
+                        },1000);
+                    }else if(d.code == -1) {
+                        showMsg(d.msg,2);
+                        $('#button').removeClass('disabled');
+                        $('#button').prop('disabled', false);
+                        $('#button').val("签到");
+                    }else{
+                        showMsg(d.msg,3);
+                        $('#button').removeClass('disabled');
+                        $('#button').prop('disabled', false);
+                        $('#button').val("签到");
+                    }
+                },
+                error:function(){
+                    ajaxing = false;
+                }
+            })
+        }
+
+        function shou_huan(obj) {
+            if($(obj).hasClass('disabled')){
+                return false;
+            }
+            var tel = $(obj).attr('data-tel');
+            $('#button').addClass('disabled');
+            $('#button').prop('disabled', true);
+            $('#button').val("激活试驾牌中...");
+
+            ajaxing = true;
+            var  ajax_url = "{:url('portal/Signin/shouhuan',array('act_id'=>$act_id))}";
+            $.ajax({
+                url:ajax_url,
+                data:{'mobile':tel},
+                type:"post",
+                dataType:"json",
+                success: function(d){
+                    ajaxing = false;
+                    if(d.code == 1){
+                        showMsg('您成功激活试驾牌,请凭试驾牌入场, <br/> 祝您玩得愉快！',5);
+                        setTimeout(function(){
+                            reloadPage(window);
+                        },1000);
+                    }else if(d.code == -1) {
+                        showMsg(d.msg,2);
+                        $('#button').removeClass('disabled');
+                        $('#button').prop('disabled', false);
+                        $('#button').val("确认激活试驾牌");
+                        setTimeout(function(){
+                            reloadPage(window);
+                        },1000);
+                    }else{
+                        showMsg(d.msg,3);
+                        setTimeout(function(){
+                            reloadPage(window);
+                        },1000);
+                    }
+                    $('#button').removeClass('disabled');
+                    $('#button').prop('disabled', false);
+                    $('#button').val("确认激活试驾牌");
+                },
+                error:function(){
+                    ajaxing = false;
+                }
+            })
+        }
+
+        function showMsg(info,time) {
+            layer.open({
+                 content: info,
+                 className:'tip'
+                ,time: time
+            });
+        }
+
+        //重新刷新页面，使用location.reload()有可能导致重新提交
+        function reloadPage(win) {
+            var location  = win.location;
+            location.href = location.pathname + location.search;
+        }
+
+    </script>
+</body>
+</html>

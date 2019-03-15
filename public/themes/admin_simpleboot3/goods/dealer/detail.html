@@ -1,0 +1,125 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('Dealer/index')}">4S店列表</a></li>
+        <li><a href="{:url('Dealer/add')}">添加4S店</a></li>
+        <li class="active" href="{:url('Dealer/detail',array('id'=>$id))}"><a >详细信息</a></li>
+    </ul>
+    <div class="row margin-top-20">
+        <div class="col-md-6">
+            <form class="js-ajax-form form-horizontal" onsubmit="return false;">
+                <div class="form-group">
+                    <label for="input-type" class="col-sm-3 control-label">经销商类型</label>
+                    <div class="col-md-6 col-sm-10">
+                        <switch name="type">
+                            <case value="1">
+                                <input type="text" class="form-control" id="input-type" name="name" value="4S店" readonly>
+                            </case>
+                            <case value="2">
+                                <input type="text" class="form-control" id="input-type" name="name" value="综合店" readonly>
+                            </case>
+                            <case value="3">
+                                <input type="text" class="form-control" id="input-type" name="name" value="港口店" readonly>
+                            </case>
+                        </switch>
+
+
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-name" class="col-sm-3 control-label">4S店名称</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-name" name="name" value="{$name}" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-name" class="col-sm-3 control-label">经营品牌</label>
+                    <div class="col-md-6 col-sm-10">
+                        <div class="sp_container sp_container_combo" style="width: 313px;">
+                            <ul class="sp_element_box" style="list-style: none;background: #e6e6e6;">
+                                <php>
+                                    $main_brand_list = explode(',',$main_brand);
+                                </php>
+                                <foreach name="main_brand_list" item="vo">
+                                    <li class="selected_tag" itemvalue="{$vo}">{$vo|getBrandName}</li>
+                                </foreach>
+                            </ul>
+                            <input type="hidden" class="sp_hidden" name="main_brand" id="input-main_brand" value="1,6,5,3">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-address" class="col-sm-3 control-label">地址</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-address" name="address" value="{$address}" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-contact_name" class="col-sm-3 control-label">联系人</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-contact_name" name="contact_name" value="{$contact_name}" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-telephone" class="col-sm-3 control-label">服务热线</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-telephone" name="telephone" value="{$telephone}" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-email" class="col-sm-3 control-label">服务邮箱</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-email" name="email" value="{$email}" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-wechat" class="col-sm-3 control-label">微信</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-wechat" name="wechat" value="{$wechat}" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-3 control-label">微信公众号</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="hidden" name="wechat_qrcode" class="form-control" id="js-thumbnail-input" value="{$wechat_qrcode}" readonly>
+                        <div>
+                                <img src="{$wechat_qrcode?$wechat_qrcode:'__TMPL__/public/assets/images/default-thumbnail.png'}"
+                                     id="js-thumbnail-input-preview"
+                                     width="135" style="cursor: pointer"/>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-weibo" class="col-sm-3 control-label">微博</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-weibo" name="weibo" value="{$weibo}" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-qq" class="col-sm-3 control-label">QQ</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-qq" name="qq" value="{$qq}" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="input-position" class="col-sm-3 control-label">地理位置</label>
+                    <div class="col-md-6 col-sm-10">
+                        <input type="text" class="form-control" id="input-position" name="position" value="{$position}" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-10">
+                        <a class="btn btn-default" href="{:url('Dealer/index')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

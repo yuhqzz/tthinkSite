@@ -27,6 +27,8 @@ class ThemeModel extends Model
     public function installTheme($theme)
     {
         $manifest = "themes/$theme/manifest.json";
+
+
         if (file_exists_case($manifest)) {
             $manifest           = file_get_contents($manifest);
             $themeData          = json_decode($manifest, true);
@@ -95,7 +97,6 @@ class ThemeModel extends Model
                 }
             }
         }
-
         foreach ($tplFiles as $tplFile) {
             $configFile = $tplFile . ".json";
             $file       = preg_replace('/^themes\/' . $theme . '\//', '', $tplFile);
